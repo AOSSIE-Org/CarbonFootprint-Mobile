@@ -1,0 +1,3 @@
+rootProject.name = 'CarbonFootprint'
+
+include ':app'
