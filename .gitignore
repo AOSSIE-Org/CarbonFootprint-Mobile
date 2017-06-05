@@ -1,3 +1,4 @@
 ./android/build/
 ./ios/build/
 .node_modules/
+.gradle/
