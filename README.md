@@ -22,6 +22,14 @@ Install React Native CLI globally.
 npm install -g react-native-cli
 ```
 
+### NPM Dependencies
+
+Install package-dependencies using NPM
+
+```
+npm install
+```
+
 ### iOS
 
 #### Xcode
