@@ -1,4 +1,4 @@
-import { REQUEST_LOGIN, RECIEVE_LOGIN } from '../actions/SimpleAction';
+import { REQUEST_LOGIN, RECEIVE_LOGIN } from '../actions/SimpleAction';
 
 export default function login(state = {
     isFetching: false
@@ -8,7 +8,7 @@ export default function login(state = {
             return Object.assign({}, state, {
                 isFetching: true
             });
-        case RECIEVE_LOGIN:
+        case RECEIVE_LOGIN:
             return Object.assign({}, state, {
                 isFetching: false
             });

@@ -1,5 +1,5 @@
 export const REQUEST_LOGIN = "REQUEST_LOGIN";
-export const RECIEVE_LOGIN = "RECIEVE_LOGIN";
+export const RECEIVE_LOGIN = "RECEIVE_LOGIN";
 
 function requestLogin() {
     return {
@@ -9,7 +9,7 @@ function requestLogin() {
 
 function recieveLogin() {
     return {
-        type: RECIEVE_LOGIN
+        type: RECEIVE_LOGIN
     }
 }
 
