@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Platform } from 'react-native';
 import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk';
-import { initUser } from '../actions/FbLoginAction' ;
 
 class FbLogin extends Component {
 	constructor(props) {
@@ -24,7 +23,7 @@ class FbLogin extends Component {
 		                AccessToken.getCurrentAccessToken().then(
 		                  (data) => {
 		                    const { accessToken } = data;
-		                    this.props.actions.initUser(accessToken);
+		                    this.props.initUser(accessToken);
 		                  }
 		                )
 		              }

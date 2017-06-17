@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+export const STORE_USER_INFO = "STORE_USER_INFO";
 
 // Function to store data locally in key - value pair
 export function storeDataLocally(key, value) {
@@ -27,4 +28,11 @@ export function fetchDataLocally(key) {
 		  	alert("Error occured - " + error);
 		}
 	}
+}
+
+export function storeUserInfo(userName) { // To store username in state
+    return {
+        type: STORE_USER_INFO,
+        username: userName
+    }
 }

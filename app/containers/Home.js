@@ -20,7 +20,6 @@ class Home extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <SimpleButton {...this.props} />
                 <FbLogin {...this.props} />
             </View>
         );
@@ -44,9 +43,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(Object.assign({}, SimpleAction , FbLoginAction), dispatch)
-    };
+    return bindActionCreators(Object.assign({}, SimpleAction, FbLoginAction), dispatch) ;
 }
 
 /*

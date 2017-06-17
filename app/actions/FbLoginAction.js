@@ -1,7 +1,9 @@
 import { storeDataLocally } from './LocalStorage';
+import { requestLogin , recieveLogin } from './SimpleAction';
 
-function fetchUser(token) {
+export function initUser(token) {
   return function (dispatch) {
+  	  dispatch(requestLogin());
 	  fetch('https://graph.facebook.com/v2.5/me?fields=email,name&access_token=' + token)
 	  .then((response) => response.json())
 	  .then((json) => {
@@ -11,11 +13,6 @@ function fetchUser(token) {
 	  .catch((error) => {
 	    alert('ERROR GETTING DATA FROM FACEBOOK : ' + error);
 	  })
+	  dispatch(recieveLogin());
 	}
 }
-
-export function initUser(token) {
-	return (dispatch) => {
-		dispatch(fetchUser(token));
-	}
-} 
