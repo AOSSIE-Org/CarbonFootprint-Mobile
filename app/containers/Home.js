@@ -8,9 +8,11 @@ import {
 
  import * as SimpleAction from '../actions/SimpleAction';
  import * as FbLoginAction from '../actions/FbLoginAction';
+ import * as GoogleLoginAction from '../actions/GoogleLoginAction';
  
  import SimpleButton from '../components/SimpleButton';
  import FbLogin from '../components/FbLogin';
+ import GoogleLogin from '../components/GoogleLogin';
 
 class Home extends Component {
     constructor(props) {
@@ -20,6 +22,7 @@ class Home extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <GoogleLogin {...this.props} />
                 <FbLogin {...this.props} />
             </View>
         );
@@ -43,7 +46,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, SimpleAction, FbLoginAction), dispatch) ;
+    return bindActionCreators(Object.assign({}, SimpleAction, FbLoginAction, GoogleLoginAction), dispatch) ;
 }
 
 /*

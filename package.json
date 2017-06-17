@@ -10,6 +10,7 @@
 		"react": "16.0.0-alpha.6",
 		"react-native": "0.44.2",
 		"react-native-fbsdk": "^0.6.0",
+		"react-native-google-sign-in": "0.0.14",
 		"react-redux": "^5.0.5",
 		"react-router-native": "^4.1.1",
 		"redux": "^3.6.0",
