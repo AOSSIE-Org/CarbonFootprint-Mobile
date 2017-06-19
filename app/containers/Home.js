@@ -7,12 +7,10 @@ import {
  import { bindActionCreators } from 'redux';
 
  import * as SimpleAction from '../actions/SimpleAction';
- import * as FbLoginAction from '../actions/FbLoginAction';
- import * as GoogleLoginAction from '../actions/GoogleLoginAction';
+ import * as SocialLoginAction from '../actions/SocialLoginAction';
  
  import SimpleButton from '../components/SimpleButton';
- import FbLogin from '../components/FbLogin';
- import GoogleLogin from '../components/GoogleLogin';
+ import SocialLogin from '../components/SocialLogin';
 
 class Home extends Component {
     constructor(props) {
@@ -22,8 +20,10 @@ class Home extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <GoogleLogin {...this.props} />
-                <FbLogin {...this.props} />
+                <SocialLogin {...this.props} id = "1"/>
+                <SocialLogin {...this.props} id = "2"/>
+                <SocialLogin {...this.props} id = "3"/>
+                <SocialLogin {...this.props} id = "4"/>
             </View>
         );
     }
@@ -32,8 +32,10 @@ class Home extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'flex-end',
+        margin: 20
     }
 });
 
@@ -46,7 +48,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, SimpleAction, FbLoginAction, GoogleLoginAction), dispatch) ;
+    return bindActionCreators(Object.assign({}, SimpleAction, SocialLoginAction), dispatch) ;
 }
 
 /*
