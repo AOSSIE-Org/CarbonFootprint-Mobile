@@ -1,5 +1,5 @@
 import { storeDataLocally } from './LocalStorage';
-import { requestLogin , recieveLogin } from './SimpleAction';
+import { requestLogin , receiveLogin } from './SimpleAction';
 import { facebook, google, twitter, tumblr } from 'react-native-simple-auth';
 
 export function socialLogin(id) {
@@ -7,20 +7,6 @@ export function socialLogin(id) {
 
 	switch(id) {
 		case '1': {
-			obj = facebook({
-				  	appId: '156885044853419',
-				  	callback: 'fb156885044853419://authorize'
-				  });
-			break;
-		}
-		case '2': {
-			obj = google({
-					appId: '755065860133-hqrq7su4ai6ir62969uaqk75mcnlblhu.apps.googleusercontent.com',
-					callback: 'com.carbonfootprint:/oauth2redirect'
-				  });
-			break;
-		}
-		case '3': {
 			obj = twitter({
 			      	appId: 'QYaiChXS6T0LeJ5Jt23QxctEh',
 			      	appSecret: 'wTyZxZ1POhV8Doqydw9oQAUTQZJJvr3q7IO7NA0nRGNV4g4gUY',
@@ -28,7 +14,7 @@ export function socialLogin(id) {
 			      });
 			break;
 		}
-		case '4': {
+		case '2': {
 			obj = tumblr({
 			      	appId: 'WXRAmlcvoqzfpAdnWEZMA3qb12K6RwcZifK4k0RxLlbYw9bEpj',
 			      	appSecret: 'iXDBItysj3HExPVk0aOl2aUOKY2a5wjyhDklCAdDQWTbv5NBQG',
@@ -48,6 +34,6 @@ export function socialLogin(id) {
 		}).catch((error) => {
 		  alert("Error : " + error.description);
 		});
-		dispatch(recieveLogin());
+		dispatch(receiveLogin());
 	}
 }

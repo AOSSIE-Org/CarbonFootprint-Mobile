@@ -1,5 +1,5 @@
 export const REQUEST_LOGIN = "REQUEST_LOGIN";
-export const RECIEVE_LOGIN = "RECIEVE_LOGIN";
+export const RECEIVE_LOGIN = "RECEIVE_LOGIN";
 
 export function requestLogin() {
     return {
@@ -7,9 +7,9 @@ export function requestLogin() {
     }
 }
 
-export function recieveLogin() {
+export function receiveLogin() {
     return {
-        type: RECIEVE_LOGIN
+        type: RECEIVE_LOGIN
     }
 }
 
@@ -17,6 +17,6 @@ export function login() {
     return (dispatch) => {
         dispatch(requestLogin());
         console.log("Check states");
-        dispatch(recieveLogin());
+        dispatch(receiveLogin());
     }
 }

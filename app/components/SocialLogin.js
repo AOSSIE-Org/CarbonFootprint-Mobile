@@ -12,18 +12,10 @@ class SocialLogin extends Component {
 			let id = this.props.id;
 			switch(id) {
 				case '1': {
-					path = require('../images/fb.png');
-					break;
-				}
-				case '2': {
-					path = require('../images/google.png');
-					break;
-				}
-				case '3': {
 					path = require('../images/twitter.png');
 					break;
 				}
-				case '4': {
+				case '2': {
 					path = require('../images/tumblr.png');
 					break;
 				}
@@ -36,6 +28,8 @@ class SocialLogin extends Component {
 		      		<Image style = {{height: 60, width: 60}} source = {path}/> 
 		      	</TouchableNativeFeedback>
 		    );
+		} else { // Amit will add code for ios later
+			alert("OS is not android");
 		}
 	}
 }
