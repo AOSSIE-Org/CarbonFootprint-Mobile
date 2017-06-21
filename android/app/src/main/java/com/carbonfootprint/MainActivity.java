@@ -4,6 +4,8 @@ import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.cboy.rn.splashscreen.SplashScreen;
 
+import android.content.Intent;
+
 public class MainActivity extends ReactActivity {
 
     /**
@@ -18,5 +20,11 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "CarbonFootprint";
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        MainApplication.getCallbackManager().onActivityResult(requestCode, resultCode, data);
     }
 }
