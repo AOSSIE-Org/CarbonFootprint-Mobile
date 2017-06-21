@@ -1,5 +1,12 @@
+node_modules/
+react-native-packager-cache-V/
+package-lock.json
+
+ios/build/
+
+android/.gradle/
 android/build/
 android/app/build/
-ios/build/
-node_modules/
-.gradle/
+android/.idea/
+android/local.properties
+android/*.iml

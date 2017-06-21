@@ -1,30 +1,45 @@
 import React, { Component } from 'react';
 import {
     View,
-    StyleSheet,
-    Text
+    StyleSheet
  } from 'react-native';
  import { connect } from 'react-redux';
  import { bindActionCreators } from 'redux';
- import * as SimpleAction from '../actions/SimpleAction';
 
+ import * as SimpleAction from '../actions/SimpleAction';
+ import * as SocialLoginAction from '../actions/SocialLoginAction';
+ import * as FbLoginAction from '../actions/FbLoginAction';
+ import * as GoogleLoginAction from '../actions/GoogleLoginAction';
+ 
  import SimpleButton from '../components/SimpleButton';
+ import SocialLogin from '../components/SocialLogin';
+ import FbLogin from '../components/FbLogin';
+ import GoogleLogin from '../components/GoogleLogin';
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
-        return(
+        return (
             <View style={styles.container}>
-                <SimpleButton {...this.props} />
+                <FbLogin {...this.props} />
+                <GoogleLogin {...this.props} />
+                <SocialLogin {...this.props} id = "1"/>
+                <SocialLogin {...this.props} id = "2"/>
             </View>
-        )
+        );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'flex-end',
+        margin: 20
     }
 });
 
@@ -37,7 +52,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, SimpleAction), dispatch)
+    return bindActionCreators(Object.assign({}, SimpleAction, FbLoginAction, GoogleLoginAction, SocialLoginAction), dispatch) ;
 }
 
 /*
