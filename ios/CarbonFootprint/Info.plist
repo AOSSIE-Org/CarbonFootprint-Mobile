@@ -23,9 +23,11 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1911074142486910</string>
+				<string>carbonfootprint1</string>
 			</array>
 		</dict>
 		<dict>
@@ -34,6 +36,14 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.755065860133-74hubfe9bpe019rotvdmvgi4arq3vgg2</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1911074142486910</string>
 			</array>
 		</dict>
 	</array>

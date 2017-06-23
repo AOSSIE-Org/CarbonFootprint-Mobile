@@ -126,6 +126,7 @@ android {
 }
 
 dependencies {
+    compile project(':tipsi-twitter')
     compile project(':react-native-vector-icons')
     compile project(':react-native-splash-screen')
     compile "com.google.android.gms:play-services-auth:11.0.1"

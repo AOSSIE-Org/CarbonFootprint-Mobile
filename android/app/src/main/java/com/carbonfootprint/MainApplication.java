@@ -7,6 +7,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 
 import com.facebook.react.ReactApplication;
+import com.gettipsi.reactnativetwittersdk.TwitterReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.reactlibrary.googlesignin.RNGoogleSignInPackage;
@@ -36,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new TwitterReactPackage(),
           new VectorIconsPackage(),
           new SplashScreenReactPackage(),
           new RNGoogleSignInPackage(),

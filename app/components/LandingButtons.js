@@ -31,7 +31,7 @@ class LandingButtons extends Component {
                 <View style={styles.button}>
                     <Icon.Button name="twitter" backgroundColor="#4099ff" borderRadius={1}
                         iconStyle={styles.buttonIcon}>
-                        <Text style={styles.buttonText}>Continue with Twitter</Text>
+                        <Text style={styles.buttonText} onPress={() => this.props.twitterLogin()}>Continue with Twitter</Text>
                     </Icon.Button>
                 </View>
                 <View style={styles.local}>
