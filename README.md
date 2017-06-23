@@ -35,9 +35,20 @@ npm install
 #### Xcode
 Make sure you have Xcode 8 or higher and the correct command line tool is specified
 
+#### Pods Dependencies
+Install pods using cocoa-pods
+
+```
+cd <project-dir>/ios
+pods install
+```
+
 #### Facebook SDK
 Download Facebook SDK from https://developers.facebook.com/docs/ios/.
 Extract it specifically in `~/Documents/FacebookSDK`.
+
+#### Editing Native Project
+For editing native project, use only `CarbonFootprint.xcworkspace` not `CarbonFootprint.xcodeproj`
 
 #### Running the App
 

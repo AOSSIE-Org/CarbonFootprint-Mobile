@@ -25,7 +25,7 @@ class LandingButtons extends Component {
                 <View style={styles.button}>
                     <Icon.Button name="google" backgroundColor="#dd4b39" borderRadius={1}
                         iconStyle={styles.buttonIcon}>
-                        <Text style={styles.buttonText}>Continue with Google</Text>
+                        <Text style={styles.buttonText} onPress={() => this.props.googleSignIn()}>Continue with Google</Text>
                     </Icon.Button>
                 </View>
                 <View style={styles.button}>

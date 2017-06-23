@@ -9,6 +9,7 @@ import {
  import { bindActionCreators } from 'redux';
 
  import * as FbLoginAction from '../actions/FbLoginAction';
+ import * as GoogleLoginAction from '../actions/GoogleLoginAction';
 
  import ImageHeader from '../components/ImageHeader';
  import LandingButtons from '../components/LandingButtons';
@@ -41,7 +42,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(Object.assign({},
-        FbLoginAction
+        FbLoginAction,
+        GoogleLoginAction
     ), dispatch);
 }
 

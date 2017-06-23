@@ -6,6 +6,8 @@ ios/build/
 *.xcuserstate
 project.xcworkspace/
 xcuserdata/
+Pods/
+*.lock
 
 android/.gradle/
 android/build/
