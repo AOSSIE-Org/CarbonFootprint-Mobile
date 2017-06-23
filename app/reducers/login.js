@@ -6,11 +6,11 @@ export default function login(state = {
     switch(action.type) {
         case REQUEST_LOGIN:
             return Object.assign({}, state, {
-                isFetching: true,
+                isFetching: true
             });
         case RECEIVE_LOGIN:
             return Object.assign({}, state, {
-                isFetching: false,
+                isFetching: false
             });
         default:
             return state;

@@ -3,6 +3,9 @@ react-native-packager-cache-V/
 package-lock.json
 
 ios/build/
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
 
 android/.gradle/
 android/build/

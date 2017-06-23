@@ -35,6 +35,10 @@ npm install
 #### Xcode
 Make sure you have Xcode 8 or higher and the correct command line tool is specified
 
+#### Facebook SDK
+Download Facebook SDK from https://developers.facebook.com/docs/ios/.
+Extract it specifically in `~/Documents/FacebookSDK`.
+
 #### Running the App
 
 ```
@@ -44,7 +48,7 @@ react-native run-ios
 
 You can also run it directly from within Xcode or Nuclide.
 
-### Android Studio 
+### Android Studio
 
 #### Download and install Android Studio
 Download Android Studio, then follow the installation instructions. Choose Custom installation when prompted by the Setup Wizard, and proceed to the next step.
@@ -55,7 +59,7 @@ Make sure the boxes next to all of the following are checked:
 * Android SDK
 * Android SDK Platform
 * Performance (Intel ® HAXM)
-* Android Virtual Device 
+* Android Virtual Device
 
 Click 'Next' to install all of these components
 
@@ -88,7 +92,3 @@ cd <project-dir>
 react-native run-android
 ```
 You can also run it directly from within Android Studio or Nuclide
-
-
-
- 
