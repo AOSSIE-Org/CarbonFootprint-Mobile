@@ -47,6 +47,9 @@ pod install
 Download Facebook SDK from https://developers.facebook.com/docs/ios/.
 Extract it specifically in `~/Documents/FacebookSDK`.
 
+#### Google SDK
+Open `CarbonFootprint.xcworkspace` in Xcode. In `ios` directory, there is a file called `GoogleService-Info.plist`. Drag this file into the workspace. Apply it to all the targets.
+
 #### Editing Native Project
 For editing native project, use only `CarbonFootprint.xcworkspace` not `CarbonFootprint.xcodeproj`
 
