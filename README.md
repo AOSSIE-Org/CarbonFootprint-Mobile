@@ -40,7 +40,7 @@ Install pods using cocoa-pods
 
 ```
 cd <project-dir>/ios
-pods install
+pod install
 ```
 
 #### Facebook SDK
