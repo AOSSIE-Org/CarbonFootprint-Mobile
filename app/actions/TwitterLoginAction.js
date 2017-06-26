@@ -1,6 +1,7 @@
 import TwitterAuth from 'tipsi-twitter';
 import { requestLogin, receiveLogin } from './SimpleAction';
 import { storeDataLocally } from './LocalStorage';
+import { Actions } from 'react-native-router-flux';
 
 export function twitterLogin() {
     TwitterAuth.init({
@@ -11,8 +12,9 @@ export function twitterLogin() {
     return async function(dispatch) {
         dispatch(requestLogin());
         try {
-          const result = await TwitterAuth.login()
-          dispatch(storeDataLocally('UserName', result.userName))
+          const result = await TwitterAuth.login();
+            if(dispatch(storeDataLocally('token', result.userName)))
+                Actions.main();
         } catch (error) {
           console.log('Login error:', error)
         }

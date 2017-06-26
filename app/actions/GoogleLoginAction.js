@@ -1,6 +1,7 @@
 import GoogleSignIn from 'react-native-google-sign-in';
 import { storeDataLocally } from './LocalStorage';
 import { requestLogin , receiveLogin } from './SimpleAction';
+import { Actions } from 'react-native-router-flux';
 
 export function googleSignIn() {
 	return async function (dispatch) {
@@ -12,7 +13,8 @@ export function googleSignIn() {
 	  	});
 	 
 	  const user = await GoogleSignIn.signInPromise();
-	  dispatch(storeDataLocally('UserName', user.name));
+  	  if(dispatch(storeDataLocally('token', user.name)))
+	      Actions.main();
 	  dispatch(receiveLogin());
 	}
 }

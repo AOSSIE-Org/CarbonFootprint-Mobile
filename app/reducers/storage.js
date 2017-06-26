@@ -5,7 +5,7 @@ import {
 
 export default function storage(state = {
     isFetching: false,
-    token: ''
+    token: ""
 }, action) {
     switch(action.type) {
         case REQUEST_STORAGE:

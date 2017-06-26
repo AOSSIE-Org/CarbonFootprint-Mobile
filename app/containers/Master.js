@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 
 import * as StorageAction from '../actions/StorageAction';
+import * as LocalStorage from '../actions/LocalStorage';
 
 class Master extends Component {
     constructor(props) {
@@ -22,8 +23,10 @@ class Master extends Component {
     componentDidMount() {
         if (!this.props.storage.isFetching) {
             SplashScreen.hide();
-            if (!this.props.storage.token) {
+            if (this.props.storage.token.length === 0) {
                 Actions.landing();
+            } else {
+                Actions.main();
             }
         }
     }
@@ -56,7 +59,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, StorageAction), dispatch)
+    return bindActionCreators(Object.assign({}, StorageAction, LocalStorage), dispatch);
 }
 
 /*

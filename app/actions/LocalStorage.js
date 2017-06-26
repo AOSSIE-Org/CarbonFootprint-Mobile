@@ -8,9 +8,11 @@ export function storeDataLocally(key, value) {
 			// Storing data
 			await AsyncStorage.setItem(key, value);
 			alert(value + " stored in Local storage as " + key);
+			return true; // Success
 		} catch (error) {
 		  	// Error storing data
 		  	alert("Error occured - " + error);
+		  	return false; // Failure
 		}
 	}
 }
@@ -22,7 +24,8 @@ export function fetchDataLocally(key) {
 			// Fetching data
 		  	const value = await AsyncStorage.getItem(key);
 		  	// null will be returned , if there is no value corresponding to given key
-		  	return value;
+		  	//alert("Fetched token: " + value);
+		  	return value; 
 		} catch (error) {
 		  	// Error fetching data
 		  	alert("Error occured - " + error);

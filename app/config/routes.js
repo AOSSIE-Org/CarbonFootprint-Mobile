@@ -9,6 +9,7 @@ import Master from '../containers/Master';
 import Home from '../containers/Home';
 import Login from '../containers/Login';
 import Register from '../containers/Register';
+import Main from '../containers/Main';
 
 const RouterWithRedux = connect()(Router);
 
@@ -23,6 +24,7 @@ class Navigator extends Component {
                         <Scene key="login" component={Login} />
                         <Scene key="register" component={Register} />
                     </Scene>
+                    <Scene key="main" component={Main}/>
                 </Scene>
             </RouterWithRedux>
         )
