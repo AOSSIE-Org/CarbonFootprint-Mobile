@@ -10,7 +10,7 @@ import {
 
  import * as FbLoginAction from '../actions/FbLoginAction';
  import * as GoogleLoginAction from '../actions/GoogleLoginAction';
- import * as SocialLoginAction from '../actions/SocialLoginAction';
+
  import * as TwitterLoginAction from '../actions/TwitterLoginAction';
 
  import ImageHeader from '../components/ImageHeader';
@@ -22,6 +22,7 @@ class Home extends Component {
     }
 
     render() {
+        console.log("Home");
         return(
             <View style={styles.container}>
                 <StatusBar hidden={true} />
@@ -46,7 +47,6 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(Object.assign({},
         FbLoginAction,
         GoogleLoginAction,
-        SocialLoginAction,
         TwitterLoginAction
     ), dispatch);
 }

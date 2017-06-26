@@ -47,12 +47,6 @@ class RegisterForm extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: Dimensions.get('window').width * 0.9,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    container: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'stretch'
@@ -60,7 +54,7 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         width: Dimensions.get("window").width * 0.9,
-        paddingBottom: 100
+        paddingBottom: Dimensions.get("window").width * 0.04,
     },
     box: {
         height: 40,
