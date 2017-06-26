@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         width: Dimensions.get("window").width * 0.9,
-        paddingBottom: 200
     },
     box: {
         height: 40,

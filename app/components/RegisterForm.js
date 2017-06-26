@@ -49,18 +49,12 @@ const styles = StyleSheet.create({
         flex: 1,
         width: Dimensions.get('window').width * 0.9,
         alignItems: 'center',
-        justifyContent: 'center'
-    },
-    container: {
-        flex: 1,
-        alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'stretch'
     },
     input: {
         flex: 1,
         width: Dimensions.get("window").width * 0.9,
-        paddingBottom: 100
     },
     box: {
         height: 40,
