@@ -16,6 +16,11 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+
+import io.fabric.sdk.android.Fabric;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,6 +60,9 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    TwitterAuthConfig authConfig =  new TwitterAuthConfig
+        ("QYaiChXS6T0LeJ5Jt23QxctEh", "wTyZxZ1POhV8Doqydw9oQAUTQZJJvr3q7IO7NA0nRGNV4g4gUY");
+    Fabric.with(this, new TwitterCore(authConfig));
     FacebookSdk.sdkInitialize(getApplicationContext());
   }
 }
