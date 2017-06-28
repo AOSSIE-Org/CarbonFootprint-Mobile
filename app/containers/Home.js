@@ -22,7 +22,6 @@ class Home extends Component {
     }
 
     render() {
-        console.log("Home");
         return(
             <View style={styles.container}>
                 <StatusBar hidden={true} />

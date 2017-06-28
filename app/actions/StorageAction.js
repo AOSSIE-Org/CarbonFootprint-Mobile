@@ -9,22 +9,32 @@ function request_storage() {
     }
 }
 
-function receive_storage(token) {
+function receive_storage(email) {
     return {
         type: RECEIVE_STORAGE,
-        token: token
+        email: email
     }
 }
 
 export function getStorage() {
     return(dispatch, state) => {
         dispatch(request_storage());
-        AsyncStorage.getItem('token')
+        AsyncStorage.getItem('email')
             .then(value => {
                 dispatch(receive_storage(value))
             })
             .catch(err => {
                 dispatch(receive_storage(null))
+            })
+    }
+}
+
+export function setStorage(value) {
+    return (dispatch, state) => {
+        dispatch(receive_storage(value));
+        AsyncStorage.setItem('email', value)
+            .catch(err => {
+                console.log("Error while setting")
             })
     }
 }
