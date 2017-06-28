@@ -12,10 +12,10 @@ class BackHeader extends Component {
         return(
             <View style={styles.container}>
                 <Icon.Button name="arrow-left" backgroundColor="#fff" iconStyle={styles.icon}
-                    onPress={() => Actions.pop()}>
+                    onPress={() => Actions.home()}>
                 </Icon.Button>
                 { this.props.text ?
-                    <Icon.Button backgroundColor="#fff" onPress={() => {this.props.link}}
+                    <Icon.Button backgroundColor="#fff" onPress={this.props.link}
                         iconStyle={styles.iconText}>
                         <Text style={styles.text}>{this.props.text}</Text>
                     </Icon.Button>

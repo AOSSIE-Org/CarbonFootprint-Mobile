@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    Text
+    Text,
+    StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -14,7 +15,8 @@ class Login extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <BackHeader text="Forgot Password?" link="Actions.forgotPass()"/>
+                <StatusBar hidden={true} />
+                <BackHeader text="Forgot Password?" link={() => Actions.forgotPass()}/>
                 <LoginForm {...this.props} />
             </View>
         );

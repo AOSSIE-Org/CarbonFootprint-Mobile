@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    Text
+    Text,
+    StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Actions } from 'react-native-router-flux';
 
 import BackHeader from '../components/BackHeader';
 import RegisterForm from '../components/RegisterForm';
@@ -19,7 +21,8 @@ class Register extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <BackHeader text="Login" link="Actions.login()"/>
+                <StatusBar hidden={true} />
+                <BackHeader text="Login" link={() => Actions.login()}/>
                 <RegisterForm {...this.props} />
             </View>
         )

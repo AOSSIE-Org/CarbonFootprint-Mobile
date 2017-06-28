@@ -14,7 +14,7 @@
 		"react-native-router-flux": "^3.40.1",
 		"react-native-simple-auth": "^2.1.0",
 		"react-native-splash-screen": "^2.1.0",
-		"react-native-textinput-effects": "^0.3.1",
+		"react-native-keyboard-aware-scroll-view": "^0.2.9",
 		"react-native-vector-icons": "^4.2.0",
 		"react-redux": "^5.0.5",
 		"redux": "3.6.0",
