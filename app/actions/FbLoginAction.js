@@ -3,7 +3,7 @@ import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsd
 
 export function fbLogin() {
 	return function (dispatch) {
-		LoginManager.logInWithReadPermissions(['public_profile']).then(
+		LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
 		  function(result) {
 		    if (result.isCancelled) {
 		      alert('Login cancelled');
@@ -14,7 +14,7 @@ export function fbLogin() {
 		          	fetch('https://graph.facebook.com/v2.5/me?fields=email,name&access_token=' + data.accessToken)
 					  .then((response) => response.json())
 					  .then((json) => {
-					  	dispatch(setStorage(json.name));
+					  	dispatch(setStorage(json.email));
 					  })
 					  .catch((error) => {
 					    alert('FB ERROR GETTING DATA FROM FACEBOOK : ' + error);
