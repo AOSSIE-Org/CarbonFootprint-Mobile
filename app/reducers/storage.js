@@ -5,7 +5,7 @@ import {
 
 export default function storage(state = {
     isFetching: false,
-    token: ""
+    email: ''
 }, action) {
     switch(action.type) {
         case REQUEST_STORAGE:
@@ -15,7 +15,7 @@ export default function storage(state = {
         case RECEIVE_STORAGE:
             return Object.assign({}, state, {
                 isFetching: false,
-                token: action.token
+                email: action.email
             });
         default:
             return state;

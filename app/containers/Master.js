@@ -9,7 +9,6 @@ import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 
 import * as StorageAction from '../actions/StorageAction';
-import * as LocalStorage from '../actions/LocalStorage';
 
 class Master extends Component {
     constructor(props) {
@@ -18,12 +17,19 @@ class Master extends Component {
 
     componentWillMount() {
         this.props.getStorage();
+        //console.log(this.props);
     }
 
     componentDidMount() {
-        if (!this.props.storage.isFetching) {
+
+    }
+
+    componentWillReceiveProps(props) {
+        if (!props.storage.isFetching) {
             SplashScreen.hide();
-            if (this.props.storage.token.length === 0) {
+            //console.log(props.storage)
+            // Change this to props.storage.email to login to main page
+            if (!props.storage.email) {
                 Actions.landing();
             } else {
                 Actions.main();
@@ -59,7 +65,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, StorageAction, LocalStorage), dispatch);
+    return bindActionCreators(Object.assign({}, StorageAction), dispatch);
 }
 
 /*

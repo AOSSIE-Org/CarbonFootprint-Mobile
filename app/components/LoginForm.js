@@ -4,36 +4,42 @@ import {
     StyleSheet,
     Dimensions,
     Text,
-    StatusBar
+    TextInput,
+    TouchableHighlight
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Kohana } from 'react-native-textinput-effects';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import ImageHeader from './ImageHeader';
 
 class LoginForm extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            email: '',
+            password: '',
+        }
     }
 
     render() {
         return(
             <View style={styles.container}>
                 <ImageHeader text="" />
-                <View style={styles.input}>
-                    <Kohana style={styles.box}
-                        label={'Email'} iconClass={Icon} iconName={'envelope'}
-                        iconColor={'#f4d29a'} labelStyle={styles.textColor}
-                        inputStyle={styles.textColor} autoCapitalize='none'/>
-                    <Kohana style={styles.box}
-                         label={'Password'} iconClass={Icon} iconName={'lock'}
-                         iconColor={'#f4d29a'} labelStyle={styles.textColor}
-                         inputStyle={styles.textColor} secureTextEntry={true} autoCapitalize='none'/>
-                    <Icon.Button backgroundColor="#66CC00" borderRadius={1}
-                         borderWidth={1} iconStyle={styles.button}>
-                         <Text style={styles.text} autoCapitalize='characters'>Login</Text>
-                    </Icon.Button>
-                </View>
+                <KeyboardAwareScrollView style={styles.inputForm}>
+                    <View style={styles.input}>
+                        <Icon name="envelope" size={16} color="#666" />
+                        <TextInput placeholder="Email" style={styles.field} autoCapitalize='none'
+                            onChangeText={(text) => this.setState({email: text})}/>
+                    </View>
+                    <View style={[styles.input, styles.inputTop]}>
+                        <Icon name="lock" size={18} color="#666" />
+                        <TextInput placeholder="Password" style={styles.field} secureTextEntry={true}
+                            onChangeText={(text) => this.setState({password: text})} autoCapitalize='none'/>
+                    </View>
+                    <TouchableHighlight onPress={() => {}} style={styles.button}>
+                        <Text style={styles.text}>Login</Text>
+                    </TouchableHighlight>
+                </KeyboardAwareScrollView>
             </View>
         )
     }
@@ -46,28 +52,38 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'stretch'
     },
-    input: {
+    inputForm: {
         flex: 1,
         width: Dimensions.get("window").width * 0.9,
-        paddingBottom: Dimensions.get("window").width * 0.08,
     },
-    box: {
-        height: 40,
-        marginBottom: 10,
-        backgroundColor: '#f9f5ed',
+    input: {
+        borderBottomWidth: 1,
+        borderColor: "#555",
+        flexDirection: 'row',
+        alignItems: 'center',
+
     },
-    textColor: {
-        color: '#91627b',
-        fontSize: 14
+    inputTop: {
+        borderTopWidth: 0,
+    },
+    field: {
+        height: 50,
+        color: '#555',
+        fontSize: 15,
+        flex: 1,
+        marginLeft: 8,
     },
     button: {
-        marginRight: 0
+        backgroundColor: "#538124",
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 14,
+        borderRadius: 2,
     },
     text: {
-        flex: 1,
-        textAlign: 'center',
         color: '#fff',
-        letterSpacing: 2
+        fontSize: 18,
     }
 })
 
