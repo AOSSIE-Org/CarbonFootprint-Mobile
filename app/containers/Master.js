@@ -27,10 +27,10 @@ class Master extends Component {
     componentWillReceiveProps(props) {
         if (!props.storage.isFetching) {
             SplashScreen.hide();
-            console.log(props.storage)
-            // Change this to props.storage.email to login to main page
-            if (!props.storage.token) {
+            if (!props.storage.email) {
                 Actions.landing();
+            } else {
+                Actions.main();
             }
         }
     }

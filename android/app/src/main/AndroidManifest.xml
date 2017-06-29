@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -44,6 +46,10 @@
       <meta-data
           android:name="io.fabric.ApiKey"
           android:value="6085fd67c7f2500302bf77143d298c546a420daa"
+      />
+      <meta-data
+          android:name="com.google.android.geo.API_KEY"
+          android:value="AIzaSyAZoTeY9VAiRcLeAamafhjxe0Qk5TCZZsI"
       />
     </application>
 

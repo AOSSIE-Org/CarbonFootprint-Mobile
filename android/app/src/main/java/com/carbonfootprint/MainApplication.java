@@ -7,6 +7,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 
 import com.facebook.react.ReactApplication;
+import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
+import com.airbnb.android.react.maps.MapsPackage;
 import com.gettipsi.reactnativetwittersdk.TwitterReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
@@ -42,6 +44,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNGooglePlacesPackage(),
+            new MapsPackage(),
             new TwitterReactPackage(),
           new VectorIconsPackage(),
           new SplashScreenReactPackage(),

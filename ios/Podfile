@@ -5,9 +5,28 @@ target 'CarbonFootprint' do
   pod 'TwitterKit', '2.7.0'
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   # use_frameworks!
+  react_native_path = "../node_modules/react-native"
+  pod "Yoga", :path => "#{react_native_path}/ReactCommon/yoga"
+  pod "React", :path => react_native_path, :subspecs => [
+    'Core',
+    'RCTActionSheet',
+    'RCTAnimation',
+    'RCTGeolocation',
+    'RCTImage',
+    'RCTLinkingIOS',
+    'RCTNetwork',
+    'RCTSettings',
+    'RCTText',
+    'RCTVibration',
+    'RCTWebSocket',
+  ]
 
   # Pods for CarbonFootprint
   pod 'Google/SignIn'
+  # These need to be changed to latest version when Google Places gets fixed.
+  pod 'GoogleMaps', '2.2.0'
+  pod 'GooglePlaces', '2.2.0'
+  pod 'GooglePlacePicker', '2.2.0'
 
   target 'CarbonFootprintTests' do
     inherit! :search_paths
