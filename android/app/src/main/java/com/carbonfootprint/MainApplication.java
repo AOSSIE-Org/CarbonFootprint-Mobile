@@ -7,12 +7,19 @@ import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 
 import com.facebook.react.ReactApplication;
+import com.gettipsi.reactnativetwittersdk.TwitterReactPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.reactlibrary.googlesignin.RNGoogleSignInPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+
+import io.fabric.sdk.android.Fabric;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +42,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new TwitterReactPackage(),
+          new VectorIconsPackage(),
           new SplashScreenReactPackage(),
           new RNGoogleSignInPackage(),
           new FBSDKPackage(mCallbackManager)
@@ -51,6 +60,9 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    TwitterAuthConfig authConfig =  new TwitterAuthConfig
+        ("QYaiChXS6T0LeJ5Jt23QxctEh", "wTyZxZ1POhV8Doqydw9oQAUTQZJJvr3q7IO7NA0nRGNV4g4gUY");
+    Fabric.with(this, new TwitterCore(authConfig));
     FacebookSdk.sdkInitialize(getApplicationContext());
   }
 }

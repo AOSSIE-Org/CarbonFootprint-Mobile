@@ -13,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* CarbonFootprintTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CarbonFootprintTests.m */; };
+		10A5D7471BFF4999AD98B44E /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A93C7750CAF4F518D863ED8 /* Ionicons.ttf */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -21,6 +22,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		181363B2748E420697BF3B4C /* libTPSTwitterModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6583200238484FA9B58FACCD /* libTPSTwitterModule.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -33,9 +35,54 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* CarbonFootprintTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CarbonFootprintTests.m */; };
+		3AE1C1DD939C49FDA5CB3CFD /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A599F0D974CF4CC1AEAE0D87 /* Entypo.ttf */; };
+		57BAF72A91B248DE96F50E85 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8979065FA6AB45E0B9F4CEEE /* EvilIcons.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		6C734096C6204BA8A19AC2B7 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4248B70F9B484F87D46A48 /* Octicons.ttf */; };
 		6D4BB426034D411FB9D12DC1 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31219E3B1B2A4E53B8955BB1 /* libSplashScreen.a */; };
+		7ABEE8D353A64F10841D6BE0 /* libPods-CarbonFootprintTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0BBECC6502D68F5FC2C0B95 /* libPods-CarbonFootprintTests.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		88107E9FA8124B3DBA7CF8AD /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5EECF016FED4B66A7664DC2 /* MaterialCommunityIcons.ttf */; };
+		A2006F139F174ADD812221A9 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E8C3A7E80184638948AEDBA /* FontAwesome.ttf */; };
+		AD9845A8B4F04E6CB3A2D672 /* libPods-CarbonFootprint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1AA4D79EF54C47071B875E /* libPods-CarbonFootprint.a */; };
+		D673E9AECAC94317B587EF41 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C48E28238EB94777A3C9AD28 /* SimpleLineIcons.ttf */; };
+		DB764A4E12D0475D8B674415 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0FEEB75EE8449C2897CFE16 /* MaterialIcons.ttf */; };
+		E010E57F7FE04513991FFCC2 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F71276B101B04C499B6D2ED6 /* libRCTFBSDK.a */; };
+		F0093083142246609251DECC /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A2AC2B03F374A7C83525131 /* libRNVectorIcons.a */; };
+		F5A943F11F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
+		F5A943F21F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
+		F5A943F31F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
+		F5A943F41F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
+		F5B448E81EFD319E0042ABBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */; };
+		F5B448E91EFD319E0042ABBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */; };
+		F5B448EA1EFD319E0042ABBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */; };
+		F5B448EB1EFD319E0042ABBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */; };
+		F5B4490B1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
+		F5B4490C1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
+		F5B4490D1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
+		F5B4490E1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
+		F5B4490F1EFD3B040042ABBA /* RNGoogleSignInBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B449081EFD3B040042ABBA /* RNGoogleSignInBridge.m */; };
+		F5B449101EFD3B040042ABBA /* RNGoogleSignInBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B449081EFD3B040042ABBA /* RNGoogleSignInBridge.m */; };
+		F5B449111EFD3B040042ABBA /* RNGoogleSignInBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B449081EFD3B040042ABBA /* RNGoogleSignInBridge.m */; };
+		F5B449121EFD3B040042ABBA /* RNGoogleSignInBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B449081EFD3B040042ABBA /* RNGoogleSignInBridge.m */; };
+		F5B449131EFD3B040042ABBA /* RNGoogleSignInEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449091EFD3B040042ABBA /* RNGoogleSignInEvents.swift */; };
+		F5B449141EFD3B040042ABBA /* RNGoogleSignInEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449091EFD3B040042ABBA /* RNGoogleSignInEvents.swift */; };
+		F5B449151EFD3B040042ABBA /* RNGoogleSignInEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449091EFD3B040042ABBA /* RNGoogleSignInEvents.swift */; };
+		F5B449161EFD3B040042ABBA /* RNGoogleSignInEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449091EFD3B040042ABBA /* RNGoogleSignInEvents.swift */; };
+		F5B449171EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B4490A1EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m */; };
+		F5B449181EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B4490A1EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m */; };
+		F5B449191EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B4490A1EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m */; };
+		F5B4491A1EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B4490A1EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m */; };
+		F5D5D8341EFBF16D00D87D33 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D5D8301EFBF16D00D87D33 /* Bolts.framework */; };
+		F5D5D8351EFBF16D00D87D33 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D5D8301EFBF16D00D87D33 /* Bolts.framework */; };
+		F5D5D8361EFBF16D00D87D33 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D5D8311EFBF16D00D87D33 /* FBSDKCoreKit.framework */; };
+		F5D5D8371EFBF16D00D87D33 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D5D8311EFBF16D00D87D33 /* FBSDKCoreKit.framework */; };
+		F5D5D8381EFBF16D00D87D33 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D5D8321EFBF16D00D87D33 /* FBSDKLoginKit.framework */; };
+		F5D5D8391EFBF16D00D87D33 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D5D8321EFBF16D00D87D33 /* FBSDKLoginKit.framework */; };
+		F5D5D83A1EFBF16D00D87D33 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D5D8331EFBF16D00D87D33 /* FBSDKShareKit.framework */; };
+		F5D5D83B1EFBF16D00D87D33 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D5D8331EFBF16D00D87D33 /* FBSDKShareKit.framework */; };
+		F674EA4E4F3646EB926D841C /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33E38C153C724BB6ACFB2C9E /* Zocial.ttf */; };
+		F677458067FE4EDB81140F48 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2635DEB60C3B4792B60920DD /* Foundation.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -228,12 +275,33 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		F595C8961EFD4666002C9CC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46A895EBAD474754AEB94019 /* TPSTwitterModule.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = TPSTwitterModule;
+		};
 		F5AFDADE1EF7ABED00D8C747 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7AEEF1FB15F5446F941429E3 /* SplashScreen.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 3D7682761D8E76B80014119E;
 			remoteInfo = SplashScreen;
+		};
+		F5D5D8111EFBF10E00D87D33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 76346452BAC5430586CAE9EC /* RCTFBSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9350E0F11CE3B0920041D815;
+			remoteInfo = RCTFBSDK;
+		};
+		F5D5D82D1EFBF10E00D87D33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 28C7D2A5ADF748FAB6BE6368 /* RNVectorIcons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
+			remoteInfo = RNVectorIcons;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -247,6 +315,8 @@
 		00E356EE1AD99517003FC87E /* CarbonFootprintTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarbonFootprintTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* CarbonFootprintTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarbonFootprintTests.m; sourceTree = "<group>"; };
+		067D1F8ECF1D82513AB2C240 /* Pods-CarbonFootprint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarbonFootprint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarbonFootprint/Pods-CarbonFootprint.debug.xcconfig"; sourceTree = "<group>"; };
+		0A28384E3BFF48A7DE991657 /* Pods-CarbonFootprintTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarbonFootprintTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarbonFootprintTests/Pods-CarbonFootprintTests.debug.xcconfig"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* CarbonFootprint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarbonFootprint.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,13 +326,46 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CarbonFootprint/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CarbonFootprint/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		2635DEB60C3B4792B60920DD /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		28C7D2A5ADF748FAB6BE6368 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* CarbonFootprint-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CarbonFootprint-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* CarbonFootprint-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CarbonFootprint-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31219E3B1B2A4E53B8955BB1 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
+		33E38C153C724BB6ACFB2C9E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		46A895EBAD474754AEB94019 /* TPSTwitterModule.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = TPSTwitterModule.xcodeproj; path = "../node_modules/tipsi-twitter/ios/TPSTwitterModule.xcodeproj"; sourceTree = "<group>"; };
+		4A4248B70F9B484F87D46A48 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		4F1AA4D79EF54C47071B875E /* libPods-CarbonFootprint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarbonFootprint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		50E2F3CD465694492F9D8281 /* Pods-CarbonFootprint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarbonFootprint.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarbonFootprint/Pods-CarbonFootprint.release.xcconfig"; sourceTree = "<group>"; };
+		5A2AC2B03F374A7C83525131 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
+		5A93C7750CAF4F518D863ED8 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		6583200238484FA9B58FACCD /* libTPSTwitterModule.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libTPSTwitterModule.a; sourceTree = "<group>"; };
+		6E8C3A7E80184638948AEDBA /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		76346452BAC5430586CAE9EC /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7AEEF1FB15F5446F941429E3 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8979065FA6AB45E0B9F4CEEE /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		A599F0D974CF4CC1AEAE0D87 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		C0BBECC6502D68F5FC2C0B95 /* libPods-CarbonFootprintTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarbonFootprintTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C48E28238EB94777A3C9AD28 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		D5EECF016FED4B66A7664DC2 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		E0FEEB75EE8449C2897CFE16 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		F3F1DF11C6EBF233C6DA4B99 /* Pods-CarbonFootprintTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarbonFootprintTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarbonFootprintTests/Pods-CarbonFootprintTests.release.xcconfig"; sourceTree = "<group>"; };
+		F5097DCC1EFD268E00F18E54 /* CarbonFootprint-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarbonFootprint-Bridging-Header.h"; sourceTree = "<group>"; };
+		F5097DCD1EFD268E00F18E54 /* CarbonFootprintTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarbonFootprintTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		F5A943F01F01008C005782C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F5B449061EFD3B040042ABBA /* RNGoogleSignIn-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNGoogleSignIn-Bridging-Header.h"; sourceTree = "<group>"; };
+		F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNGoogleSignIn.swift; sourceTree = "<group>"; };
+		F5B449081EFD3B040042ABBA /* RNGoogleSignInBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGoogleSignInBridge.m; sourceTree = "<group>"; };
+		F5B449091EFD3B040042ABBA /* RNGoogleSignInEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNGoogleSignInEvents.swift; sourceTree = "<group>"; };
+		F5B4490A1EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGoogleSignInEventsBridge.m; sourceTree = "<group>"; };
+		F5D5D8301EFBF16D00D87D33 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
+		F5D5D8311EFBF16D00D87D33 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		F5D5D8321EFBF16D00D87D33 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		F5D5D8331EFBF16D00D87D33 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
+		F71276B101B04C499B6D2ED6 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +374,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
+				F5D5D8371EFBF16D00D87D33 /* FBSDKCoreKit.framework in Frameworks */,
+				F5D5D83B1EFBF16D00D87D33 /* FBSDKShareKit.framework in Frameworks */,
+				F5D5D8391EFBF16D00D87D33 /* FBSDKLoginKit.framework in Frameworks */,
+				F5D5D8351EFBF16D00D87D33 /* Bolts.framework in Frameworks */,
+				7ABEE8D353A64F10841D6BE0 /* libPods-CarbonFootprintTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +386,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5D5D8381EFBF16D00D87D33 /* FBSDKLoginKit.framework in Frameworks */,
+				F5D5D8341EFBF16D00D87D33 /* Bolts.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -290,6 +400,12 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				6D4BB426034D411FB9D12DC1 /* libSplashScreen.a in Frameworks */,
+				F5D5D83A1EFBF16D00D87D33 /* FBSDKShareKit.framework in Frameworks */,
+				F5D5D8361EFBF16D00D87D33 /* FBSDKCoreKit.framework in Frameworks */,
+				E010E57F7FE04513991FFCC2 /* libRCTFBSDK.a in Frameworks */,
+				F0093083142246609251DECC /* libRNVectorIcons.a in Frameworks */,
+				AD9845A8B4F04E6CB3A2D672 /* libPods-CarbonFootprint.a in Frameworks */,
+				181363B2748E420697BF3B4C /* libTPSTwitterModule.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +539,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		41782C75641746048F32419A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A599F0D974CF4CC1AEAE0D87 /* Entypo.ttf */,
+				8979065FA6AB45E0B9F4CEEE /* EvilIcons.ttf */,
+				6E8C3A7E80184638948AEDBA /* FontAwesome.ttf */,
+				2635DEB60C3B4792B60920DD /* Foundation.ttf */,
+				5A93C7750CAF4F518D863ED8 /* Ionicons.ttf */,
+				D5EECF016FED4B66A7664DC2 /* MaterialCommunityIcons.ttf */,
+				E0FEEB75EE8449C2897CFE16 /* MaterialIcons.ttf */,
+				4A4248B70F9B484F87D46A48 /* Octicons.ttf */,
+				C48E28238EB94777A3C9AD28 /* SimpleLineIcons.ttf */,
+				33E38C153C724BB6ACFB2C9E /* Zocial.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -456,6 +589,9 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				7AEEF1FB15F5446F941429E3 /* SplashScreen.xcodeproj */,
+				76346452BAC5430586CAE9EC /* RCTFBSDK.xcodeproj */,
+				28C7D2A5ADF748FAB6BE6368 /* RNVectorIcons.xcodeproj */,
+				46A895EBAD474754AEB94019 /* TPSTwitterModule.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -469,13 +605,32 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		83CB0BAF11C5A24E0911D0DD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				067D1F8ECF1D82513AB2C240 /* Pods-CarbonFootprint.debug.xcconfig */,
+				50E2F3CD465694492F9D8281 /* Pods-CarbonFootprint.release.xcconfig */,
+				0A28384E3BFF48A7DE991657 /* Pods-CarbonFootprintTests.debug.xcconfig */,
+				F3F1DF11C6EBF233C6DA4B99 /* Pods-CarbonFootprintTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				F5A943F01F01008C005782C7 /* GoogleService-Info.plist */,
+				F5B449051EFD3B040042ABBA /* RNGoogleSignIn */,
+				F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */,
+				F5D5D82F1EFBF12000D87D33 /* Frameworks */,
 				13B07FAE1A68108700A75B9A /* CarbonFootprint */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* CarbonFootprintTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
+				41782C75641746048F32419A /* Resources */,
+				F5097DCC1EFD268E00F18E54 /* CarbonFootprint-Bridging-Header.h */,
+				F5097DCD1EFD268E00F18E54 /* CarbonFootprintTests-Bridging-Header.h */,
+				83CB0BAF11C5A24E0911D0DD /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -492,12 +647,62 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F595C8771EFD4666002C9CC7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F595C8971EFD4666002C9CC7 /* libTPSTwitterModule.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F5AFDAC21EF7ABEC00D8C747 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				F5AFDADF1EF7ABED00D8C747 /* libSplashScreen.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F5B449051EFD3B040042ABBA /* RNGoogleSignIn */ = {
+			isa = PBXGroup;
+			children = (
+				F5B449061EFD3B040042ABBA /* RNGoogleSignIn-Bridging-Header.h */,
+				F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */,
+				F5B449081EFD3B040042ABBA /* RNGoogleSignInBridge.m */,
+				F5B449091EFD3B040042ABBA /* RNGoogleSignInEvents.swift */,
+				F5B4490A1EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m */,
+			);
+			name = RNGoogleSignIn;
+			path = "../node_modules/react-native-google-sign-in/ios/RNGoogleSignIn";
+			sourceTree = "<group>";
+		};
+		F5D5D80B1EFBF10E00D87D33 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F5D5D8121EFBF10E00D87D33 /* libRCTFBSDK.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F5D5D82A1EFBF10E00D87D33 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F5D5D82E1EFBF10E00D87D33 /* libRNVectorIcons.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F5D5D82F1EFBF12000D87D33 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F5D5D8301EFBF16D00D87D33 /* Bolts.framework */,
+				F5D5D8311EFBF16D00D87D33 /* FBSDKCoreKit.framework */,
+				F5D5D8321EFBF16D00D87D33 /* FBSDKLoginKit.framework */,
+				F5D5D8331EFBF16D00D87D33 /* FBSDKShareKit.framework */,
+				4F1AA4D79EF54C47071B875E /* libPods-CarbonFootprint.a */,
+				C0BBECC6502D68F5FC2C0B95 /* libPods-CarbonFootprintTests.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -507,9 +712,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "CarbonFootprintTests" */;
 			buildPhases = (
+				E5A81F7C95E7A158AB3B4DD4 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				C92B8B7B0D15957E8C6368C9 /* [CP] Embed Pods Frameworks */,
+				804FB21FB3E1B01A040EC50B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -525,10 +733,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "CarbonFootprint" */;
 			buildPhases = (
+				77233624FCD352B33E3EE205 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				82B224299D33D082E53ACB26 /* [CP] Embed Pods Frameworks */,
+				EE273CA1E7D2D2C6B4932079 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -586,7 +797,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 830;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 830;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -618,6 +833,10 @@
 				{
 					ProductGroup = 5E91572E1DD0AC6500FF2AA8 /* Products */;
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
+				},
+				{
+					ProductGroup = F5D5D80B1EFBF10E00D87D33 /* Products */;
+					ProjectRef = 76346452BAC5430586CAE9EC /* RCTFBSDK.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -656,8 +875,16 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = F5D5D82A1EFBF10E00D87D33 /* Products */;
+					ProjectRef = 28C7D2A5ADF748FAB6BE6368 /* RNVectorIcons.xcodeproj */;
+				},
+				{
 					ProductGroup = F5AFDAC21EF7ABEC00D8C747 /* Products */;
 					ProjectRef = 7AEEF1FB15F5446F941429E3 /* SplashScreen.xcodeproj */;
+				},
+				{
+					ProductGroup = F595C8771EFD4666002C9CC7 /* Products */;
+					ProjectRef = 46A895EBAD474754AEB94019 /* TPSTwitterModule.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -846,11 +1073,32 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		F595C8971EFD4666002C9CC7 /* libTPSTwitterModule.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTPSTwitterModule.a;
+			remoteRef = F595C8961EFD4666002C9CC7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		F5AFDADF1EF7ABED00D8C747 /* libSplashScreen.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSplashScreen.a;
 			remoteRef = F5AFDADE1EF7ABED00D8C747 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F5D5D8121EFBF10E00D87D33 /* libRCTFBSDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTFBSDK.a;
+			remoteRef = F5D5D8111EFBF10E00D87D33 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F5D5D82E1EFBF10E00D87D33 /* libRNVectorIcons.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNVectorIcons.a;
+			remoteRef = F5D5D82D1EFBF10E00D87D33 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -860,6 +1108,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5B448E91EFD319E0042ABBA /* GoogleService-Info.plist in Resources */,
+				F5A943F21F01008C005782C7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -867,7 +1117,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5A943F11F01008C005782C7 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				3AE1C1DD939C49FDA5CB3CFD /* Entypo.ttf in Resources */,
+				57BAF72A91B248DE96F50E85 /* EvilIcons.ttf in Resources */,
+				A2006F139F174ADD812221A9 /* FontAwesome.ttf in Resources */,
+				F677458067FE4EDB81140F48 /* Foundation.ttf in Resources */,
+				F5B448E81EFD319E0042ABBA /* GoogleService-Info.plist in Resources */,
+				10A5D7471BFF4999AD98B44E /* Ionicons.ttf in Resources */,
+				88107E9FA8124B3DBA7CF8AD /* MaterialCommunityIcons.ttf in Resources */,
+				DB764A4E12D0475D8B674415 /* MaterialIcons.ttf in Resources */,
+				6C734096C6204BA8A19AC2B7 /* Octicons.ttf in Resources */,
+				D673E9AECAC94317B587EF41 /* SimpleLineIcons.ttf in Resources */,
+				F674EA4E4F3646EB926D841C /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,6 +1138,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
+				F5B448EA1EFD319E0042ABBA /* GoogleService-Info.plist in Resources */,
+				F5A943F31F01008C005782C7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +1147,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5B448EB1EFD319E0042ABBA /* GoogleService-Info.plist in Resources */,
+				F5A943F41F01008C005782C7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,6 +1183,96 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
+		77233624FCD352B33E3EE205 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		804FB21FB3E1B01A040EC50B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CarbonFootprintTests/Pods-CarbonFootprintTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		82B224299D33D082E53ACB26 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CarbonFootprint/Pods-CarbonFootprint-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C92B8B7B0D15957E8C6368C9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CarbonFootprintTests/Pods-CarbonFootprintTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E5A81F7C95E7A158AB3B4DD4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EE273CA1E7D2D2C6B4932079 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CarbonFootprint/Pods-CarbonFootprint-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -924,7 +1280,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5B4490C1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */,
 				00E356F31AD99517003FC87E /* CarbonFootprintTests.m in Sources */,
+				F5B449181EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m in Sources */,
+				F5B449141EFD3B040042ABBA /* RNGoogleSignInEvents.swift in Sources */,
+				F5B449101EFD3B040042ABBA /* RNGoogleSignInBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -932,7 +1292,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5B4490B1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */,
+				F5B4490F1EFD3B040042ABBA /* RNGoogleSignInBridge.m in Sources */,
+				F5B449171EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				F5B449131EFD3B040042ABBA /* RNGoogleSignInEvents.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -941,8 +1305,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5B4490D1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */,
 				2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */,
+				F5B449191EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m in Sources */,
+				F5B449151EFD3B040042ABBA /* RNGoogleSignInEvents.swift in Sources */,
 				2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */,
+				F5B449111EFD3B040042ABBA /* RNGoogleSignInBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -950,7 +1318,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5B4491A1EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m in Sources */,
+				F5B449121EFD3B040042ABBA /* RNGoogleSignInBridge.m in Sources */,
+				F5B4490E1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */,
 				2DCD954D1E0B4F2C00145EB5 /* CarbonFootprintTests.m in Sources */,
+				F5B449161EFD3B040042ABBA /* RNGoogleSignInEvents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -972,8 +1344,15 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0A28384E3BFF48A7DE991657 /* Pods-CarbonFootprintTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FacebookSDK",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -981,6 +1360,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 				);
 				INFOPLIST_FILE = CarbonFootprintTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -988,24 +1370,40 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CarbonFootprintTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CarbonFootprint.app/CarbonFootprint";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3F1DF11C6EBF233C6DA4B99 /* Pods-CarbonFootprintTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FacebookSDK",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 				);
 				INFOPLIST_FILE = CarbonFootprintTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1013,26 +1411,41 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CarbonFootprintTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CarbonFootprint.app/CarbonFootprint";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 067D1F8ECF1D82513AB2C240 /* Pods-CarbonFootprint.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FacebookSDK",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-google-sign-in/ios/RNGoogleSignIn",
+					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 				);
 				INFOPLIST_FILE = CarbonFootprint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1042,19 +1455,33 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CarbonFootprint;
+				SWIFT_OBJC_BRIDGING_HEADER = "CarbonFootprint-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SUPPRESS_WARNINGS = YES;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50E2F3CD465694492F9D8281 /* Pods-CarbonFootprint.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FacebookSDK",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-google-sign-in/ios/RNGoogleSignIn",
+					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 				);
 				INFOPLIST_FILE = CarbonFootprint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1064,6 +1491,9 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = CarbonFootprint;
+				SWIFT_OBJC_BRIDGING_HEADER = "CarbonFootprint-Bridging-Header.h";
+				SWIFT_SUPPRESS_WARNINGS = YES;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1083,11 +1513,17 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 				);
 				INFOPLIST_FILE = "CarbonFootprint-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1117,11 +1553,17 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 				);
 				INFOPLIST_FILE = "CarbonFootprint-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1139,6 +1581,7 @@
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1152,6 +1595,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CarbonFootprint-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1164,6 +1610,7 @@
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1176,6 +1623,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CarbonFootprint-tvOSTests";
@@ -1206,6 +1656,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "~/Documents/FacebookSDK/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1248,6 +1699,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "~/Documents/FacebookSDK/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;

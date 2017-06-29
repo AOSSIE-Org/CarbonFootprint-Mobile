@@ -9,15 +9,18 @@
 	"dependencies": {
 		"react": "16.0.0-alpha.6",
 		"react-native": "0.44.2",
-		"react-native-fbsdk": "^0.6.0",
+		"react-native-fbsdk": "0.6.0",
 		"react-native-google-sign-in": "0.0.14",
+		"react-native-router-flux": "^3.40.1",
 		"react-native-simple-auth": "^2.1.0",
 		"react-native-splash-screen": "^2.1.0",
+		"react-native-keyboard-aware-scroll-view": "^0.2.9",
+		"react-native-vector-icons": "^4.2.0",
 		"react-redux": "^5.0.5",
-		"react-router-native": "^4.1.1",
-		"redux": "^3.6.0",
+		"redux": "3.6.0",
 		"redux-logger": "^3.0.6",
-		"redux-thunk": "^2.2.0"
+		"redux-thunk": "^2.2.0",
+		"tipsi-twitter": "~1.0.0"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",

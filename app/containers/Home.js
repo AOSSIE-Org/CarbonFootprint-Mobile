@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component, cloneElement } from 'react';
 import {
     View,
-    StyleSheet
+    StyleSheet,
+    Text,
+    StatusBar
  } from 'react-native';
  import { connect } from 'react-redux';
  import { bindActionCreators } from 'redux';
 
- import * as SimpleAction from '../actions/SimpleAction';
- import * as SocialLoginAction from '../actions/SocialLoginAction';
  import * as FbLoginAction from '../actions/FbLoginAction';
  import * as GoogleLoginAction from '../actions/GoogleLoginAction';
 
- import SimpleButton from '../components/SimpleButton';
- import SocialLogin from '../components/SocialLogin';
- import FbLogin from '../components/FbLogin';
- import GoogleLogin from '../components/GoogleLogin';
+ import * as TwitterLoginAction from '../actions/TwitterLoginAction';
+
+ import ImageHeader from '../components/ImageHeader';
+ import LandingButtons from '../components/LandingButtons';
 
 class Home extends Component {
     constructor(props) {
@@ -22,41 +22,32 @@ class Home extends Component {
     }
 
     render() {
-        return (
+        return(
             <View style={styles.container}>
-                <FbLogin {...this.props} />
-                <GoogleLogin {...this.props} />
-                <SocialLogin {...this.props} id = "1"/>
-                <SocialLogin {...this.props} id = "2"/>
+                <StatusBar hidden={true} />
+                <ImageHeader text="Carbon Footprint" />
+                <LandingButtons {...this.props} />
             </View>
-        );
+        )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'flex-end',
-        margin: 20
+        flex: 1
     }
 });
 
 function mapStateToProps(state) {
-    /*
-     * Returning whole State for now.
-     * Should be segragated later as the need arises.
-     */
     return state;
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, SimpleAction, FbLoginAction, GoogleLoginAction, SocialLoginAction), dispatch) ;
+    return bindActionCreators(Object.assign({},
+        FbLoginAction,
+        GoogleLoginAction,
+        TwitterLoginAction
+    ), dispatch);
 }
 
-/*
- * This is needed to allow the components
- * to have access to Actions and store variables
- */
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
