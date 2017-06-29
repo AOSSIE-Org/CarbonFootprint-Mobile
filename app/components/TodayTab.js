@@ -9,6 +9,7 @@ import {
   TouchableNativeFeedback
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import images from '../config/images';
 
 export default class TodayTab extends Component {
 	constructor(props) {
@@ -32,7 +33,7 @@ export default class TodayTab extends Component {
 							<Text style = {styles.mediumText}>15</Text>
 							<Text style = {styles.smallText}>km</Text> 
 						</View>
-						<Image source = {require("../images/co2.png")} style = {styles.co2Icon}/>
+						<Image source = {images.co2Icon} style = {styles.co2Icon}/>
 						<View style = {styles.hrView}>
 							<Text style = {styles.mediumText}>35</Text>
 							<Text style = {styles.smallText}>kg</Text> 
