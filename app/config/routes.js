@@ -10,6 +10,7 @@ import Home from '../containers/Home';
 import Login from '../containers/Login';
 import Register from '../containers/Register';
 import Main from '../containers/Main';
+import ActivityHistory from '../containers/ActivityHistory';
 
 const RouterWithRedux = connect()(Router);
 
@@ -24,7 +25,10 @@ class Navigator extends Component {
                         <Scene key="login" component={Login} />
                         <Scene key="register" component={Register} />
                     </Scene>
-                    <Scene key="main" component={Main}/>
+                    <Scene key="mainPage" hideNavBar>
+                        <Scene key="main" component={Main} initial/>
+                        <Scene key="activityHistory" component={ActivityHistory}/>
+                    </Scene>
                 </Scene>
             </RouterWithRedux>
         )

@@ -33,7 +33,7 @@ class Main extends Component {
         <TodayTab tabLabel="Today"/>
         <ActivityTab tabLabel="Activity" {...this.props}/>
         <Text tabLabel="Paths"></Text>
-        <TimelineTab tabLabel="Timeline" link={() => Actions.activity()}/>
+        <TimelineTab tabLabel="Timeline" link={() => Actions.activityHistory()}/>
         <Text tabLabel="Friends"></Text>
       </ScrollableTabView>
     );
