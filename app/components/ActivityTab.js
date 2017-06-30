@@ -1,3 +1,10 @@
+/*
+    This is for showing current user activity.
+    It will display current detected activity, traveled distance and time, CO2 details at runtime.
+    It will also have an option to detect or manually modify activity (in case of wrong detection of activity).
+    Used External package - 'react-native-maps'
+*/
+
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -8,17 +15,20 @@ import {
   Dimensions,
   TouchableNativeFeedback
 } from 'react-native';
-import MapView from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MapView from 'react-native-maps';
 
 export default class ActivityTab extends Component {
 	constructor(props) {
 		super(props);
 	}
 
+  // Main function to set whole view of screen
+  // ScrollView is added to deal with different sizes of mobile screen.
+  // MapView component is added to display Google map showing location of user and source/destination (If entered)
 	render() {
 		return(
-      <ScrollView contentContainerStyle = {styles.scrollView}>
+      <ScrollView contentContainerStyle = {styles.scrollView}> 
         <MapView
           height={Dimensions.get("window").height * 0.5}
           initialRegion={{
@@ -42,55 +52,59 @@ export default class ActivityTab extends Component {
             strokeColor="#ffb74d" />
         </MapView>
         <View style ={styles.container}>
-        <View style = {styles.activityView}>
-        <TouchableNativeFeedback onPress = {() => this.props.detectActivity()}>
-          <View style = {styles.activity_icon}>
-            <Icon name="md-car" size={50} color="white"/>
+          <View style = {styles.activityView}>
+            <TouchableNativeFeedback onPress = {() => this.props.detectActivity()}>
+              <View style = {styles.activity_icon}>
+                <Icon name="md-car" size={50} color="white"/>
+              </View>
+            </TouchableNativeFeedback>
+            <Text style = {styles.smallText}> Detected Activity </Text>
+            <View style = {styles.hrline} />
           </View>
-        </TouchableNativeFeedback>
-          <Text style = {styles.smallText}> Detected Activity </Text>
-          <View style = {styles.hrline} />
+          <View style = {styles.statsView}>
+            <View style = {styles.statsViewItems}>
+              <View style = {styles.statsViewItems1}>
+                <Text style = {styles.largeText}>12</Text>
+                <Text style = {styles.smallText}>km</Text>
+              </View>
+              <Text style = {styles.smallText}>Travel distance</Text>
+            </View>
+            <View style = {styles.verline} />
+            <View style = {styles.statsViewItems}>
+              <View style = {styles.statsViewItems1}>
+                <Text style = {styles.largeText}>30</Text>
+                <Text style = {styles.smallText}>g</Text>
+              </View>
+              <View style = {styles.hrView}>
+               <Text style = {styles.smallText}>CO</Text>
+               <Text style = {styles.subText}>2</Text>
+               <Text style = {styles.smallText}> emitted</Text>
+              </View>
+            </View>
+            <View style = {styles.verline} />
+            <View style = {styles.statsViewItems}>
+              <View style = {styles.statsViewItems1}>
+                <Text style = {styles.largeText}>10</Text>
+                <Text style = {styles.smallText}>min</Text>
+              </View>
+              <Text style = {styles.smallText}>Travel time</Text>
+            </View>
+          </View>
         </View>
-        <View style = {styles.statsView}>
-          <View style = {styles.statsViewItems}>
-            <View style = {styles.statsViewItems1}>
-              <Text style = {styles.largeText}>12</Text>
-              <Text style = {styles.smallText}>km</Text>
-            </View>
-            <Text style = {styles.smallText}>Travel distance</Text>
-          </View>
-          <View style = {styles.verline} />
-          <View style = {styles.statsViewItems}>
-            <View style = {styles.statsViewItems1}>
-              <Text style = {styles.largeText}>30</Text>
-              <Text style = {styles.smallText}>g</Text>
-            </View>
-            <View style = {styles.hrView}>
-             <Text style = {styles.smallText}>CO</Text>
-             <Text style = {styles.subText}>2</Text>
-             <Text style = {styles.smallText}> emitted</Text>
-            </View>
-          </View>
-          <View style = {styles.verline} />
-          <View style = {styles.statsViewItems}>
-            <View style = {styles.statsViewItems1}>
-              <Text style = {styles.largeText}>10</Text>
-              <Text style = {styles.smallText}>min</Text>
-            </View>
-            <Text style = {styles.smallText}>Travel time</Text>
-          </View>
-        </View>
-      </View>
       </ScrollView>
 		);
 	}
 }
 
+// For styling the screen
 const styles = StyleSheet.create({
+  // Container for whole screen
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF'
   },
+
+  // For giving fixed height to ScrollView
   scrollView: {
     height: Dimensions.get("window").height * 0.9
   },
@@ -99,6 +113,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center'
   },
+
+  // For activity stats - Traveled distance, time and CO2 details
   statsView: {
     flex: 2,
     flexDirection: 'row',
