@@ -32,7 +32,7 @@ class Master extends Component {
             if (!props.storage.email) {
                 Actions.landing();
             } else {
-                Actions.mainPage();
+                Actions.main();
             }
         }
     }
