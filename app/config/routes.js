@@ -11,7 +11,6 @@ import Home from '../containers/Home';
 import Login from '../containers/Login';
 import Register from '../containers/Register';
 import Calculate from '../containers/Calculate';
-import Search from '../containers/Search';
 
 const RouterWithRedux = connect()(Router);
 
@@ -30,7 +29,6 @@ class Navigator extends Component {
                         <Scene key="main">
                             <Scene key="dash" initial hideNavBar>
                                 <Scene key="calculate" component={Calculate} initial />
-                                <Scene key="search" component={Search} />
                             </Scene>
                         </Scene>
                     </Scene>

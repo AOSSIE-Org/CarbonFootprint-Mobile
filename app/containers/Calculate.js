@@ -4,7 +4,8 @@ import {
     StyleSheet,
     Text,
     Dimensions,
-    StatusBar
+    StatusBar,
+    Platform
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -79,13 +80,19 @@ class Calculate extends Component {
 
                 <View style={styles.button}>
                     <View style={styles.box}>
-                        <Icon.Button name="ios-pin-outline" backgroundColor="#fff" borderRadius={0}
+                        <Icon.Button name={
+                                Platform.OS === 'android' ?
+                                "md-pin-outline" : "ios-pin-outline"
+                            } backgroundColor="#fff" borderRadius={0}
                             size={16} iconStyle={styles.icon} onPress={() => this.openSearchModal("source")}>
                             <Text style={styles.text}>{this.state.source.name}</Text>
                         </Icon.Button>
                     </View>
                     <View>
-                        <Icon.Button name="ios-flag-outline" backgroundColor="#fff" borderRadius={0}
+                        <Icon.Button name={
+                                Platform.OS === 'android' ?
+                                "md-flag-outline" : "ios-flag-outline"
+                            } backgroundColor="#fff" borderRadius={0}
                             size={16} iconStyle={styles.icon} onPress={() => this.openSearchModal("destination")}>
                             <Text style={styles.text}>{this.state.destination.name}</Text>
                         </Icon.Button>

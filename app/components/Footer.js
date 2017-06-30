@@ -5,13 +5,18 @@ import {
     Dimensions,
     StyleSheet,
     TouchableHighlight,
+    Platform
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 class Footer extends Component {
-    render() {
+    getIcon(name) {
+        return (Platform.OS === 'android' ?
+            "md-": "ios-") + name
+    }
 
+    render() {
         const size = 20;
         const active = "#538124";
         const normal = "#555";
@@ -31,28 +36,28 @@ class Footer extends Component {
                 <TouchableHighlight style={styles.touch} onPress={() => {}}
                     underlayColor={underlay} activeOpacity={0.5}>
                     <View style={styles.nav}>
-                        <Icon name="ios-pin" size={size} color={color.calculate} style={styles.icon}/>
+                        <Icon name={this.getIcon("pin")} size={size} color={color.calculate} style={styles.icon}/>
                         <Text style={[styles.text, {color: color.calculate}]}>Calculate</Text>
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.touch} onPress={() => {}}
                     underlayColor={underlay} activeOpacity={0.5}>
                     <View style={styles.nav}>
-                        <Icon name="ios-pulse" size={size} color={color.activity} style={styles.icon}/>
+                        <Icon name={this.getIcon("pulse")} size={size} color={color.activity} style={styles.icon}/>
                         <Text style={[styles.text, {color: color.activity}]}>Activity</Text>
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.touch} onPress={() => {}}
                     underlayColor={underlay} activeOpacity={0.5}>
                     <View style={styles.nav}>
-                        <Icon name="ios-people" size={size} color={color.friends} style={styles.icon}/>
+                        <Icon name={this.getIcon("people")} size={size} color={color.friends} style={styles.icon}/>
                         <Text style={[styles.text, {color: color.friends}]}>Friends</Text>
                     </View>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.touch} onPress={() => {}}
                     underlayColor={underlay} activeOpacity={0.5}>
                     <View style={styles.nav}>
-                        <Icon name="ios-more" size={size} color={normal} style={styles.icon}/>
+                        <Icon name={this.getIcon("more")} size={size} color={normal} style={styles.icon}/>
                         <Text style={[styles.text, {color: color.more}]}>More</Text>
                     </View>
                 </TouchableHighlight>
