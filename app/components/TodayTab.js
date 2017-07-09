@@ -11,6 +11,7 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  Platform,
   TouchableNativeFeedback
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -20,6 +21,11 @@ export default class TodayTab extends Component {
 	constructor(props) {
 		super(props);
 	} 
+
+	// For getting icons based on platform
+    getIcon(name) {
+      return (Platform.OS === 'android' ? "md-": "ios-") + name;
+    }
 
 	// Main function to set whole view of screen
   	// ScrollView is added to deal with different sizes of mobile screen.
@@ -58,7 +64,7 @@ export default class TodayTab extends Component {
 								<Text style = {styles.smallText}>km</Text>
 							</View>
 							<View style = {styles.activity_icon}>
-								<Icon name="md-walk" size={35} color="white"/>
+								<Icon name={this.getIcon("walk")} size={35} color="white"/>
 							</View>
 							<View style = {styles.hrView}>
 								<Text style = {styles.smallText}>7</Text>
@@ -75,7 +81,7 @@ export default class TodayTab extends Component {
 								<Text style = {styles.smallText}>km</Text>
 							</View>
 							<View style = {styles.activity_icon}>
-								<Icon name="md-bicycle" size={35} color="white"/>
+								<Icon name={this.getIcon("bicycle")} size={35} color="white"/>
 							</View>
 							<View style = {styles.hrView}>
 								<Text style = {styles.smallText}>7</Text>
@@ -92,7 +98,7 @@ export default class TodayTab extends Component {
 								<Text style = {styles.smallText}>km</Text>
 							</View>
 							<View style = {styles.activity_icon}>
-								<Icon name="md-car" size={35} color="white"/>
+								<Icon name={this.getIcon("car")} size={35} color="white"/>
 							</View>
 							<View style = {styles.hrView}>
 								<Text style = {styles.smallText}>7</Text>
@@ -109,7 +115,7 @@ export default class TodayTab extends Component {
 								<Text style = {styles.smallText}>km</Text>
 							</View>
 							<View style = {styles.activity_icon}>
-								<Icon name="md-bus" size={35} color="white"/>
+								<Icon name={this.getIcon("bus")} size={35} color="white"/>
 							</View>
 							<View style = {styles.hrView}>
 								<Text style = {styles.smallText}>7</Text>
@@ -126,7 +132,7 @@ export default class TodayTab extends Component {
 								<Text style = {styles.smallText}>km</Text>
 							</View>
 							<View style = {styles.activity_icon}>
-								<Icon name="md-train" size={35} color="white"/>
+								<Icon name={this.getIcon("train")} size={35} color="white"/>
 							</View>
 							<View style = {styles.hrView}>
 								<Text style = {styles.smallText}>7</Text>
