@@ -1,3 +1,7 @@
+/*
+ * Handles SET and GET Operations on AsyncStorage
+*/
+
 import { AsyncStorage } from 'react-native';
 
 export const REQUEST_STORAGE = "REQUEST_STORAGE";
@@ -34,7 +38,7 @@ export function setStorage(value) {
         dispatch(receive_storage(value));
         AsyncStorage.setItem('email', value)
             .catch(err => {
-                console.log("Error while setting")
+                alert("Error while setting")
             })
     }
 }

@@ -74,10 +74,6 @@
 		F5A943F21F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
 		F5A943F31F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
 		F5A943F41F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
-		F5B448E81EFD319E0042ABBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */; };
-		F5B448E91EFD319E0042ABBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */; };
-		F5B448EA1EFD319E0042ABBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */; };
-		F5B448EB1EFD319E0042ABBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */; };
 		F5B4490B1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
 		F5B4490C1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
 		F5B4490D1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
@@ -432,7 +428,6 @@
 		F57062871F050A250019039C /* RCTConvert+GMSMapViewType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+GMSMapViewType.h"; sourceTree = "<group>"; };
 		F57062881F050A250019039C /* RCTConvert+GMSMapViewType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+GMSMapViewType.m"; sourceTree = "<group>"; };
 		F5A943F01F01008C005782C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F5B449061EFD3B040042ABBA /* RNGoogleSignIn-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNGoogleSignIn-Bridging-Header.h"; sourceTree = "<group>"; };
 		F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNGoogleSignIn.swift; sourceTree = "<group>"; };
 		F5B449081EFD3B040042ABBA /* RNGoogleSignInBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGoogleSignInBridge.m; sourceTree = "<group>"; };
@@ -703,7 +698,6 @@
 				F57062621F050A240019039C /* AirGoogleMaps */,
 				F5A943F01F01008C005782C7 /* GoogleService-Info.plist */,
 				F5B449051EFD3B040042ABBA /* RNGoogleSignIn */,
-				F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */,
 				F5D5D82F1EFBF12000D87D33 /* Frameworks */,
 				13B07FAE1A68108700A75B9A /* CarbonFootprint */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -1274,7 +1268,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5B448E91EFD319E0042ABBA /* GoogleService-Info.plist in Resources */,
 				F5A943F21F01008C005782C7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1289,7 +1282,6 @@
 				57BAF72A91B248DE96F50E85 /* EvilIcons.ttf in Resources */,
 				A2006F139F174ADD812221A9 /* FontAwesome.ttf in Resources */,
 				F677458067FE4EDB81140F48 /* Foundation.ttf in Resources */,
-				F5B448E81EFD319E0042ABBA /* GoogleService-Info.plist in Resources */,
 				10A5D7471BFF4999AD98B44E /* Ionicons.ttf in Resources */,
 				88107E9FA8124B3DBA7CF8AD /* MaterialCommunityIcons.ttf in Resources */,
 				DB764A4E12D0475D8B674415 /* MaterialIcons.ttf in Resources */,
@@ -1304,7 +1296,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
-				F5B448EA1EFD319E0042ABBA /* GoogleService-Info.plist in Resources */,
 				F5A943F31F01008C005782C7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1313,7 +1304,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5B448EB1EFD319E0042ABBA /* GoogleService-Info.plist in Resources */,
 				F5A943F41F01008C005782C7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

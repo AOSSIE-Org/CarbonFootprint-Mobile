@@ -28,7 +28,8 @@ class Footer extends Component {
                         active: normal,
             friends: this.props.name === 'friends' ?
                         active: normal,
-            more: normal
+            more: this.props.name === 'more' ?
+                        active: normal
         }
 
         return(

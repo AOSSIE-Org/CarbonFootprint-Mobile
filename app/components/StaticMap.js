@@ -57,7 +57,9 @@ class StaticMap extends Component {
             }} pinColor={color}/>
         )
     }
-
+    /* This is not a good way to return
+     * Have to take Earth's Spherical Nature into account
+     */
     getRegion(source, destination) {
         minX = Math.min(source.latitude, destination.latitude);
         minY = Math.min(source.longitude, destination.longitude);

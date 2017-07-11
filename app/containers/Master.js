@@ -17,7 +17,6 @@ class Master extends Component {
 
     componentWillMount() {
         this.props.getStorage();
-        console.log(this.props);
     }
 
     componentDidMount() {
@@ -25,6 +24,7 @@ class Master extends Component {
     }
 
     componentWillReceiveProps(props) {
+        console.log(props);
         if (!props.storage.isFetching) {
             SplashScreen.hide();
             if (!props.storage.email) {
@@ -63,7 +63,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, StorageAction), dispatch)
+    return bindActionCreators(Object.assign({}, StorageAction), dispatch);
 }
 
 /*
