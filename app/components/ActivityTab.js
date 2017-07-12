@@ -28,7 +28,7 @@ export default class ActivityTab extends Component {
   // MapView component is added to display Google map showing location of user and source/destination (If entered)
 	render() {
 		return(
-      <ScrollView contentContainerStyle = {styles.scrollView}> 
+      <ScrollView contentContainerStyle = {styles.scrollView}>
         <MapView
           height={Dimensions.get("window").height * 0.5}
           initialRegion={{
@@ -40,13 +40,13 @@ export default class ActivityTab extends Component {
           <MapView.Marker
             coordinate={{latitude: 37.78825, longitude: -122.4324}}
             title="Source"
-            description="Source" /> 
+            description="Source" />
           <MapView.Marker
             coordinate={{latitude: 37.78800, longitude: -122.4300}}
             pinColor="green"
             title="Destination"
             description="Destination" />
-          <MapView.Polyline 
+          <MapView.Polyline
             coordinates={[{latitude: 37.78825, longitude: -122.4324}, {latitude: 37.78800, longitude: -122.4300}]}
             strokeWidth={5}
             strokeColor="#ffb74d" />
@@ -167,7 +167,6 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     fontSize: 45,
     color: '#37474f',
-    fontFamily: 'sans-serif'
   },
   subText: {
     fontSize: 9,

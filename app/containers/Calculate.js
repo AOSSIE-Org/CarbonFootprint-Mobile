@@ -12,12 +12,14 @@ import { bindActionCreators } from 'redux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
+import _ from 'lodash';
 
 import * as LocationAction from '../actions/LocationAction';
+import * as DirectionAction from '../actions/DirectionAction';
 
 import Footer from '../components/Footer';
 import StaticMap from '../components/StaticMap';
-import RNGooglePlaces from 'react-native-google-places';
+import FootprintCard from '../components/FootprintCard';
 
 class Calculate extends Component {
     constructor(props) {
@@ -25,13 +27,11 @@ class Calculate extends Component {
         this.state = {
             source: {
                 latitude: null,
-                longitude: null,
-                name: ""
+                longitude: null
             },
             destination: {
                 latitude: null,
                 longitude: null,
-                name: "Where to?"
             }
         }
     }
@@ -41,42 +41,44 @@ class Calculate extends Component {
     }
 
     componentWillReceiveProps(props) {
-        let source = this.state.source;
-        source.latitude = props.location.latitude;
-        source.longitude = props.location.longitude;
-        source.name = "Your Location";
-        this.setState({source});
-    }
-
-    openSearchModal(key) {
-        RNGooglePlaces.openAutocompleteModal()
-            .then((place) => {
-                let data = this.state[key];
-                data.latitude = place.latitude;
-                data.longitude = place.longitude;
-                data.name = place.name;
-                this.setState({ [key]: data });
-            })
-            .catch(error => {
-                console.log(error.message);
-            });
-       return;
+        let source = props.direction.source;
+        let destination = props.direction.destination;
+        if (source.latitude) {
+            if (destination.latitude) {
+                if (!_.isEqual(this.state.source, source) ||
+                    !_.isEqual(this.state.destination, destination)) {
+                        this.setState({
+                            source,
+                            destination
+                        });
+                        props.getDirections(source, destination);
+                    }
+            }
+        }
     }
 
     render() {
+        let direction = this.props.direction;
+        let source = direction.source;
+        let destination = direction.destination;
+        let region = direction.region;
+        let coords = direction.coords;
+        let map = null;
+        
+        if (source.latitude) {
+            if (destination.latitude) {
+                map = <StaticMap source={source} destination={destination}
+                        region={region} coords={coords} />
+            } else {
+                map = <StaticMap source={source} region={region} />
+            }
+        }
+
         return(
             <View style={styles.container}>
                 <StatusBar hidden={true} />
-                {
-                    this.state.source.latitude && !this.state.destination.latitude ?
-                    <StaticMap source={this.state.source} />
-                    : null
-                }
-                {
-                    this.state.source.latitude && this.state.destination.latitude ?
-                    <StaticMap source={this.state.source} destination={this.state.destination} />
-                    : null
-                }
+
+                {map}
 
                 <View style={styles.button}>
                     <View style={styles.box}>
@@ -84,8 +86,9 @@ class Calculate extends Component {
                                 Platform.OS === 'android' ?
                                 "md-pin-outline" : "ios-pin-outline"
                             } backgroundColor="#fff" borderRadius={0}
-                            size={16} iconStyle={styles.icon} onPress={() => this.openSearchModal("source")}>
-                            <Text style={styles.text}>{this.state.source.name}</Text>
+                            size={16} iconStyle={styles.icon}
+                            onPress={() => this.props.openSearchModal(0)}>
+                            <Text style={styles.text}>{direction.sourceName}</Text>
                         </Icon.Button>
                     </View>
                     <View>
@@ -93,11 +96,17 @@ class Calculate extends Component {
                                 Platform.OS === 'android' ?
                                 "md-flag-outline" : "ios-flag-outline"
                             } backgroundColor="#fff" borderRadius={0}
-                            size={16} iconStyle={styles.icon} onPress={() => this.openSearchModal("destination")}>
-                            <Text style={styles.text}>{this.state.destination.name}</Text>
+                            size={16} iconStyle={styles.icon}
+                            onPress={() => this.props.openSearchModal(1)}>
+                            <Text style={styles.text}>{direction.destinationName}</Text>
                         </Icon.Button>
                     </View>
                 </View>
+                {
+                    coords ?
+                    <FootprintCard distance={direction.distance} duration={direction.duration} />
+                    : null
+                }
                 <Footer name="calculate" />
             </View>
         )
@@ -144,7 +153,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, LocationAction), dispatch);
+    return bindActionCreators(Object.assign({},
+        LocationAction,
+        DirectionAction
+    ), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Calculate);

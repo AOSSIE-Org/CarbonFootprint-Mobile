@@ -1,3 +1,8 @@
+import {
+    set_source,
+    getRegion,
+    set_region } from './DirectionAction';
+
 export const REQUEST_LOCATION = "REQUEST_LOCATION";
 export const RECEIVE_LOCATION = "RECEIVE_LOCATION";
 
@@ -49,9 +54,17 @@ export function getLocation() {
         if (value) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    dispatch(receive_location(position.coords.latitude,
-                        position.coords.longitude
-                    ));
+                    let lat = position.coords.latitude;
+                    let lng = position.coords.longitude;
+                    dispatch(receive_location(lat, lng));
+                    getRegion({ latitude: lat, longitude: lng }, null)
+                    .then(result => {
+                        dispatch(set_region(result));
+                        dispatch(set_source({
+                            latitude: lat,
+                            longitude: lng,
+                        }, "Your Location"));
+                    })
                 },
                 (error) => {console.log("Geolocation Error: ", error)},
                 { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },

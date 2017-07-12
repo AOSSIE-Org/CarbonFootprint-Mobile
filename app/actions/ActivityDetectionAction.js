@@ -36,6 +36,5 @@ export function detectActivity() {
     //Stop activity detection and remove the listener
     //ActivityRecognition.stop() ;
     //this.unsubscribe() ;
-    */
   }
 }

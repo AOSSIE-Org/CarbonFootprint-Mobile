@@ -34,14 +34,14 @@ class Footer extends Component {
 
         return(
             <View style={styles.container}>
-                <TouchableHighlight style={styles.touch} onPress={() => {}}
+                <TouchableHighlight style={styles.touch} onPress={() => {Actions.calculate()}}
                     underlayColor={underlay} activeOpacity={0.5}>
                     <View style={styles.nav}>
                         <Icon name={this.getIcon("pin")} size={size} color={color.calculate} style={styles.icon}/>
                         <Text style={[styles.text, {color: color.calculate}]}>Calculate</Text>
                     </View>
                 </TouchableHighlight>
-                <TouchableHighlight style={styles.touch} onPress={() => {}}
+                <TouchableHighlight style={styles.touch} onPress={() => {Actions.activity()}}
                     underlayColor={underlay} activeOpacity={0.5}>
                     <View style={styles.nav}>
                         <Icon name={this.getIcon("pulse")} size={size} color={color.activity} style={styles.icon}/>
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
         shadowColor: '#ddd',
         zIndex: 3,
         position: 'absolute',
+        height: 45,
     },
     nav: {
         alignItems: 'center',

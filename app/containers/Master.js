@@ -19,12 +19,7 @@ class Master extends Component {
         this.props.getStorage();
     }
 
-    componentDidMount() {
-
-    }
-
     componentWillReceiveProps(props) {
-        console.log(props);
         if (!props.storage.isFetching) {
             SplashScreen.hide();
             if (!props.storage.email) {
