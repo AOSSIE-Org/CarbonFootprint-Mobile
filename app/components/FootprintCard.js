@@ -10,13 +10,6 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 
 class FootprintCard extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            tab: 0
-        }
-    }
-
     getIcon(icon) {
         return Platform.OS === "android" ?
             "md-" + icon : "ios-" + icon
@@ -49,18 +42,15 @@ class FootprintCard extends Component {
                     {
                         tabs.map((item) =>
                             <TouchableHighlight style={[
-                                this.state.tab === item.value ?
+                                props.tab === item.value ?
                                 styles.tab: null, styles.tabWidth
-                            ]} onPress={() => this.setState({ tab: item.value })}
+                            ]} onPress={() => props.onChangeTab(item.value)}
                             key={item.value} underlayColor="#fff" activeOpacity={0.5}>
                                 <Icon name={item.icon} size={20} color="#4D72B8" />
                             </TouchableHighlight>
                         )
                     }
                 </View>
-                /*
-                 * This will be dynamic content will Carbon Footprint Values
-                 */
                 <View style={styles.tabContent}>
                     <View style={styles.routeContent}>
                         <Text style={styles.route}>

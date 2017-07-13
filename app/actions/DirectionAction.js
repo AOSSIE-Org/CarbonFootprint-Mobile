@@ -120,15 +120,26 @@ export function openSearchModal(key) {
     }
 }
 
-export function getDirections(source, destination) {
+export function getDirections(source, destination, code) {
     return (dispatch, state) => {
         dispatch(request_direction());
         let start = source.latitude.toString() + ',' + source.longitude.toString();
         let end = destination.latitude.toString() + ',' + destination.longitude.toString();
+        let mode = "";
+        if (code === 1) {
+            mode = "transit"
+        } else if (code === 2) {
+            mode = "bicycling"
+        } else if (code === 3) {
+            mode = "walking"
+        } else {
+            mode = "driving"
+        }
 
-        return fetch(`https://maps.googleapis.com/maps/api/directions/json?travelmode=transit&origin=${start}&destination=${end}`)
+        return fetch(`https://maps.googleapis.com/maps/api/directions/json?mode=${mode}&origin=${start}&destination=${end}`)
             .then(response => response.json())
             .then(json => {
+                console.log(json);
                 // Handle case for routes not found
                 let legs = json.routes[0].legs[0];
                 dispatch(set_distance(legs.distance));

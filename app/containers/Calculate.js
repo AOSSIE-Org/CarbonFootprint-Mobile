@@ -32,7 +32,8 @@ class Calculate extends Component {
             destination: {
                 latitude: null,
                 longitude: null,
-            }
+            },
+            tab: 0,
         }
     }
 
@@ -43,6 +44,8 @@ class Calculate extends Component {
     componentWillReceiveProps(props) {
         let source = props.direction.source;
         let destination = props.direction.destination;
+        let tab = this.state.tab;
+        // I dare you to remove this condition
         if (source.latitude) {
             if (destination.latitude) {
                 if (!_.isEqual(this.state.source, source) ||
@@ -51,10 +54,19 @@ class Calculate extends Component {
                             source,
                             destination
                         });
-                        props.getDirections(source, destination);
+                        props.getDirections(source, destination, tab);
                     }
             }
         }
+    }
+
+    onChangeTab(tab) {
+        let state;
+        this.setState({
+            tab
+        });
+        state = this.state;
+        this.props.getDirections(state.source, state.destination, state.tab);
     }
 
     render() {
@@ -64,7 +76,7 @@ class Calculate extends Component {
         let region = direction.region;
         let coords = direction.coords;
         let map = null;
-        
+
         if (source.latitude) {
             if (destination.latitude) {
                 map = <StaticMap source={source} destination={destination}
@@ -104,7 +116,10 @@ class Calculate extends Component {
                 </View>
                 {
                     coords ?
-                    <FootprintCard distance={direction.distance} duration={direction.duration} />
+                    <FootprintCard distance={direction.distance}
+                        duration={direction.duration}
+                        onChangeTab={this.onChangeTab.bind(this)}
+                        footprint={160} tab={this.state.tab} />
                     : null
                 }
                 <Footer name="calculate" />

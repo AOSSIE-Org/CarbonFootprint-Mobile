@@ -24,7 +24,6 @@ class StaticMap extends Component {
 
     render() {
         let props = this.props;
-        console.log(props);
         return(
             <MapView provider={PROVIDER_GOOGLE}
                 region={props.region} style={styles.map} fitToElements={true}>
