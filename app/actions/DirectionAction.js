@@ -61,10 +61,10 @@ export function getRegion(source, destination) {
             }
 
         } else {
-            minX = Math.min(source.latitude, destination.latitude);
-            minY = Math.min(source.longitude, destination.longitude);
-            maxX = Math.max(source.latitude, destination.latitude);
-            maxY = Math.max(source.longitude, destination.longitude);
+            let minX = Math.min(source.latitude, destination.latitude);
+            let minY = Math.min(source.longitude, destination.longitude);
+            let maxX = Math.max(source.latitude, destination.latitude);
+            let maxY = Math.max(source.longitude, destination.longitude);
             data = {
                 latitude: (minX + maxX) / 2,
                 longitude: (minY + minY) / 2,
@@ -139,24 +139,27 @@ export function getDirections(source, destination, code) {
         return fetch(`https://maps.googleapis.com/maps/api/directions/json?mode=${mode}&origin=${start}&destination=${end}`)
             .then(response => response.json())
             .then(json => {
-                console.log(json);
                 // Handle case for routes not found
-                let legs = json.routes[0].legs[0];
-                dispatch(set_distance(legs.distance));
-                dispatch(set_duration(legs.duration));
+                if (!("routes" in json) || json.routes.length <= 0) {
+                    dispatch(receive_direction(null));
+                } else {
+                    let legs = json.routes[0].legs[0];
+                    dispatch(set_distance(legs.distance));
+                    dispatch(set_duration(legs.duration));
 
-                let points = Polyline.decode(json.routes[0].overview_polyline.points);
-                let coords = points.map((point, index) => {
-                    return  {
-                        latitude : point[0],
-                        longitude : point[1]
-                    }
-                });
-                getRegion(source, destination)
-                .then(result => {
-                    dispatch(set_region(result));
-                    dispatch(receive_direction(coords));
-                })
+                    let points = Polyline.decode(json.routes[0].overview_polyline.points);
+                    let coords = points.map((point, index) => {
+                        return  {
+                            latitude : point[0],
+                            longitude : point[1]
+                        }
+                    });
+                    getRegion(source, destination)
+                    .then(result => {
+                        dispatch(set_region(result));
+                        dispatch(receive_direction(coords));
+                    })
+                }
             })
             .catch(error => console.log(error))
     }
