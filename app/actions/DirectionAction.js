@@ -67,9 +67,9 @@ export function getRegion(source, destination) {
             let maxY = Math.max(source.longitude, destination.longitude);
             data = {
                 latitude: (minX + maxX) / 2,
-                longitude: (minY + minY) / 2,
-                latitudeDelta: (maxX - minX),
-                longitudeDelta: (maxY - minY)
+                longitude: (minY + maxY) / 2,
+                latitudeDelta: Math.max((maxX - minX), 0.032),
+                longitudeDelta: Math.max((maxY - minY), 0.032)
             }
         }
         resolve(data);

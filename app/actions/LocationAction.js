@@ -1,7 +1,9 @@
 import {
     set_source,
     getRegion,
-    set_region } from './DirectionAction';
+    set_region
+} from './DirectionAction';
+import { PermissionsAndroid } from 'react-native';
 
 export const REQUEST_LOCATION = "REQUEST_LOCATION";
 export const RECEIVE_LOCATION = "RECEIVE_LOCATION";
@@ -25,7 +27,7 @@ function receive_location(latitude, longitude) {
 async function getPermission() {
     try {
         const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.LOCATION,
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
             {
                 'title': 'Carbon Footprint Geolocation Permission',
                 'message': 'Allow Carbon Footprint to access your current location'
@@ -39,7 +41,7 @@ async function getPermission() {
             return false;
         }
     } catch (err) {
-        console.log("Error");
+        console.log("Error", err);
         return false;
     }
 }

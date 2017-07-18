@@ -96,7 +96,7 @@ class Calculate extends Component {
                     <View style={styles.box}>
                         <Icon.Button name={
                                 Platform.OS === 'android' ?
-                                "md-pin-outline" : "ios-pin-outline"
+                                "md-pin" : "ios-pin-outline"
                             } backgroundColor="#fff" borderRadius={0}
                             size={16} iconStyle={styles.icon}
                             onPress={() => this.props.openSearchModal(0)}>
@@ -106,7 +106,7 @@ class Calculate extends Component {
                     <View>
                         <Icon.Button name={
                                 Platform.OS === 'android' ?
-                                "md-flag-outline" : "ios-flag-outline"
+                                "md-flag" : "ios-flag-outline"
                             } backgroundColor="#fff" borderRadius={0}
                             size={16} iconStyle={styles.icon}
                             onPress={() => this.props.openSearchModal(1)}>
