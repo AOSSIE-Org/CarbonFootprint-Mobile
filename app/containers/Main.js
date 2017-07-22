@@ -18,13 +18,15 @@ import TimelineTab from '../components/TimelineTab';
 import { Actions } from 'react-native-router-flux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
+import Footer from '../components/Footer';
+
 class Main extends Component {
   constructor(props) {
     super(props);
   }
 
   // Main function to set whole view of container, Contains various components as children
-  // It sends 'Actions.activity()' to TimelineTab as link (prop) so that TimelineTab can navigate to Activity container (When needed) 
+  // It sends 'Actions.activity()' to TimelineTab as link (prop) so that TimelineTab can navigate to Activity container (When needed)
   render() {
     return (
 
@@ -35,6 +37,7 @@ class Main extends Component {
         <Text tabLabel="Paths"></Text>
         <TimelineTab tabLabel="Timeline" link={() => Actions.activityHistory()}/>
         <Text tabLabel="Friends"></Text>
+        <Footer name="activity" />
       </ScrollableTabView>
     );
   }

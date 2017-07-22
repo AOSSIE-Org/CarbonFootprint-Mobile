@@ -14,6 +14,9 @@
 #import "SplashScreen.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+@import GooglePlaces;
+@import GoogleMaps;
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -23,6 +26,9 @@
   NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
   
   NSURL *jsCodeLocation;
+  
+  [GMSPlacesClient provideAPIKey:@"AIzaSyCsTBwMrjO-OQWpbr-DzQOaXLONlKVkTDI"];
+  [GMSServices provideAPIKey:@"AIzaSyAZoTeY9VAiRcLeAamafhjxe0Qk5TCZZsI"];
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 

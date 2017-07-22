@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import { Actions, ActionConst } from 'react-native-router-flux';
 import ImageHeader from './ImageHeader';
 
 class LoginForm extends Component {
@@ -29,14 +29,19 @@ class LoginForm extends Component {
                     <View style={styles.input}>
                         <Icon name="envelope" size={16} color="#666" />
                         <TextInput placeholder="Email" style={styles.field} autoCapitalize='none'
-                            onChangeText={(text) => this.setState({email: text})}/>
+                            onChangeText={(text) => this.setState({email: text})}
+                            underlineColorAndroid='transparent'/>
                     </View>
                     <View style={[styles.input, styles.inputTop]}>
                         <Icon name="lock" size={18} color="#666" />
                         <TextInput placeholder="Password" style={styles.field} secureTextEntry={true}
-                            onChangeText={(text) => this.setState({password: text})} autoCapitalize='none'/>
+                            onChangeText={(text) => this.setState({password: text})} autoCapitalize='none'
+                            underlineColorAndroid='transparent'/>
                     </View>
-                    <TouchableHighlight onPress={() => {}} style={styles.button}>
+                    <TouchableHighlight onPress={() => {
+                            Actions.main({type: ActionConst.RESET});
+                            Actions.calculate()
+                        }} style={styles.button}>
                         <Text style={styles.text}>Login</Text>
                     </TouchableHighlight>
                 </KeyboardAwareScrollView>

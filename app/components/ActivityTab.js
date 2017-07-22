@@ -183,13 +183,30 @@ export default class ActivityTab extends Component {
       }
     }
 		return(
-      <ScrollView contentContainerStyle = {styles.scrollView}> 
+      <ScrollView contentContainerStyle = {styles.scrollView}>
         <MapView
           height={Dimensions.get("window").height * 0.5}
           ref={(map)=>this._map = map}
           showsUserLocation={true} >
           <MapView.Polyline 
             coordinates={this.state.routeCoordinates}
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0030,
+              longitudeDelta: 0.0030,
+            }} >
+          <MapView.Marker
+            coordinate={{latitude: 37.78825, longitude: -122.4324}}
+            title="Source"
+            description="Source" />
+          <MapView.Marker
+            coordinate={{latitude: 37.78800, longitude: -122.4300}}
+            pinColor="green"
+            title="Destination"
+            description="Destination" />
+          <MapView.Polyline
+            coordinates={[{latitude: 37.78825, longitude: -122.4324}, {latitude: 37.78800, longitude: -122.4300}]}
             strokeWidth={5}
             strokeColor="#ffb74d" />
         </MapView>
@@ -309,7 +326,6 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     fontSize: 45,
     color: '#37474f',
-    fontFamily: 'sans-serif'
   },
   subText: {
     fontSize: 9,

@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -12,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* CarbonFootprintTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CarbonFootprintTests.m */; };
+		03D8CAA5C65E45E0846ED585 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B98AE812074907AC1A9954 /* libAirMaps.a */; };
 		10A5D7471BFF4999AD98B44E /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A93C7750CAF4F518D863ED8 /* Ionicons.ttf */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
@@ -35,6 +37,7 @@
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* CarbonFootprintTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CarbonFootprintTests.m */; };
 		3AE1C1DD939C49FDA5CB3CFD /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A599F0D974CF4CC1AEAE0D87 /* Entypo.ttf */; };
+		4B095198574F4A0F9AC0C1C6 /* libRNGooglePlaces.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C877B0260141BCA0F09136 /* libRNGooglePlaces.a */; };
 		57BAF72A91B248DE96F50E85 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8979065FA6AB45E0B9F4CEEE /* EvilIcons.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6C734096C6204BA8A19AC2B7 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4248B70F9B484F87D46A48 /* Octicons.ttf */; };
@@ -48,14 +51,29 @@
 		DB764A4E12D0475D8B674415 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0FEEB75EE8449C2897CFE16 /* MaterialIcons.ttf */; };
 		E010E57F7FE04513991FFCC2 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F71276B101B04C499B6D2ED6 /* libRCTFBSDK.a */; };
 		F0093083142246609251DECC /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A2AC2B03F374A7C83525131 /* libRNVectorIcons.a */; };
+		F57062891F050A250019039C /* AIRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062641F050A240019039C /* AIRGMSMarker.m */; };
+		F570628A1F050A250019039C /* AIRGMSPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062661F050A240019039C /* AIRGMSPolygon.m */; };
+		F570628B1F050A250019039C /* AIRGMSPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062681F050A240019039C /* AIRGMSPolyline.m */; };
+		F570628C1F050A250019039C /* AIRGoogleMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F570626A1F050A240019039C /* AIRGoogleMap.m */; };
+		F570628D1F050A250019039C /* AIRGoogleMapCallout.m in Sources */ = {isa = PBXBuildFile; fileRef = F570626C1F050A240019039C /* AIRGoogleMapCallout.m */; };
+		F570628E1F050A250019039C /* AIRGoogleMapCalloutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F570626E1F050A240019039C /* AIRGoogleMapCalloutManager.m */; };
+		F570628F1F050A250019039C /* AIRGoogleMapCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062701F050A240019039C /* AIRGoogleMapCircle.m */; };
+		F57062901F050A250019039C /* AIRGoogleMapCircleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062721F050A240019039C /* AIRGoogleMapCircleManager.m */; };
+		F57062911F050A250019039C /* AIRGoogleMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062741F050A250019039C /* AIRGoogleMapManager.m */; };
+		F57062921F050A250019039C /* AIRGoogleMapMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062761F050A250019039C /* AIRGoogleMapMarker.m */; };
+		F57062931F050A250019039C /* AIRGoogleMapMarkerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062781F050A250019039C /* AIRGoogleMapMarkerManager.m */; };
+		F57062941F050A250019039C /* AIRGoogleMapPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = F570627A1F050A250019039C /* AIRGoogleMapPolygon.m */; };
+		F57062951F050A250019039C /* AIRGoogleMapPolygonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F570627C1F050A250019039C /* AIRGoogleMapPolygonManager.m */; };
+		F57062961F050A250019039C /* AIRGoogleMapPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = F570627E1F050A250019039C /* AIRGoogleMapPolyline.m */; };
+		F57062971F050A250019039C /* AIRGoogleMapPolylineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062801F050A250019039C /* AIRGoogleMapPolylineManager.m */; };
+		F57062981F050A250019039C /* AIRGoogleMapUrlTile.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062821F050A250019039C /* AIRGoogleMapUrlTile.m */; };
+		F57062991F050A250019039C /* AIRGoogleMapURLTileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062841F050A250019039C /* AIRGoogleMapURLTileManager.m */; };
+		F570629A1F050A250019039C /* DummyView.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062861F050A250019039C /* DummyView.m */; };
+		F570629B1F050A250019039C /* RCTConvert+GMSMapViewType.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062881F050A250019039C /* RCTConvert+GMSMapViewType.m */; };
 		F5A943F11F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
 		F5A943F21F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
 		F5A943F31F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
 		F5A943F41F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
-		F5B448E81EFD319E0042ABBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */; };
-		F5B448E91EFD319E0042ABBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */; };
-		F5B448EA1EFD319E0042ABBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */; };
-		F5B448EB1EFD319E0042ABBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */; };
 		F5B4490B1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
 		F5B4490C1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
 		F5B4490D1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
@@ -82,7 +100,6 @@
 		F5D5D83B1EFBF16D00D87D33 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D5D8331EFBF16D00D87D33 /* FBSDKShareKit.framework */; };
 		F674EA4E4F3646EB926D841C /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33E38C153C724BB6ACFB2C9E /* Zocial.ttf */; };
 		F677458067FE4EDB81140F48 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2635DEB60C3B4792B60920DD /* Foundation.ttf */; };
-		93BF7B0AC1974D68936F6190 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8D5F405B054E5CA62F3C77 /* libAirMaps.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,6 +292,20 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		F51BDC1D1F055323006F272C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0FFFFDA02D0457A8A02B190 /* RNGooglePlaces.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNGooglePlaces;
+		};
+		F52685C51F04237400DB3767 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CEFBEE35FBAB42C589ED8413 /* AirMaps.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
+			remoteInfo = AirMaps;
+		};
 		F595C8961EFD4666002C9CC7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 46A895EBAD474754AEB94019 /* TPSTwitterModule.xcodeproj */;
@@ -336,6 +367,7 @@
 		4A4248B70F9B484F87D46A48 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		4F1AA4D79EF54C47071B875E /* libPods-CarbonFootprint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarbonFootprint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E2F3CD465694492F9D8281 /* Pods-CarbonFootprint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarbonFootprint.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarbonFootprint/Pods-CarbonFootprint.release.xcconfig"; sourceTree = "<group>"; };
+		59B98AE812074907AC1A9954 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		5A2AC2B03F374A7C83525131 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		5A93C7750CAF4F518D863ED8 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
@@ -349,13 +381,53 @@
 		A599F0D974CF4CC1AEAE0D87 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		C0BBECC6502D68F5FC2C0B95 /* libPods-CarbonFootprintTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarbonFootprintTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C48E28238EB94777A3C9AD28 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		C8C877B0260141BCA0F09136 /* libRNGooglePlaces.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGooglePlaces.a; sourceTree = "<group>"; };
+		CEFBEE35FBAB42C589ED8413 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
+		D0FFFFDA02D0457A8A02B190 /* RNGooglePlaces.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGooglePlaces.xcodeproj; path = "../node_modules/react-native-google-places/ios/RNGooglePlaces.xcodeproj"; sourceTree = "<group>"; };
 		D5EECF016FED4B66A7664DC2 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		E0FEEB75EE8449C2897CFE16 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		F3F1DF11C6EBF233C6DA4B99 /* Pods-CarbonFootprintTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarbonFootprintTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarbonFootprintTests/Pods-CarbonFootprintTests.release.xcconfig"; sourceTree = "<group>"; };
 		F5097DCC1EFD268E00F18E54 /* CarbonFootprint-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarbonFootprint-Bridging-Header.h"; sourceTree = "<group>"; };
 		F5097DCD1EFD268E00F18E54 /* CarbonFootprintTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarbonFootprintTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		F57062631F050A240019039C /* AIRGMSMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGMSMarker.h; sourceTree = "<group>"; };
+		F57062641F050A240019039C /* AIRGMSMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGMSMarker.m; sourceTree = "<group>"; };
+		F57062651F050A240019039C /* AIRGMSPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGMSPolygon.h; sourceTree = "<group>"; };
+		F57062661F050A240019039C /* AIRGMSPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGMSPolygon.m; sourceTree = "<group>"; };
+		F57062671F050A240019039C /* AIRGMSPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGMSPolyline.h; sourceTree = "<group>"; };
+		F57062681F050A240019039C /* AIRGMSPolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGMSPolyline.m; sourceTree = "<group>"; };
+		F57062691F050A240019039C /* AIRGoogleMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMap.h; sourceTree = "<group>"; };
+		F570626A1F050A240019039C /* AIRGoogleMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMap.m; sourceTree = "<group>"; };
+		F570626B1F050A240019039C /* AIRGoogleMapCallout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapCallout.h; sourceTree = "<group>"; };
+		F570626C1F050A240019039C /* AIRGoogleMapCallout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapCallout.m; sourceTree = "<group>"; };
+		F570626D1F050A240019039C /* AIRGoogleMapCalloutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapCalloutManager.h; sourceTree = "<group>"; };
+		F570626E1F050A240019039C /* AIRGoogleMapCalloutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapCalloutManager.m; sourceTree = "<group>"; };
+		F570626F1F050A240019039C /* AIRGoogleMapCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapCircle.h; sourceTree = "<group>"; };
+		F57062701F050A240019039C /* AIRGoogleMapCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapCircle.m; sourceTree = "<group>"; };
+		F57062711F050A240019039C /* AIRGoogleMapCircleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapCircleManager.h; sourceTree = "<group>"; };
+		F57062721F050A240019039C /* AIRGoogleMapCircleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapCircleManager.m; sourceTree = "<group>"; };
+		F57062731F050A240019039C /* AIRGoogleMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapManager.h; sourceTree = "<group>"; };
+		F57062741F050A250019039C /* AIRGoogleMapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapManager.m; sourceTree = "<group>"; };
+		F57062751F050A250019039C /* AIRGoogleMapMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapMarker.h; sourceTree = "<group>"; };
+		F57062761F050A250019039C /* AIRGoogleMapMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapMarker.m; sourceTree = "<group>"; };
+		F57062771F050A250019039C /* AIRGoogleMapMarkerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapMarkerManager.h; sourceTree = "<group>"; };
+		F57062781F050A250019039C /* AIRGoogleMapMarkerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapMarkerManager.m; sourceTree = "<group>"; };
+		F57062791F050A250019039C /* AIRGoogleMapPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapPolygon.h; sourceTree = "<group>"; };
+		F570627A1F050A250019039C /* AIRGoogleMapPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapPolygon.m; sourceTree = "<group>"; };
+		F570627B1F050A250019039C /* AIRGoogleMapPolygonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapPolygonManager.h; sourceTree = "<group>"; };
+		F570627C1F050A250019039C /* AIRGoogleMapPolygonManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapPolygonManager.m; sourceTree = "<group>"; };
+		F570627D1F050A250019039C /* AIRGoogleMapPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapPolyline.h; sourceTree = "<group>"; };
+		F570627E1F050A250019039C /* AIRGoogleMapPolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapPolyline.m; sourceTree = "<group>"; };
+		F570627F1F050A250019039C /* AIRGoogleMapPolylineManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapPolylineManager.h; sourceTree = "<group>"; };
+		F57062801F050A250019039C /* AIRGoogleMapPolylineManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapPolylineManager.m; sourceTree = "<group>"; };
+		F57062811F050A250019039C /* AIRGoogleMapUrlTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapUrlTile.h; sourceTree = "<group>"; };
+		F57062821F050A250019039C /* AIRGoogleMapUrlTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapUrlTile.m; sourceTree = "<group>"; };
+		F57062831F050A250019039C /* AIRGoogleMapUrlTileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGoogleMapUrlTileManager.h; sourceTree = "<group>"; };
+		F57062841F050A250019039C /* AIRGoogleMapURLTileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGoogleMapURLTileManager.m; sourceTree = "<group>"; };
+		F57062851F050A250019039C /* DummyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DummyView.h; sourceTree = "<group>"; };
+		F57062861F050A250019039C /* DummyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DummyView.m; sourceTree = "<group>"; };
+		F57062871F050A250019039C /* RCTConvert+GMSMapViewType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+GMSMapViewType.h"; sourceTree = "<group>"; };
+		F57062881F050A250019039C /* RCTConvert+GMSMapViewType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+GMSMapViewType.m"; sourceTree = "<group>"; };
 		F5A943F01F01008C005782C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F5B449061EFD3B040042ABBA /* RNGoogleSignIn-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNGoogleSignIn-Bridging-Header.h"; sourceTree = "<group>"; };
 		F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNGoogleSignIn.swift; sourceTree = "<group>"; };
 		F5B449081EFD3B040042ABBA /* RNGoogleSignInBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGoogleSignInBridge.m; sourceTree = "<group>"; };
@@ -366,8 +438,6 @@
 		F5D5D8321EFBF16D00D87D33 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		F5D5D8331EFBF16D00D87D33 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		F71276B101B04C499B6D2ED6 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
-		A9F8389076674165AFCFA9B4 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; name = "AirMaps.xcodeproj"; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		FF8D5F405B054E5CA62F3C77 /* libAirMaps.a */ = {isa = PBXFileReference; name = "libAirMaps.a"; path = "libAirMaps.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -408,7 +478,8 @@
 				F0093083142246609251DECC /* libRNVectorIcons.a in Frameworks */,
 				AD9845A8B4F04E6CB3A2D672 /* libPods-CarbonFootprint.a in Frameworks */,
 				181363B2748E420697BF3B4C /* libTPSTwitterModule.a in Frameworks */,
-				93BF7B0AC1974D68936F6190 /* libAirMaps.a in Frameworks */,
+				03D8CAA5C65E45E0846ED585 /* libAirMaps.a in Frameworks */,
+				4B095198574F4A0F9AC0C1C6 /* libRNGooglePlaces.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,7 +666,8 @@
 				76346452BAC5430586CAE9EC /* RCTFBSDK.xcodeproj */,
 				28C7D2A5ADF748FAB6BE6368 /* RNVectorIcons.xcodeproj */,
 				46A895EBAD474754AEB94019 /* TPSTwitterModule.xcodeproj */,
-				A9F8389076674165AFCFA9B4 /* AirMaps.xcodeproj */,
+				CEFBEE35FBAB42C589ED8413 /* AirMaps.xcodeproj */,
+				D0FFFFDA02D0457A8A02B190 /* RNGooglePlaces.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -623,9 +695,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				F57062621F050A240019039C /* AirGoogleMaps */,
 				F5A943F01F01008C005782C7 /* GoogleService-Info.plist */,
 				F5B449051EFD3B040042ABBA /* RNGoogleSignIn */,
-				F5B448E71EFD319E0042ABBA /* GoogleService-Info.plist */,
 				F5D5D82F1EFBF12000D87D33 /* Frameworks */,
 				13B07FAE1A68108700A75B9A /* CarbonFootprint */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -649,6 +721,68 @@
 				2D02E4901E0B4A5D006451C7 /* CarbonFootprint-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F51BDBFF1F055323006F272C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F51BDC1E1F055323006F272C /* libRNGooglePlaces.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F52685C21F04237400DB3767 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F52685C61F04237400DB3767 /* libAirMaps.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F57062621F050A240019039C /* AirGoogleMaps */ = {
+			isa = PBXGroup;
+			children = (
+				F57062631F050A240019039C /* AIRGMSMarker.h */,
+				F57062641F050A240019039C /* AIRGMSMarker.m */,
+				F57062651F050A240019039C /* AIRGMSPolygon.h */,
+				F57062661F050A240019039C /* AIRGMSPolygon.m */,
+				F57062671F050A240019039C /* AIRGMSPolyline.h */,
+				F57062681F050A240019039C /* AIRGMSPolyline.m */,
+				F57062691F050A240019039C /* AIRGoogleMap.h */,
+				F570626A1F050A240019039C /* AIRGoogleMap.m */,
+				F570626B1F050A240019039C /* AIRGoogleMapCallout.h */,
+				F570626C1F050A240019039C /* AIRGoogleMapCallout.m */,
+				F570626D1F050A240019039C /* AIRGoogleMapCalloutManager.h */,
+				F570626E1F050A240019039C /* AIRGoogleMapCalloutManager.m */,
+				F570626F1F050A240019039C /* AIRGoogleMapCircle.h */,
+				F57062701F050A240019039C /* AIRGoogleMapCircle.m */,
+				F57062711F050A240019039C /* AIRGoogleMapCircleManager.h */,
+				F57062721F050A240019039C /* AIRGoogleMapCircleManager.m */,
+				F57062731F050A240019039C /* AIRGoogleMapManager.h */,
+				F57062741F050A250019039C /* AIRGoogleMapManager.m */,
+				F57062751F050A250019039C /* AIRGoogleMapMarker.h */,
+				F57062761F050A250019039C /* AIRGoogleMapMarker.m */,
+				F57062771F050A250019039C /* AIRGoogleMapMarkerManager.h */,
+				F57062781F050A250019039C /* AIRGoogleMapMarkerManager.m */,
+				F57062791F050A250019039C /* AIRGoogleMapPolygon.h */,
+				F570627A1F050A250019039C /* AIRGoogleMapPolygon.m */,
+				F570627B1F050A250019039C /* AIRGoogleMapPolygonManager.h */,
+				F570627C1F050A250019039C /* AIRGoogleMapPolygonManager.m */,
+				F570627D1F050A250019039C /* AIRGoogleMapPolyline.h */,
+				F570627E1F050A250019039C /* AIRGoogleMapPolyline.m */,
+				F570627F1F050A250019039C /* AIRGoogleMapPolylineManager.h */,
+				F57062801F050A250019039C /* AIRGoogleMapPolylineManager.m */,
+				F57062811F050A250019039C /* AIRGoogleMapUrlTile.h */,
+				F57062821F050A250019039C /* AIRGoogleMapUrlTile.m */,
+				F57062831F050A250019039C /* AIRGoogleMapUrlTileManager.h */,
+				F57062841F050A250019039C /* AIRGoogleMapURLTileManager.m */,
+				F57062851F050A250019039C /* DummyView.h */,
+				F57062861F050A250019039C /* DummyView.m */,
+				F57062871F050A250019039C /* RCTConvert+GMSMapViewType.h */,
+				F57062881F050A250019039C /* RCTConvert+GMSMapViewType.m */,
+			);
+			name = AirGoogleMaps;
+			path = "../node_modules/react-native-maps/lib/ios/AirGoogleMaps";
 			sourceTree = "<group>";
 		};
 		F595C8771EFD4666002C9CC7 /* Products */ = {
@@ -831,6 +965,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = F52685C21F04237400DB3767 /* Products */;
+					ProjectRef = CEFBEE35FBAB42C589ED8413 /* AirMaps.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
@@ -877,6 +1015,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = F51BDBFF1F055323006F272C /* Products */;
+					ProjectRef = D0FFFFDA02D0457A8A02B190 /* RNGooglePlaces.xcodeproj */;
 				},
 				{
 					ProductGroup = F5D5D82A1EFBF10E00D87D33 /* Products */;
@@ -1077,6 +1219,20 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		F51BDC1E1F055323006F272C /* libRNGooglePlaces.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNGooglePlaces.a;
+			remoteRef = F51BDC1D1F055323006F272C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F52685C61F04237400DB3767 /* libAirMaps.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAirMaps.a;
+			remoteRef = F52685C51F04237400DB3767 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		F595C8971EFD4666002C9CC7 /* libTPSTwitterModule.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1112,7 +1268,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5B448E91EFD319E0042ABBA /* GoogleService-Info.plist in Resources */,
 				F5A943F21F01008C005782C7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1127,7 +1282,6 @@
 				57BAF72A91B248DE96F50E85 /* EvilIcons.ttf in Resources */,
 				A2006F139F174ADD812221A9 /* FontAwesome.ttf in Resources */,
 				F677458067FE4EDB81140F48 /* Foundation.ttf in Resources */,
-				F5B448E81EFD319E0042ABBA /* GoogleService-Info.plist in Resources */,
 				10A5D7471BFF4999AD98B44E /* Ionicons.ttf in Resources */,
 				88107E9FA8124B3DBA7CF8AD /* MaterialCommunityIcons.ttf in Resources */,
 				DB764A4E12D0475D8B674415 /* MaterialIcons.ttf in Resources */,
@@ -1142,7 +1296,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
-				F5B448EA1EFD319E0042ABBA /* GoogleService-Info.plist in Resources */,
 				F5A943F31F01008C005782C7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1151,7 +1304,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5B448EB1EFD319E0042ABBA /* GoogleService-Info.plist in Resources */,
 				F5A943F41F01008C005782C7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1296,11 +1448,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F570628D1F050A250019039C /* AIRGoogleMapCallout.m in Sources */,
+				F57062941F050A250019039C /* AIRGoogleMapPolygon.m in Sources */,
 				F5B4490B1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */,
+				F57062991F050A250019039C /* AIRGoogleMapURLTileManager.m in Sources */,
 				F5B4490F1EFD3B040042ABBA /* RNGoogleSignInBridge.m in Sources */,
+				F570628B1F050A250019039C /* AIRGMSPolyline.m in Sources */,
 				F5B449171EFD3B040042ABBA /* RNGoogleSignInEventsBridge.m in Sources */,
+				F57062911F050A250019039C /* AIRGoogleMapManager.m in Sources */,
+				F570629B1F050A250019039C /* RCTConvert+GMSMapViewType.m in Sources */,
+				F570628F1F050A250019039C /* AIRGoogleMapCircle.m in Sources */,
+				F57062961F050A250019039C /* AIRGoogleMapPolyline.m in Sources */,
+				F57062931F050A250019039C /* AIRGoogleMapMarkerManager.m in Sources */,
+				F57062891F050A250019039C /* AIRGMSMarker.m in Sources */,
+				F57062971F050A250019039C /* AIRGoogleMapPolylineManager.m in Sources */,
+				F570629A1F050A250019039C /* DummyView.m in Sources */,
+				F57062921F050A250019039C /* AIRGoogleMapMarker.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				F570628A1F050A250019039C /* AIRGMSPolygon.m in Sources */,
+				F57062951F050A250019039C /* AIRGoogleMapPolygonManager.m in Sources */,
+				F57062981F050A250019039C /* AIRGoogleMapUrlTile.m in Sources */,
 				F5B449131EFD3B040042ABBA /* RNGoogleSignInEvents.swift in Sources */,
+				F57062901F050A250019039C /* AIRGoogleMapCircleManager.m in Sources */,
+				F570628E1F050A250019039C /* AIRGoogleMapCalloutManager.m in Sources */,
+				F570628C1F050A250019039C /* AIRGoogleMap.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1368,12 +1539,14 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = CarbonFootprintTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1411,12 +1584,14 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = CarbonFootprintTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1455,6 +1630,8 @@
 					"$(SRCROOT)/../node_modules/react-native-google-sign-in/ios/RNGoogleSignIn",
 					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/Image/**",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = CarbonFootprint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1492,6 +1669,8 @@
 					"$(SRCROOT)/../node_modules/react-native-google-sign-in/ios/RNGoogleSignIn",
 					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/Image/**",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = CarbonFootprint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1527,11 +1706,13 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = "CarbonFootprint-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1569,11 +1750,13 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = "CarbonFootprint-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1613,6 +1796,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.CarbonFootprint-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1638,6 +1822,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
