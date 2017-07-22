@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
     Scene,
-    Router
+    Router,
+    Modal
 } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
@@ -18,16 +19,20 @@ class Navigator extends Component {
     render() {
         return(
             <RouterWithRedux>
-                <Scene key="root">
-                    <Scene key="master" component={Master} initial hideNavBar/>
-                    <Scene key="landing" hideNavBar>
-                        <Scene key="home" component={Home} initial  />
-                        <Scene key="login" component={Login} />
-                        <Scene key="register" component={Register} />
-                    </Scene>
-                    <Scene key="mainPage" hideNavBar>
-                        <Scene key="main" component={Main} initial/>
-                        <Scene key="activityHistory" component={ActivityHistory}/>
+                <Scene key="modal" component={Modal}>
+                    <Scene key="root">
+                        <Scene key="master" component={Master} initial hideNavBar/>
+                        <Scene key="landing" hideNavBar>
+                            <Scene key="home" component={Home} initial  />
+                            <Scene key="login" component={Login} />
+                            <Scene key="register" component={Register} />
+                        </Scene>
+                        <Scene key="main" hideNavBar>
+                            <Scene key="activity" hideNavBar>
+                                <Scene key="activityMain" component={Main} initial/>
+                                <Scene key="activityHistory" component={ActivityHistory}/>
+                            </Scene>
+                        </Scene>
                     </Scene>
                 </Scene>
             </RouterWithRedux>

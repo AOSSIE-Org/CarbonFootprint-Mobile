@@ -27,7 +27,7 @@ export function startActivityDetection() {
       const mostProbableActivity = detectedActivities.sorted[0];
       if(mostProbableActivity.confidence >= 75 && mostProbableActivity !== store.getState().activity.activityType) {
         dispatch(setActivity(mostProbableActivity.type));
-        alert("Activity change detected: " + mostProbableActivity.type);
+        //alert("Activity change detected: " + mostProbableActivity.type);
         //alert("Detected Activity: " + mostProbableActivity.type + ", Confidence: " + mostProbableActivity.confidence);
       }
     });

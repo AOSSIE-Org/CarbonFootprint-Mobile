@@ -26,13 +26,57 @@ export default class ActivityTab extends Component {
 		super(props);
     this.state = {
       time: 0, // For travel time
+      numCoords: 0, 
       routeCoordinates: [], // For drawing route
       distanceTravelled: 0, // For traveled distance
       prevLatLng: {} // Previous location
     };
     // Incrementing time
     setInterval(() => {this.setState({time: this.state.time + 1})}, 1000);
+
+    this.processSnapToRoadResponse = this.processSnapToRoadResponse.bind(this);
+    setInterval(() => {this.drawRoute()}, 5000);
 	}
+
+  drawRoute() {
+    // Google Roads API
+    var newRouteCoords = [];
+
+    var len = this.state.routeCoordinates.length;
+    //var diff = len - this.state.numCoords;
+//    if(len > 0 && diff >= 90 && diff <= 100) {
+      var baseUrl = "https://roads.googleapis.com/v1/snapToRoads?path=";
+      for(var i = this.state.numCoords; i < len - 1; i ++)
+        baseUrl += this.state.routeCoordinates[i].latitude + "," + this.state.routeCoordinates[i].longitude + "|";
+      baseUrl += this.state.routeCoordinates[len - 1].latitude + "," + this.state.routeCoordinates[len - 1].longitude;
+      var apiKey = "AIzaSyAz125UERNPlGgWGnmjchetTcrOb38TdKk";
+      baseUrl += "&interpolate=true&key=" + apiKey;
+      
+      fetch(baseUrl).then((response) => response.json())
+            .then((response) => {
+          this.processSnapToRoadResponse(response);
+      })
+      .catch((error) => {
+        alert("Error: " + error);
+      });
+   // }
+  }
+
+  // Store snapped polyline returned by the snap-to-road service.
+  processSnapToRoadResponse(data) {
+    snappedCoordinates = [];
+    //alert("Points: " + data.snappedPoints.length);
+    for (var i = 0; data.snappedPoints != undefined && i < data.snappedPoints.length; i++) {
+      const latlng = pick(data.snappedPoints[i].location, ['latitude', 'longitude']);
+      snappedCoordinates.push(latlng);
+    }
+    var tempCoords = this.state.routeCoordinates.slice();
+    var len = snappedCoordinates.length;
+    var num = this.state.numCoords;
+    for(var i = 0; i < len; i ++) 
+      tempCoords[i + num] = snappedCoordinates[i];
+    this.setState({numCoords: num + len - 1, routeCoordinates: tempCoords});
+  }
 
   componentDidMount() {
 
@@ -60,7 +104,7 @@ export default class ActivityTab extends Component {
         longitude: position.coords.longitude,
         latitudeDelta: 0.0030,
         longitudeDelta: 0.0030
-      }, 2);
+      }, 2);  
 
       // Updating state
       this.setState({
@@ -70,7 +114,7 @@ export default class ActivityTab extends Component {
       });
     },
     (error) => alert(error.message),
-    {enableHighAccuracy: true, timeout: 1000, maximumAge: 0,distanceFilter:1}
+    {enableHighAccuracy: true, timeout: 1000, maximumAge: 0, distanceFilter:1}
     );
   }
 
