@@ -50,22 +50,5 @@ export function setActivity(actType) {
   return {
     type: SET_ACTIVITY_TYPE,
     activityType: actType
-    if (Platform.OS === "android") {
-        ActivityRecognition.start(detectionIntervalMillis);
-
-        // Subscribe to updates
-        this.unsubscribe = ActivityRecognition.subscribe(detectedActivities => {
-
-          // Activity having maximum probability (confidence) among all detected activities
-          const mostProbableActivity = detectedActivities.sorted[0] ;
-          //if(mostProbableActivity.confidence >= 75) {
-            alert("Detected Activity: " + mostProbableActivity.type + ", Confidence: " + mostProbableActivity.confidence);
-          //}
-        });
-    }
-
-    //Stop activity detection and remove the listener
-    //ActivityRecognition.stop() ;
-    //this.unsubscribe() ;
   }
 }

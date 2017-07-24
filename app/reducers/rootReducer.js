@@ -10,9 +10,9 @@ const rootReducer = combineReducers({
     storage,
     route,
     login,
-    activity
+    activity,
     location,
-    direction,
+    direction
 });
 
 export default rootReducer;

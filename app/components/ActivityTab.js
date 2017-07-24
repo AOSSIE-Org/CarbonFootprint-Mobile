@@ -20,6 +20,17 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import pick from 'lodash/pick';
 import haversine from 'haversine';
 import MapView from 'react-native-maps';
+import BackgroundJob from 'react-native-background-job';
+
+const backgroundJob = {
+ jobKey: "myJob",
+ job: () => {
+    //console.log("********************************************************************************Running in background*********************************************************************************************************************")
+    this.drawRoute();
+  }
+};
+
+BackgroundJob.register(backgroundJob);
 
 export default class ActivityTab extends Component {
 	constructor(props) {
@@ -79,7 +90,7 @@ export default class ActivityTab extends Component {
   }
 
   componentDidMount() {
-
+    BackgroundJob.cancelAll();
     // Getting current location (One-time only)
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -106,6 +117,8 @@ export default class ActivityTab extends Component {
         longitudeDelta: 0.0030
       }, 2);  
 
+      console.log("location location location location location location location - " + position.coords.latitude + " " + position.coords.longitude);
+ 
       // Updating state
       this.setState({
         routeCoordinates: routeCoordinates.concat(positionLatLngs),
@@ -127,10 +140,17 @@ export default class ActivityTab extends Component {
   componentWillUnmount() {
 
     // Closing Activity Detection
-    this.props.closeActivityDetection();
+    //this.props.closeActivityDetection();
 
     // Stop getting location updates
-    navigator.geolocation.clearWatch(this.watchID);
+    //navigator.geolocation.clearWatch(this.watchID);
+
+    BackgroundJob.schedule({
+      jobKey: "myJob",
+      period: 5000,
+      timeout: 5000,
+      networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
+    });
   }
 
   // Calculating traveled distance at runtime using Haversine formula
@@ -195,20 +215,7 @@ export default class ActivityTab extends Component {
               longitude: -122.4324,
               latitudeDelta: 0.0030,
               longitudeDelta: 0.0030,
-            }} >
-          <MapView.Marker
-            coordinate={{latitude: 37.78825, longitude: -122.4324}}
-            title="Source"
-            description="Source" />
-          <MapView.Marker
-            coordinate={{latitude: 37.78800, longitude: -122.4300}}
-            pinColor="green"
-            title="Destination"
-            description="Destination" />
-          <MapView.Polyline
-            coordinates={[{latitude: 37.78825, longitude: -122.4324}, {latitude: 37.78800, longitude: -122.4300}]}
-            strokeWidth={5}
-            strokeColor="#ffb74d" />
+            }} />
         </MapView>
         <View style ={styles.container}>
           <View style = {styles.activityView}>

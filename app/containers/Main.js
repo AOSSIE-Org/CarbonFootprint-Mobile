@@ -29,16 +29,16 @@ class Main extends Component {
   // It sends 'Actions.activity()' to TimelineTab as link (prop) so that TimelineTab can navigate to Activity container (When needed)
   render() {
     return (
+      // 'ScrollableTabView' is predefined in external package 'react-native-scrollable-tab-view' 
 
-      // 'ScrollableTabView' is predefined in external package 'react-native-scrollable-tab-view'
       <ScrollableTabView tabBarPosition="bottom" tabBarUnderlineStyle={styles.underline} tabBarBackgroundColor="#009688" tabBarActiveTextColor="white" tabBarInactiveTextColor="#eeeeee">
         <TodayTab tabLabel="Today"/>
         <ActivityTab tabLabel="Activity" {...this.props}/>
         <Text tabLabel="Paths"></Text>
         <TimelineTab tabLabel="Timeline" link={() => Actions.activityHistory()}/>
         <Text tabLabel="Friends"></Text>
-        <Footer name="activity" />
       </ScrollableTabView>
+      //<Footer name="activity" />
     );
   }
 }

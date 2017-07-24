@@ -7,13 +7,14 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"@mapbox/polyline": "^0.2.0",
 		"haversine": "^1.0.2",
-		"@mapbox/polyline": "*",
 		"react": "16.0.0-alpha.6",
 		"react-native": "0.44.2",
 		"react-native-activity-recognition": "^2.0.4",
+		"react-native-background-job": "^1.2.4",
 		"react-native-fbsdk": "0.6.0",
-		"react-native-google-places": "^2.1.0",
+		"react-native-google-places": "^2.4.1",
 		"react-native-google-sign-in": "0.0.14",
 		"react-native-keyboard-aware-scroll-view": "^0.2.9",
 		"react-native-maps": "^0.15.2",
