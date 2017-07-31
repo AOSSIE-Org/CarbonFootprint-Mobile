@@ -38,10 +38,9 @@ class LoginForm extends Component {
                             onChangeText={(text) => this.setState({password: text})} autoCapitalize='none'
                             underlineColorAndroid='transparent'/>
                     </View>
-                    <TouchableHighlight onPress={() => {
-                            Actions.main({type: ActionConst.RESET});
-                            Actions.calculate()
-                        }} style={styles.button}>
+                    <TouchableHighlight onPress={() =>
+                            this.props.login(this.state.email, this.state.password)
+                        } style={styles.button}>
                         <Text style={styles.text}>Login</Text>
                     </TouchableHighlight>
                 </KeyboardAwareScrollView>
