@@ -5,7 +5,8 @@ import {
     Text,
     Dimensions,
     StatusBar,
-    Platform
+    Platform,
+    ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -89,8 +90,13 @@ class Calculate extends Component {
         return(
             <View style={styles.container}>
                 <StatusBar hidden={true} />
-
-                {map}
+                {
+                    this.props.location.isFetching?
+                    <View style={styles.center}>
+                        <ActivityIndicator size="large" color="#538124"/>
+                    </View>
+                    : map
+                }
 
                 <View style={styles.button}>
                     <View style={styles.box}>
@@ -119,7 +125,8 @@ class Calculate extends Component {
                     <FootprintCard distance={direction.distance}
                         duration={direction.duration}
                         onChangeTab={this.onChangeTab.bind(this)}
-                        footprint={160} tab={this.state.tab} />
+                        footprint={160} tab={this.state.tab}
+                        fetching={direction.isFetching} />
                     : null
                 }
                 <Footer name="calculate" />
@@ -160,6 +167,15 @@ const styles = StyleSheet.create({
         color: '#999',
         fontSize: 14,
         letterSpacing: 1,
+    },
+    center: {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
     }
 })
 
