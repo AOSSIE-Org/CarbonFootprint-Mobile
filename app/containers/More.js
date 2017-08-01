@@ -43,7 +43,7 @@ class More extends Component {
                 {
                     icon: "clipboard",
                     text: "Terms and Conditions",
-                    link: () => console.log("Terms"),
+                    link: () => Actions.moreTerms(),
                 }
             ],
             [
