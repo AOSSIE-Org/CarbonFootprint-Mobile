@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {
+    Alert,
     View,
     StyleSheet,
     Text,
     TouchableHighlight,
     Dimensions,
     Platform,
-    StatusBar
+    StatusBar,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -15,6 +16,18 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 class More extends Component {
+    logout() {
+        Alert.alert(
+            'Are you sure you want to logout?',
+            '',
+            [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            { cancelable: false }
+        )
+    }
+
     getIcon(name) {
         return (Platform.OS === "android" ?
             "md-": "ios-") + name
@@ -50,7 +63,7 @@ class More extends Component {
                 {
                     icon: "log-out",
                     text: "Logout",
-                    link: () => console.log("Logout"),
+                    link: () => this.logout(),
                 }
             ]
         ];
