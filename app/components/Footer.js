@@ -55,7 +55,7 @@ class Footer extends Component {
                         <Text style={[styles.text, {color: color.friends}]}>Friends</Text>
                     </View>
                 </TouchableHighlight>
-                <TouchableHighlight style={styles.touch} onPress={() => {}}
+                <TouchableHighlight style={styles.touch} onPress={() => {Actions.more()}}
                     underlayColor={underlay} activeOpacity={0.5}>
                     <View style={styles.nav}>
                         <Icon name={this.getIcon("more")} size={size} color={normal} style={styles.icon}/>
