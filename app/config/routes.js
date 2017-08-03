@@ -16,6 +16,7 @@ import ActivityHistory from '../containers/ActivityHistory';
 import More from '../containers/More';
 import About from '../containers/About';
 import Terms from '../containers/Terms';
+import Footer from '../components/Footer';
 
 const RouterWithRedux = connect()(Router);
 
@@ -31,17 +32,15 @@ class Navigator extends Component {
                             <Scene key="login" component={Login} />
                             <Scene key="register" component={Register} />
                         </Scene>
-                        <Scene key="main" hideNavBar>
+                        <Scene key="main" navBar={Footer}>
                             <Scene key="calculate" component={Calculate} initial />
-                            <Scene key="activity" hideNavBar>
-                                <Scene key="activityMain" component={Main} initial/>
-                                <Scene key="activityHistory" component={ActivityHistory}/>
-                            </Scene>
-                            <Scene key="more" hideNavBar>
-                                <Scene key="moreMain" component={More} initial />
-                                <Scene key="moreAbout" component={About} />
-                                <Scene key="moreTerms" component={Terms} />
-                            </Scene>
+
+                            <Scene key="more" component={More} />
+                            <Scene key="about" component={About} hideNavBar />
+                            <Scene key="terms" component={Terms} hideNavBar />
+
+                            <Scene key="activityHistory" component={ActivityHistory}/>
+
                         </Scene>
                     </Scene>
 

@@ -292,19 +292,19 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
-		F51BDC1D1F055323006F272C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0FFFFDA02D0457A8A02B190 /* RNGooglePlaces.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNGooglePlaces;
-		};
 		F52685C51F04237400DB3767 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CEFBEE35FBAB42C589ED8413 /* AirMaps.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
 			remoteInfo = AirMaps;
+		};
+		F527A1BF1F33BDEB00E68DEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F24B784A11884E9F95AD1886 /* RNGooglePlaces.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNGooglePlaces;
 		};
 		F595C8961EFD4666002C9CC7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -383,9 +383,9 @@
 		C48E28238EB94777A3C9AD28 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		C8C877B0260141BCA0F09136 /* libRNGooglePlaces.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGooglePlaces.a; sourceTree = "<group>"; };
 		CEFBEE35FBAB42C589ED8413 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
-		D0FFFFDA02D0457A8A02B190 /* RNGooglePlaces.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGooglePlaces.xcodeproj; path = "../node_modules/react-native-google-places/ios/RNGooglePlaces.xcodeproj"; sourceTree = "<group>"; };
 		D5EECF016FED4B66A7664DC2 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		E0FEEB75EE8449C2897CFE16 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		F24B784A11884E9F95AD1886 /* RNGooglePlaces.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGooglePlaces.xcodeproj; path = "../node_modules/react-native-google-places/ios/RNGooglePlaces.xcodeproj"; sourceTree = "<group>"; };
 		F3F1DF11C6EBF233C6DA4B99 /* Pods-CarbonFootprintTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarbonFootprintTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarbonFootprintTests/Pods-CarbonFootprintTests.release.xcconfig"; sourceTree = "<group>"; };
 		F5097DCC1EFD268E00F18E54 /* CarbonFootprint-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarbonFootprint-Bridging-Header.h"; sourceTree = "<group>"; };
 		F5097DCD1EFD268E00F18E54 /* CarbonFootprintTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarbonFootprintTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -667,7 +667,7 @@
 				28C7D2A5ADF748FAB6BE6368 /* RNVectorIcons.xcodeproj */,
 				46A895EBAD474754AEB94019 /* TPSTwitterModule.xcodeproj */,
 				CEFBEE35FBAB42C589ED8413 /* AirMaps.xcodeproj */,
-				D0FFFFDA02D0457A8A02B190 /* RNGooglePlaces.xcodeproj */,
+				F24B784A11884E9F95AD1886 /* RNGooglePlaces.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -723,18 +723,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F51BDBFF1F055323006F272C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F51BDC1E1F055323006F272C /* libRNGooglePlaces.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		F52685C21F04237400DB3767 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				F52685C61F04237400DB3767 /* libAirMaps.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F527A1A11F33BDEB00E68DEF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F527A1C01F33BDEB00E68DEF /* libRNGooglePlaces.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1017,8 +1017,8 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-					ProductGroup = F51BDBFF1F055323006F272C /* Products */;
-					ProjectRef = D0FFFFDA02D0457A8A02B190 /* RNGooglePlaces.xcodeproj */;
+					ProductGroup = F527A1A11F33BDEB00E68DEF /* Products */;
+					ProjectRef = F24B784A11884E9F95AD1886 /* RNGooglePlaces.xcodeproj */;
 				},
 				{
 					ProductGroup = F5D5D82A1EFBF10E00D87D33 /* Products */;
@@ -1219,18 +1219,18 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F51BDC1E1F055323006F272C /* libRNGooglePlaces.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNGooglePlaces.a;
-			remoteRef = F51BDC1D1F055323006F272C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		F52685C61F04237400DB3767 /* libAirMaps.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libAirMaps.a;
 			remoteRef = F52685C51F04237400DB3767 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F527A1C01F33BDEB00E68DEF /* libRNGooglePlaces.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNGooglePlaces.a;
+			remoteRef = F527A1BF1F33BDEB00E68DEF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F595C8971EFD4666002C9CC7 /* libTPSTwitterModule.a */ = {
@@ -1540,6 +1540,8 @@
 					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = CarbonFootprintTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1584,6 +1586,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = CarbonFootprintTests/Info.plist;
@@ -1632,6 +1636,8 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/Image/**",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = CarbonFootprint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1671,6 +1677,8 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/Image/**",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = CarbonFootprint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1706,6 +1714,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = "CarbonFootprint-tvOS/Info.plist";
@@ -1750,6 +1760,8 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/tipsi-twitter/ios/TPSTwitterModule/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
 				);
 				INFOPLIST_FILE = "CarbonFootprint-tvOS/Info.plist";

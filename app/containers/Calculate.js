@@ -129,7 +129,7 @@ class Calculate extends Component {
                         fetching={direction.isFetching} />
                     : null
                 }
-                <Footer name="calculate" />
+                
             </View>
         )
     }

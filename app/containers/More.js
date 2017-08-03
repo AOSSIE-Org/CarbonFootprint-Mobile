@@ -51,12 +51,12 @@ class More extends Component {
                 {
                     icon: "information-circle",
                     text: "About Us",
-                    link: () => Actions.moreAbout(),
+                    link: () => Actions.about(),
                 },
                 {
                     icon: "clipboard",
                     text: "Terms and Conditions",
-                    link: () => Actions.moreTerms(),
+                    link: () => Actions.terms(),
                 }
             ],
             [
@@ -95,7 +95,6 @@ class More extends Component {
                         })
                     }
                 </View>
-                <Footer name="more" />
             </View>
         )
     }
