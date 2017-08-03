@@ -66,8 +66,9 @@ class Calculate extends Component {
         this.setState({
             tab
         });
-        state = this.state;
-        this.props.getDirections(state.source, state.destination, state.tab);
+        this.props.getDirections(this.state.source,
+            this.state.destination, tab
+        );
     }
 
     render() {
@@ -129,7 +130,7 @@ class Calculate extends Component {
                         fetching={direction.isFetching} />
                     : null
                 }
-                
+
             </View>
         )
     }
