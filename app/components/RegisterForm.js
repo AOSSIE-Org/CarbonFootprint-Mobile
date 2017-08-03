@@ -30,17 +30,20 @@ class RegisterForm extends Component {
                         <View style={styles.input}>
                             <Icon name="user" size={16} color="#666" />
                             <TextInput placeholder="Name" style={styles.field}
-                                onChangeText={(text) => this.setState({name: text})}/>
+                                onChangeText={(text) => this.setState({name: text})}
+                                underlineColorAndroid='transparent' />
                         </View>
                         <View style={styles.input}>
                             <Icon name="envelope" size={16} color="#666" />
                             <TextInput placeholder="Email" style={styles.field} autoCapitalize='none'
-                                onChangeText={(text) => this.setState({email: text})}/>
+                                onChangeText={(text) => this.setState({email: text})}
+                                underlineColorAndroid='transparent' />
                         </View>
                         <View style={[styles.input, styles.inputTop]}>
                             <Icon name="lock" size={18} color="#666" />
                             <TextInput placeholder="Password" style={styles.field} secureTextEntry={true}
-                                onChangeText={(text) => this.setState({email: text})} autoCapitalize='none'/>
+                                onChangeText={(text) => this.setState({email: text})} autoCapitalize='none'
+                                underlineColorAndroid='transparent' />
                         </View>
                         <TouchableHighlight onPress={() => {}} style={styles.button}>
                             <Text style={styles.text}>Register</Text>
