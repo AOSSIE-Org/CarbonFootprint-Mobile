@@ -29,10 +29,17 @@ export function startActivityDetection() {
       
       // Activity having maximum probability (confidence) among all detected activities
       const mostProbableActivity = detectedActivities.sorted[0];
-      if(mostProbableActivity.confidence >= 75 && mostProbableActivity !== store.getState().activity.activityType) {
-        dispatch(setActivity(mostProbableActivity.type));
-        //alert("Activity change detected: " + mostProbableActivity.type);
-        //alert("Detected Activity: " + mostProbableActivity.type + ", Confidence: " + mostProbableActivity.confidence);
+      
+      // If detected activity is different from ongoing activity,
+      // set this detected activity in current state.
+      if(mostProbableActivity !== store.getState().activity.activityType) {
+        if(Platform.OS === 'android') {
+          if(mostProbableActivity.confidence >= 75) {
+            dispatch(setActivity(mostProbableActivity.type));
+          }  
+        } else { // iOS
+            dispatch(setActivity(mostProbableActivity.type));
+        }
       }
     });
   }

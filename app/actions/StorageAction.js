@@ -42,3 +42,15 @@ export function setStorage(value) {
             })
     }
 }
+
+export function removeStorage() {
+    return (dispatch, state) => {
+        AsyncStorage.removeItem('email')
+            .catch(err => {
+                alert("Error while removing")
+            })
+        dispatch({
+            type: "USER_LOGOUT"
+        });
+    }
+}

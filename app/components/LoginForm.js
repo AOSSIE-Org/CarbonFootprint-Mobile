@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         borderTopWidth: 0,
     },
     field: {
-        height: 50,
+        height: 40,
         color: '#555',
         fontSize: 15,
         flex: 1,
