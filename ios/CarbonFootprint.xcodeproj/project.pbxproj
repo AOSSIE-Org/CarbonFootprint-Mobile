@@ -70,10 +70,10 @@
 		F57062991F050A250019039C /* AIRGoogleMapURLTileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062841F050A250019039C /* AIRGoogleMapURLTileManager.m */; };
 		F570629A1F050A250019039C /* DummyView.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062861F050A250019039C /* DummyView.m */; };
 		F570629B1F050A250019039C /* RCTConvert+GMSMapViewType.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062881F050A250019039C /* RCTConvert+GMSMapViewType.m */; };
-		F5A943F11F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
-		F5A943F21F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
-		F5A943F31F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
-		F5A943F41F01008C005782C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A943F01F01008C005782C7 /* GoogleService-Info.plist */; };
+		F58A55921F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F58A55911F35AF7B00C6AD6A /* GoogleService-Info.plist */; };
+		F58A55931F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F58A55911F35AF7B00C6AD6A /* GoogleService-Info.plist */; };
+		F58A55941F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F58A55911F35AF7B00C6AD6A /* GoogleService-Info.plist */; };
+		F58A55951F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F58A55911F35AF7B00C6AD6A /* GoogleService-Info.plist */; };
 		F5B4490B1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
 		F5B4490C1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
 		F5B4490D1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
@@ -427,7 +427,7 @@
 		F57062861F050A250019039C /* DummyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DummyView.m; sourceTree = "<group>"; };
 		F57062871F050A250019039C /* RCTConvert+GMSMapViewType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+GMSMapViewType.h"; sourceTree = "<group>"; };
 		F57062881F050A250019039C /* RCTConvert+GMSMapViewType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+GMSMapViewType.m"; sourceTree = "<group>"; };
-		F5A943F01F01008C005782C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F58A55911F35AF7B00C6AD6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F5B449061EFD3B040042ABBA /* RNGoogleSignIn-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNGoogleSignIn-Bridging-Header.h"; sourceTree = "<group>"; };
 		F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNGoogleSignIn.swift; sourceTree = "<group>"; };
 		F5B449081EFD3B040042ABBA /* RNGoogleSignInBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGoogleSignInBridge.m; sourceTree = "<group>"; };
@@ -695,8 +695,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				F58A55911F35AF7B00C6AD6A /* GoogleService-Info.plist */,
 				F57062621F050A240019039C /* AirGoogleMaps */,
-				F5A943F01F01008C005782C7 /* GoogleService-Info.plist */,
 				F5B449051EFD3B040042ABBA /* RNGoogleSignIn */,
 				F5D5D82F1EFBF12000D87D33 /* Frameworks */,
 				13B07FAE1A68108700A75B9A /* CarbonFootprint */,
@@ -930,7 +930,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 610;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -1268,7 +1268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5A943F21F01008C005782C7 /* GoogleService-Info.plist in Resources */,
+				F58A55931F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1276,12 +1276,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5A943F11F01008C005782C7 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3AE1C1DD939C49FDA5CB3CFD /* Entypo.ttf in Resources */,
 				57BAF72A91B248DE96F50E85 /* EvilIcons.ttf in Resources */,
 				A2006F139F174ADD812221A9 /* FontAwesome.ttf in Resources */,
 				F677458067FE4EDB81140F48 /* Foundation.ttf in Resources */,
+				F58A55921F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */,
 				10A5D7471BFF4999AD98B44E /* Ionicons.ttf in Resources */,
 				88107E9FA8124B3DBA7CF8AD /* MaterialCommunityIcons.ttf in Resources */,
 				DB764A4E12D0475D8B674415 /* MaterialIcons.ttf in Resources */,
@@ -1296,7 +1296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
-				F5A943F31F01008C005782C7 /* GoogleService-Info.plist in Resources */,
+				F58A55941F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1304,7 +1304,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5A943F41F01008C005782C7 /* GoogleService-Info.plist in Resources */,
+				F58A55951F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1559,6 +1559,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CarbonFootprintTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1606,6 +1607,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CarbonFootprintTests-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -1646,6 +1648,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CarbonFootprint;
 				SWIFT_OBJC_BRIDGING_HEADER = "CarbonFootprint-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1687,6 +1690,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CarbonFootprint;
 				SWIFT_OBJC_BRIDGING_HEADER = "CarbonFootprint-Bridging-Header.h";
 				SWIFT_SUPPRESS_WARNINGS = YES;
@@ -1862,16 +1866,20 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "~/Documents/FacebookSDK/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1904,8 +1912,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1914,6 +1924,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "~/Documents/FacebookSDK/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1923,6 +1934,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

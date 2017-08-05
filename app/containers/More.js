@@ -11,7 +11,10 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import * as StorageAction from '../actions/StorageAction';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -21,8 +24,12 @@ class More extends Component {
             'Are you sure you want to logout?',
             '',
             [
-                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                {text: 'OK', onPress: () => console.log('OK Pressed')},
+                {
+                    text: 'Cancel', onPress: () => console.log('Wise Choice!!!'), style: 'cancel'
+                },
+                {
+                    text: 'OK', onPress: () => this.props.removeStorage()
+                },
             ],
             { cancelable: false }
         )
@@ -133,4 +140,12 @@ const styles = StyleSheet.create({
     }
 })
 
-export default More;
+function mapStateToProps(state) {
+    return state;
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(Object.assign({}, StorageAction), dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(More);

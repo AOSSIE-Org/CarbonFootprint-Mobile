@@ -61,8 +61,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(Object.assign({}, StorageAction), dispatch);
 }
 
-/*
- * This is needed to allow the components
- * to have access to Actions and store variables
- */
 export default connect(mapStateToProps, mapDispatchToProps)(Master);
