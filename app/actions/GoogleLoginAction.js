@@ -8,16 +8,13 @@
 
 import { setStorage } from './StorageAction';
 import GoogleSignIn from 'react-native-google-sign-in';
+import { googleSignInConfig } from '../config/keys';
 
 export function googleSignIn() {
 	return async function (dispatch) {
 
 		// Configuring GoogleSignIn object
-	    await GoogleSignIn.configure({
-	    	clientID: '702196208507-rl7hq7202fi76ugvcmftuhshgusb3j1q.apps.googleusercontent.com',
-	  		scopes: ['openid', 'profile', 'email'],
-	  		shouldFetchBasicProfile: true,
-	  	})
+	    await GoogleSignIn.configure(googleSignInConfig)
 		try {
 
 			// Getting Promise object
