@@ -17,6 +17,7 @@ import { bindActionCreators } from 'redux';
 import * as StorageAction from '../actions/StorageAction';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { getIcon } from '../config/helper';
 
 class More extends Component {
     logout() {
@@ -33,11 +34,6 @@ class More extends Component {
             ],
             { cancelable: false }
         )
-    }
-
-    getIcon(name) {
-        return (Platform.OS === "android" ?
-            "md-": "ios-") + name
     }
 
     render() {
@@ -89,7 +85,7 @@ class More extends Component {
                                                 <TouchableHighlight onPress={item.link}
                                                     activeOpacity={0.5} underlayColor="#eee" key={i}>
                                                     <View style={styles.button}>
-                                                        <Icon name={this.getIcon(item.icon)}
+                                                        <Icon name={getIcon(item.icon)}
                                                             size={24} style={styles.icon} color="#444"/>
                                                         <Text style={styles.text}>{item.text}</Text>
                                                     </View>

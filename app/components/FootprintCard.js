@@ -9,30 +9,26 @@ import {
     ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { getIcon } from '../config/helper';
 
 class FootprintCard extends Component {
-    getIcon(icon) {
-        return Platform.OS === "android" ?
-            "md-" + icon : "ios-" + icon
-    }
-
     render() {
         const tabs = [
             {
                 value: 0,
-                icon: this.getIcon("car"),
+                icon: getIcon("car"),
             },
             {
                 value: 1,
-                icon: this.getIcon("bus"),
+                icon: getIcon("bus"),
             },
             {
                 value: 2,
-                icon: this.getIcon("bicycle")
+                icon: getIcon("bicycle")
             },
             {
                 value: 3,
-                icon: this.getIcon("walk")
+                icon: getIcon("walk")
             }
         ];
         let props = this.props;

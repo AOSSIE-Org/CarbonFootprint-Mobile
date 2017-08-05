@@ -8,19 +8,15 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
+import { getIcon } from '../config/helper';
 
 class Header extends Component {
-    getIcon(name) {
-        return (Platform.OS === "android" ?
-            "md-": "ios-") + name
-    }
-
     render() {
         let props = this.props;
         if (props.icon) {
             return (
                 <View style={styles.container}>
-                    <Icon.Button name={this.getIcon(props.iconName)} backgroundColor="#538124"
+                    <Icon.Button name={getIcon(props.iconName)} backgroundColor="#538124"
                         iconStyle={styles.icon} onPress={() => Actions.pop()} size={22}>
                     </Icon.Button>
                     <Text style={[styles.white, styles.text]}>{props.text}</Text>

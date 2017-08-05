@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
         height: 80,
     },
     large: {
-        letterSpacing: 1,
-        fontSize: 16,
+        letterSpacing: 2,
+        fontSize: 14,
         marginTop: 10,
     },
     small: {
