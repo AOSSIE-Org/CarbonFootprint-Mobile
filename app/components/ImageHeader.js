@@ -8,10 +8,6 @@ import {
 import images from '../config/images';
 
 class ImageHeader extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return(
             <View style={styles.container}>

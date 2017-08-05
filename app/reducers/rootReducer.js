@@ -6,7 +6,7 @@ import activity from './activity';
 import location from './location';
 import direction from './direction';
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
     storage,
     route,
     login,
@@ -14,5 +14,12 @@ const rootReducer = combineReducers({
     location,
     direction
 });
+
+const rootReducer = (state, action) => {
+    if (action.type === "USER_LOGOUT") {
+        state = undefined;
+    }
+    return appReducer(state, action);
+}
 
 export default rootReducer;
