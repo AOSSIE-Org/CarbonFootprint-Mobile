@@ -5,7 +5,8 @@ import {
     View,
     TouchableHighlight,
     Dimensions,
-    Platform
+    Platform,
+    ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -51,29 +52,36 @@ class FootprintCard extends Component {
                         )
                     }
                 </View>
-                <View style={styles.tabContent}>
-                    <View style={styles.routeContent}>
-                        <Text style={styles.route}>
-                            {
-                                props.distance.text ?
-                                props.distance.text:
-                                "Sorry!!! No Straight Route available for this place"
-                            }
-                        </Text>
-                        <Text style={styles.route}>
-                            {
-                                props.duration.text ?
-                                props.duration.text:
-                                null
-                            }
-                        </Text>
+                {
+                    props.fetching ?
+                    <View style={styles.center}>
+                        <ActivityIndicator size="small" />
                     </View>
-                    <View style={styles.footprintContent}>
-                        <Text style={styles.footprint}>
-                            160g CO2
-                        </Text>
+                    :
+                    <View style={styles.tabContent}>
+                        <View style={styles.routeContent}>
+                            <Text style={styles.route}>
+                                {
+                                    props.distance.text ?
+                                    props.distance.text:
+                                    "Sorry!!! No Straight Route available for this place"
+                                }
+                            </Text>
+                            <Text style={styles.route}>
+                                {
+                                    props.duration.text ?
+                                    props.duration.text:
+                                    null
+                                }
+                            </Text>
+                        </View>
+                        <View style={styles.footprintContent}>
+                            <Text style={styles.footprint}>
+                                160g CO2
+                            </Text>
+                        </View>
                     </View>
-                </View>
+                }
             </View>
         )
     }
@@ -118,6 +126,11 @@ const styles = StyleSheet.create({
     },
     footprint: {
         fontSize: 18,
+    },
+    center: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 90,
     }
 })
 
