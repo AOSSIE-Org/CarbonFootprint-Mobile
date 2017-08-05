@@ -21,6 +21,8 @@ import pick from 'lodash/pick';
 import haversine from 'haversine';
 import MapView from 'react-native-maps';
 import BackgroundJob from 'react-native-background-job';
+import { ZOOM_DELTA } from '../config/constants';
+import { googleRoadsAPIKey } from '../config/keys';
 
 const backgroundJob = {
  jobKey: "myJob",
@@ -60,8 +62,7 @@ export default class ActivityTab extends Component {
       for(var i = this.state.numCoords; i < len - 1; i ++)
         baseUrl += this.state.routeCoordinates[i].latitude + "," + this.state.routeCoordinates[i].longitude + "|";
       baseUrl += this.state.routeCoordinates[len - 1].latitude + "," + this.state.routeCoordinates[len - 1].longitude;
-      var apiKey = "AIzaSyAz125UERNPlGgWGnmjchetTcrOb38TdKk";
-      baseUrl += "&interpolate=true&key=" + apiKey;
+      baseUrl += "&interpolate=true&key=" + googleRoadsAPIKey;
       
       fetch(baseUrl).then((response) => response.json())
             .then((response) => {
@@ -98,8 +99,8 @@ export default class ActivityTab extends Component {
         this._map.animateToRegion({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-          latitudeDelta: 0.0030,
-          longitudeDelta: 0.0030
+          latitudeDelta: ZOOM_DELTA,
+          longitudeDelta: ZOOM_DELTA
         }, 2);
       },
       (error) => alert(error.message)
@@ -113,8 +114,8 @@ export default class ActivityTab extends Component {
       this._map.animateToRegion({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
-        latitudeDelta: 0.0030,
-        longitudeDelta: 0.0030
+        latitudeDelta: ZOOM_DELTA,
+        longitudeDelta: ZOOM_DELTA
       }, 2);  
 
       console.log("location location location location location location location - " + position.coords.latitude + " " + position.coords.longitude);
@@ -202,6 +203,10 @@ export default class ActivityTab extends Component {
         break;
       }
     }
+    const mileage = 50; // km/L
+    const rate = 2.328; // in kg/L , For Petrol
+    var co2 = rate * (this.state.distanceTravelled / mileage);
+    var co2Str = co2.toFixed(2);
 		return(
       <ScrollView contentContainerStyle = {styles.scrollView}>
         <MapView
@@ -209,13 +214,7 @@ export default class ActivityTab extends Component {
           ref={(map)=>this._map = map}
           showsUserLocation={true} >
           <MapView.Polyline 
-            coordinates={this.state.routeCoordinates}
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0030,
-              longitudeDelta: 0.0030,
-            }} />
+            coordinates={this.state.routeCoordinates}/>
         </MapView>
         <View style ={styles.container}>
           <View style = {styles.activityView}>
@@ -238,8 +237,8 @@ export default class ActivityTab extends Component {
             <View style = {styles.verline} />
             <View style = {styles.statsViewItems}>
               <View style = {styles.statsViewItems1}>
-                <Text style = {styles.largeText}>30</Text>
-                <Text style = {styles.smallText}>g</Text>
+                <Text style = {styles.largeText}>{co2Str}</Text>
+                <Text style = {styles.smallText}>kg</Text>
               </View>
               <View style = {styles.hrView}>
                <Text style = {styles.smallText}>CO</Text>

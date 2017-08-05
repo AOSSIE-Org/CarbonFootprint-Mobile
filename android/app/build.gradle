@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':realm')
     compile project(':react-native-background-job')
     compile project(':react-native-google-places')
     compile project(':react-native-maps')
