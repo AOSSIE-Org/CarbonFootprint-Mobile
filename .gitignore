@@ -17,3 +17,5 @@ android/local.properties
 android/*.iml
 
 keys.js
+google-services.json
+strings.xml
