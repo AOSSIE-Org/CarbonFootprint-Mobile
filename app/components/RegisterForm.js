@@ -7,9 +7,10 @@ import {
     TextInput,
     TouchableHighlight
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Icon from 'react-native-vector-icons/Ionicons';
 
+import { getIcon } from '../config/helper.js';
 import ImageHeader from './ImageHeader';
 
 class RegisterForm extends Component {
@@ -28,19 +29,19 @@ class RegisterForm extends Component {
                 <ImageHeader text="" />
                     <KeyboardAwareScrollView style={styles.inputForm}>
                         <View style={styles.input}>
-                            <Icon name="user" size={16} color="#666" />
+                            <Icon name={getIcon("person")} size={18} color="#666" />
                             <TextInput placeholder="Name" style={styles.field}
                                 onChangeText={(text) => this.setState({name: text})}
                                 underlineColorAndroid='transparent' />
                         </View>
                         <View style={styles.input}>
-                            <Icon name="envelope" size={16} color="#666" />
+                            <Icon name={getIcon("mail")} size={18} color="#666" />
                             <TextInput placeholder="Email" style={styles.field} autoCapitalize='none'
                                 onChangeText={(text) => this.setState({email: text})}
                                 underlineColorAndroid='transparent' />
                         </View>
                         <View style={[styles.input, styles.inputTop]}>
-                            <Icon name="lock" size={18} color="#666" />
+                            <Icon name={getIcon("lock")} size={18} color="#666" />
                             <TextInput placeholder="Password" style={styles.field} secureTextEntry={true}
                                 onChangeText={(text) => this.setState({email: text})} autoCapitalize='none'
                                 underlineColorAndroid='transparent' />
