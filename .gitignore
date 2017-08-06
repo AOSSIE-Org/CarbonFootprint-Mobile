@@ -19,3 +19,5 @@ android/*.iml
 keys.js
 google-services.json
 strings.xml
+GoogleService-Info.plist
+Info.plist
