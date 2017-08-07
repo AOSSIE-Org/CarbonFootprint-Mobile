@@ -12,6 +12,8 @@ import { Actions } from 'react-native-router-flux';
 import BackHeader from '../components/BackHeader';
 import RegisterForm from '../components/RegisterForm';
 
+import * as SimpleAction from '../actions/SimpleAction';
+
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -40,7 +42,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}), dispatch);
+    return bindActionCreators(Object.assign({}, SimpleAction), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
