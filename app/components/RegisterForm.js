@@ -42,10 +42,12 @@ class RegisterForm extends Component {
                         <View style={[styles.input, styles.inputTop]}>
                             <Icon name="lock" size={18} color="#666" />
                             <TextInput placeholder="Password" style={styles.field} secureTextEntry={true}
-                                onChangeText={(text) => this.setState({email: text})} autoCapitalize='none'
+                                onChangeText={(text) => this.setState({password: text})} autoCapitalize='none'
                                 underlineColorAndroid='transparent' />
                         </View>
-                        <TouchableHighlight onPress={() => {}} style={styles.button}>
+                        <TouchableHighlight onPress={() =>
+                            this.props.signup(this.state.name, this.state.email, this.state.password)
+                        } style={styles.button}>
                             <Text style={styles.text}>Register</Text>
                         </TouchableHighlight>
                     </KeyboardAwareScrollView>

@@ -88,6 +88,11 @@ export default class TimelineTab extends Component {
 		this.datePickerView = this.datePickerView.bind(this);
 	}
 
+	// For getting icons based on platform
+    getIcon(name) {
+      return (Platform.OS === 'android' ? "md-": "ios-") + name;
+    }
+
 	// Function to set view of ListView item
 	// This function will be sent to Timeline component as prop and will be rendered by it.
 	renderDetail(rowData, sectionID, rowID) {

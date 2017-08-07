@@ -16,4 +16,4 @@ android/.idea/
 android/local.properties
 android/*.iml
 
-keys.js
+app/config/keys.js
