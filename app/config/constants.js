@@ -1,1 +1,0 @@
-export const ZOOM_DELTA = 0.0030;

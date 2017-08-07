@@ -21,7 +21,8 @@ import pick from 'lodash/pick';
 import haversine from 'haversine';
 import MapView from 'react-native-maps';
 import BackgroundJob from 'react-native-background-job';
-import { ZOOM_DELTA } from '../config/constants';
+
+import { ZOOM_DELTA } from '../config/helper';
 import { googleRoadsAPIKey } from '../config/keys';
 
 const backgroundJob = {
@@ -39,7 +40,7 @@ export default class ActivityTab extends Component {
 		super(props);
     this.state = {
       time: 0, // For travel time
-      numCoords: 0, 
+      numCoords: 0,
       routeCoordinates: [], // For drawing route
       distanceTravelled: 0, // For traveled distance
       prevLatLng: {} // Previous location
@@ -63,7 +64,7 @@ export default class ActivityTab extends Component {
         baseUrl += this.state.routeCoordinates[i].latitude + "," + this.state.routeCoordinates[i].longitude + "|";
       baseUrl += this.state.routeCoordinates[len - 1].latitude + "," + this.state.routeCoordinates[len - 1].longitude;
       baseUrl += "&interpolate=true&key=" + googleRoadsAPIKey;
-      
+
       fetch(baseUrl).then((response) => response.json())
             .then((response) => {
           this.processSnapToRoadResponse(response);
@@ -85,7 +86,7 @@ export default class ActivityTab extends Component {
     var tempCoords = this.state.routeCoordinates.slice();
     var len = snappedCoordinates.length;
     var num = this.state.numCoords;
-    for(var i = 0; i < len; i ++) 
+    for(var i = 0; i < len; i ++)
       tempCoords[i + num] = snappedCoordinates[i];
     this.setState({numCoords: num + len - 1, routeCoordinates: tempCoords});
   }
@@ -116,10 +117,10 @@ export default class ActivityTab extends Component {
         longitude: position.coords.longitude,
         latitudeDelta: ZOOM_DELTA,
         longitudeDelta: ZOOM_DELTA
-      }, 2);  
+      }, 2);
 
       console.log("location location location location location location location - " + position.coords.latitude + " " + position.coords.longitude);
- 
+
       // Updating state
       this.setState({
         routeCoordinates: routeCoordinates.concat(positionLatLngs),
@@ -182,7 +183,7 @@ export default class ActivityTab extends Component {
   // MapView component is added to display Google map showing location of user and source/destination (If entered)
 	render() {
     var timeObj = this.updateTime();
-    
+
     // Selecting activity icon based on detected activity
     var icon;
     switch(this.props.activityType) {
@@ -213,7 +214,7 @@ export default class ActivityTab extends Component {
           height={Dimensions.get("window").height * 0.5}
           ref={(map)=>this._map = map}
           showsUserLocation={true} >
-          <MapView.Polyline 
+          <MapView.Polyline
             coordinates={this.state.routeCoordinates}/>
         </MapView>
         <View style ={styles.container}>
