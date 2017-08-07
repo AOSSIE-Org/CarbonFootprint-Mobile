@@ -3,6 +3,9 @@
 */
 
 import React, { Component } from 'react';
+import {
+	Text
+} from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Platform } from 'react-native';
@@ -16,7 +19,7 @@ class ActivityHistory extends Component {
 	// For now, I have used same ActivityTab component which is mainly for displaying current user's activity. I will change it later.
 	render() {
 		return(
-			<ActivityTab {...this.props}/>
+			<Text>Detailed description of activity</Text>
 		);
 	}
 }
@@ -28,7 +31,7 @@ function mapStateToProps(state) {
 
 // Mapping dispatchable action (ActivityDetectionAction) to props so that actions can be used through props in children components
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, ActivityDetectionAction), dispatch);
+    return bindActionCreators(Object.assign({}), dispatch);
 }
 
 //This is needed to allow children components to have access to Actions and store variables
