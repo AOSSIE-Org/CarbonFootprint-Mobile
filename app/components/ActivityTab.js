@@ -23,6 +23,7 @@ import MapView from 'react-native-maps';
 import BackgroundJob from 'react-native-background-job';
 import { ZOOM_DELTA } from '../config/constants';
 import { googleRoadsAPIKey } from '../config/keys';
+import { getIcon, getIconName } from '../config/helper';
 
 const backgroundJob = {
  jobKey: "myJob",
@@ -42,7 +43,10 @@ export default class ActivityTab extends Component {
       numCoords: 0, 
       routeCoordinates: [], // For drawing route
       distanceTravelled: 0, // For traveled distance
-      prevLatLng: {} // Previous location
+      prevLatLng: {}, // Previous location
+      currActivity: 'STILL',
+      src: null,
+      co2: "0.00"
     };
     // Incrementing time
     setInterval(() => {this.setState({time: this.state.time + 1})}, 1000);
@@ -57,7 +61,7 @@ export default class ActivityTab extends Component {
 
     var len = this.state.routeCoordinates.length;
     //var diff = len - this.state.numCoords;
-//    if(len > 0 && diff >= 90 && diff <= 100) {
+    if(len > 0) {
       var baseUrl = "https://roads.googleapis.com/v1/snapToRoads?path=";
       for(var i = this.state.numCoords; i < len - 1; i ++)
         baseUrl += this.state.routeCoordinates[i].latitude + "," + this.state.routeCoordinates[i].longitude + "|";
@@ -71,7 +75,7 @@ export default class ActivityTab extends Component {
       .catch((error) => {
         alert("Error: " + error);
       });
-   // }
+   }
   }
 
   // Store snapped polyline returned by the snap-to-road service.
@@ -119,13 +123,34 @@ export default class ActivityTab extends Component {
       }, 2);  
 
       console.log("location location location location location location location - " + position.coords.latitude + " " + position.coords.longitude);
- 
+    
+      const mileage = 50; // km/L
+      const rate = 2.328; // in kg/L , For Petrol
+
       // Updating state
       this.setState({
         routeCoordinates: routeCoordinates.concat(positionLatLngs),
         distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
-        prevLatLng: newLatLngs
+        prevLatLng: newLatLngs,
+        co2: (rate * (this.state.distanceTravelled / mileage)).toFixed(2)
       });
+
+      if(this.props.type !== this.state.currActivity) {
+        //this.props.setSrc("this.state.src");
+        //this.props.setDest("positionLatLngs");
+        this.props.setDistance(this.state.distanceTravelled);
+        this.props.setCo2(this.state.co2);
+        this.setState({
+          time: 0,
+          numCoords: 0, 
+          routeCoordinates: [],
+          distanceTravelled: 0,
+          prevLatLng: {},
+          currActivity: this.props.type,
+          src: positionLatLngs,
+          co2: "0.00"
+        });
+      }
     },
     (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 1000, maximumAge: 0, distanceFilter:1}
@@ -172,41 +197,13 @@ export default class ActivityTab extends Component {
     }
   }
 
-  // For getting icons based on platform
-  getIcon(name) {
-    return (Platform.OS === 'android' ? "md-": "ios-") + name;
-  }
-
   // Main function to set whole view of screen
   // ScrollView is added to deal with different sizes of mobile screen.
   // MapView component is added to display Google map showing location of user and source/destination (If entered)
 	render() {
     var timeObj = this.updateTime();
-    
-    // Selecting activity icon based on detected activity
-    var icon;
-    switch(this.props.activityType) {
-      case 'IN_VEHICLE': {
-        icon = "car";
-        break;
-      }
-      case 'ON_BICYCLE': {
-        icon = "bicycle";
-        break;
-      }
-      case 'ON_FOOT': {
-        icon = "walk";
-        break;
-      }
-      default: {
-        icon = "close";
-        break;
-      }
-    }
-    const mileage = 50; // km/L
-    const rate = 2.328; // in kg/L , For Petrol
-    var co2 = rate * (this.state.distanceTravelled / mileage);
-    var co2Str = co2.toFixed(2);
+    var icon = getIconName(this.props.type);
+
 		return(
       <ScrollView contentContainerStyle = {styles.scrollView}>
         <MapView
@@ -220,7 +217,7 @@ export default class ActivityTab extends Component {
           <View style = {styles.activityView}>
             <TouchableNativeFeedback /*onPress = {() => this.props.startActivityDetection()}*/>
               <View style = {styles.activity_icon}>
-                <Icon name={this.getIcon(icon)} size={50} color="white"/>
+                <Icon name={getIcon(icon)} size={50} color="white"/>
               </View>
             </TouchableNativeFeedback>
             <Text style = {styles.smallText}> Detected Activity </Text>
@@ -237,7 +234,7 @@ export default class ActivityTab extends Component {
             <View style = {styles.verline} />
             <View style = {styles.statsViewItems}>
               <View style = {styles.statsViewItems1}>
-                <Text style = {styles.largeText}>{co2Str}</Text>
+                <Text style = {styles.largeText}>{this.state.co2}</Text>
                 <Text style = {styles.smallText}>kg</Text>
               </View>
               <View style = {styles.hrView}>

@@ -17,85 +17,49 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Timeline from 'react-native-timeline-listview';
+import { Actions } from 'react-native-router-flux';
+import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
+import { getIcon, getIconName } from '../config/helper';
 
 export default class TimelineTab extends Component {
 	constructor(props) {
 		super(props);
-
-		// This hardcoded data is just for testing purpose. 
-		// Actual data will be fetched from database where whole history of user's activities is stored.
-		this.data = 
-		[
-			{
-				title: "Google HQ",
-				subtitle: "Mountain View, California, United States",
-				time: "12:00 AM",
-				activityType: 0,
-				distance: "10 km",
-				duration: "1 hr",
-				co2Emitted: "5 kg",
-				co2Saved: "1 kg"
-			},
-			{
-				title: "Google HQ",
-				subtitle: "Mountain View, California, United States",
-				time: "12:00 AM",
-				activityType: 0,
-				distance: "10 km",
-				duration: "1 hr",
-				co2Emitted: "5 kg",
-				co2Saved: "1 kg"
-			},
-			{
-				title: "Google HQ",
-				subtitle: "Mountain View, California, United States",
-				time: "12:00 AM",
-				activityType: 0,
-				distance: "10 km",
-				duration: "1 hr",
-				co2Emitted: "5 kg",
-				co2Saved: "1 kg"
-			},
-			{
-				title: "Google HQ",
-				subtitle: "Mountain View, California, United States",
-				time: "12:00 AM",
-				activityType: 0,
-				distance: "10 km",
-				duration: "1 hr",
-				co2Emitted: "5 kg",
-				co2Saved: "1 kg"
-			},
-			{
-				title: "Google HQ",
-				subtitle: "Mountain View, California, United States",
-				time: "12:00 AM",
-				activityType: 0,
-				distance: "10 km",
-				duration: "1 hr",
-				co2Emitted: "5 kg",
-				co2Saved: "1 kg"
-			}
-		];
-
+		
 		// 'date' is taken as state so as to reflect change when user selects a different date from date picker.
 		this.state = {
 			date : new Date() // Current date
 		};
 
+		ActivityHistoryStorage.createDB();
+		this.data = this.getHistoryData();
 		// To bind 'pickDate' and 'datePickerView' functions to this class so that these functions can change current state
 		this.pickDate = this.pickDate.bind(this);
 		this.datePickerView = this.datePickerView.bind(this);
 	}
 
-	// For getting icons based on platform
-    getIcon(name) {
-      return (Platform.OS === 'android' ? "md-": "ios-") + name;
-    }
+	getHistoryData() {
+		var obj = ActivityHistoryStorage.getData(this.state.date.toDateString());
+		data = [];
+		for(i = 0; i < obj.length; i ++) {
+			let temp = {
+				title: obj[i].src,
+				subtitle: "Mountain View, California, United States",
+				time: obj[i].startTime,
+				activityType: obj[i].actType,
+				distance: obj[i].distance,
+				duration: "1 hr",
+				co2Emitted: obj[i].co2Emitted,
+				co2Saved: "1 kg"
+			}
+			data.push(temp);
+		}
+		return data;
+	}
 
 	// Function to set view of ListView item
 	// This function will be sent to Timeline component as prop and will be rendered by it.
 	renderDetail(rowData, sectionID, rowID) {
+    	var icon = getIconName(rowData.activityType);
 		return (
 			<View style = {styles.container}>
 				<View style = {styles.locationView}>
@@ -106,8 +70,8 @@ export default class TimelineTab extends Component {
 				</View>
 				<TouchableNativeFeedback onPress = {this.props.link}>
 					<View style = {styles.activityView}>
-						<Icon name = "md-car" size = {25} color = "black"/>
-						<Text style = {styles.mediumText}>Driving</Text>
+						<Icon name = {getIcon(icon)} size = {25} color = "black"/>
+						<Text style = {styles.mediumText}>{rowData.activityType}</Text>
 						<View style = {styles.hrView}>
 							<View>
 								<Text style = {styles.smallText}>{rowData.distance}</Text>
@@ -144,6 +108,8 @@ export default class TimelineTab extends Component {
 		    var date = new Date(year, month, day);
 		    // Set date to current state
 		    this.setState({date});
+		    this.data = this.getHistoryData();
+		    this.forceUpdate();
 		  }
 		} catch ({code, message}) {
 		  	alert("Cannot open date picker: " + message);
@@ -191,22 +157,25 @@ export default class TimelineTab extends Component {
 	// This component will take renderDetail function as prop to set view of ListView item.
 	render() {
 		return(
-			<View style = {{flex: 1}}>
+			<View style = {styles.viewStyle}>
 				{this.formatHeader()}
-				<Timeline 
-		          data={this.data}
-			      circleSize={20}
-		          circleColor='rgb(45,156,219)'
-		          lineColor='rgb(45,156,219)'
-		          timeContainerStyle={{minWidth:52}}
-		          timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
-		          descriptionStyle={{color:'gray'}}
-		          renderDetail={this.renderDetail}
-		          separator={false}
-		          innerCircle={'dot'}
-		          onEventPress={this.props.link}
-		          options={{style:{padding:10}}}
-		        />
+				{this.data.length > 0 ?
+					<Timeline 
+			          data={this.data}
+				      circleSize={20}
+			          circleColor='rgb(45,156,219)'
+			          lineColor='rgb(45,156,219)'
+			          timeContainerStyle={{minWidth:52}}
+			          timeStyle={{textAlign: 'center', backgroundColor:'#ff9797', color:'white', padding:5, borderRadius:13}}
+			          descriptionStyle={{color:'gray'}}
+			          renderDetail={this.renderDetail}
+			          separator={false}
+			          innerCircle={'dot'}
+			          onEventPress={Actions.activityHistory}
+			          options={{style:{padding:10}}}
+			        />
+			 		: <Text>No Activity found</Text>
+			    }
 	        </View>
 		);
 	}
@@ -214,6 +183,11 @@ export default class TimelineTab extends Component {
 
 // For styling the screen
 const styles = StyleSheet.create({
+	viewStyle: {
+		flex: 1,
+		marginBottom: 45
+	},
+
 	// Container for every ListView item
 	container: {
 		flex: 1,

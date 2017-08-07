@@ -47,7 +47,7 @@ class More extends Component {
                 {
                     icon: "stats",
                     text: "Stats",
-                    link: () => console.log("Stats"),
+                    link: () => Actions.timeline(),
                 }
             ],
             [
