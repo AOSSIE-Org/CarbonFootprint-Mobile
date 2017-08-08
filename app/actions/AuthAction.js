@@ -7,20 +7,20 @@ export const REQUEST_AUTH = "REQUEST_AUTH";
 export const RECEIVE_AUTH = "RECEIVE_AUTH";
 export const RECEIVE_ERROR = "RECEIVE_ERROR";
 
-export function request_auth() {
+export function requestAuth() {
     return {
         type: REQUEST_AUTH,
     }
 }
 
-export function receive_auth(json) {
+export function receiveAuth(json) {
     return {
         type: RECEIVE_AUTH,
         user: json
     }
 }
 
-export function receive_error(json) {
+export function receiveError(json) {
     return {
         type: RECEIVE_ERROR,
         error: json,
@@ -29,30 +29,30 @@ export function receive_error(json) {
 
 export function login(email, password) {
     return (dispatch, getState) => {
-        dispatch(request_auth());
+        dispatch(requestAuth());
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((user) => {
-            dispatch(receive_auth(user));
+            dispatch(receiveAuth(user));
             Actions.landing({type: ActionConst.RESET});
             Actions.main();
         })
         .catch((error) => {
-            dispatch(receive_error(error.message));
+            dispatch(receiveError(error.message));
         })
     }
 }
 
 export function register(email, password) {
     return (dispatch, getState) => {
-        dispatch(request_auth());
+        dispatch(requestAuth());
         firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((user) => {
-            dispatch(receive_auth(user));
+            dispatch(receiveAuth(user));
             Actions.landing({type: ActionConst.RESET});
             Actions.main();
         })
         .catch((error) => {
-            dispatch(receive_error(error.message));
+            dispatch(receiveError(error.message));
         })
     }
 }
@@ -62,12 +62,12 @@ export function getUser() {
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
-        dispatch(request_auth());
+        dispatch(requestAuth());
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                dispatch(receive_auth(user));
+                dispatch(receiveAuth(user));
             } else {
-                dispatch(receive_auth(null));
+                dispatch(receiveAuth(null));
             }
         });
     }
