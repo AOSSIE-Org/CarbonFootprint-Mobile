@@ -17,7 +17,6 @@ class RegisterForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
             email: '',
             password: ''
         }
@@ -26,14 +25,8 @@ class RegisterForm extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <ImageHeader text="" />
+                <ImageHeader text="Register for a new account" />
                     <KeyboardAwareScrollView style={styles.inputForm}>
-                        <View style={styles.input}>
-                            <Icon name={getIcon("person")} size={18} color="#666" />
-                            <TextInput placeholder="Name" style={styles.field}
-                                onChangeText={(text) => this.setState({name: text})}
-                                underlineColorAndroid='transparent' />
-                        </View>
                         <View style={styles.input}>
                             <Icon name={getIcon("mail")} size={18} color="#666" />
                             <TextInput placeholder="Email" style={styles.field} autoCapitalize='none'
@@ -47,7 +40,7 @@ class RegisterForm extends Component {
                                 underlineColorAndroid='transparent' />
                         </View>
                         <TouchableHighlight onPress={() =>
-                            this.props.signup(this.state.name, this.state.email, this.state.password)
+                            this.props.register(this.state.email, this.state.password)
                         } style={styles.button}>
                             <Text style={styles.text}>Register</Text>
                         </TouchableHighlight>
@@ -87,15 +80,16 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: "#538124",
-        height: 40,
+        height: 30,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 14,
+        marginTop: 21,
         borderRadius: 2,
     },
     text: {
         color: '#fff',
-        fontSize: 18,
+        fontSize: 16,
+        letterSpacing: 1,
     }
 })
 

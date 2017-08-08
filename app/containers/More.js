@@ -14,8 +14,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as StorageAction from '../actions/StorageAction';
-import Footer from '../components/Footer';
+import * as AuthAction from '../actions/AuthAction';
+
 import Header from '../components/Header';
 import { getIcon } from '../config/helper';
 
@@ -29,7 +29,7 @@ class More extends Component {
                     text: 'Cancel', onPress: () => console.log('Wise Choice!!!'), style: 'cancel'
                 },
                 {
-                    text: 'OK', onPress: () => this.props.removeStorage()
+                    text: 'OK', onPress: () => this.props.logout()
                 },
             ],
             { cancelable: false }
@@ -141,7 +141,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, StorageAction), dispatch);
+    return bindActionCreators(Object.assign({}, AuthAction), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(More);

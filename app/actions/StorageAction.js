@@ -1,5 +1,6 @@
 /*
  * Handles SET and GET Operations on AsyncStorage
+ * This will not be used because of Firebase but leaving it as is for now.
 */
 
 import { AsyncStorage } from 'react-native';

@@ -51,6 +51,10 @@
 		DB764A4E12D0475D8B674415 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0FEEB75EE8449C2897CFE16 /* MaterialIcons.ttf */; };
 		E010E57F7FE04513991FFCC2 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F71276B101B04C499B6D2ED6 /* libRCTFBSDK.a */; };
 		F0093083142246609251DECC /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A2AC2B03F374A7C83525131 /* libRNVectorIcons.a */; };
+		F52BFF091F399A1400F7183E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F52BFF081F399A1400F7183E /* GoogleService-Info.plist */; };
+		F52BFF0A1F399A1400F7183E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F52BFF081F399A1400F7183E /* GoogleService-Info.plist */; };
+		F52BFF0B1F399A1400F7183E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F52BFF081F399A1400F7183E /* GoogleService-Info.plist */; };
+		F52BFF0C1F399A1400F7183E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F52BFF081F399A1400F7183E /* GoogleService-Info.plist */; };
 		F57062891F050A250019039C /* AIRGMSMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062641F050A240019039C /* AIRGMSMarker.m */; };
 		F570628A1F050A250019039C /* AIRGMSPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062661F050A240019039C /* AIRGMSPolygon.m */; };
 		F570628B1F050A250019039C /* AIRGMSPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062681F050A240019039C /* AIRGMSPolyline.m */; };
@@ -70,10 +74,6 @@
 		F57062991F050A250019039C /* AIRGoogleMapURLTileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062841F050A250019039C /* AIRGoogleMapURLTileManager.m */; };
 		F570629A1F050A250019039C /* DummyView.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062861F050A250019039C /* DummyView.m */; };
 		F570629B1F050A250019039C /* RCTConvert+GMSMapViewType.m in Sources */ = {isa = PBXBuildFile; fileRef = F57062881F050A250019039C /* RCTConvert+GMSMapViewType.m */; };
-		F58A55921F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F58A55911F35AF7B00C6AD6A /* GoogleService-Info.plist */; };
-		F58A55931F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F58A55911F35AF7B00C6AD6A /* GoogleService-Info.plist */; };
-		F58A55941F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F58A55911F35AF7B00C6AD6A /* GoogleService-Info.plist */; };
-		F58A55951F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F58A55911F35AF7B00C6AD6A /* GoogleService-Info.plist */; };
 		F5B4490B1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
 		F5B4490C1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
 		F5B4490D1EFD3B040042ABBA /* RNGoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */; };
@@ -389,6 +389,7 @@
 		F3F1DF11C6EBF233C6DA4B99 /* Pods-CarbonFootprintTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarbonFootprintTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarbonFootprintTests/Pods-CarbonFootprintTests.release.xcconfig"; sourceTree = "<group>"; };
 		F5097DCC1EFD268E00F18E54 /* CarbonFootprint-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarbonFootprint-Bridging-Header.h"; sourceTree = "<group>"; };
 		F5097DCD1EFD268E00F18E54 /* CarbonFootprintTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarbonFootprintTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		F52BFF081F399A1400F7183E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F57062631F050A240019039C /* AIRGMSMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGMSMarker.h; sourceTree = "<group>"; };
 		F57062641F050A240019039C /* AIRGMSMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRGMSMarker.m; sourceTree = "<group>"; };
 		F57062651F050A240019039C /* AIRGMSPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRGMSPolygon.h; sourceTree = "<group>"; };
@@ -427,7 +428,6 @@
 		F57062861F050A250019039C /* DummyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DummyView.m; sourceTree = "<group>"; };
 		F57062871F050A250019039C /* RCTConvert+GMSMapViewType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+GMSMapViewType.h"; sourceTree = "<group>"; };
 		F57062881F050A250019039C /* RCTConvert+GMSMapViewType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+GMSMapViewType.m"; sourceTree = "<group>"; };
-		F58A55911F35AF7B00C6AD6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F5B449061EFD3B040042ABBA /* RNGoogleSignIn-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNGoogleSignIn-Bridging-Header.h"; sourceTree = "<group>"; };
 		F5B449071EFD3B040042ABBA /* RNGoogleSignIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNGoogleSignIn.swift; sourceTree = "<group>"; };
 		F5B449081EFD3B040042ABBA /* RNGoogleSignInBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGoogleSignInBridge.m; sourceTree = "<group>"; };
@@ -588,6 +588,7 @@
 		13B07FAE1A68108700A75B9A /* CarbonFootprint */ = {
 			isa = PBXGroup;
 			children = (
+				F52BFF081F399A1400F7183E /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -695,7 +696,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				F58A55911F35AF7B00C6AD6A /* GoogleService-Info.plist */,
 				F57062621F050A240019039C /* AirGoogleMaps */,
 				F5B449051EFD3B040042ABBA /* RNGoogleSignIn */,
 				F5D5D82F1EFBF12000D87D33 /* Frameworks */,
@@ -1268,7 +1268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F58A55931F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */,
+				F52BFF0A1F399A1400F7183E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1281,7 +1281,7 @@
 				57BAF72A91B248DE96F50E85 /* EvilIcons.ttf in Resources */,
 				A2006F139F174ADD812221A9 /* FontAwesome.ttf in Resources */,
 				F677458067FE4EDB81140F48 /* Foundation.ttf in Resources */,
-				F58A55921F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */,
+				F52BFF091F399A1400F7183E /* GoogleService-Info.plist in Resources */,
 				10A5D7471BFF4999AD98B44E /* Ionicons.ttf in Resources */,
 				88107E9FA8124B3DBA7CF8AD /* MaterialCommunityIcons.ttf in Resources */,
 				DB764A4E12D0475D8B674415 /* MaterialIcons.ttf in Resources */,
@@ -1296,7 +1296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
-				F58A55941F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */,
+				F52BFF0B1F399A1400F7183E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1304,7 +1304,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F58A55951F35AF7B00C6AD6A /* GoogleService-Info.plist in Resources */,
+				F52BFF0C1F399A1400F7183E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
