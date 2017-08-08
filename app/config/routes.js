@@ -39,7 +39,7 @@ class Navigator extends Component {
                             <Scene key="about" component={About} hideNavBar />
                             <Scene key="terms" component={Terms} hideNavBar />
 
-                            <Scene key="activityHistory" component={ActivityHistory}/>
+                            <Scene key="activity" component={ActivityHistory}/>
 
                         </Scene>
                     </Scene>
