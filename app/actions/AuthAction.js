@@ -37,7 +37,7 @@ export function login(email, password) {
             Actions.main();
         })
         .catch((error) => {
-            dispatch(receiveError(error.message));
+            dispatch(receiveError(error));
         })
     }
 }
@@ -52,7 +52,7 @@ export function register(email, password) {
             Actions.main();
         })
         .catch((error) => {
-            dispatch(receiveError(error.message));
+            dispatch(receiveError(error));
         })
     }
 }
