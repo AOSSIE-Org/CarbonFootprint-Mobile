@@ -16,19 +16,19 @@ import {
   Platform,
   TouchableNativeFeedback
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+// For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
+import Icon from 'react-native-vector-icons';
 import pick from 'lodash/pick';
 import haversine from 'haversine';
 import MapView from 'react-native-maps';
 import BackgroundJob from 'react-native-background-job';
-import { ZOOM_DELTA } from '../config/constants';
+import { ZOOM_DELTA, MILEAGE, RATE } from '../config/constants';
 import { googleRoadsAPIKey } from '../config/keys';
 import { getIcon, getIconName } from '../config/helper';
 
 const backgroundJob = {
  jobKey: "myJob",
  job: () => {
-    //console.log("********************************************************************************Running in background*********************************************************************************************************************")
     this.drawRoute();
   }
 };
@@ -120,26 +120,21 @@ export default class ActivityTab extends Component {
         longitude: position.coords.longitude,
         latitudeDelta: ZOOM_DELTA,
         longitudeDelta: ZOOM_DELTA
-      }, 2);  
-
-      console.log("location location location location location location location - " + position.coords.latitude + " " + position.coords.longitude);
-    
-      const mileage = 50; // km/L
-      const rate = 2.328; // in kg/L , For Petrol
+      }, 2);   
 
       // Updating state
       this.setState({
         routeCoordinates: routeCoordinates.concat(positionLatLngs),
         distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
         prevLatLng: newLatLngs,
-        co2: (rate * (this.state.distanceTravelled / mileage)).toFixed(2)
+        co2: (RATE * (this.state.distanceTravelled / MILEAGE)).toFixed(2)
       });
 
       if(this.props.type !== this.state.currActivity) {
         //this.props.setSrc("this.state.src");
         //this.props.setDest("positionLatLngs");
         this.props.setDistance(this.state.distanceTravelled);
-        this.props.setCo2(this.state.co2);
+        this.props.setCO2(this.state.co2);
         this.setState({
           time: 0,
           numCoords: 0, 
@@ -217,7 +212,7 @@ export default class ActivityTab extends Component {
           <View style = {styles.activityView}>
             <TouchableNativeFeedback /*onPress = {() => this.props.startActivityDetection()}*/>
               <View style = {styles.activity_icon}>
-                <Icon name={getIcon(icon)} size={50} color="white"/>
+                <Icon name={(this.props.type === 'RUNNING') ? icon : getIcon(icon)} size={50} color="white"/>
               </View>
             </TouchableNativeFeedback>
             <Text style = {styles.smallText}> Detected Activity </Text>

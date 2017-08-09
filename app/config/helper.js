@@ -20,9 +20,12 @@ export function getIconName(activity) {
         break;
       }
       case 'ON_FOOT':
-      case 'WALKING':
-      case 'RUNNING': {
+      case 'WALKING': {
         icon = "walk";
+        break;
+      }
+      case 'RUNNING': {
+        icon = "run";
         break;
       }
       default: {

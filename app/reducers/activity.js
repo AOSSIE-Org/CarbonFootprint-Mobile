@@ -1,11 +1,13 @@
-import { SET_ACTIVITY_DATE } from '../actions/ActivityDetailsAction';
-import { SET_ACTIVITY_START_TIME } from '../actions/ActivityDetailsAction';
-import { SET_ACTIVITY_END_TIME } from '../actions/ActivityDetailsAction';
-import { SET_ACTIVITY_SRC } from '../actions/ActivityDetailsAction';
-import { SET_ACTIVITY_DEST } from '../actions/ActivityDetailsAction';
-import { SET_ACTIVITY_TYPE } from '../actions/ActivityDetailsAction';
-import { SET_ACTIVITY_DISTANCE } from '../actions/ActivityDetailsAction';
-import { SET_ACTIVITY_CO2 } from '../actions/ActivityDetailsAction';
+import {    
+    SET_ACTIVITY_DATE, 
+    SET_ACTIVITY_START_TIME,
+    SET_ACTIVITY_END_TIME,
+    SET_ACTIVITY_SRC,
+    SET_ACTIVITY_DEST,
+    SET_ACTIVITY_TYPE,
+    SET_ACTIVITY_DISTANCE,
+    SET_ACTIVITY_CO2
+} from '../actions/ActivityDetailsAction';
 
 export default function activity(state = {
 	date: '',

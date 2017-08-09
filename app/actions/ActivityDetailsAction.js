@@ -56,7 +56,7 @@ export function setDistance(val) {
   }
 }
 
-export function setCo2(val) {
+export function setCO2(val) {
   return {
     type: SET_ACTIVITY_CO2,
     value: val
