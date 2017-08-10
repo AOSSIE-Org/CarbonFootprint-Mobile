@@ -79,5 +79,8 @@ export function loginCustomFirebase(type, token, secret) {
                 .catch((error) => reject(error))
             })
         })
+        .catch((error) => {
+            reject(error)
+        })
     })
 }
