@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     },
     main: {
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 65, // (45 + 20)
         padding: 13,
     },
     image: {
@@ -64,10 +64,10 @@ const styles = StyleSheet.create({
     },
     small: {
         fontSize: 13,
-        letterSpacing: 1,
+        color: '#555',
+        padding: 13,
     },
     text: {
-        padding: 13,
         marginTop: 10,
     }
 })

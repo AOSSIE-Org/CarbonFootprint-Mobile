@@ -25,39 +25,62 @@ class Footer extends Component {
             friends: this.props.name === 'friends' ?
                         active: normal,
             more: this.props.name === 'more' ?
+                        active: normal,
+            profile: this.props.name === 'profile'?
                         active: normal
         }
 
+        const tabs = [
+            {
+                action: () => Actions.calculate(),
+                icon: "pin",
+                color: color.calculate,
+                name: "Calculate",
+            },
+            {
+                action: () => Actions.activity(),
+                icon: "pulse",
+                color: color.activity,
+                name: "Activity",
+            },
+            {
+                action: () => {},
+                icon: "people",
+                color: color.friends,
+                name: "Friends",
+            },
+            {
+                action: () => Actions.profile(),
+                icon: "person",
+                color: color.profile,
+                name: "Profile",
+            },
+            {
+                action: () => Actions.more(),
+                icon: "more",
+                color: color.more,
+                name: "More",
+            }
+        ]
+
         return(
             <View style={styles.container}>
-                <TouchableHighlight style={styles.touch} onPress={() => {Actions.calculate()}}
-                    underlayColor={underlay} activeOpacity={0.5}>
-                    <View style={styles.nav}>
-                        <Icon name={getIcon("pin")} size={size} color={color.calculate} style={styles.icon}/>
-                        <Text style={[styles.text, {color: color.calculate}]}>Calculate</Text>
-                    </View>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.touch} onPress={() => {Actions.activity()}}
-                    underlayColor={underlay} activeOpacity={0.5}>
-                    <View style={styles.nav}>
-                        <Icon name={getIcon("pulse")} size={size} color={color.activity} style={styles.icon}/>
-                        <Text style={[styles.text, {color: color.activity}]}>Activity</Text>
-                    </View>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.touch} onPress={() => {}}
-                    underlayColor={underlay} activeOpacity={0.5}>
-                    <View style={styles.nav}>
-                        <Icon name={getIcon("people")} size={size} color={color.friends} style={styles.icon}/>
-                        <Text style={[styles.text, {color: color.friends}]}>Friends</Text>
-                    </View>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.touch} onPress={() => {Actions.more()}}
-                    underlayColor={underlay} activeOpacity={0.5}>
-                    <View style={styles.nav}>
-                        <Icon name={getIcon("more")} size={size} color={normal} style={styles.icon}/>
-                        <Text style={[styles.text, {color: color.more}]}>More</Text>
-                    </View>
-                </TouchableHighlight>
+                {
+                    tabs.map((tab, index) => {
+                        return (
+                            <TouchableHighlight style={styles.touch} onPress={tab.action}
+                                underlayColor={underlay} activeOpacity={0.5} key={tab.name}>
+                                <View style={styles.nav}>
+                                    <Icon name={getIcon(tab.icon)} size={size}
+                                        color={tab.color} style={styles.icon}/>
+                                    <Text style={[styles.text, {color: tab.color}]}>
+                                        {tab.name}
+                                    </Text>
+                                </View>
+                            </TouchableHighlight>
+                        )
+                    })
+                }
             </View>
         )
     }

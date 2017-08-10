@@ -16,7 +16,7 @@ class Header extends Component {
         if (props.icon) {
             return (
                 <View style={styles.container}>
-                    <Icon.Button name={getIcon(props.iconName)} backgroundColor="#538124"
+                    <Icon.Button name={getIcon(props.iconName)} backgroundColor="#4d6832"
                         iconStyle={styles.icon} onPress={() => Actions.pop()} size={22}>
                     </Icon.Button>
                     <Text style={[styles.white, styles.text]}>{props.text}</Text>
@@ -36,11 +36,16 @@ const styles = StyleSheet.create({
     container: {
         top: 0,
         width: Dimensions.get("window").width,
-        backgroundColor: '#538124',
+        backgroundColor: '#4d6832',
         height: 45,
         paddingLeft: 13,
         alignItems: 'center',
         flexDirection: 'row',
+        position: 'absolute',
+        zIndex: 3,
+        shadowColor: '#4d6832',
+        borderBottomWidth: 3,
+        borderColor: '#4d6832',
     },
     white: {
         color: '#fff',

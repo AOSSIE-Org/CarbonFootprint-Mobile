@@ -45,9 +45,9 @@ class More extends Component {
                     link: () => console.log("Settings"),
                 },
                 {
-                    icon: "stats",
-                    text: "Stats",
-                    link: () => console.log("Stats"),
+                    icon: "person",
+                    text: "Profile",
+                    link: () => Actions.profile(),
                 }
             ],
             [
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#f7f7f7",
     },
     main: {
-        marginTop: 10,
+        marginTop: 55, // (45 + 10)
         width: Dimensions.get("window").width,
     },
     group: {

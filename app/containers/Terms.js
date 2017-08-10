@@ -38,12 +38,13 @@ const styles = StyleSheet.create({
     },
     main: {
         alignItems: 'center',
-        marginTop: 10,
+        marginTop: 55, // (45 + 10)
         padding: 13,
     },
     text: {
         fontSize: 13,
-        letterSpacing: 1,
+        color: "#555",
+        padding: 13,
     },
 })
 
