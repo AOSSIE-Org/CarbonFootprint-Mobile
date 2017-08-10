@@ -15,7 +15,10 @@ export function getUser(uid) {
         firebase.database().ref('users/' + uid).once('value')
         .then(function(snapshot) {
             if (snapshot.val() !== null) {
-                resolve(snapshot.val());
+                resolve({
+                    ...snapshot.val(),
+                    uid: uid
+                });
             } else {
                 reject();
             }
