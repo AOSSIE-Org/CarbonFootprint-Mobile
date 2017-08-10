@@ -5,7 +5,8 @@ import {
     Dimensions,
     Text,
     TextInput,
-    TouchableHighlight
+    TouchableHighlight,
+    ActivityIndicator
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Actions, ActionConst } from 'react-native-router-flux';
@@ -20,7 +21,14 @@ class LoginForm extends Component {
         this.state = {
             email: '',
             password: '',
+            error: '',
         }
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({
+            error: props.auth.error
+        })
     }
 
     render() {
@@ -40,11 +48,35 @@ class LoginForm extends Component {
                             onChangeText={(text) => this.setState({password: text})} autoCapitalize='none'
                             underlineColorAndroid='transparent'/>
                     </View>
+                    {
+                        this.props.auth.isFetching ?
+                        null:
+                        this.state.error ?
+                        <View style={styles.topMargin}>
+                            <Text style={styles.error}>{this.state.error}</Text>
+                        </View>
+                        : null
+                    }
                     <TouchableHighlight onPress={() =>
+                            this.props.auth.isFetching ?
+                            {}:
                             this.props.login(this.state.email, this.state.password)
-                        } style={styles.button}>
-                        <Text style={styles.text}>Login</Text>
+                        } style={styles.button} underlayColor="#538124" activeOpacity={0.5}>
+                        <Text style={styles.text}>
+                            {
+                                this.props.auth.isFetching ?
+                                "Logging....":
+                                "Login"
+                            }
+                        </Text>
                     </TouchableHighlight>
+                    {
+                        this.props.auth.isFetching ?
+                        <View style={styles.topMargin}>
+                            <ActivityIndicator animating={this.props.auth.isFetching} color="#4D72B8"/>
+                        </View>
+                        : null
+                    }
                 </KeyboardAwareScrollView>
             </View>
         )
@@ -91,6 +123,12 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         letterSpacing: 1,
+    },
+    error: {
+        color: '#cc0000',  
+    },
+    topMargin: {
+        marginTop: 10,
     }
 })
 

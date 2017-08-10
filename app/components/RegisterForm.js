@@ -21,7 +21,14 @@ class RegisterForm extends Component {
             email: '',
             password: '',
             name: '',
+            error: '',
         }
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({
+            error: props.auth.error
+        })
     }
 
     render() {
@@ -50,9 +57,9 @@ class RegisterForm extends Component {
                         {
                             this.props.auth.isFetching ?
                             null:
-                            this.props.auth.error ?
+                            this.state.error ?
                             <View style={styles.topMargin}>
-                                <Text style={styles.error}>{this.props.auth.error}</Text>
+                                <Text style={styles.error}>{this.state.error}</Text>
                             </View>
                             : null
                         }
@@ -60,7 +67,7 @@ class RegisterForm extends Component {
                             this.props.auth.isFetching ?
                             {} :
                             this.props.register(this.state.name, this.state.email, this.state.password)
-                        } style={styles.button}>
+                        } style={styles.button} underlayColor="#538124" activeOpacity={0.5}>
                             <Text style={styles.text}>
                                 {
                                     this.props.auth.isFetching ?
