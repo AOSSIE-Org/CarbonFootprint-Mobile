@@ -24,7 +24,7 @@ export default function login(state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 user: null,
-                error: action.error,
+                error: action.error.message,
             })
         default:
             return state;

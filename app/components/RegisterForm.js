@@ -5,7 +5,8 @@ import {
     Dimensions,
     Text,
     TextInput,
-    TouchableHighlight
+    TouchableHighlight,
+    ActivityIndicator
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -46,11 +47,36 @@ class RegisterForm extends Component {
                                 onChangeText={(text) => this.setState({password: text})} autoCapitalize='none'
                                 underlineColorAndroid='transparent' />
                         </View>
+                        {
+                            this.props.auth.isFetching ?
+                            null:
+                            this.props.auth.error ?
+                            <View style={styles.topMargin}>
+                                <Text style={styles.error}>{this.props.auth.error}</Text>
+                            </View>
+                            : null
+                        }
                         <TouchableHighlight onPress={() =>
+                            this.props.auth.isFetching ?
+                            {} :
                             this.props.register(this.state.name, this.state.email, this.state.password)
                         } style={styles.button}>
-                            <Text style={styles.text}>Register</Text>
+                            <Text style={styles.text}>
+                                {
+                                    this.props.auth.isFetching ?
+                                    "Registering....":
+                                    "Register"
+                                }
+                            </Text>
                         </TouchableHighlight>
+                        {
+                            this.props.auth.isFetching ?
+                            <View style={styles.topMargin}>
+                                <ActivityIndicator animating={this.props.auth.isFetching} color="#4D72B8"/>
+                            </View>
+                            : null
+                        }
+
                     </KeyboardAwareScrollView>
             </View>
         )
@@ -73,7 +99,6 @@ const styles = StyleSheet.create({
         borderColor: "#555",
         flexDirection: 'row',
         alignItems: 'center',
-
     },
     inputTop: {
         borderTopWidth: 0,
@@ -97,6 +122,13 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         letterSpacing: 1,
+    },
+    error: {
+        color: "#cc0000",
+        fontSize: 12,
+    },
+    topMargin: {
+        marginTop: 10,
     }
 })
 
