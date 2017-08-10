@@ -8,7 +8,11 @@ import * as firebase from 'firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
 import { googleSignInConfig } from '../config/keys';
-import { receiveAuth } from './AuthAction';
+import {
+	receiveAuth,
+	receiveError
+} from './AuthAction';
+import { loginCustomFirebase } from './firebase/Auth';
 
 export function googleSignIn() {
 	return function (dispatch) {
@@ -16,15 +20,13 @@ export function googleSignIn() {
 		.then(() => {
 			GoogleSignIn.signInPromise()
 			.then((data) => {
-				console.log(data);
-				const credential = firebase.auth.GoogleAuthProvider
-									.credential(data.idToken, data.accessToken);
-				console.log(credential);
-				firebase.auth().signInWithCredential(credential)
+				loginCustomFirebase("google", data.idToken, data.accessToken)
 				.then((user) => {
 					dispatch(receiveAuth(user));
 					Actions.main({type: ActionConst.RESET});
-					Actions.calculate();
+				})
+				.catch((error) => {
+					dispatch(receiveError(error));
 				})
 			})
 			.catch((error) => {

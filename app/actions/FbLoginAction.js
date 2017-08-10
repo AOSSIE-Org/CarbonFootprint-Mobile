@@ -5,7 +5,11 @@ import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsd
 import * as firebase from 'firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
-import { receiveAuth } from './AuthAction';
+import {
+	receiveAuth,
+	receiveError,
+} from './AuthAction';
+import { loginCustomFirebase } from './firebase/Auth';
 
 export function fbLogin() {
 	return function (dispatch) {
@@ -16,12 +20,13 @@ export function fbLogin() {
 		    } else {
 		      AccessToken.getCurrentAccessToken().then(
 				  (data) => {
-					  const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
-					  firebase.auth().signInWithCredential(credential)
+					  loginCustomFirebase("facebook", data.accessToken, null)
 					  .then((user) => {
 						  dispatch(receiveAuth(user));
 						  Actions.main({type: ActionConst.RESET});
-			              Actions.calculate();
+					  })
+					  .catch((error) => {
+						  dispatch(receiveError(error));
 					  })
 				  }
 		       )

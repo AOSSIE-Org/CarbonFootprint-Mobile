@@ -16,7 +16,7 @@ class Master extends Component {
     }
 
     componentWillMount() {
-        this.props.getUser();
+        this.props.initApp();
     }
 
     componentWillReceiveProps(props) {

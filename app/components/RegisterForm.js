@@ -18,15 +18,22 @@ class RegisterForm extends Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            name: '',
         }
     }
 
     render() {
         return(
             <View style={styles.container}>
-                <ImageHeader text="Register for a new account" />
+                <ImageHeader text="Create a New Account" />
                     <KeyboardAwareScrollView style={styles.inputForm}>
+                        <View style={styles.input}>
+                            <Icon name={getIcon("person")} size={18} color="#666" />
+                            <TextInput placeholder="Name" style={styles.field}
+                                onChangeText={(text) => this.setState({name: text})}
+                                underlineColorAndroid='transparent' />
+                        </View>
                         <View style={styles.input}>
                             <Icon name={getIcon("mail")} size={18} color="#666" />
                             <TextInput placeholder="Email" style={styles.field} autoCapitalize='none'
@@ -40,7 +47,7 @@ class RegisterForm extends Component {
                                 underlineColorAndroid='transparent' />
                         </View>
                         <TouchableHighlight onPress={() =>
-                            this.props.register(this.state.email, this.state.password)
+                            this.props.register(this.state.name, this.state.email, this.state.password)
                         } style={styles.button}>
                             <Text style={styles.text}>Register</Text>
                         </TouchableHighlight>

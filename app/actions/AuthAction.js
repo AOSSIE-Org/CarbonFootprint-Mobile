@@ -3,6 +3,12 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import { setStorage } from './StorageAction';
 import { firebaseConfig } from '../config/keys';
 
+import { initFirebase } from './firebase/Init';
+import {
+    registerFirebase,
+    loginEmailFirebase
+} from './firebase/Auth';
+
 export const REQUEST_AUTH = "REQUEST_AUTH";
 export const RECEIVE_AUTH = "RECEIVE_AUTH";
 export const RECEIVE_ERROR = "RECEIVE_ERROR";
@@ -30,11 +36,10 @@ export function receiveError(json) {
 export function login(email, password) {
     return (dispatch, getState) => {
         dispatch(requestAuth());
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        loginEmailFirebase(email, password)
         .then((user) => {
             dispatch(receiveAuth(user));
-            Actions.landing({type: ActionConst.RESET});
-            Actions.main();
+            Actions.main({type: ActionConst.RESET});
         })
         .catch((error) => {
             dispatch(receiveError(error));
@@ -42,14 +47,13 @@ export function login(email, password) {
     }
 }
 
-export function register(email, password) {
+export function register(name, email, password) {
     return (dispatch, getState) => {
         dispatch(requestAuth());
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        registerFirebase(name, email, password)
         .then((user) => {
             dispatch(receiveAuth(user));
-            Actions.landing({type: ActionConst.RESET});
-            Actions.main();
+            Actions.main({type: ActionConst.RESET});
         })
         .catch((error) => {
             dispatch(receiveError(error));
@@ -57,19 +61,16 @@ export function register(email, password) {
     }
 }
 
-export function getUser() {
+export function initApp() {
     return (dispatch, getState) => {
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
         dispatch(requestAuth());
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                dispatch(receiveAuth(user));
-            } else {
-                dispatch(receiveAuth(null));
-            }
-        });
+        initFirebase()
+        .then((user) => {
+            dispatch(receiveAuth(user));
+        })
+        .catch(() => {
+            dispatch(receiveAuth(null));
+        })
     }
 }
 
@@ -81,8 +82,7 @@ export function logout() {
             dispatch({
                 type: "USER_LOGOUT"
             });
-            Actions.main({type: ActionConst.RESET});
-            Actions.landing();
+            Actions.landing({type: ActionConst.RESET});
         })
         .catch((error) => {
             console.log(error);
