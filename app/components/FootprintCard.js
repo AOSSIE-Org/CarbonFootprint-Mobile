@@ -9,26 +9,26 @@ import {
     ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { getIcon } from '../config/helper';
+import { getIcon, color } from '../config/helper';
 
 class FootprintCard extends Component {
     render() {
         const tabs = [
             {
                 value: 0,
-                icon: getIcon("car"),
+                icon: "car",
             },
             {
                 value: 1,
-                icon: getIcon("bus"),
+                icon: "bus",
             },
             {
                 value: 2,
-                icon: getIcon("bicycle")
+                icon: "bicycle",
             },
             {
                 value: 3,
-                icon: getIcon("walk")
+                icon: "walk",
             }
         ];
         let props = this.props;
@@ -42,8 +42,8 @@ class FootprintCard extends Component {
                                 props.tab === item.value ?
                                 styles.tab: null, styles.tabWidth
                             ]} onPress={() => props.onChangeTab(item.value)}
-                            key={item.value} underlayColor="#fff" activeOpacity={0.5}>
-                                <Icon name={item.icon} size={20} color="#4D72B8" />
+                            key={item.value} underlayColor={color.white} activeOpacity={0.5}>
+                                <Icon name={getIcon(item.icon)} size={20} color={color.black} />
                             </TouchableHighlight>
                         )
                     }
@@ -56,11 +56,19 @@ class FootprintCard extends Component {
                     :
                     <View style={styles.tabContent}>
                         <View style={styles.routeContent}>
+                            {
+                                props.distance.text ?
+                                null:
+                                <Text style={styles.error}>
+                                    Sorry!!! No straight route available
+                                    between source and destination
+                                </Text>
+                            }
                             <Text style={styles.route}>
                                 {
                                     props.distance.text ?
                                     props.distance.text:
-                                    "Sorry!!! No Straight Route available for this place"
+                                    null
                                 }
                             </Text>
                             <Text style={styles.route}>
@@ -71,11 +79,15 @@ class FootprintCard extends Component {
                                 }
                             </Text>
                         </View>
-                        <View style={styles.footprintContent}>
-                            <Text style={styles.footprint}>
-                                160g CO2
-                            </Text>
-                        </View>
+                        {
+                            props.distance.text ?
+                            <View style={styles.footprintContent}>
+                                <Text style={styles.footprint}>
+                                    160g CO2
+                                </Text>
+                            </View>
+                            : null
+                        }
                     </View>
                 }
             </View>
@@ -86,7 +98,7 @@ class FootprintCard extends Component {
 const styles = StyleSheet.create({
     container: {
         width: Dimensions.get("window").width,
-        backgroundColor: '#fff',
+        backgroundColor: color.greyBack,
         bottom: 45,
         position: 'absolute',
         padding: 5,
@@ -96,12 +108,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     tab: {
-        // This is blue shade in Carbon Footprint logo
-        borderColor: "#4D72B8",
+        borderColor: color.black,
         borderBottomWidth: 2,
     },
     tabWidth: {
-        width: 20,
+        width: 25,
         alignItems: 'center',
     },
     tabContent: {
@@ -119,14 +130,21 @@ const styles = StyleSheet.create({
     },
     route: {
         fontSize: 14,
+        color: color.black,
     },
     footprint: {
-        fontSize: 18,
+        fontSize: 16,
+        color: color.black,
+        fontWeight: '500',
     },
     center: {
         alignItems: 'center',
         justifyContent: 'center',
         height: 90,
+    },
+    error: {
+        color: color.error,
+        textAlign: 'center',
     }
 })
 

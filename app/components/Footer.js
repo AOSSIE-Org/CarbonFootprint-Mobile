@@ -9,56 +9,53 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { getIcon } from '../config/helper.js';
+import { getIcon, color } from '../config/helper.js';
 
 class Footer extends Component {
     render() {
         const size = 20;
-        const active = "#538124";
-        const normal = "#555";
-        const underlay = "#fff";
-        const color = {
+        const footerColor = {
             calculate: this.props.name === 'calculate' ?
-                        active: normal,
+                        color.primary: color.black,
             activity: this.props.name === 'activity' ?
-                        active: normal,
+                        color.primary: color.black,
             friends: this.props.name === 'friends' ?
-                        active: normal,
+                        color.primary: color.black,
             more: this.props.name === 'more' ?
-                        active: normal,
-            profile: this.props.name === 'profile'?
-                        active: normal
+                        color.primary: color.black,
+            stats: this.props.name === 'stats' ?
+                        color.primary: color.black,
         }
 
         const tabs = [
             {
                 action: () => Actions.calculate(),
                 icon: "pin",
-                color: color.calculate,
+                color: footerColor.calculate,
                 name: "Calculate",
             },
             {
                 action: () => Actions.activity(),
                 icon: "pulse",
-                color: color.activity,
+                color: footerColor.activity,
                 name: "Activity",
             },
             {
-                action: () => {},
+                action: () => Actions.friends(),
                 icon: "people",
-                color: color.friends,
+                color: footerColor.friends,
                 name: "Friends",
             },
             {
-                action: () => Actions.profile(),
-                icon: "person",
-                color: color.profile,
-                name: "Profile",
+                action: () => Actions.stats(),
+                icon: "stats",
+                color: footerColor.stats,
+                name: "Stats"
             },
             {
                 action: () => Actions.more(),
                 icon: "more",
-                color: color.more,
+                color: footerColor.more,
                 name: "More",
             }
         ]
@@ -69,7 +66,7 @@ class Footer extends Component {
                     tabs.map((tab, index) => {
                         return (
                             <TouchableHighlight style={styles.touch} onPress={tab.action}
-                                underlayColor={underlay} activeOpacity={0.5} key={tab.name}>
+                                underlayColor={color.white} activeOpacity={0.5} key={tab.name}>
                                 <View style={styles.nav}>
                                     <Icon name={getIcon(tab.icon)} size={size}
                                         color={tab.color} style={styles.icon}/>
@@ -93,10 +90,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         bottom: 0,
         width: Dimensions.get("window").width,
-        backgroundColor: '#fff',
+        backgroundColor: color.white,
         borderTopWidth: 1,
-        borderColor: '#ddd',
-        shadowColor: '#ddd',
+        borderColor: color.borderGrey,
+        shadowColor: color.shadowGrey,
         zIndex: 3,
         position: 'absolute',
         height: 45,

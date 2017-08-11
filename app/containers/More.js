@@ -17,7 +17,7 @@ import { bindActionCreators } from 'redux';
 import * as AuthAction from '../actions/AuthAction';
 
 import Header from '../components/Header';
-import { getIcon } from '../config/helper';
+import { getIcon, color } from '../config/helper';
 
 class More extends Component {
     logout() {
@@ -43,11 +43,6 @@ class More extends Component {
                     icon: "settings",
                     text: "Settings",
                     link: () => console.log("Settings"),
-                },
-                {
-                    icon: "person",
-                    text: "Profile",
-                    link: () => Actions.profile(),
                 }
             ],
             [
@@ -72,7 +67,6 @@ class More extends Component {
         ];
         return (
             <View style={styles.container}>
-                <StatusBar hidden={true} />
                 <Header icon={false} text="More" />
                 <View style={styles.main}>
                     {
@@ -86,7 +80,7 @@ class More extends Component {
                                                     activeOpacity={0.5} underlayColor="#eee" key={i}>
                                                     <View style={styles.button}>
                                                         <Icon name={getIcon(item.icon)}
-                                                            size={24} style={styles.icon} color="#444"/>
+                                                            size={24} style={styles.icon} color={color.black} />
                                                         <Text style={styles.text}>{item.text}</Text>
                                                     </View>
                                                 </TouchableHighlight>
@@ -106,10 +100,10 @@ class More extends Component {
 const styles = StyleSheet.create({
     container: {
         height: Dimensions.get("window").height,
-        backgroundColor: "#f7f7f7",
+        backgroundColor: color.greyBack,
     },
     main: {
-        marginTop: 55, // (45 + 10)
+        marginTop: 75,
         width: Dimensions.get("window").width,
     },
     group: {
@@ -120,10 +114,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingLeft: 13,
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: color.white,
         borderWidth: 1,
-        borderColor: '#ddd',
-        shadowColor: '#ddd',
+        borderColor: color.borderGrey,
+        shadowColor: color.shadowGrey,
         height: 50,
     },
     icon: {
@@ -131,7 +125,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 14,
-        color: "#444",
+        color: color.black,
         letterSpacing: 1,
     }
 })

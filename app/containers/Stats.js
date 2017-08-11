@@ -18,9 +18,9 @@ import * as ProfileAction from '../actions/ProfileAction';
 
 import Header from '../components/Header';
 import images from '../config/images';
-import { getIcon } from '../config/helper';
+import { getIcon, color } from '../config/helper';
 
-class Profile extends Component {
+class Stats extends Component {
     componentWillMount() {
         this.props.getProfile();
     }
@@ -68,25 +68,39 @@ class Profile extends Component {
         ]
         return (
             <View style={styles.container}>
-                <StatusBar hidden={true} />
+                <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
                 {
                     auth.isFetching ?
                     <View style={styles.activity}>
-                        <ActivityIndicator size="large" color="#4D72B8" />
+                        <ActivityIndicator size="large" color={color.primary} />
                     </View>
                     :
                     <ScrollView contentContainerStyle={styles.main}>
-                        <Image style={styles.header} source={images.background}>
-                            {
-                                user.picture ?
-                                <Image source={{uri: user.picture}} style={styles.image} />
-                                :
-                                <Image source={images.noImage} style={styles.image} />
-                            }
-                            <Text style={[styles.largeText, styles.whiteText, styles.largeHeaderText]}>{user.name}</Text>
-                            <Text style={[styles.smallText, styles.whiteText, styles.smallHeaderText]}>{user.email}</Text>
-                        </Image>
-                        <View style={styles.content}>
+                        <View style={styles.header}>
+                            <Icon name={getIcon("analytics")} size={56} color={color.white} style={styles.iconHeader} />
+                            <Text style={[styles.largeInfo, styles.whiteText]}>
+                                {
+                                    user.data?
+                                    user.data.total.footprint
+                                    :"0g CO2"
+                                }
+                            </Text>
+                            <Text style={[styles.smallText, styles.whiteText]}>
+                                {
+                                    user.data?
+                                    user.data.total.distance
+                                    :"0 km"
+                                }
+                            </Text>
+                            <Text style={[styles.smallText, styles.whiteText]}>
+                                {
+                                    user.data?
+                                    user.data.total.time
+                                    : "0 sec"
+                                }
+                            </Text>
+                        </View>
+                        <ScrollView contentContainerStyle={styles.content}>
                             {
                                 rows.map((row, index) => {
                                     let rowStyle = [styles.row];
@@ -103,7 +117,7 @@ class Profile extends Component {
                                                     }
                                                     return (
                                                         <View style={columnStyle} key={i}>
-                                                            <Icon name={getIcon(column.icon)} size={32} color="#538124" />
+                                                            <Icon name={getIcon(column.icon)} size={32} color={color.darkPrimary} />
                                                             <View style={styles.columnInfo}>
                                                                 <Text style={styles.largeInfo}>
                                                                     {
@@ -132,7 +146,7 @@ class Profile extends Component {
                                     )
                                 })
                             }
-                        </View>
+                        </ScrollView>
                     </ScrollView>
                 }
             </View>
@@ -143,41 +157,35 @@ class Profile extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f7f7f7',
+        backgroundColor: color.greyBack,
     },
     main: {
         flex: 1,
     },
     header: {
-        flex: 0.3,
+        flex: 0.4,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.6)',
-        width: null,
-        height: null,
+        backgroundColor: color.primary,
+        paddingTop: 20,
+    },
+    iconHeader: {
+        marginBottom: 5,
     },
     content: {
-        flex: 0.7,
-    },
-    image: {
-        width: 64,
-        height: 64,
-        borderRadius: 32,
-        borderWidth: 1,
-        borderColor: '#ddd',
-        backgroundColor: "#eee",
+        flex: 0.6,
     },
     largeText: {
         fontSize: 13,
         letterSpacing: 1,
-        color: "#444",
+        color: color.black,
         marginTop: 8,
         marginBottom: 4,
     },
     smallText: {
         fontSize: 11,
         letterSpacing: 1,
-        color: "#666",
+        color: color.black,
         marginTop: 4,
         textAlign: 'center',
     },
@@ -203,7 +211,7 @@ const styles = StyleSheet.create({
     largeInfo: {
         fontSize: 18,
         letterSpacing: 1,
-        color: "#444",
+        color: color.black,
     },
     columnInfo: {
         marginTop: 10
@@ -214,17 +222,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     whiteText: {
-        color: "#fff",
+        color: color.white,
     },
     largeHeaderText: {
         fontSize: 16,
         zIndex: 3,
-        fontWeight: 'bold',
+        fontWeight: '600',
     },
     smallHeaderText: {
-        fontSize: 15,
+        fontSize: 13,
         zIndex: 3,
-        fontWeight: 'bold',
+        fontWeight: '700',
+        color: color.grey,
     }
 })
 
@@ -236,4 +245,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(Object.assign({}, ProfileAction), dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Stats);

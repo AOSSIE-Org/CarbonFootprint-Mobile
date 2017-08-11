@@ -17,7 +17,7 @@ class About extends Component {
         return(
             <View style={styles.container}>
                 <StatusBar hidden={true} />
-                <Header icon={true} iconName="arrow-back" text="About" />
+                <Header icon={true} iconName="arrow-back" text="About Us" />
                 <View style={styles.main}>
                     <Image source={images.logo} style={styles.image} />
                     <Text style={styles.large}> Carbon Footprint</Text>
