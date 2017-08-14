@@ -1,13 +1,23 @@
 import * as firebase from 'firebase';
 
+import {
+    getMultiple
+} from 'Helper';
+
 export function sendFriendRequest(uid) {
-    return (dispatch, getState) => {
-        console.log("Making Friends with: ", uid);
-    }
 }
 
 export function searchFriends(email) {
-    return (dispatch, getState) => {
-        console.log("Searching Friends");
-    }
+}
+
+export function getFriends(list) {
+    return new Promise(function(resolve, reject) {
+        getMultiple(list)
+        .then((user) => {
+            resolve(user);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    });
 }
