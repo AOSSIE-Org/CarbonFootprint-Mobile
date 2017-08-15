@@ -43,7 +43,7 @@ class Friends extends Component {
                                 console.log(2);
                                 break;
                             default:
-                                this.props.getFriends();
+                                this.props.getFriendList();
                                 break;
                         }
                     }}>

@@ -21,4 +21,5 @@ export const color = {
     shadowGrey: "#ddd",
     borderGrey: "#ddd",
     grey: "#eee",
+    lightBlack: "#777",
 }

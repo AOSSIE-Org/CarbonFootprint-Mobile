@@ -1,6 +1,6 @@
 import {
-    getFriends
-} from './firebase/Friends';
+    getMultiple
+} from './firebase/Helper';
 
 export const REQUEST_FRIENDS = "REQUEST_FRIENDS";
 export const RECEIVE_FRIENDS = "RECEIVE_FRIENDS";
@@ -33,8 +33,9 @@ export function getFriendList() {
         if (friends === undefined) {
             dispatch(receiveFriends({}));
         } else {
-            getFriends(Object.keys(friends))
+            getMultiple(Object.keys(friends))
             .then((friends) => {
+                console.log(friends);
                 dispatch(receiveFriends(friends));
             })
         }

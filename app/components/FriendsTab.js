@@ -10,9 +10,12 @@ import {
 import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import FriendRow from './FriendRow';
+
 class FriendsTab extends Component {
     render() {
         const props = this.props;
+        console.log(props);
         if (props.friends.isFetching) {
             return (
                 <View style={styles.centerScreen}>
@@ -29,8 +32,20 @@ class FriendsTab extends Component {
             )
         } else {
             return (
-                <ScrollView contentContainerStyle={styles.container}>
-                    
+                <ScrollView contentContainerStyle={styles.friends}>
+                    {
+                        props.friends.list.map((friend, index) => {
+                            return (
+                                <FriendRow last={index === (props.friends.list.length - 1)}
+                                    data={friend} key={index}
+                                    text={
+                                        friend.data ?
+                                        friend.data.total:
+                                        "No Activity"
+                                    } />
+                            )
+                        })
+                    }
                 </ScrollView>
             )
         }
@@ -55,6 +70,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
+    },
+    friends: {
+        backgroundColor: color.greyBack,
+        alignItems: 'center',
+        flex: 1,
     }
 })
 

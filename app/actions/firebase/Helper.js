@@ -1,5 +1,5 @@
 /*
- * Check this out.
+ * Thanks to this stackoverflow question.
  * https://stackoverflow.com/questions/42610264/querying-by-multiple-keys-in-firebase
  */
 
@@ -10,10 +10,14 @@ export function getMultiple(keys) {
         var promises = keys.map(function(key) {
             return firebase.database().ref('/users/').child(key).once("value");
         });
-        Promises.all(promises).then(function(snapshots) {
-            var users = {};
+        Promise.all(promises).then(function(snapshots) {
+            var users = [];
             snapshots.forEach(function(snapshot) {
-                users.snapshot.key = snapshot.val();
+                let key = snapshot.key;
+                let value = snapshot.val();
+                let user = {};
+                user = {...value, uid: key};
+                users.push(user);
             });
             resolve(users);
         })
