@@ -22,12 +22,10 @@ export function fbLogin() {
 				  (data) => {
 					  loginCustomFirebase("facebook", data.accessToken, null)
 					  .then((user) => {
-					  	  alert("Success: " + user.email);
 						  dispatch(receiveAuth(user));
 						  Actions.main({type: ActionConst.RESET});
 					  })
 					  .catch((error) => {
-						  alert(error);
 						  dispatch(receiveError(error));
 					  })
 				  }

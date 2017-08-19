@@ -20,12 +20,10 @@ export function twitterLogin() {
         .then((data) => {
             loginCustomFirebase("twitter", data.authToken, data.authTokenSecret)
             .then((user) => {
-                alert("Success: " + user.email);
                 dispatch(receiveAuth(user));
                 Actions.main({type: ActionConst.RESET});
             })
             .catch((error) => {
-                alert(error);
                 dispatch(receiveError(error));
             })
         })
@@ -33,5 +31,4 @@ export function twitterLogin() {
             console.log("Twitter Login Error: ", error);
         })
     }
-
 }

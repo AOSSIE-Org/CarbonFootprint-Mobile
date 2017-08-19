@@ -22,12 +22,10 @@ export function googleSignIn() {
 			.then((data) => {
 				loginCustomFirebase("google", data.idToken, data.accessToken)
 				.then((user) => {
-					alert("Success: " + user.email);
 					dispatch(receiveAuth(user));
 					Actions.main({type: ActionConst.RESET});
 				})
 				.catch((error) => {
-					alert(error);
 					dispatch(receiveError(error));
 				})
 			})
