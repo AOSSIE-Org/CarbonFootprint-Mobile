@@ -22,6 +22,8 @@ import Footer from '../components/Footer';
 import StaticMap from '../components/StaticMap';
 import FootprintCard from '../components/FootprintCard';
 
+import { color, getIcon } from '../config/helper';
+
 class Calculate extends Component {
     constructor(props) {
         super(props);
@@ -39,7 +41,14 @@ class Calculate extends Component {
     }
 
     componentWillMount() {
-        this.props.getLocation();
+        /*
+        console.ignoredYellowBox = [
+            'Setting a timer'
+        ];
+        */
+        if (!this.props.location.latitude) {
+            this.props.getLocation();
+        }
     }
 
     componentWillReceiveProps(props) {
@@ -90,7 +99,7 @@ class Calculate extends Component {
 
         return(
             <View style={styles.container}>
-                <StatusBar hidden={true} />
+                <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content"/>
                 {
                     this.props.location.isFetching?
                     <View style={styles.center}>
@@ -101,20 +110,16 @@ class Calculate extends Component {
 
                 <View style={styles.button}>
                     <View style={styles.box}>
-                        <Icon.Button name={
-                                Platform.OS === 'android' ?
-                                "md-pin" : "ios-pin-outline"
-                            } backgroundColor="#fff" borderRadius={0}
+                        <Icon.Button name={getIcon("pin")}
+                            backgroundColor={color.lightPrimary} borderRadius={2}
                             size={16} iconStyle={styles.icon}
                             onPress={() => this.props.openSearchModal(0)}>
                             <Text style={styles.text}>{direction.sourceName}</Text>
                         </Icon.Button>
                     </View>
                     <View>
-                        <Icon.Button name={
-                                Platform.OS === 'android' ?
-                                "md-flag" : "ios-flag-outline"
-                            } backgroundColor="#fff" borderRadius={0}
+                        <Icon.Button name={getIcon("flag")}
+                            backgroundColor={color.lightPrimary} borderRadius={2}
                             size={16} iconStyle={styles.icon}
                             onPress={() => this.props.openSearchModal(1)}>
                             <Text style={styles.text}>{direction.destinationName}</Text>
@@ -122,7 +127,7 @@ class Calculate extends Component {
                     </View>
                 </View>
                 {
-                    coords ?
+                    source.latitude && destination.latitude ?
                     <FootprintCard distance={direction.distance}
                         duration={direction.duration}
                         onChangeTab={this.onChangeTab.bind(this)}
@@ -148,24 +153,21 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     button: {
-        backgroundColor: '#fff',
-        top: 20,
-        marginRight: 20,
-        marginLeft: 20,
-        zIndex: 1,
-        borderColor: '#eee',
-        borderWidth: 1,
-        shadowColor: '#eee',
+        backgroundColor: color.primary,
+        top: 0,
+        zIndex: 2,
+        padding: 20,
+        paddingTop: 30,
     },
     box: {
         borderBottomWidth: 1,
-        borderColor: "#eee",
+        borderColor: color.primary,
     },
     icon: {
-        color: '#777',
+        color: color.grey,
     },
     text: {
-        color: '#999',
+        color: color.white,
         fontSize: 14,
         letterSpacing: 1,
     },

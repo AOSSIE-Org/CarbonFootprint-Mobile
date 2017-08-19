@@ -8,6 +8,7 @@ export const SET_DESTINATION = "SET_DESTINATION";
 export const SET_REGION = "SET_REGION";
 export const SET_DISTANCE = "SET_DISTANCE";
 export const SET_DURATION = "SET_DURATION";
+export const NO_DIRECTION = "NO_DIRECTION";
 
 export function set_source(json, name) {
     return {
@@ -89,6 +90,12 @@ function receive_direction(json) {
     }
 }
 
+function no_direction() {
+    return {
+        type: NO_DIRECTION,
+    }
+}
+
 function formatLocation(x) {
     return x.latitude.toString() + ',' + x.longitude.toString();
 }
@@ -141,7 +148,11 @@ export function getDirections(source, destination, code) {
             .then(json => {
                 // Handle case for routes not found
                 if (!("routes" in json) || json.routes.length <= 0) {
-                    dispatch(receive_direction(null));
+                    dispatch(no_direction());
+                    getRegion(source, destination)
+                    .then(result => {
+                        dispatch(set_region(result));
+                    })
                 } else {
                     let legs = json.routes[0].legs[0];
                     dispatch(set_distance(legs.distance));

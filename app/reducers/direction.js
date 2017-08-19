@@ -5,7 +5,8 @@ import {
     SET_DESTINATION,
     SET_REGION,
     SET_DISTANCE,
-    SET_DURATION
+    SET_DURATION,
+    NO_DIRECTION
 } from '../actions/DirectionAction';
 
 export default function direction(state = {
@@ -67,6 +68,19 @@ export default function direction(state = {
         case SET_DURATION:
             return Object.assign({}, state, {
                 duration: action.duration
+            });
+        case NO_DIRECTION:
+            return Object.assign({}, state, {
+                isFetching: false,
+                coords: null,
+                duration: {
+                    value: null,
+                    text: null,
+                },
+                distance: {
+                    value: null,
+                    text: null,
+                },
             });
         default:
             return state;

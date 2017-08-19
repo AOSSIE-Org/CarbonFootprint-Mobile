@@ -26,7 +26,9 @@ export default class ActivityHistoryStorage {
   static insertData(dataObj) {
 	this.realm.write(() => {
       const hist = this.realm.create('ActivityHistory', dataObj);
-      alert("Activity data stored");
+      //alert("Activity data stored");
+      console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+      console.log(hist);
     });
   }
 

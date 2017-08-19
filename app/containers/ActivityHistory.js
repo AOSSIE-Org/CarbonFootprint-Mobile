@@ -19,7 +19,7 @@ class ActivityHistory extends Component {
 	// For now, I have used same ActivityTab component which is mainly for displaying current user's activity. I will change it later.
 	render() {
 		return(
-			<Text>Detailed description of activity</Text>
+			<Text>Text</Text>
 		);
 	}
 }

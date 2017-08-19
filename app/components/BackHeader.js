@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import {
     View,
     StyleSheet,
     Text
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+import { getIcon } from '../config/helper';
 
 class BackHeader extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <Icon.Button name="arrow-left" backgroundColor="#fff" iconStyle={styles.icon}
+                <Icon.Button name={getIcon("arrow-back")} backgroundColor="#fff" iconStyle={styles.icon}
                     onPress={() => Actions.home()}>
                 </Icon.Button>
                 { this.props.text ?
