@@ -9,55 +9,75 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { getIcon } from '../config/helper.js';
+import { getIcon, color } from '../config/helper.js';
 
 class Footer extends Component {
     render() {
         const size = 20;
-        const active = "#538124";
-        const normal = "#555";
-        const underlay = "#fff";
-        const color = {
+        const footerColor = {
             calculate: this.props.name === 'calculate' ?
-                        active: normal,
+                        color.primary: color.black,
             activity: this.props.name === 'activity' ?
-                        active: normal,
+                        color.primary: color.black,
             friends: this.props.name === 'friends' ?
-                        active: normal,
+                        color.primary: color.black,
             more: this.props.name === 'more' ?
-                        active: normal
+                        color.primary: color.black,
+            stats: this.props.name === 'stats' ?
+                        color.primary: color.black,
         }
+
+        const tabs = [
+            {
+                action: () => Actions.calculate(),
+                icon: "pin",
+                color: footerColor.calculate,
+                name: "Calculate",
+            },
+            {
+                action: () => Actions.activity(),
+                icon: "pulse",
+                color: footerColor.activity,
+                name: "Activity",
+            },
+            {
+                action: () => Actions.friends(),
+                icon: "people",
+                color: footerColor.friends,
+                name: "Friends",
+            },
+            {
+                action: () => Actions.stats(),
+                icon: "stats",
+                color: footerColor.stats,
+                name: "Stats"
+            },
+            {
+                action: () => Actions.more(),
+                icon: "more",
+                color: footerColor.more,
+                name: "More",
+            }
+        ]
 
         return(
             <View style={styles.container}>
-                <TouchableHighlight style={styles.touch} onPress={() => {Actions.calculate()}}
-                    underlayColor={underlay} activeOpacity={0.5}>
-                    <View style={styles.nav}>
-                        <Icon name={getIcon("pin")} size={size} color={color.calculate} style={styles.icon}/>
-                        <Text style={[styles.text, {color: color.calculate}]}>Calculate</Text>
-                    </View>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.touch} onPress={() => {Actions.activity()}}
-                    underlayColor={underlay} activeOpacity={0.5}>
-                    <View style={styles.nav}>
-                        <Icon name={getIcon("pulse")} size={size} color={color.activity} style={styles.icon}/>
-                        <Text style={[styles.text, {color: color.activity}]}>Activity</Text>
-                    </View>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.touch} onPress={() => {}}
-                    underlayColor={underlay} activeOpacity={0.5}>
-                    <View style={styles.nav}>
-                        <Icon name={getIcon("people")} size={size} color={color.friends} style={styles.icon}/>
-                        <Text style={[styles.text, {color: color.friends}]}>Friends</Text>
-                    </View>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.touch} onPress={() => {Actions.more()}}
-                    underlayColor={underlay} activeOpacity={0.5}>
-                    <View style={styles.nav}>
-                        <Icon name={getIcon("more")} size={size} color={normal} style={styles.icon}/>
-                        <Text style={[styles.text, {color: color.more}]}>More</Text>
-                    </View>
-                </TouchableHighlight>
+                {
+                    tabs.map((tab, index) => {
+                        return (
+                            <TouchableHighlight style={styles.touch} onPress={tab.action}
+                                underlayColor={color.white} activeOpacity={0.5} key={tab.name}>
+                                <View style={styles.nav}>
+                                    <Icon name={getIcon(tab.icon)} size={size}
+                                        color={tab.color} style={styles.icon}/>
+                                    <Text style={[styles.text, {color: tab.color}]}>
+                                        {tab.name}
+                                    </Text>
+                                </View>
+                            </TouchableHighlight>
+                        )
+                    })
+                }
             </View>
         )
     }
@@ -70,10 +90,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         bottom: 0,
         width: Dimensions.get("window").width,
-        backgroundColor: '#fff',
+        backgroundColor: color.white,
         borderTopWidth: 1,
-        borderColor: '#ddd',
-        shadowColor: '#ddd',
+        borderColor: color.borderGrey,
+        shadowColor: color.shadowGrey,
         zIndex: 3,
         position: 'absolute',
         height: 45,

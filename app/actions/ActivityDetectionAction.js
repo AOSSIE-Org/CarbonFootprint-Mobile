@@ -1,7 +1,5 @@
 /*
     This is for detecting user's activity such as Walking, In Vehicle, Still etc.
-    This is for Android only.
-    Currently there is no package available for Activity detection for iOS. So we will develop it from scratch later.
     Used External package - 'react-native-activity-recognition'
 */
 
@@ -24,19 +22,19 @@ export function startActivityDetection() {
     // Starting Activity detection/recognition
     ActivityRecognition.start(detectionIntervalMillis);
 
-    // Subscribe to updates 
+    // Subscribe to updates
     this.unsubscribe = ActivityRecognition.subscribe(detectedActivities => {
-      
+
       // Activity having maximum probability (confidence) among all detected activities
       const mostProbableActivity = detectedActivities.sorted[0];
-      
+
       // If detected activity is different from ongoing activity,
       // set this detected activity in current state.
       if(mostProbableActivity !== store.getState().activity.activityType) {
         if(Platform.OS === 'android') {
           if(mostProbableActivity.confidence >= 75) {
             dispatch(setActivity(mostProbableActivity.type));
-          }  
+          }
         } else { // iOS
             dispatch(setActivity(mostProbableActivity.type));
         }
@@ -47,7 +45,7 @@ export function startActivityDetection() {
 
 export function closeActivityDetection() {
 
-  //Stop activity detection and remove the listener 
+  //Stop activity detection and remove the listener
   ActivityRecognition.stop() ;
   this.unsubscribe() ;
 }

@@ -27,6 +27,11 @@ target 'CarbonFootprint' do
   pod 'GoogleMaps', '2.2.0'
   pod 'GooglePlaces', '2.2.0'
   pod 'GooglePlacePicker', '2.2.0'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Messaging'
 
   target 'CarbonFootprintTests' do
     inherit! :search_paths

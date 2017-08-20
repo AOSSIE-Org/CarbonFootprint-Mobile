@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 
-import * as StorageAction from '../actions/StorageAction';
+import * as AuthAction from '../actions/AuthAction';
 
 class Master extends Component {
     constructor(props) {
@@ -16,13 +16,13 @@ class Master extends Component {
     }
 
     componentWillMount() {
-        this.props.getStorage();
+        this.props.initApp();
     }
 
     componentWillReceiveProps(props) {
-        if (!props.storage.isFetching) {
+        if (!props.auth.isFetching) {
             SplashScreen.hide();
-            if (!props.storage.email) {
+            if (!props.auth.user) {
                 Actions.landing();
             } else {
                 Actions.main();
@@ -31,7 +31,7 @@ class Master extends Component {
     }
 
     /* Render is just a placeholder here
-     * This basically handles only redirection.
+     * This container handles only redirection.
      */
 
     render() {
@@ -58,7 +58,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, StorageAction), dispatch);
+    return bindActionCreators(Object.assign({}, AuthAction), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Master);

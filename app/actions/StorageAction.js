@@ -1,8 +1,10 @@
 /*
  * Handles SET and GET Operations on AsyncStorage
+ * This will not be used because of Firebase but leaving it as is for now.
 */
 
 import { AsyncStorage } from 'react-native';
+import { Actions, ActionConst } from 'react-native-router-flux';
 
 export const REQUEST_STORAGE = "REQUEST_STORAGE";
 export const RECEIVE_STORAGE = "RECEIVE_STORAGE";
@@ -49,8 +51,11 @@ export function removeStorage() {
             .catch(err => {
                 alert("Error while removing")
             })
+        // Reset store
         dispatch({
             type: "USER_LOGOUT"
         });
+        // Move to login form
+        Actions.landing({type: ActionConst.RESET});
     }
 }

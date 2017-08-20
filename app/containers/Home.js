@@ -10,20 +10,14 @@ import {
 
  import * as FbLoginAction from '../actions/FbLoginAction';
  import * as GoogleLoginAction from '../actions/GoogleLoginAction';
-
  import * as TwitterLoginAction from '../actions/TwitterLoginAction';
 
  import ImageHeader from '../components/ImageHeader';
  import LandingButtons from '../components/LandingButtons';
 
- import * as firebase from 'firebase';
- import { firebaseConfig } from '../config/keys';
-
 class Home extends Component {
     constructor(props) {
         super(props);
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
     }
 
     render() {

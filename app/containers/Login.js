@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux';
 import BackHeader from '../components/BackHeader';
 import LoginForm from '../components/LoginForm';
 
-import * as SimpleAction from '../actions/SimpleAction';
+import * as AuthAction from '../actions/AuthAction';
 
 class Login extends Component {
     render() {
@@ -36,7 +36,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, SimpleAction), dispatch);
+    return bindActionCreators(Object.assign({}, AuthAction), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
