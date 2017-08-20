@@ -49,7 +49,6 @@ async function getPermission() {
 export function getLocation() {
     return async function(dispatch, state) {
         dispatch(request_location());
-        let value = true;
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 let lat = position.coords.latitude;

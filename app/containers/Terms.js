@@ -11,7 +11,6 @@ class Terms extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <StatusBar hidden={true} />
                 <Header icon={true} iconName="arrow-back" text="Terms and Conditions" />
                 <View style={styles.main}>
                     <Text style={styles.text}>
