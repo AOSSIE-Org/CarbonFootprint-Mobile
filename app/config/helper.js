@@ -38,7 +38,7 @@ export function getPlaceName(loc) {
 } 
 
 export function getIconName(activity) {
-    // Selecting activity icon based on detected activity
+	// Selecting activity icon based on detected activity
   // For more information about detected activity, check below link -
   // https://developers.google.com/android/reference/com/google/android/gms/location/DetectedActivity
     var icon;
