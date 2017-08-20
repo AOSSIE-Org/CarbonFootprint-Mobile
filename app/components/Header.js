@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     icon: {
         borderRadius: 0,
         color: color.grey,
+        marginLeft: 13,
     },
     /* This is a hack. Need to revisit */
     greenText: {

@@ -141,6 +141,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-picker')
     compile project(':realm')
     compile project(':react-native-background-job')
     compile project(':react-native-google-places')

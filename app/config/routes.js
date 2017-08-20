@@ -18,6 +18,7 @@ import About from '../containers/About';
 import Terms from '../containers/Terms';
 import Stats from '../containers/Stats';
 import Friends from '../containers/Friends';
+import Settings from '../containers/Settings';
 
 import Footer from '../components/Footer';
 
@@ -41,6 +42,7 @@ class Navigator extends Component {
                             <Scene key="more" component={More} />
                             <Scene key="about" component={About} hideNavBar />
                             <Scene key="terms" component={Terms} hideNavBar />
+                            <Scene key="settings" component={Settings} hideNavBar />
 
                             <Scene key="stats" component={Stats} />
 

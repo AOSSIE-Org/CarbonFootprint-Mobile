@@ -42,7 +42,7 @@ class More extends Component {
                 {
                     icon: "settings",
                     text: "Settings",
-                    link: () => console.log("Settings"),
+                    link: () => Actions.settings(),
                 }
             ],
             [
