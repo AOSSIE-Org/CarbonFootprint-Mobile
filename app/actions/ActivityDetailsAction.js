@@ -1,6 +1,6 @@
 export const SET_ACTIVITY_DATE = "SET_ACTIVITY_DATE";
 export const SET_ACTIVITY_START_TIME = "SET_ACTIVITY_START_TIME";
-export const SET_ACTIVITY_END_TIME = "SET_ACTIVITY_END_TIME";
+export const SET_ACTIVITY_DURATION = "SET_ACTIVITY_DURATION";
 export const SET_ACTIVITY_SRC = "SET_ACTIVITY_SRC";
 export const SET_ACTIVITY_DEST = "SET_ACTIVITY_DEST";
 export const SET_ACTIVITY_TYPE = "SET_ACTIVITY_TYPE";
@@ -21,9 +21,9 @@ export function setStartTime(val) {
   }
 }
 
-export function setEndTime(val) {
+export function setDuration(val) {
   return {
-    type: SET_ACTIVITY_END_TIME,
+    type: SET_ACTIVITY_DURATION,
     value: val
   }
 }

@@ -1,11 +1,41 @@
 import {
     Platform
 } from 'react-native';
+import Geocoder from 'react-native-geocoding';
+import { geocodingAPIKey } from './keys';
 
 export function getIcon(name) {
     return (Platform.OS === "android" ?
         "md-": "ios-") + name;
 }
+
+export function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var time = hours + ':' + minutes + ' ' + ampm;
+  return time;
+}
+
+export function getPlaceName(loc) {
+  return new Promise((resolve, reject) => {
+    Geocoder.setApiKey(geocodingAPIKey);
+    Geocoder.getFromLatLng(loc.latitude, loc.longitude).then(
+      json => {
+         var address_component = json.results[0].address_components[0];
+         place = address_component.long_name;
+         resolve(place);
+      },
+      error => {
+         alert(error);
+         reject(error);
+      }
+    );
+ });
+} 
 
 export function getIconName(activity) {
     // Selecting activity icon based on detected activity

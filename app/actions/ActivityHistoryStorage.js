@@ -5,10 +5,9 @@ export default class ActivityHistoryStorage {
   	schema = {
 	    name: 'ActivityHistory',
 	    properties: {
-	      actId: {type: 'int'},
 	      actDate: {type: 'string'},
 	      startTime: {type: 'string'},
-	      endTime: {type: 'string'},
+	      duration: {type: 'int'},
 	      src: {type: 'string'},
 	      dest: {type: 'string'},
 	      actType: {type: 'string'},
@@ -27,8 +26,6 @@ export default class ActivityHistoryStorage {
 	this.realm.write(() => {
       const hist = this.realm.create('ActivityHistory', dataObj);
       //alert("Activity data stored");
-      console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-      console.log(hist);
     });
   }
 

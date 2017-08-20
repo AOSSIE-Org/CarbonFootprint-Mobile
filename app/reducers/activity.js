@@ -1,20 +1,21 @@
 import {    
     SET_ACTIVITY_DATE, 
     SET_ACTIVITY_START_TIME,
-    SET_ACTIVITY_END_TIME,
+    SET_ACTIVITY_DURATION,
     SET_ACTIVITY_SRC,
     SET_ACTIVITY_DEST,
     SET_ACTIVITY_TYPE,
     SET_ACTIVITY_DISTANCE,
     SET_ACTIVITY_CO2
 } from '../actions/ActivityDetailsAction';
+import { formatAMPM } from '../config/helper';
 
 export default function activity(state = {
-	date: '',
-	startTime: '',
-	endTime: '',
-	src: '',
-	dest: '',
+	date: new Date().toDateString(),
+	startTime: formatAMPM(new Date()),
+	duration: 0,
+	src: {},
+	dest: {},
 	type: 'STILL',
 	distance: 0,
 	co2: 0
@@ -28,9 +29,9 @@ export default function activity(state = {
 			return Object.assign({}, state, {
                 startTime: action.value
             });
-        case SET_ACTIVITY_END_TIME:
+        case SET_ACTIVITY_DURATION:
 			return Object.assign({}, state, {
-                endTime: action.value
+                duration: action.value
             });
         case SET_ACTIVITY_SRC:
 			return Object.assign({}, state, {

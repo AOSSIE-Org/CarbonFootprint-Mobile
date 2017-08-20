@@ -10,22 +10,40 @@ import {
 import ActivityRecognition from 'react-native-activity-recognition';
 import store from '../config/store';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
-import { setDate, setStartTime, setEndTime, setType } from '../actions/ActivityDetailsAction';
+import { setDate, setStartTime, setDuration, setSrc, setDest, setType, setDistance, setCO2 } from '../actions/ActivityDetailsAction';
+import { formatAMPM, getPlaceName } from '../config/helper';
 
-function formatAMPM(date) {
-  var hours = date.getHours();
-  var minutes = date.getMinutes();
-  var ampm = hours >= 12 ? 'pm' : 'am';
-  hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0'+minutes : minutes;
-  var strTime = hours + ':' + minutes + ' ' + ampm;
-  return strTime;
+function sendDataForStorage() {
+  var act = store.getState().activity;
+  var data = {
+    actDate: act.date,
+    startTime: act.startTime,
+    duration: act.duration,
+    src: "Source",
+    dest: "Destination",
+    actType: act.type,
+    distance: act.distance,
+    co2Emitted: act.co2
+  };
+  getPlaceName(act.src).then(
+    (place) => dispatch(setSrc(place))
+  ).catch(
+    error => alert(error)
+  );
+  getPlaceName(act.dest).then(
+    (place) => dispatch(setDest(place))
+  ).catch(
+    error => alert(error)
+  );
+  alert("Activity data sent for local storage. Date: " + data.actDate + ", Start time: " + data.startTime + ", Duration: " + 
+    data.duration + ", Source: " + data.src + ", Destination: " + data.dest + ", Type: " + data.actType + 
+    ", Distance: " + data.distance + ", Co2 emitted: " + data.co2Emitted);
+  ActivityHistoryStorage.insertData(data);
 }
 
 export function startActivityDetection() {
   return function (dispatch) {
-    //alert("Activity is being detected ...");
+    alert("Activity is being detected ...");
     ActivityHistoryStorage.createDB();
 
     // Interval (in ms) for Activity detection updates
@@ -42,52 +60,21 @@ export function startActivityDetection() {
 
       // If detected activity is different from ongoing activity,
       // set this detected activity in current state.
-      var activity = store.getState().activity;
-      var data = {
-              actId: 1,
-              actDate: activity.date,
-              startTime: activity.startTime,
-              endTime: activity.endTime,
-              src: activity.src,
-              dest: activity.dest,
-              actType: activity.type,
-              distance: activity.distance,
-              co2Emitted: activity.co2
-            };
-        //alert("Activity data sent for local storage 1");
-        ActivityHistoryStorage.insertData(data);
-      if(mostProbableActivity.type !== activity.type) {
-        if((Platform.OS === 'android' && mostProbableActivity.confidence >= 75) || (Platform.OS === 'ios')) { 
-            var curr = new Date();
-            dispatch(setEndTime(formatAMPM(curr))); 
-            //alert("Activity change detected. New activity - " + mostProbableActivity.type);
-            var data = {
-              actId: 1,
-              actDate: activity.date,
-              startTime: activity.startTime,
-              endTime: activity.endTime,
-              src: activity.src,
-              dest: activity.dest,
-              actType: activity.type,
-              distance: activity.distance,
-              co2Emitted: activity.co2
-            };
-            //alert("Activity data sent for local storage");
-            ActivityHistoryStorage.insertData(data);
-            dispatch(setDate(curr.toDateString()));
-            dispatch(setStartTime(formatAMPM(curr)));
+      var act = store.getState().activity;
+      if(mostProbableActivity.type !== act.type) {
+        if((Platform.OS === 'android' && mostProbableActivity.confidence >= 75) || (Platform.OS === 'ios')) {
+          sendDataForStorage().then(() => {             
+            var currDate = new Date();
+            dispatch(setDate(currDate.toDateString()));
+            dispatch(setStartTime(formatAMPM(currDate)));
+            dispatch(setDuration(0));
+            dispatch(setSrc(act.dest));
             dispatch(setType(mostProbableActivity.type));
+            dispatch(setDistance(0));
+            dispatch(setCO2(0));
+          });
         }  
-      if(mostProbableActivity !== store.getState().activity.activityType) {
-        if(Platform.OS === 'android') {
-          if(mostProbableActivity.confidence >= 75) {
-            dispatch(setActivity(mostProbableActivity.type));
-          }
-        } else { // iOS
-            dispatch(setActivity(mostProbableActivity.type));
-        }
       }
-    }
     });
   }
 }

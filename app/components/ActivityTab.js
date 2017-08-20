@@ -24,9 +24,8 @@ import haversine from 'haversine';
 import MapView from 'react-native-maps';
 import BackgroundJob from 'react-native-background-job';
 import { ZOOM_DELTA, MILEAGE, RATE } from '../config/constants';
-import { googleRoadsAPIKey, geocodingAPIKey } from '../config/keys';
+import { googleRoadsAPIKey } from '../config/keys';
 import { getIcon, getIconName } from '../config/helper';
-import Geocoder from 'react-native-geocoding';
 
 const backgroundJob = {
  jobKey: "myJob",
@@ -40,47 +39,26 @@ BackgroundJob.register(backgroundJob);
 export default class ActivityTab extends Component {
 	constructor(props) {
 		super(props);
+    this.props = props;
     this.state = {
-      time: 0, // For travel time
       numCoords: 0, 
       routeCoordinates: [], // For drawing route
-      distanceTravelled: 0, // For traveled distance
-      prevLatLng: {}, // Previous location
-      currActivity: 'STILL',
-      src: null,
-      co2: "0.00"
+      prevLatLng: {}
     };
     // Incrementing time
-    setInterval(() => {this.setState({time: this.state.time + 1})}, 1000);
+    setInterval(() => {
+      this.props.setDuration(this.props.duration + 1);
+    }, 1000);
 
     this.processSnapToRoadResponse = this.processSnapToRoadResponse.bind(this);
     setInterval(() => {this.drawRoute()}, 5000);
-    Geocoder.setApiKey(geocodingAPIKey);
 	}
-
-  getPlaceName(loc) {
-    return new Promise((resolve, reject) => {
-      Geocoder.getFromLatLng(loc.latitude, loc.longitude).then(
-        json => {
-           var address_component = json.results[0].address_components[0];
-           place = address_component.long_name;
-           alert("Inside " + place);
-           resolve(place);
-        },
-        error => {
-           alert(error);
-           reject(error);
-        }
-      );
-   });
-  }
 
   drawRoute() {
     // Google Roads API
     var newRouteCoords = [];
 
     var len = this.state.routeCoordinates.length;
-    //var diff = len - this.state.numCoords;
     if(len > 0) {
       var baseUrl = "https://roads.googleapis.com/v1/snapToRoads?path=";
       for(var i = this.state.numCoords; i < len - 1; i ++)
@@ -101,7 +79,6 @@ export default class ActivityTab extends Component {
   // Store snapped polyline returned by the snap-to-road service.
   processSnapToRoadResponse(data) {
     snappedCoordinates = [];
-    //alert("Points: " + data.snappedPoints.length);
     for (var i = 0; data.snappedPoints != undefined && i < data.snappedPoints.length; i++) {
       const latlng = pick(data.snappedPoints[i].location, ['latitude', 'longitude']);
       snappedCoordinates.push(latlng);
@@ -119,6 +96,8 @@ export default class ActivityTab extends Component {
     // Getting current location (One-time only)
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        const currLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude};
+        this.props.setSrc(currLatLngs);
         this._map.animateToRegion({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -131,7 +110,7 @@ export default class ActivityTab extends Component {
 
     // Getting location updates (Only when location changes)
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      const { routeCoordinates, distanceTravelled } = this.state;
+      const { routeCoordinates } = this.state; 
       const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude };
       const positionLatLngs = pick(position.coords, ['latitude', 'longitude']);
       this._map.animateToRegion({
@@ -141,35 +120,15 @@ export default class ActivityTab extends Component {
         longitudeDelta: ZOOM_DELTA
       }, 2);   
 
+      this.props.setDistance(this.props.distance + this.calcDistance(newLatLngs));
+      this.props.setCO2(RATE * (this.props.distance / MILEAGE));
+      this.props.setDest(newLatLngs);
+
       // Updating state
       this.setState({
         routeCoordinates: routeCoordinates.concat(positionLatLngs),
-        distanceTravelled: distanceTravelled + this.calcDistance(newLatLngs),
-        prevLatLng: newLatLngs,
-        co2: (RATE * (this.state.distanceTravelled / MILEAGE)).toFixed(2)
+        prevLatLng: newLatLngs
       });
-
-      if(this.props.type !== this.state.currActivity) {
-        this.getPlaceName(newLatLngs).then(
-          (place) => alert(place)
-        ).catch(
-          error => alert(error)
-        );
-        this.props.setSrc(this.getPlaceName(this.state.src));
-        this.props.setDest(this.getPlaceName(positionLatLngs));
-        this.props.setDistance(this.state.distanceTravelled);
-        this.props.setCO2(this.state.co2);
-        this.setState({
-          time: 0,
-          numCoords: 0, 
-          routeCoordinates: [],
-          distanceTravelled: 0,
-          prevLatLng: {},
-          currActivity: this.props.type,
-          src: positionLatLngs,
-          co2: "0.00"
-        });
-      }
     },
     (error) => alert(error.message),
     {enableHighAccuracy: true, timeout: 1000, maximumAge: 0, distanceFilter:1}
@@ -206,13 +165,13 @@ export default class ActivityTab extends Component {
 
   // Updating travel time
   updateTime() {
-    if(this.state.time < 60) {
-      return {time: this.state.time, unit: "s"};
+    if(this.props.duration < 60) {
+      return {time: this.props.duration, unit: "s"};
     } else {
-      if(this.state.time >= 60 && this.state.time <= 3600)
-        return {time: (this.state.time/60).toFixed(1), unit: "min"};
+      if(this.props.duration >= 60 && this.props.duration <= 3600)
+        return {time: (this.props.duration/60).toFixed(1), unit: "min"};
       else
-        return {time: (this.state.time/3600).toFixed(1), unit: "hr"};
+        return {time: (this.props.duration/3600).toFixed(1), unit: "hr"};
     }
   }
 
@@ -245,7 +204,7 @@ export default class ActivityTab extends Component {
           <View style = {styles.statsView}>
             <View style = {styles.statsViewItems}>
               <View style = {styles.statsViewItems1}>
-                <Text style = {styles.largeText}>{this.state.distanceTravelled.toFixed(2)}</Text>
+                <Text style = {styles.largeText}>{this.props.distance.toFixed(2)}</Text>
                 <Text style = {styles.smallText}>km</Text>
               </View>
               <Text style = {styles.smallText}>Travel distance</Text>
@@ -253,7 +212,7 @@ export default class ActivityTab extends Component {
             <View style = {styles.verline} />
             <View style = {styles.statsViewItems}>
               <View style = {styles.statsViewItems1}>
-                <Text style = {styles.largeText}>{this.state.co2}</Text>
+                <Text style = {styles.largeText}>{this.props.co2.toFixed(2)}</Text>
                 <Text style = {styles.smallText}>kg</Text>
               </View>
               <View style = {styles.hrView}>
