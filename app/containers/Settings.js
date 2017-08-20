@@ -16,22 +16,20 @@ class Settings extends Component {
     constructor() {
         super();
         this.state = {
-            // This should come from RealmDB. Default should be Car.
-            selected: "Car",
+            // This should come from RealmDB
+            automobile: "Car",
+            type: "Petrol",
             value: 10.1,
             unit: 'km/litre',
         }
     }
 
-    selectAutomobile() {
-        this.AutomobileSheet.show();
-    }
-
-
-    handlePress(selected) {
-        if (selected != 0) {
+    handlePress(array, value, key) {
+        if (value != 0) {
+            let data = this.state;
+            data[key] = array[value];
             this.setState({
-                selected: options[selected]
+                ...data
             })
         }
     }
@@ -58,12 +56,20 @@ class Settings extends Component {
             <View style={styles.container}>
                 <Header icon={true} iconName="arrow-back" text="Settings" />
                 <View style={styles.main}>
-                    <TouchableHighlight onPress={() => this.selectAutomobile()}
+                    <TouchableHighlight onPress={() => this.AutomobileSheet.show()}
                         activeOpacity={0.5} underlayColor="#eee">
                         <View style={styles.button}>
                             <Text style={styles.text}>Preferred Automobile</Text>
                             <Text style={styles.small}>
-                                {this.state.selected}</Text>
+                                {this.state.automobile}</Text>
+                        </View>
+                    </TouchableHighlight>
+                    <TouchableHighlight onPress={() => this.TypeSheet.show()}
+                        activeOpacity={0.5} underlayColor="#eee">
+                        <View style={styles.button}>
+                            <Text style={styles.text}>Fuel Type</Text>
+                            <Text style={styles.small}>
+                                {this.state.type}</Text>
                         </View>
                     </TouchableHighlight>
                     <TouchableHighlight onPress={() => this.showPicker()}
@@ -83,7 +89,14 @@ class Settings extends Component {
                     title={automobileTitle}
                     options={automobileOptions}
                     cancelButtonIndex={CANCEL_INDEX}
-                    onPress={(i) => this.handlePress(i)}
+                    onPress={(i) => this.handlePress(automobileOptions, i, "automobile")}
+                />
+                <ActionSheet
+                    ref={o => this.TypeSheet = o}
+                    title={typeTitle}
+                    options={typeOptions}
+                    cancelButtonIndex={CANCEL_INDEX}
+                    onPress={(i) => this.handlePress(typeOptions, i, "type")}
                 />
             </View>
         )
@@ -93,6 +106,10 @@ class Settings extends Component {
 /* For Selecting Automobile */
 const automobileTitle = "Which Automobile do you prefer?";
 const automobileOptions = ["Cancel", "Car", "Bus", "Train"];
+
+/* For Selecting Type of Vehicle */
+const typeTitle = "What is the fuel type of your automobile?";
+const typeOptions = ["Cancel", "Petrol", "Diesel", "CNG", "Electric"];
 const CANCEL_INDEX = 0;
 
 /* For Inputing Mileage */
