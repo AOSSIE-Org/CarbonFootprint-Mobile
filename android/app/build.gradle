@@ -86,6 +86,10 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.0'
 
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
     defaultConfig {
         applicationId "com.carbonfootprint"
         minSdkVersion 16

@@ -50,28 +50,23 @@ export function getLocation() {
     return async function(dispatch, state) {
         dispatch(request_location());
         let value = true;
-        if (Platform.OS === 'android') {
-            value = await getPermission();
-        }
-        if (value) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    let lat = position.coords.latitude;
-                    let lng = position.coords.longitude;
-                    dispatch(receive_location(lat, lng));
-                    getRegion({ latitude: lat, longitude: lng }, null)
-                    .then(result => {
-                        dispatch(set_region(result));
-                        dispatch(set_source({
-                            latitude: lat,
-                            longitude: lng,
-                        }, "Your Location"));
-                    })
-                },
-                (error) => {console.log("Geolocation Error: ", error)},
-                { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-            );
-        }
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                let lat = position.coords.latitude;
+                let lng = position.coords.longitude;
+                dispatch(receive_location(lat, lng));
+                getRegion({ latitude: lat, longitude: lng }, null)
+                .then(result => {
+                    dispatch(set_region(result));
+                    dispatch(set_source({
+                        latitude: lat,
+                        longitude: lng,
+                    }, "Your Location"));
+                })
+            },
+            (error) => {console.log("Geolocation Error: ", error)},
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+        );
 
     }
 }
