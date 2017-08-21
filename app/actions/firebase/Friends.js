@@ -5,10 +5,10 @@ import {
 
 export function sendFriendRequest(currentUid, friendUid) {
     return new Promise(function(resolve, reject) {
-        firebase.database().ref('users/' + currentUid)
+        firebase.database().ref('users/' + currentUid + '/friends')
         .child(friendUid).setValue(false)
         .then(() => {
-            firebase.database().ref('users/' + friendUid)
+            firebase.database().ref('users/' + friendUid + '/friends')
             .child(uid).setValue(false)
             .then(() => {
                 getUser(currentUid)
@@ -31,10 +31,10 @@ export function sendFriendRequest(currentUid, friendUid) {
 
 export function acceptFriendRequest(currentUid, friendUid) {
     return new Promise(function(resolve, reject) {
-        firebase.database().ref('users/' + currentUid)
+        firebase.database().ref('users/' + currentUid + '/friends')
         .child(friendUid).setValue(true)
         .then(() => {
-            firebase.database().ref('users/' + friendUid)
+            firebase.database().ref('users/' + friendUid + '/friends')
             .child(currentUid).setValue(true)
             .then(() => {
                 getUser(currentUid)

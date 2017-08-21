@@ -86,6 +86,10 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.0'
 
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
     defaultConfig {
         applicationId "com.carbonfootprint"
         minSdkVersion 16
@@ -137,6 +141,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-picker')
     compile project(':realm')
     compile project(':react-native-background-job')
     compile project(':react-native-google-places')
