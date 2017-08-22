@@ -9,7 +9,7 @@ export function sendFriendRequest(currentUid, friendUid) {
         .child(friendUid).setValue(false)
         .then(() => {
             firebase.database().ref('users/' + friendUid + '/friends')
-            .child(uid).setValue(false)
+            .child(currentUid).setValue(false)
             .then(() => {
                 getUser(currentUid)
                 .then((user) => {

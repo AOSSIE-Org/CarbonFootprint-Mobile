@@ -8,19 +8,22 @@ import {
 } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import Picker from 'react-native-picker';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import * as StorageAction from '../actions/StorageAction';
 import Header from '../components/Header';
 import { color, getIcon } from '../config/helper';
 
 class Settings extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        let data = props.storage.data;
         this.state = {
-            // This should come from RealmDB
-            automobile: "Car",
-            type: "Petrol",
-            value: 10.1,
-            unit: 'km/litre',
+            automobile: data.automobile,
+            type: data.type,
+            value: data.value,
+            unit: data.unit,
         }
     }
 
@@ -31,6 +34,7 @@ class Settings extends Component {
             this.setState({
                 ...data
             })
+            this.props.setStorage(data);
         }
     }
 
@@ -151,4 +155,12 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Settings;
+function mapStateToProps(state) {
+    return state;
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(Object.assign({}, StorageAction), dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Settings);
