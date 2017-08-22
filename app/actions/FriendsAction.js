@@ -26,16 +26,24 @@ function receiveError(error) {
     }
 }
 
-export function getFriendList() {
+export function getFriendList(choice) {
     return (dispatch, getState) => {
         dispatch(requestFriends());
-        const friends = getState().auth.user.friends;
+        var friends = {}; 
+        const obj = getState().auth.user.friends;
+        for(var key in obj) {
+          if(obj.hasOwnProperty(key)) {
+            if(choice === "1" && obj[key] === 0)
+                friends[key] = true;
+            if(choice === "2" && obj[key] === 2)
+                friends[key] = false;
+          }
+        }
         if (friends === undefined) {
             dispatch(receiveFriends({}));
         } else {
             getMultiple(Object.keys(friends))
             .then((friends) => {
-                console.log(friends);
                 dispatch(receiveFriends(friends));
             })
         }
