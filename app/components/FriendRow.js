@@ -19,7 +19,7 @@ class FriendRow extends Component {
                 <View style={styles.main}>
                     <View style={styles.info}>
                         {
-                            data.picture ?
+                            data.picture?
                             <Image source={{uri: data.picture}} style={styles.image} />
                             :
                             <Image source={images.noImage} style={styles.image} />
@@ -30,7 +30,16 @@ class FriendRow extends Component {
                                 { text }
                             </Text>
                         </View>
-                        <View></View>
+                        {
+                            /*
+                            data.iconName?
+                                <View>
+                                    <Icon name={getIcon(data.iconName)} size={30} color="black"/>
+                                </View> 
+                            :
+                            <View></View>
+                            */
+                        }
                     </View>
                 </View>
 

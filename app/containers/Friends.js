@@ -16,13 +16,12 @@ import Header from '../components/Header';
 import { getIcon, color } from '../config/helper';
 
 import FriendsTab from '../components/FriendsTab';
+import InviteTab from '../components/InviteTab';
 
+import * as FirebaseAction from '../actions/firebase/Friends';
 import * as FriendsAction from '../actions/FriendsAction';
 
 class Friends extends Component {
-    componentWillMount() {
-        this.props.getFriendList();
-    }
     render() {
         return (
             <View style={styles.container}>
@@ -37,19 +36,18 @@ class Friends extends Component {
                     onChangeTab={(obj) => {
                         switch(obj.i) {
                             case 1:
-                                console.log(1);
+                                this.props.getFriendList("2");
                                 break;
                             case 2:
-                                console.log(2);
                                 break;
                             default:
-                                this.props.getFriendList();
+                                this.props.getFriendList("1");
                                 break;
                         }
-                    }}>
-                    <FriendsTab tabLabel="Friends" {...this.props} />
-                    <Text tabLabel="Requests"></Text>
-                    <Text tabLabel="Invite"></Text>
+                    }} >
+                    <FriendsTab tabLabel="Friends" {...this.props} choice="1" />
+                    <FriendsTab tabLabel="Requests" {...this.props} choice="2" />
+                    <InviteTab tabLabel="Invite" {...this.props} />
                 </ScrollableTabView>
             </View>
         )
@@ -83,7 +81,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, FriendsAction), dispatch);
+    return bindActionCreators(Object.assign({}, FriendsAction, FirebaseAction), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Friends);
