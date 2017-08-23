@@ -19,7 +19,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Timeline from 'react-native-timeline-listview';
 import { Actions } from 'react-native-router-flux';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
-import { getIcon, getIconName } from '../config/helper';
+import { getIcon, getIconName, color } from '../config/helper';
 
 export default class TimelineTab extends Component {
 	constructor(props) {
@@ -43,13 +43,12 @@ export default class TimelineTab extends Component {
 		for(i = 0; i < obj.length; i ++) {
 			let temp = {
 				title: obj[i].src,
-				subtitle: "Mountain View, California, United States",
 				time: obj[i].startTime,
 				activityType: obj[i].actType,
-				distance: obj[i].distance,
-				duration: "1 hr",
-				co2Emitted: obj[i].co2Emitted,
-				co2Saved: "1 kg"
+				distance: obj[i].distance + " km",
+				duration: obj[i].duration + " s",
+				co2Emitted: obj[i].co2Emitted + " kg",
+				co2Saved: "0.0" + " kg"
 			}
 			data.push(temp);
 		}
@@ -65,25 +64,22 @@ export default class TimelineTab extends Component {
 				<View style = {styles.locationView}>
 					<View>
 						<Text style = {styles.largeText}>{rowData.title}</Text>
-						<Text style = {styles.smallText}>{rowData.subtitle}</Text>
 					</View>
 				</View>
-				<TouchableNativeFeedback onPress = {this.props.link}>
-					<View style = {styles.activityView}>
-						<Icon name = {getIcon(icon)} size = {25} color = "black"/>
-						<Text style = {styles.mediumText}>{rowData.activityType}</Text>
-						<View style = {styles.hrView}>
-							<View>
-								<Text style = {styles.smallText}>{rowData.distance}</Text>
-								<Text style = {styles.smallText}>{rowData.duration}</Text>
-							</View>
-							<View>
-								<Text style = {styles.smallText}>{rowData.co2Emitted}</Text>
-								<Text style = {[styles.smallText, styles.greenText]}>{rowData.co2Saved}</Text>
-							</View>
+				<View style = {styles.activityView}>
+					<Icon name = {getIcon(icon)} size = {25} color = "black"/>
+					<Text style = {styles.mediumText}>{rowData.activityType}</Text>
+					<View style = {styles.hrView}>
+						<View>
+							<Text style = {styles.smallText}>{rowData.distance}</Text>
+							<Text style = {styles.smallText}>{rowData.duration}</Text>
+						</View>
+						<View>
+							<Text style = {styles.smallText}>{rowData.co2Emitted}</Text>
+							<Text style = {[styles.smallText, styles.greenText]}>{rowData.co2Saved}</Text>
 						</View>
 					</View>
-				</TouchableNativeFeedback>
+				</View>
 			</View>
 		);
 	}
@@ -171,7 +167,7 @@ export default class TimelineTab extends Component {
 			          renderDetail={this.renderDetail}
 			          separator={false}
 			          innerCircle={'dot'}
-			          onEventPress={Actions.activityHistory}
+			          //onEventPress={Actions.activityHistory}
 			          options={{style:{padding:10}}}
 			        />
 			 		: <Text>No Activity found</Text>
@@ -226,7 +222,7 @@ const styles = StyleSheet.create({
 		marginRight: 20
 	},
 	largeText: {
-		fontSize: 20,
+		fontSize: 15,
 		color: 'black'
 	},
 	mediumText: {
@@ -241,7 +237,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		height: 50, 
-		backgroundColor: '#009688'
+		backgroundColor: color.primary
 	},
 	whiteText: {
 		color: 'white'

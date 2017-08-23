@@ -17,7 +17,7 @@ import ActivityTab from '../components/ActivityTab';
 import TodayTab from '../components/TodayTab';
 import { Actions } from 'react-native-router-flux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-
+import { color } from '../config/helper';
 import Footer from '../components/Footer';
 
 class Main extends Component {
@@ -31,7 +31,7 @@ class Main extends Component {
     return (
       // 'ScrollableTabView' is predefined in external package 'react-native-scrollable-tab-view' 
 
-      <ScrollableTabView style={styles.container} tabBarPosition="bottom" tabBarUnderlineStyle={styles.underline} tabBarBackgroundColor="white" tabBarActiveTextColor="#009688" tabBarInactiveTextColor="#000000">
+      <ScrollableTabView style={styles.container} tabBarPosition="bottom" tabBarUnderlineStyle={styles.underline} tabBarBackgroundColor="white" tabBarActiveTextColor={color.primary} tabBarInactiveTextColor="#000000">
         <TodayTab tabLabel="Today"/>
         <ActivityTab tabLabel="Activity" {...this.props}/>
       </ScrollableTabView>
