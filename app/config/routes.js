@@ -19,6 +19,7 @@ import Terms from '../containers/Terms';
 import Stats from '../containers/Stats';
 import Friends from '../containers/Friends';
 import Settings from '../containers/Settings';
+import Forgot from '../containers/Forgot';
 
 import Footer from '../components/Footer';
 
@@ -35,6 +36,7 @@ class Navigator extends Component {
                             <Scene key="home" component={Home} initial  />
                             <Scene key="login" component={Login} />
                             <Scene key="register" component={Register} />
+                            <Scene key="forgot" component={Forgot} />
                         </Scene>
                         <Scene key="main" navBar={Footer}>
                             <Scene key="calculate" component={Calculate} initial />

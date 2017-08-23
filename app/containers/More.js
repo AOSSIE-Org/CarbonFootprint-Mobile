@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         backgroundColor: color.greyBack,
     },
     main: {
-        marginTop: 75,
+        marginTop: 55, // 75-20
         width: Dimensions.get("window").width,
     },
     group: {

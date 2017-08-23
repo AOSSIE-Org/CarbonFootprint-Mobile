@@ -4,7 +4,8 @@ import {
     StyleSheet,
     TouchableHighlight,
     Dimensions,
-    Text
+    Text,
+    ActivityIndicator
 } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import Picker from 'react-native-picker';
@@ -20,10 +21,7 @@ class Settings extends Component {
         super(props);
         let data = props.storage.data;
         this.state = {
-            automobile: data.automobile,
-            type: data.type,
-            value: data.value,
-            unit: data.unit,
+            ...data
         }
     }
 
@@ -50,6 +48,11 @@ class Settings extends Component {
                     value: data[0],
                     unit: data[1],
                 })
+                this.props.setStorage({
+                    ...this.state,
+                    value: data[0],
+                    unit: data[1]
+                });
             },
         });
         Picker.show();
@@ -59,35 +62,43 @@ class Settings extends Component {
         return (
             <View style={styles.container}>
                 <Header icon={true} iconName="arrow-back" text="Settings" />
-                <View style={styles.main}>
-                    <TouchableHighlight onPress={() => this.AutomobileSheet.show()}
-                        activeOpacity={0.5} underlayColor="#eee">
-                        <View style={styles.button}>
-                            <Text style={styles.text}>Preferred Automobile</Text>
-                            <Text style={styles.small}>
-                                {this.state.automobile}</Text>
-                        </View>
-                    </TouchableHighlight>
-                    <TouchableHighlight onPress={() => this.TypeSheet.show()}
-                        activeOpacity={0.5} underlayColor="#eee">
-                        <View style={styles.button}>
-                            <Text style={styles.text}>Fuel Type</Text>
-                            <Text style={styles.small}>
-                                {this.state.type}</Text>
-                        </View>
-                    </TouchableHighlight>
-                    <TouchableHighlight onPress={() => this.showPicker()}
-                        activeOpacity={0.5} underlayColor="#eee">
-                        <View style={styles.button}>
-                            <Text style={styles.text}>Approximate Mileage</Text>
-                            <Text style={styles.small}>
-                                {
-                                    this.state.value + ' ' + this.state.unit
-                                }
-                            </Text>
-                        </View>
-                    </TouchableHighlight>
-                </View>
+                {
+                    this.props.storage.isFetching ?
+                    <View style={styles.center}>
+                        <ActivityIndicator size="large" color={color.primary}/>
+                    </View>
+                    :
+                    <View style={styles.main}>
+                        <TouchableHighlight onPress={() => this.AutomobileSheet.show()}
+                            activeOpacity={0.5} underlayColor="#eee">
+                            <View style={styles.button}>
+                                <Text style={styles.text}>Preferred Automobile</Text>
+                                <Text style={styles.small}>
+                                    {this.state.automobile}</Text>
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight onPress={() => this.TypeSheet.show()}
+                            activeOpacity={0.5} underlayColor="#eee">
+                            <View style={styles.button}>
+                                <Text style={styles.text}>Fuel Type</Text>
+                                <Text style={styles.small}>
+                                    {this.state.type}</Text>
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight onPress={() => this.showPicker()}
+                            activeOpacity={0.5} underlayColor="#eee">
+                            <View style={styles.button}>
+                                <Text style={styles.text}>Approximate Mileage</Text>
+                                <Text style={styles.small}>
+                                    {
+                                        this.state.value + ' ' + this.state.unit
+                                    }
+                                </Text>
+                            </View>
+                        </TouchableHighlight>
+                    </View>
+                }
+
                 <ActionSheet
                     ref={o => this.AutomobileSheet = o}
                     title={automobileTitle}
@@ -152,6 +163,15 @@ const styles = StyleSheet.create({
         color: color.lightBlack,
         letterSpacing: 1,
         paddingTop: 4,
+    },
+    center: {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
     }
 })
 
