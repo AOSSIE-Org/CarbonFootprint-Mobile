@@ -14,8 +14,8 @@ export default function activity(state = {
 	date: new Date().toDateString(),
 	startTime: formatAMPM(new Date()),
 	duration: 0,
-	src: {},
-	dest: {},
+	src: {latitude: -1, longitude: -1},
+	dest: {latitude: -1, longitude: -1},
 	type: 'STILL',
 	distance: 0,
 	co2: 0

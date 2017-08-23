@@ -13,28 +13,38 @@ import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
 import { setDate, setStartTime, setDuration, setSrc, setDest, setType, setDistance, setCO2 } from '../actions/ActivityDetailsAction';
 import { formatAMPM, getPlaceName } from '../config/helper';
 
-function sendDataForStorage() {
+async function sendDataForStorage() {
   var act = store.getState().activity;
+  var source = "Source";
+  var destin = "Destination";
+  if(act.src.latitude === -1) {
+    alert("Error in fetching location (source)");
+  } else {
+    await getPlaceName(act.src).then(
+      (place) => source = place
+    ).catch(
+      error => alert("ActivityDetectionAction (sendDataForStorage 1)" + error)
+    );
+  }
+  if(act.dest.latitude === -1) {
+    alert("Error in fetching location (destination)");
+  } else {
+    await getPlaceName(act.dest).then(
+      (place) => destin = place
+    ).catch(
+      error => alert("ActivityDetectionAction (sendDataForStorage 2)" + error)
+    );
+  }
   var data = {
     actDate: act.date,
     startTime: act.startTime,
     duration: act.duration,
-    src: "Source",
-    dest: "Destination",
+    src: source,
+    dest: destin,
     actType: act.type,
     distance: act.distance,
     co2Emitted: act.co2
   };
-  getPlaceName(act.src).then(
-    (place) => dispatch(setSrc(place))
-  ).catch(
-    error => alert(error)
-  );
-  getPlaceName(act.dest).then(
-    (place) => dispatch(setDest(place))
-  ).catch(
-    error => alert(error)
-  );
   alert("Activity data sent for local storage. Date: " + data.actDate + ", Start time: " + data.startTime + ", Duration: " + 
     data.duration + ", Source: " + data.src + ", Destination: " + data.dest + ", Type: " + data.actType + 
     ", Distance: " + data.distance + ", Co2 emitted: " + data.co2Emitted);
@@ -63,16 +73,16 @@ export function startActivityDetection() {
       var act = store.getState().activity;
       if(mostProbableActivity.type !== act.type) {
         if((Platform.OS === 'android' && mostProbableActivity.confidence >= 75) || (Platform.OS === 'ios')) {
-          sendDataForStorage().then(() => {             
-            var currDate = new Date();
-            dispatch(setDate(currDate.toDateString()));
-            dispatch(setStartTime(formatAMPM(currDate)));
-            dispatch(setDuration(0));
-            dispatch(setSrc(act.dest));
-            dispatch(setType(mostProbableActivity.type));
-            dispatch(setDistance(0));
-            dispatch(setCO2(0));
-          });
+          if(act.type !== 'STILL' && act.type !== 'TILTING' && act.type !== 'UNKNOWN')
+            sendDataForStorage();
+          var currDate = new Date();
+          dispatch(setDate(currDate.toDateString()));
+          dispatch(setStartTime(formatAMPM(currDate)));
+          dispatch(setDuration(0));
+          dispatch(setSrc(act.dest));
+          dispatch(setType(mostProbableActivity.type));
+          dispatch(setDistance(0));
+          dispatch(setCO2(0));
         }  
       }
     });

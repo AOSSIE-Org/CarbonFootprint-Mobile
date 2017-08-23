@@ -13,8 +13,7 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  Platform,
-  TouchableNativeFeedback
+  Platform
 } from 'react-native';
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -25,7 +24,7 @@ import MapView from 'react-native-maps';
 import BackgroundJob from 'react-native-background-job';
 import { ZOOM_DELTA, MILEAGE, RATE } from '../config/constants';
 import { googleRoadsAPIKey } from '../config/keys';
-import { getIcon, getIconName } from '../config/helper';
+import { getIcon, getIconName, color } from '../config/helper';
 
 const backgroundJob = {
  jobKey: "myJob",
@@ -39,7 +38,6 @@ BackgroundJob.register(backgroundJob);
 export default class ActivityTab extends Component {
 	constructor(props) {
 		super(props);
-    this.props = props;
     this.state = {
       numCoords: 0, 
       routeCoordinates: [], // For drawing route
@@ -47,12 +45,17 @@ export default class ActivityTab extends Component {
     };
     // Incrementing time
     setInterval(() => {
-      this.props.setDuration(this.props.duration + 1);
+      this.updateDuration()
     }, 1000);
 
     this.processSnapToRoadResponse = this.processSnapToRoadResponse.bind(this);
     setInterval(() => {this.drawRoute()}, 5000);
 	}
+
+  updateDuration() {
+    if(this.props.type !== 'STILL' && this.props.type !== 'TILTING' && this.props.type !== 'UNKNOWN')
+      this.props.setDuration(this.props.duration + 1);
+  }
 
   drawRoute() {
     // Google Roads API
@@ -71,7 +74,7 @@ export default class ActivityTab extends Component {
           this.processSnapToRoadResponse(response);
       })
       .catch((error) => {
-        alert("Error: " + error);
+        alert("Error (ActivityTab/drawRoute): " + error);
       });
    }
   }
@@ -105,7 +108,7 @@ export default class ActivityTab extends Component {
           longitudeDelta: ZOOM_DELTA
         }, 2);
       },
-      (error) => alert(error.message)
+      (error) => alert("ActivityTab (componentDidMount 1): " + error.message)
     );
 
     // Getting location updates (Only when location changes)
@@ -120,17 +123,19 @@ export default class ActivityTab extends Component {
         longitudeDelta: ZOOM_DELTA
       }, 2);   
 
-      this.props.setDistance(this.props.distance + this.calcDistance(newLatLngs));
-      this.props.setCO2(RATE * (this.props.distance / MILEAGE));
-      this.props.setDest(newLatLngs);
+      if(this.props.type !== 'STILL' && this.props.type !== 'TILTING' && this.props.type !== 'UNKNOWN') {
+        this.props.setDistance(this.props.distance + this.calcDistance(newLatLngs));
+        this.props.setCO2(RATE * (this.props.distance / MILEAGE));
+        this.props.setDest(newLatLngs);
 
-      // Updating state
-      this.setState({
-        routeCoordinates: routeCoordinates.concat(positionLatLngs),
-        prevLatLng: newLatLngs
-      });
+        // Updating state
+        this.setState({
+          routeCoordinates: routeCoordinates.concat(positionLatLngs),
+          prevLatLng: newLatLngs
+        });
+      }
     },
-    (error) => alert(error.message),
+    (error) => alert("ActivityTab (componentDidMount 2): " + error.message),
     {enableHighAccuracy: true, timeout: 1000, maximumAge: 0, distanceFilter:1}
     );
   }
@@ -184,20 +189,20 @@ export default class ActivityTab extends Component {
 
 		return(
       <ScrollView contentContainerStyle = {styles.scrollView}>
-        <MapView
-          height={Dimensions.get("window").height * 0.5}
-          ref={(map)=>this._map = map}
-          showsUserLocation={true} >
-          <MapView.Polyline 
-            coordinates={this.state.routeCoordinates}/>
-        </MapView>
+        <View style={styles.mapView}>
+          <MapView
+            style={styles.mapView}
+            ref={(map)=>this._map = map}
+            showsUserLocation={true} >
+            <MapView.Polyline 
+              coordinates={this.state.routeCoordinates}/>
+          </MapView>
+        </View>
         <View style ={styles.container}>
           <View style = {styles.activityView}>
-            <TouchableNativeFeedback /*onPress = {() => this.props.startActivityDetection()}*/>
-              <View style = {styles.activity_icon}>
-                {(this.props.type === 'RUNNING') ? <Icon1 name={icon} size={50} color="white"/> : <Icon name={getIcon(icon)} size={50} color="white"/>}
-              </View>
-            </TouchableNativeFeedback>
+            <View style = {styles.activity_icon}>
+              {(this.props.type === 'RUNNING') ? <Icon1 name={icon} size={50} color="white"/> : <Icon name={getIcon(icon)} size={50} color="white"/>}
+            </View>
             <Text style = {styles.smallText}> Detected Activity </Text>
             <View style = {styles.hrline} />
           </View>
@@ -244,6 +249,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
 
+  mapView: {
+    height: Dimensions.get("window").height * 0.5,
+    width: Dimensions.get("window").height
+  },
+
   // For giving fixed height to ScrollView
   scrollView: {
     height: Dimensions.get("window").height * 0.9
@@ -267,7 +277,7 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40,
     width: 80,
-    backgroundColor: '#009688',
+    backgroundColor: color.primary,
     borderWidth: 1,
     borderColor: '#000000',
     alignItems: 'center',
