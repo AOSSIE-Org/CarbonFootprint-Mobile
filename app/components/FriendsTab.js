@@ -51,6 +51,8 @@ class FriendsTab extends Component {
                                 <View key={index}>
                                     <FriendRow last={index === (props.friends.list.length - 1)}
                                         data={friend}
+                                        iconName="checkmark"
+                                        link={this.props.choice === "2"? () => this.acceptRequestBtnClick(friend.uid): null}
                                         text={
                                             friend.data ?
                                             friend.data.total:

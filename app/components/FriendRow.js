@@ -4,7 +4,8 @@ import {
     StyleSheet,
     Image,
     Text,
-    Dimensions
+    Dimensions,
+    TouchableNativeFeedback
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { color, getIcon } from '../config/helper';
@@ -30,19 +31,18 @@ class FriendRow extends Component {
                                 { text }
                             </Text>
                         </View>
-                        {
-                            /*
-                            data.iconName?
-                                <View>
-                                    <Icon name={getIcon(data.iconName)} size={30} color="black"/>
-                                </View> 
-                            :
-                            <View></View>
-                            */
-                        }
+                        <View style={styles.right}>
+                            {
+                                this.props.iconName?    
+                                        <TouchableNativeFeedback onPress={this.props.link}>
+                                            <Icon name={getIcon(this.props.iconName)} size={30} color="black"/>
+                                        </TouchableNativeFeedback>
+                                :
+                                <View></View>
+                            }
+                        </View>
                     </View>
                 </View>
-
             </View>
         )
     }
@@ -65,9 +65,13 @@ const styles = StyleSheet.create({
     info: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'space-between'
     },
     left: {
         marginLeft: 8
+    },
+    right: {
+        alignSelf: 'flex-end'
     },
     image: {
         width: 48,
