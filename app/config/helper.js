@@ -15,7 +15,8 @@ export function formatAMPM(date) {
   var ampm = hours >= 12 ? 'pm' : 'am';
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0'+minutes : minutes;
+  hours = hours < 10 ? '0' + hours : hours;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
   var time = hours + ':' + minutes + ' ' + ampm;
   return time;
 }
@@ -25,12 +26,14 @@ export function getPlaceName(loc) {
     Geocoder.setApiKey(geocodingAPIKey);
     Geocoder.getFromLatLng(loc.latitude, loc.longitude).then(
       json => {
+        /*
          var address_component = json.results[0].address_components[0];
          place = address_component.long_name;
-         resolve(place);
+        */
+         resolve(json.results[0].formatted_address);
       },
       error => {
-         alert(error);
+         alert("helper (getPlaceName): " + error);
          reject(error);
       }
     );

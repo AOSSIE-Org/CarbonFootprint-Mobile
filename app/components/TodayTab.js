@@ -16,16 +16,19 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import images from '../config/images';
+import { getIcon, color } from '../config/helper';
+import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
 
 export default class TodayTab extends Component {
 	constructor(props) {
 		super(props);
-	} 
-
-	// For getting icons based on platform
-    getIcon(name) {
-      return (Platform.OS === 'android' ? "md-": "ios-") + name;
-    }
+		ActivityHistoryStorage.createDB();
+		var data = ActivityHistoryStorage.getTotalData(new Date().toDateString());
+		this.state = {
+			distance: data.distance,
+			co2Emitted: data.co2Emitted
+		}
+	}
 
 	// Main function to set whole view of screen
   	// ScrollView is added to deal with different sizes of mobile screen.
@@ -43,12 +46,12 @@ export default class TodayTab extends Component {
 						<View style = {styles.largeActivity_icon}>
 							<Text style = {styles.mediumText}>TODAY</Text>
 							<View style = {styles.hrView}>
-								<Text style = {styles.mediumText}>15</Text>
+								<Text style = {styles.mediumText}>{this.state.distance.toFixed(2)}</Text>
 								<Text style = {styles.smallText}>km</Text> 
 							</View>
 							<Image source = {images.co2Icon} style = {styles.co2Icon}/>
 							<View style = {styles.hrView}>
-								<Text style = {styles.mediumText}>35</Text>
+								<Text style = {styles.mediumText}>{this.state.co2Emitted.toFixed(2)}</Text>
 								<Text style = {styles.smallText}>kg</Text> 
 							</View>
 							<View style = {styles.hrView}>
@@ -64,7 +67,7 @@ export default class TodayTab extends Component {
 								<Text style = {styles.smallText}>km</Text>
 							</View>
 							<View style = {styles.activity_icon}>
-								<Icon name={this.getIcon("walk")} size={35} color="white"/>
+								<Icon name={getIcon("walk")} size={35} color="white"/>
 							</View>
 							<View style = {styles.hrView}>
 								<Text style = {styles.smallText}>7</Text>
@@ -81,7 +84,7 @@ export default class TodayTab extends Component {
 								<Text style = {styles.smallText}>km</Text>
 							</View>
 							<View style = {styles.activity_icon}>
-								<Icon name={this.getIcon("bicycle")} size={35} color="white"/>
+								<Icon name={getIcon("bicycle")} size={35} color="white"/>
 							</View>
 							<View style = {styles.hrView}>
 								<Text style = {styles.smallText}>7</Text>
@@ -98,7 +101,7 @@ export default class TodayTab extends Component {
 								<Text style = {styles.smallText}>km</Text>
 							</View>
 							<View style = {styles.activity_icon}>
-								<Icon name={this.getIcon("car")} size={35} color="white"/>
+								<Icon name={getIcon("car")} size={35} color="white"/>
 							</View>
 							<View style = {styles.hrView}>
 								<Text style = {styles.smallText}>7</Text>
@@ -115,7 +118,7 @@ export default class TodayTab extends Component {
 								<Text style = {styles.smallText}>km</Text>
 							</View>
 							<View style = {styles.activity_icon}>
-								<Icon name={this.getIcon("bus")} size={35} color="white"/>
+								<Icon name={getIcon("bus")} size={35} color="white"/>
 							</View>
 							<View style = {styles.hrView}>
 								<Text style = {styles.smallText}>7</Text>
@@ -132,7 +135,7 @@ export default class TodayTab extends Component {
 								<Text style = {styles.smallText}>km</Text>
 							</View>
 							<View style = {styles.activity_icon}>
-								<Icon name={this.getIcon("train")} size={35} color="white"/>
+								<Icon name={getIcon("train")} size={35} color="white"/>
 							</View>
 							<View style = {styles.hrView}>
 								<Text style = {styles.smallText}>7</Text>
@@ -224,7 +227,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     width: 50,
-    backgroundColor: '#009688',
+    backgroundColor: color.primary,
     borderWidth: 1,
     borderColor: '#000000',
     alignItems: 'center',
