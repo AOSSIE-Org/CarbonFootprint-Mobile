@@ -56,11 +56,6 @@ class InviteTab extends Component {
 					                data={this.state.user}
 					                text={this.state.user.name} />
 				            </View>
-				            <View>
-					            <TouchableNativeFeedback onPress={() => sendFriendRequest(this.props.auth.user.uid, this.state.user.uid)}>    
-					            	<Icon name={getIcon("person-add")} size={30} color="black"/>    
-				            	</TouchableNativeFeedback>
-			            	</View>
 		            	</View>:
 	            	<Text>No user found</Text>
 	            }

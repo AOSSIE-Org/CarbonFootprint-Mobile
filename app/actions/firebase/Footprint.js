@@ -39,12 +39,14 @@ import {
 */
 export function setFootprint(data, currentUid) {
     return new Promise(function(resolve, reject) {
-        firebase.database().ref('users/' + currentUid)
-        .child("data").setValue(...data)
+        firebase.database().ref('users/' + currentUid + "/data")
+        .set(data)
         .then(() => {
             getUser(currentUid)
-            .then((user) => resolve(user))
-            .catch((error) => reject(error))
+            .then((user) => {
+                alert("Data sent in Firebase. UID: " + currentUid);
+                resolve(user);
+            }).catch((error) => reject(error))
         })
         .catch((error) => reject(error))
     });

@@ -40,6 +40,11 @@ export function getPlaceName(loc) {
  });
 } 
 
+export function calcCo2(fuelRate, distance, mileage) {
+  // co2 in kg
+  return fuelRate * (distance / mileage);
+}
+
 export function getIconName(activity) {
 	// Selecting activity icon based on detected activity
   // For more information about detected activity, check below link -

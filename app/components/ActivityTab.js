@@ -24,7 +24,7 @@ import MapView from 'react-native-maps';
 import BackgroundJob from 'react-native-background-job';
 import { ZOOM_DELTA, MILEAGE, RATE } from '../config/constants';
 import { googleRoadsAPIKey } from '../config/keys';
-import { getIcon, getIconName, color } from '../config/helper';
+import { getIcon, getIconName, color, calcCo2 } from '../config/helper';
 
 const backgroundJob = {
  jobKey: "myJob",
@@ -101,6 +101,7 @@ export default class ActivityTab extends Component {
       (position) => {
         const currLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude};
         this.props.setSrc(currLatLngs);
+        //alert("Source set " + this.props.src.latitude + ", " + this.props.src.longitude);
         this._map.animateToRegion({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -114,6 +115,7 @@ export default class ActivityTab extends Component {
     // Getting location updates (Only when location changes)
     this.watchID = navigator.geolocation.watchPosition((position) => {
       const { routeCoordinates } = this.state; 
+      //alert("Destination set " + ", latitude: " + position.coords.latitude);
       const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude };
       const positionLatLngs = pick(position.coords, ['latitude', 'longitude']);
       this._map.animateToRegion({
@@ -125,7 +127,7 @@ export default class ActivityTab extends Component {
 
       if(this.props.type !== 'STILL' && this.props.type !== 'TILTING' && this.props.type !== 'UNKNOWN') {
         this.props.setDistance(this.props.distance + this.calcDistance(newLatLngs));
-        this.props.setCO2(RATE * (this.props.distance / MILEAGE));
+        this.props.setCO2(calcCo2(RATE, this.props.distance, MILEAGE));
         this.props.setDest(newLatLngs);
 
         // Updating state

@@ -8,13 +8,12 @@ import {
 } from 'react-native';
 
 import ActivityRecognition from 'react-native-activity-recognition';
-import store from '../config/store';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
 import { setDate, setStartTime, setDuration, setSrc, setDest, setType, setDistance, setCO2 } from '../actions/ActivityDetailsAction';
 import { formatAMPM, getPlaceName } from '../config/helper';
 
-async function sendDataForStorage() {
-  var act = store.getState().activity;
+async function sendDataForStorage(state) {
+  var act = state.activity;
   var source = "Source";
   var destin = "Destination";
   if(act.src.latitude === -1) {
@@ -43,16 +42,17 @@ async function sendDataForStorage() {
     dest: destin,
     actType: act.type,
     distance: act.distance,
-    co2Emitted: act.co2
+    co2Emitted: act.type === 'IN_VEHICLE'? act.co2: 0,
+    co2Saved: act.type === 'IN_VEHICLE'? 0: act.co2
   };
   alert("Activity data sent for local storage. Date: " + data.actDate + ", Start time: " + data.startTime + ", Duration: " + 
     data.duration + ", Source: " + data.src + ", Destination: " + data.dest + ", Type: " + data.actType + 
-    ", Distance: " + data.distance + ", Co2 emitted: " + data.co2Emitted);
+    ", Distance: " + data.distance + ", co2 emitted: " + data.co2Emitted + ", co2 saved: " + data.co2Saved);
   ActivityHistoryStorage.insertData(data);
 }
 
 export function startActivityDetection() {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     alert("Activity is being detected ...");
     ActivityHistoryStorage.createDB();
 
@@ -70,11 +70,11 @@ export function startActivityDetection() {
 
       // If detected activity is different from ongoing activity,
       // set this detected activity in current state.
-      var act = store.getState().activity;
+      var act = getState().activity;
       if(mostProbableActivity.type !== act.type) {
         if((Platform.OS === 'android' && mostProbableActivity.confidence >= 75) || (Platform.OS === 'ios')) {
           if(act.type !== 'STILL' && act.type !== 'TILTING' && act.type !== 'UNKNOWN')
-            sendDataForStorage();
+            sendDataForStorage(getState());
           var currDate = new Date();
           dispatch(setDate(currDate.toDateString()));
           dispatch(setStartTime(formatAMPM(currDate)));

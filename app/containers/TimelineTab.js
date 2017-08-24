@@ -45,10 +45,10 @@ export default class TimelineTab extends Component {
 				title: obj[i].src,
 				time: obj[i].startTime,
 				activityType: obj[i].actType,
-				distance: obj[i].distance + " km",
+				distance: obj[i].distance.toFixed(2) + " km",
 				duration: obj[i].duration + " s",
-				co2Emitted: obj[i].co2Emitted + " kg",
-				co2Saved: "0.0" + " kg"
+				co2Emitted: obj[i].co2Emitted.toFixed(2) + " kg",
+				co2Saved: obj[i].co2Saved.toFixed(2) + " kg"
 			}
 			data.push(temp);
 		}
@@ -63,7 +63,7 @@ export default class TimelineTab extends Component {
 			<View style = {styles.container}>
 				<View style = {styles.locationView}>
 					<View>
-						<Text style = {styles.largeText}>{rowData.title}</Text>
+						<Text style = {styles.largeText2}>{rowData.title}</Text>
 					</View>
 				</View>
 				<View style = {styles.activityView}>
@@ -139,7 +139,7 @@ export default class TimelineTab extends Component {
 		return(
 			<View style = {styles.header}>
 				<View style = {styles.dateView}>
-					<Text style = {[styles.largeText, styles.whiteText]}>{this.getDateStr(this.state.date)}</Text>
+					<Text style = {[styles.largeText1, styles.whiteText]}>{this.getDateStr(this.state.date)}</Text>
 				</View>
 				<View style = {styles.datePickerView}>
 					{this.datePickerView()}
@@ -221,9 +221,13 @@ const styles = StyleSheet.create({
 		alignItems: 'flex-end',
 		marginRight: 20
 	},
-	largeText: {
-		fontSize: 15,
+	largeText1: {
+		fontSize: 20,
 		color: 'black'
+	},
+	largeText2: {
+		fontSize: 15,
+		color: 'black'	
 	},
 	mediumText: {
 		fontSize: 13,
