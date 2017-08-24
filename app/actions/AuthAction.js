@@ -6,12 +6,15 @@ import { firebaseConfig } from '../config/keys';
 import { initFirebase } from './firebase/Init';
 import {
     registerFirebase,
-    loginEmailFirebase
+    loginEmailFirebase,
+    forgotPasswordFirebase,
 } from './firebase/Auth';
 
 export const REQUEST_AUTH = "REQUEST_AUTH";
 export const RECEIVE_AUTH = "RECEIVE_AUTH";
 export const RECEIVE_ERROR = "RECEIVE_ERROR";
+export const REQUEST_FORGOT = "REQUEST_FORGOT";
+export const RECEIVE_FORGOT = "RECEIVE_FORGOT";
 
 export function requestAuth() {
     return {
@@ -30,6 +33,19 @@ export function receiveError(json) {
     return {
         type: RECEIVE_ERROR,
         error: json,
+    }
+}
+
+export function requestForgot() {
+    return {
+        type: REQUEST_FORGOT
+    }
+}
+
+export function receiveForgot(message) {
+    return {
+        type: RECEIVE_FORGOT,
+        message
     }
 }
 
@@ -71,6 +87,15 @@ export function initApp() {
         .catch(() => {
             dispatch(receiveAuth(null));
         })
+    }
+}
+
+export function forgotPassword(email) {
+    return (dispatch) => {
+        dispatch(requestForgot());
+        forgotPasswordFirebase(email)
+        .then(() => dispatch(receiveForgot("Password reset link has been sent to your email")))
+        .catch((error) => dispatch(receiveForgot(error.message)))
     }
 }
 

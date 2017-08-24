@@ -85,3 +85,11 @@ export function loginCustomFirebase(type, token, secret) {
         })
     })
 }
+
+export function forgotPasswordFirebase(email) {
+    return new Promise(function(resolve, reject) {
+        firebase.auth().sendPasswordResetEmail(email)
+        .then(() => resolve())
+        .catch((error) => reject(error))
+    });
+}

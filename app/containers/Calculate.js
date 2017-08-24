@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         top: 0,
         zIndex: 2,
         padding: 20,
-        paddingTop: 30,
+        paddingTop: Platform.OS === "ios" ? 30: 20,
     },
     box: {
         borderBottomWidth: 1,
