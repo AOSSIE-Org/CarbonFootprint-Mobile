@@ -33,6 +33,11 @@ import {
             footprint:
             distance:
         },
+        running: {
+            time:
+            footprint:
+            distance:
+        }
     }
 
     currentUid: UID of the logged in user to set.

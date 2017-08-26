@@ -14,7 +14,9 @@ import {
   Platform,
   TouchableNativeFeedback
 } from 'react-native';
+// For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import images from '../config/images';
 import { getIcon, color } from '../config/helper';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
@@ -28,10 +30,12 @@ export default class TodayTab extends Component {
 			co2Emitted: data.co2Emitted,
 			co2Saved: data.co2Saved,
 			co2WalkSaved: data.co2WalkSaved,
+			co2RunSaved: data.co2RunSaved,
 	        co2CycleSaved: data.co2CycleSaved,
 	        co2VehicleEmitted: data.co2VehicleEmitted,
 	        dist: data.dist,
 	        distWalk: data.distWalk,
+	        distRun: data.distRun,
 	        distCycle: data.distCycle,
 	        distVehicle: data.distVehicle
 		}
@@ -87,6 +91,23 @@ export default class TodayTab extends Component {
 						</View>
 						<View style = {styles.lowerActivityItemView}>
 							<View style = {styles.hrView}>
+								<Text style = {styles.smallText}>{this.state.distRun.toFixed(2)}</Text>
+								<Text style = {styles.smallText}>km</Text>
+							</View>
+							<View style = {styles.activity_icon}>
+								<Icon1 name="run" size={35} color="white"/>
+							</View>
+							<View style = {styles.hrView}>
+								<Text style = {styles.smallText}>0.00</Text>
+								<Text style = {styles.smallText}>kg</Text>
+							</View>
+							<View style = {styles.hrView}>
+								<Text style = {styles.smallGreenText}>{this.state.co2RunSaved.toFixed(2)}</Text>
+								<Text style = {styles.smallGreenText}>kg</Text>
+							</View>
+						</View>
+						<View style = {styles.lowerActivityItemView}>
+							<View style = {styles.hrView}>
 								<Text style = {styles.smallText}>{this.state.distCycle.toFixed(2)}</Text>
 								<Text style = {styles.smallText}>km</Text>
 							</View>
@@ -108,7 +129,15 @@ export default class TodayTab extends Component {
 								<Text style = {styles.smallText}>km</Text>
 							</View>
 							<View style = {styles.activity_icon}>
-								<Icon name={getIcon("car")} size={35} color="white"/>
+							{
+								props.storage.automobile === "Car"?
+								<Icon name={getIcon("car")} size={35} color="white"/>:
+								(
+									props.storage.automobile === "Bus"?
+									<Icon name={getIcon("bus")} size={35} color="white"/>:
+									<Icon name={getIcon("train")} size={35} color="white"/>
+								)
+							}
 							</View>
 							<View style = {styles.hrView}>
 								<Text style = {styles.smallText}>{this.state.co2VehicleEmitted.toFixed(2)}</Text>
@@ -116,40 +145,6 @@ export default class TodayTab extends Component {
 							</View>
 							<View style = {styles.hrView}>
 								<Text style = {styles.smallGreenText}>0.00</Text>
-								<Text style = {styles.smallGreenText}>kg</Text>
-							</View>
-						</View>
-						<View style = {styles.lowerActivityItemView}>
-							<View style = {styles.hrView}>
-								<Text style = {styles.smallText}>7</Text>
-								<Text style = {styles.smallText}>km</Text>
-							</View>
-							<View style = {styles.activity_icon}>
-								<Icon name={getIcon("bus")} size={35} color="white"/>
-							</View>
-							<View style = {styles.hrView}>
-								<Text style = {styles.smallText}>7</Text>
-								<Text style = {styles.smallText}>kg</Text>
-							</View>
-							<View style = {styles.hrView}>
-								<Text style = {styles.smallGreenText}>7</Text>
-								<Text style = {styles.smallGreenText}>kg</Text>
-							</View>
-						</View>
-						<View style = {styles.lowerActivityItemView}>
-							<View style = {styles.hrView}>
-								<Text style = {styles.smallText}>7</Text>
-								<Text style = {styles.smallText}>km</Text>
-							</View>
-							<View style = {styles.activity_icon}>
-								<Icon name={getIcon("train")} size={35} color="white"/>
-							</View>
-							<View style = {styles.hrView}>
-								<Text style = {styles.smallText}>7</Text>
-								<Text style = {styles.smallText}>kg</Text>
-							</View>
-							<View style = {styles.hrView}>
-								<Text style = {styles.smallGreenText}>7</Text>
 								<Text style = {styles.smallGreenText}>kg</Text>
 							</View>
 						</View>

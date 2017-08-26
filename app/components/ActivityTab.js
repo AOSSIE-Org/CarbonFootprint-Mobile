@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
 import Icon from 'react-native-vector-icons/Ionicons';
-//import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import pick from 'lodash/pick';
 import haversine from 'haversine';
 import MapView from 'react-native-maps';
@@ -53,8 +53,8 @@ export default class ActivityTab extends Component {
 	}
 
   updateDuration() {
-    if(this.props.type !== 'STILL' && this.props.type !== 'TILTING' && this.props.type !== 'UNKNOWN')
-      this.props.setDuration(this.props.duration + 1);
+    if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN')
+      this.props.setDuration(this.props.activity.duration + 1);
   }
 
   drawRoute() {
@@ -125,9 +125,9 @@ export default class ActivityTab extends Component {
         longitudeDelta: ZOOM_DELTA
       }, 2);   
 
-      if(this.props.type !== 'STILL' && this.props.type !== 'TILTING' && this.props.type !== 'UNKNOWN') {
-        this.props.setDistance(this.props.distance + this.calcDistance(newLatLngs));
-        this.props.setCO2(calcCo2(RATE, this.props.distance, MILEAGE));
+      if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN') {
+        this.props.setDistance(this.props.activity.distance + this.calcDistance(newLatLngs));
+        this.props.setCO2(calcCo2(RATE, this.props.activity.distance, MILEAGE));
         this.props.setDest(newLatLngs);
 
         // Updating state
@@ -172,13 +172,13 @@ export default class ActivityTab extends Component {
 
   // Updating travel time
   updateTime() {
-    if(this.props.duration < 60) {
-      return {time: this.props.duration, unit: "s"};
+    if(this.props.activity.duration < 60) {
+      return {time: this.props.activity.duration, unit: "s"};
     } else {
-      if(this.props.duration >= 60 && this.props.duration <= 3600)
-        return {time: (this.props.duration/60).toFixed(1), unit: "min"};
+      if(this.props.activity.duration >= 60 && this.props.activity.duration <= 3600)
+        return {time: (this.props.activity.duration/60).toFixed(1), unit: "min"};
       else
-        return {time: (this.props.duration/3600).toFixed(1), unit: "hr"};
+        return {time: (this.props.activity.duration/3600).toFixed(1), unit: "hr"};
     }
   }
 
@@ -187,7 +187,7 @@ export default class ActivityTab extends Component {
   // MapView component is added to display Google map showing location of user and source/destination (If entered)
 	render() {
     var timeObj = this.updateTime();
-    var icon = getIconName(this.props.type);
+    var icon = getIconName(this.props.activity.type);
 
 		return(
       <ScrollView contentContainerStyle = {styles.scrollView}>
@@ -203,7 +203,7 @@ export default class ActivityTab extends Component {
         <View style ={styles.container}>
           <View style = {styles.activityView}>
             <View style = {styles.activity_icon}>
-              {(this.props.type === 'RUNNING') ? <Icon1 name={icon} size={50} color="white"/> : <Icon name={getIcon(icon)} size={50} color="white"/>}
+              {(this.props.activity.type === 'RUNNING') ? <Icon1 name={icon} size={50} color="white"/> : <Icon name={getIcon(icon)} size={50} color="white"/>}
             </View>
             <Text style = {styles.smallText}> Detected Activity </Text>
             <View style = {styles.hrline} />
@@ -211,7 +211,7 @@ export default class ActivityTab extends Component {
           <View style = {styles.statsView}>
             <View style = {styles.statsViewItems}>
               <View style = {styles.statsViewItems1}>
-                <Text style = {styles.largeText}>{this.props.distance.toFixed(2)}</Text>
+                <Text style = {styles.largeText}>{this.props.activity.distance.toFixed(2)}</Text>
                 <Text style = {styles.smallText}>km</Text>
               </View>
               <Text style = {styles.smallText}>Travel distance</Text>
@@ -219,7 +219,7 @@ export default class ActivityTab extends Component {
             <View style = {styles.verline} />
             <View style = {styles.statsViewItems}>
               <View style = {styles.statsViewItems1}>
-                <Text style = {styles.largeText}>{this.props.co2.toFixed(2)}</Text>
+                <Text style = {styles.largeText}>{this.props.activity.co2.toFixed(2)}</Text>
                 <Text style = {styles.smallText}>kg</Text>
               </View>
               <View style = {styles.hrView}>

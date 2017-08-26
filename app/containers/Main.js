@@ -51,14 +51,7 @@ const styles = StyleSheet.create({
 
 // Mapping state to props so that state variables can be used through props in children components
 function mapStateToProps(state) {
-  return {
-    duration: state.activity.duration,
-    distance: state.activity.distance,
-    co2: state.activity.co2,
-    type: state.activity.type,
-    src: state.activity.src,
-    dest: state.activity.dest
-  }
+  return state;
 }
 
 // Mapping dispatchable action (ActivityDetectionAction) to props so that actions can be used through props in children components

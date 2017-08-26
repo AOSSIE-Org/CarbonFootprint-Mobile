@@ -12,7 +12,9 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
+// For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import * as ProfileAction from '../actions/ProfileAction';
 
@@ -31,19 +33,19 @@ class Stats extends Component {
         const rows = [
             [
                 {
-                    title: "Driving",
-                    icon: "car",
+                    title: "Walking",
+                    icon: "walk",
                     value: user.data?
-                        (user.data.driving ?
-                            user.data.driving : {}
-                        ): {}
+                        (user.data.walking ?
+                            user.data.walking : {}
+                        ): {},
                 },
                 {
-                    title: "Transit",
-                    icon: "bus",
+                    title: "Running",
+                    icon: "run",
                     value: user.data ?
-                        (user.data.transit ?
-                            user.data.transit : {}
+                        (user.data.running ?
+                            user.data.running : {}
                         ): {}
                 }
             ],
@@ -57,12 +59,12 @@ class Stats extends Component {
                         ): {}
                 },
                 {
-                    title: "Walking/Running",
-                    icon: "walk",
+                    title: "Vehicle",
+                    icon: this.props.storage.automobile === "Car"? "car": (this.props.storage.automobile === "Bus"? "bus": "train"),
                     value: user.data?
-                        (user.data.walking ?
-                            user.data.walking : {}
-                        ): {},
+                        (user.data.driving ?
+                            user.data.driving : {}
+                        ): {}
                 }
             ]
         ]
@@ -117,7 +119,9 @@ class Stats extends Component {
                                                     }
                                                     return (
                                                         <View style={columnStyle} key={i}>
-                                                            <Icon name={getIcon(column.icon)} size={32} color={color.darkPrimary} />
+                                                        {
+                                                            column.icon === "run"?<Icon1 name={column.icon} size={32} color={color.darkPrimary} />: <Icon name={getIcon(column.icon)} size={32} color={color.darkPrimary} />
+                                                        } 
                                                             <View style={styles.columnInfo}>
                                                                 <Text style={styles.largeInfo}>
                                                                     {

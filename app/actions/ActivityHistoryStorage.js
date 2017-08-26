@@ -28,9 +28,9 @@ export default class ActivityHistoryStorage {
   static getTotalData(date) { 
   	var obj = this.realm.objects('ActivityHistory').filtered('actDate = $0', date);
     var len = obj.length;
-    var co2Emitted = 0, co2Saved = 0, co2WalkSaved = 0, co2CycleSaved = 0, co2VehicleEmitted = 0;
-    var dist = 0, distWalk = 0, distCycle = 0, distVehicle = 0;
-    var dur = 0, durWalk = 0, durCycle= 0, durVehicle = 0;
+    var co2Emitted = 0, co2Saved = 0, co2WalkSaved = 0, co2RunSaved = 0, co2CycleSaved = 0, co2VehicleEmitted = 0;
+    var dist = 0, distWalk = 0, distRun = 0, distCycle = 0, distVehicle = 0;
+    var dur = 0, durWalk = 0, durRun = 0, durCycle= 0, durVehicle = 0;
     for(var i = 0; i < len; i ++) {
       co2Emitted = co2Emitted + obj[i].co2Emitted;
       co2Saved = co2Saved + obj[i].co2Saved;
@@ -40,6 +40,11 @@ export default class ActivityHistoryStorage {
         co2WalkSaved = co2WalkSaved + obj[i].co2Saved;
         distWalk = distWalk + obj[i].distance;
         durWalk = durWalk + obj[i].duration;
+      }
+      if(obj[i].actType === 'RUNNING') {
+        co2RunSaved = co2RunSaved + obj[i].co2Saved;
+        distRun = distRun + obj[i].distance;
+        durRun = durRun + obj[i].duration;
       }
       if(obj[i].actType === 'ON_BICYCLE') {
         co2CycleSaved = co2CycleSaved + obj[i].co2Saved;
@@ -56,14 +61,17 @@ export default class ActivityHistoryStorage {
       co2Emitted: co2Emitted,
       co2Saved: co2Saved,
       co2WalkSaved: co2WalkSaved,
+      co2RunSaved: co2RunSaved,
       co2CycleSaved: co2CycleSaved,
       co2VehicleEmitted: co2VehicleEmitted,
       dist: dist,
       distWalk: distWalk,
+      distRun: distRun,
       distCycle: distCycle,
       distVehicle: distVehicle,
       dur: dur,
       durWalk: durWalk,
+      durRun: durRun,
       durCycle: durCycle,
       durVehicle: durVehicle
     };
@@ -96,6 +104,11 @@ export default class ActivityHistoryStorage {
           time: dataObj.durWalk,
           footprint: 0.0,
           distance: dataObj.distWalk
+      },
+      running: {
+          time: dataObj.durRun,
+          footprint: 0.0,
+          distance: dataObj.distRun
       }
     };
     setFootprint(data, store.getState().auth.user.uid);
