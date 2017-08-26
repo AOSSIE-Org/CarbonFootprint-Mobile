@@ -20,6 +20,7 @@ import InviteTab from '../components/InviteTab';
 
 import * as FirebaseAction from '../actions/firebase/Friends';
 import * as FriendsAction from '../actions/FriendsAction';
+import * as User from '../actions/firebase/User';
 
 class Friends extends Component {
     render() {
@@ -81,7 +82,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, FriendsAction, FirebaseAction), dispatch);
+    return bindActionCreators(Object.assign({}, FriendsAction, FirebaseAction, User), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Friends);

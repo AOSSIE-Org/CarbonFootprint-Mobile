@@ -43,10 +43,20 @@ class FriendsTab extends Component {
                 </View>
             )
         } else {
+            var friendList = props.friends.list;
+            if(props.choice === "1") {
+                props.getUser(props.auth.user.uid).then((usr) => {
+                    user = {...usr, uid: user.key};
+                    friendList.push(user);
+                }).catch((error) => alert(error))
+                friendList.sort(function(f1, f2) {
+                   return f1.data.total.footprint - f2.data.total.footprint;
+                });
+            }
             return (
                 <ScrollView contentContainerStyle={styles.friends}>
                     {
-                        props.friends.list.map((friend, index) => {
+                        friendList.map((friend, index) => {
                             return (
                                 <View key={index}>
                                     <FriendRow last={index === (props.friends.list.length - 1)}

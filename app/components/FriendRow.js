@@ -38,7 +38,9 @@ class FriendRow extends Component {
                                             <Icon name={getIcon(this.props.iconName)} size={30} color="black"/>
                                         </TouchableNativeFeedback>
                                 :
-                                <View></View>
+                                <View>
+                                    <Text>{data.data.total.footprint + " kg"}</Text>
+                                </View>
                             }
                         </View>
                     </View>
