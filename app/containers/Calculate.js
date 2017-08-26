@@ -23,8 +23,7 @@ import Footer from '../components/Footer';
 import StaticMap from '../components/StaticMap';
 import FootprintCard from '../components/FootprintCard';
 
-import { MILEAGE, RATE } from '../config/constants';
-import { color, getIcon, calcCo2 } from '../config/helper';
+import { color, getIcon, calcCo2, getMileage, getFuelRate } from '../config/helper';
 
 class Calculate extends Component {
     constructor(props) {
@@ -135,7 +134,7 @@ class Calculate extends Component {
                     <FootprintCard distance={direction.distance}
                         duration={direction.duration}
                         onChangeTab={this.onChangeTab.bind(this)}
-                        footprint={direction.distance.text? ((this.state.tab === 0 || this.state.tab === 1)? calcCo2(RATE, parseFloat(direction.distance.text.split(" ")[0]), MILEAGE): 0): null} 
+                        footprint={direction.distance.text? ((this.state.tab === 0 || this.state.tab === 1)? calcCo2(getFuelRate(), parseFloat(direction.distance.text.split(" ")[0]), getMileage()): 0): null} 
                         tab={this.state.tab}
                         fetching={direction.isFetching} />
                     : null

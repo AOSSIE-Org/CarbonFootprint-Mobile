@@ -9,8 +9,8 @@ export default function storage(state = {
         automobile: "Car",
         type: "Petrol",
         // This is just random
-        value: '10.3',
-        unit: 'km/litre',
+        value: "10.3",
+        unit: "km/litre",
     },
 }, action) {
     switch(action.type) {

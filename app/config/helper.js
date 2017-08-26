@@ -3,6 +3,8 @@ import {
 } from 'react-native';
 import Geocoder from 'react-native-geocoding';
 import { geocodingAPIKey } from './keys';
+import store from '../config/store';
+import { RATE_PETROL, RATE_DIESEL, RATE_CNG, RATE_ELECTRIC } from '../config/constants';
 
 export function getIcon(name) {
     return (Platform.OS === "android" ?
@@ -74,6 +76,41 @@ export function getIconName(activity) {
       }
     }
     return icon;
+}
+
+export function getMileage() {
+  const data = store.getState().storage.data;
+  var val = data.value;
+  // 1 km/litre = 2.35215 miles/gallon
+  if(data.unit === "miles/gallon")
+    val = val / 2.35215;
+  return val;
+}
+
+export function getFuelRate() {
+  const data = store.getState().storage.data;
+  var rate;
+  switch(data.type) {
+    case "Petrol": {
+      rate = RATE_PETROL;
+      break;
+    }
+    case "Diesel": {
+      rate = RATE_DIESEL;
+      break;
+    }
+    case "CNG": {
+      rate = RATE_CNG;
+      break;
+    }
+    case "Electric": {
+      rate = RATE_ELECTRIC;
+    }
+    default: {
+      rate = RATE_PETROL;
+    }
+  }
+  return rate;
 }
 
 export const color = {

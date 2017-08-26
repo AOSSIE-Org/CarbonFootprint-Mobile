@@ -22,9 +22,9 @@ import pick from 'lodash/pick';
 import haversine from 'haversine';
 import MapView from 'react-native-maps';
 import BackgroundJob from 'react-native-background-job';
-import { ZOOM_DELTA, MILEAGE, RATE } from '../config/constants';
+import { ZOOM_DELTA } from '../config/constants';
 import { googleRoadsAPIKey } from '../config/keys';
-import { getIcon, getIconName, color, calcCo2 } from '../config/helper';
+import { getIcon, getIconName, color, calcCo2, getMileage, getFuelRate } from '../config/helper';
 
 const backgroundJob = {
  jobKey: "myJob",
@@ -127,7 +127,8 @@ export default class ActivityTab extends Component {
 
       if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN') {
         this.props.setDistance(this.props.activity.distance + this.calcDistance(newLatLngs));
-        this.props.setCO2(calcCo2(RATE, this.props.activity.distance, MILEAGE));
+
+        this.props.setCO2(calcCo2(getFuelRate(), this.props.activity.distance, getMileage()));
         this.props.setDest(newLatLngs);
 
         // Updating state
