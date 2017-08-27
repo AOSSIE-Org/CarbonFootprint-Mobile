@@ -46,6 +46,7 @@ export function loginCustomFirebase(type, token, secret) {
         let provider = null;
         switch(type) {
             case "facebook":
+                // Facebook doesn't need a secret, rest all do.
                 credential = firebase.auth.FacebookAuthProvider.credential(token);
                 provider = 'facebook.com';
                 break;
@@ -83,4 +84,12 @@ export function loginCustomFirebase(type, token, secret) {
             reject(error)
         })
     })
+}
+
+export function forgotPasswordFirebase(email) {
+    return new Promise(function(resolve, reject) {
+        firebase.auth().sendPasswordResetEmail(email)
+        .then(() => resolve())
+        .catch((error) => reject(error))
+    });
 }

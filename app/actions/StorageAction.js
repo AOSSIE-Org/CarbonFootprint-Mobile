@@ -1,6 +1,6 @@
 /*
  * Handles SET and GET Operations on AsyncStorage
- * This will not be used because of Firebase but leaving it as is for now.
+ * Used for User Preferences in Settings.
 */
 
 import { AsyncStorage } from 'react-native';
@@ -15,36 +15,42 @@ function request_storage() {
     }
 }
 
-function receive_storage(email) {
+function receive_storage(data) {
     return {
         type: RECEIVE_STORAGE,
-        email: email
+        data
     }
 }
 
 export function getStorage() {
     return(dispatch, state) => {
         dispatch(request_storage());
-        AsyncStorage.getItem('email')
-            .then(value => {
-                dispatch(receive_storage(value))
+        AsyncStorage.getItem('data')
+            .then(data => {
+                console.log(data);
+                dispatch(receive_storage(JSON.parse(data)))
             })
             .catch(err => {
-                dispatch(receive_storage(null))
+                // Do nothing, let it take the default values.
+                console.log(err);
             })
     }
 }
 
-export function setStorage(value) {
+export function setStorage(data) {
     return (dispatch, state) => {
-        dispatch(receive_storage(value));
-        AsyncStorage.setItem('email', value)
+        dispatch(receive_storage(data));
+        console.log(data);
+        AsyncStorage.setItem('data', JSON.stringify(data))
             .catch(err => {
                 alert("Error while setting")
             })
     }
 }
 
+/* This is an overkill function, should be called only if user wants to
+   delete his/her profile which we don't provide an option.....Evil!!!!!!
+ */
 export function removeStorage() {
     return (dispatch, state) => {
         AsyncStorage.removeItem('email')

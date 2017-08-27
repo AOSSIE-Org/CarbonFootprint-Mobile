@@ -22,6 +22,9 @@ class Header extends Component {
             topContainerStyle.push(styles.leftAlign);
         }
         if (props.icon) {
+            if (Platform.OS === "ios") {
+                topContainerStyle.push(styles.spaceBetween);
+            }
             return (
                 <View style={topContainerStyle}>
                     <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
@@ -29,6 +32,7 @@ class Header extends Component {
                         iconStyle={styles.icon} onPress={() => Actions.pop()} size={22}>
                     </Icon.Button>
                     <Text style={styles.text}>{props.text}</Text>
+                    <Text style={styles.greenText}>Carbon</Text>
                 </View>
             )
         } else {
@@ -46,13 +50,15 @@ const styles = StyleSheet.create({
         top: 0,
         width: Dimensions.get("window").width,
         backgroundColor: color.primary,
-        height: 64,
-        paddingTop: 15,
+        height: Platform.OS === 'ios' ? 64: 50,
+        paddingTop: Platform.OS === 'ios' ? 15 : 0,
         alignItems: 'center',
         flexDirection: 'row',
         position: 'absolute',
-        zIndex: 2,
         justifyContent: 'center',
+    },
+    spaceBetween: {
+        justifyContent: 'space-between',
     },
     leftAlign: {
         paddingLeft: 13,
@@ -72,11 +78,17 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         fontWeight: "500",
         color: color.white,
+        textAlign: 'center',
     },
     icon: {
         borderRadius: 0,
-        marginRight: 20,
         color: color.grey,
+        marginLeft: 13,
+    },
+    /* This is a hack. Need to revisit */
+    greenText: {
+        zIndex: 0,
+        color: color.primary,
     }
 })
 

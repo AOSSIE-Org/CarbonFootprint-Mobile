@@ -5,6 +5,7 @@ import {
     Text,
     StatusBar
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -18,7 +19,7 @@ class Login extends Component {
         return(
             <View style={styles.container}>
                 <StatusBar hidden={true} />
-                <BackHeader text="Forgot Password?" link={() => Actions.forgotPass()}/>
+                <BackHeader text="Forgot Password?" link={() => Actions.forgot()}/>
                 <LoginForm {...this.props} />
             </View>
         );

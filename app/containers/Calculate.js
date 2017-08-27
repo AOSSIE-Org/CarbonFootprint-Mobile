@@ -17,6 +17,7 @@ import _ from 'lodash';
 
 import * as LocationAction from '../actions/LocationAction';
 import * as DirectionAction from '../actions/DirectionAction';
+import * as StorageAction from '../actions/StorageAction';
 
 import Footer from '../components/Footer';
 import StaticMap from '../components/StaticMap';
@@ -44,6 +45,8 @@ class Calculate extends Component {
         if (!this.props.location.latitude) {
             this.props.getLocation();
         }
+        // AsyncStorage to Redux since this is the first screen
+        this.props.getStorage();
     }
 
     componentWillReceiveProps(props) {
@@ -152,7 +155,7 @@ const styles = StyleSheet.create({
         top: 0,
         zIndex: 2,
         padding: 20,
-        paddingTop: 30,
+        paddingTop: Platform.OS === "ios" ? 30: 20,
     },
     box: {
         borderBottomWidth: 1,
@@ -184,7 +187,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(Object.assign({},
         LocationAction,
-        DirectionAction
+        DirectionAction,
+        StorageAction
     ), dispatch);
 }
 

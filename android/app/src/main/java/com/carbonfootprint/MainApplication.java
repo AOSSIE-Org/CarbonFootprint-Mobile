@@ -7,6 +7,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 
 import com.facebook.react.ReactApplication;
+import com.beefe.picker.PickerViewPackage;
 import io.realm.react.RealmReactPackage;
 import com.pilloxa.backgroundjob.BackgroundJobPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
@@ -47,6 +48,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new PickerViewPackage(),
             new RealmReactPackage(),
             new BackgroundJobPackage(),
             new RNGooglePlacesPackage(),

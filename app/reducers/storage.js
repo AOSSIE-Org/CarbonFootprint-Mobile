@@ -5,7 +5,13 @@ import {
 
 export default function storage(state = {
     isFetching: false,
-    email: ''
+    data: {
+        automobile: "Car",
+        type: "Petrol",
+        // This is just random
+        value: '10.3',
+        unit: 'km/litre',
+    },
 }, action) {
     switch(action.type) {
         case REQUEST_STORAGE:
@@ -15,7 +21,7 @@ export default function storage(state = {
         case RECEIVE_STORAGE:
             return Object.assign({}, state, {
                 isFetching: false,
-                email: action.email
+                data: action.data,
             });
         default:
             return state;
