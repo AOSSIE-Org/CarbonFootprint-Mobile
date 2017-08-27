@@ -1,3 +1,7 @@
+/*
+ * To invite friends (send friend requests)
+*/
+
 import React, { Component } from 'react';
 import {
 	View,
@@ -15,15 +19,14 @@ class InviteTab extends Component {
 	constructor(props) {
       super(props);
       this.state = { 
-      	text: "",
+      	email: "",
       	user: {}
       };
-      this.click = this.click.bind(this);
+      this.searchFriendsByEmail = this.searchFriendsByEmail.bind(this);
     }
 
-    click() {
-    	// What if user doesn't exists
-    	searchFriends(this.state.text).then((snapshot) => {
+    searchFriendsByEmail() {
+    	searchFriends(this.state.email).then((snapshot) => {
     		var user = {
     			uid: snapshot.key,
     			name: snapshot.val().name,
@@ -31,7 +34,7 @@ class InviteTab extends Component {
     		}
     		this.setState({user: user});
     	}).catch(
-	      error => alert("InviteTab (click)" + error)
+	      error => console.log("InviteTab (searchFriendsByEmail)" + error)
 	    );
     }
 
@@ -39,9 +42,9 @@ class InviteTab extends Component {
   		return (
   			<View>
 	  			<TextInput
-		          onChangeText={(text) => this.setState({text})}
+		          onChangeText={(text) => this.setState({email: text})}
 		          placeholder="Search friends by Email" />
-		        <TouchableNativeFeedback onPress={this.click}>
+		        <TouchableNativeFeedback onPress={this.searchFriendsByEmail}>
 		        	<View style={styles.searchBtn}>
 		        		<Text style={styles.whiteText}>Search</Text>
 		        	</View>

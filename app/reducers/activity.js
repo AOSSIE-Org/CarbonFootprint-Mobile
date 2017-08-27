@@ -1,3 +1,7 @@
+/*
+ * Reducer to save activity data in Redux store
+*/ 
+
 import {    
     SET_ACTIVITY_DATE, 
     SET_ACTIVITY_START_TIME,

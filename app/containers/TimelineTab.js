@@ -1,8 +1,5 @@
 /*
-	This is for displaying history of user's activities.
-	History will be in form of timeline for whole day.
-	It will contain Activity Type, Source & Destination, Traveled distance and Time, Emitted and Saved CO2 etc. 
-    Used External package - 'react-native-timeline-listview'
+ * To display history of user's activities in form of timeline for whole day
 */
 
 import React, { Component } from 'react';
@@ -24,15 +21,11 @@ import { getIcon, getIconName, color } from '../config/helper';
 export default class TimelineTab extends Component {
 	constructor(props) {
 		super(props);
-		
-		// 'date' is taken as state so as to reflect change when user selects a different date from date picker.
 		this.state = {
 			date : new Date() // Current date
 		};
-
 		ActivityHistoryStorage.createDB();
 		this.data = this.getHistoryData();
-		// To bind 'pickDate' and 'datePickerView' functions to this class so that these functions can change current state
 		this.pickDate = this.pickDate.bind(this);
 		this.datePickerView = this.datePickerView.bind(this);
 	}
@@ -55,8 +48,10 @@ export default class TimelineTab extends Component {
 		return data;
 	}
 
-	// Function to set view of ListView item
-	// This function will be sent to Timeline component as prop and will be rendered by it.
+	/*
+	 * Function to set view of ListView item
+	 * This function will be sent to Timeline component as prop and will be rendered by it.
+	*/
 	renderDetail(rowData, sectionID, rowID) {
     	var icon = getIconName(rowData.activityType);
 		return (
@@ -83,39 +78,39 @@ export default class TimelineTab extends Component {
 			</View>
 		);
 	}
-
-	// To convert numeric value of month (0-11) returned by getMonth() function to String
-	// And formatting date into desirable form (e.g. - June 30, 2017) and then return it.
+	
+	// To format date into desirable form (e.g. - June 30, 2017)
 	getDateStr(date) {
 		var names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 		var dateStr = names[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
 		return dateStr;
 	}
 
-	// Function to open DatePicker view and setting date selected by user to current state
-	// This is only for Android. For iOS, there is seperate 'DatePickerIOS' component given later.
+	/*
+	 * Function to open DatePicker view and set date selected by user to current state
+	 * This is only for Android. For iOS, there is seperate 'DatePickerIOS' component given later.
+	*/
 	async pickDate() {
 		try {
 		  const {action, year, month, day} = await DatePickerAndroid.open({
 		    date: new Date()
-		  });
-		  // If user has not dismissed/cancelled DatePicker and has selected a date 
+		  }); 
 		  if(action !== DatePickerAndroid.dismissedAction && action === DatePickerAndroid.dateSetAction) {
 		    var date = new Date(year, month, day);
-		    // Set date to current state
 		    this.setState({date});
 		    this.data = this.getHistoryData();
 		    this.forceUpdate();
 		  }
 		} catch ({code, message}) {
-		  	alert("Cannot open date picker: " + message);
+		  	console.log("Cannot open date picker: " + message);
 		}
 	}
 
-	// For Android, this function will only add DatePicker icon button.
-	// For iOS, it will include all logic of DatePicker along with icon (By using DatePickerIOS component - Already defined in React Native)
+	/*
+	 * For Android, this function will only add DatePicker icon button.
+     * For iOS, it will include all logic of DatePicker along with icon (By using DatePickerIOS component - already defined in React Native)
+	*/
 	datePickerView() {
-		// For Android
 		if(Platform.OS == 'android') {
 			return(
 				<TouchableNativeFeedback onPress = {() => this.pickDate()}>
@@ -123,18 +118,16 @@ export default class TimelineTab extends Component {
 				</TouchableNativeFeedback>
 			);
 		} else { 
-			// For iOS **** Please test it ****
 			<DatePickerIOS
             	style = {styles.datePickerIOSView}
             	date = {this.state.date} 
-            	// On selecting different date, current state will be modified by onDateChange callback
             	onDateChange = {(date) => this.setState({date})}
             	mode = "date"
             />
 		}
 	}
 
-	// For setting view of Header of this screen which will display selected date (received from current state) and DatePicker
+	// To set view of header for this screen that displays selected date
 	formatHeader() {
 		return(
 			<View style = {styles.header}>
@@ -148,9 +141,6 @@ export default class TimelineTab extends Component {
 		);
 	}
 
-	// Main function to set whole view of screen
-	// Timeline component is predefined in package 'react-native-timeline-listview'.
-	// This component will take renderDetail function as prop to set view of ListView item.
 	render() {
 		return(
 			<View style = {styles.viewStyle}>
@@ -167,9 +157,7 @@ export default class TimelineTab extends Component {
 			          renderDetail={this.renderDetail}
 			          separator={false}
 			          innerCircle={'dot'}
-			          //onEventPress={Actions.activityHistory}
-			          options={{style:{padding:10}}}
-			        />
+			          options={{style:{padding:10}}} />
 			 		: <Text>No Activity found</Text>
 			    }
 	        </View>
@@ -177,22 +165,17 @@ export default class TimelineTab extends Component {
 	}
 }
 
-// For styling the screen
 const styles = StyleSheet.create({
 	viewStyle: {
 		flex: 1,
 		marginBottom: 45
 	},
-
-	// Container for every ListView item
 	container: {
 		flex: 1,
 		height: 100,
 		justifyContent: 'flex-start',
 		alignItems: 'flex-start'
 	},
-
-	// For location (source/destination) and its address
 	locationView: {
 		flex:1,
 		flexDirection: 'row',
@@ -202,8 +185,6 @@ const styles = StyleSheet.create({
 		marginLeft: 10,
 		paddingBottom: 10
 	},
-
-	// For activity details - type, distance, time, CO2
 	activityView: {
 		flex: 1,
 		flexDirection: 'row',
@@ -212,8 +193,6 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		marginLeft: 10
 	},
-
-	// For horizontal layout
 	hrView: {
 		flex: 1,
 		flexDirection: 'row',

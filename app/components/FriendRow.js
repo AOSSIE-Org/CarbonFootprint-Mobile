@@ -1,3 +1,7 @@
+/*
+ * To show friends list item
+*/
+
 import React, { Component } from 'react';
 import {
     View,
@@ -7,14 +11,14 @@ import {
     Dimensions,
     TouchableNativeFeedback
 } from 'react-native';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import { color, getIcon } from '../config/helper';
-
 import images from '../config/images';
 
 class FriendRow extends Component {
     render() {
-        let { data, text } = this.props;
+        let {data, text} = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.main}>
@@ -28,7 +32,7 @@ class FriendRow extends Component {
                         <View style={styles.left}>
                             <Text style={styles.largeText}>{data.name}</Text>
                             <Text style={styles.smallText}>
-                                { text }
+                                {text}
                             </Text>
                         </View>
                         <View style={styles.right}>

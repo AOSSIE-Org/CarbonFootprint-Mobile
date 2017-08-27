@@ -1,8 +1,5 @@
 /*
-    This is for showing current user activity.
-    It will display current detected activity, traveled distance and time, CO2 details at runtime.
-    It will also have an option to detect or manually modify activity (in case of wrong detection of activity).
-    Used External package - 'react-native-maps', 'haversine'
+ * To show current user activity
 */
 
 import React, { Component } from 'react';
@@ -15,9 +12,11 @@ import {
   Dimensions,
   Platform
 } from 'react-native';
+
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import pick from 'lodash/pick';
 import haversine from 'haversine';
 import MapView from 'react-native-maps';
@@ -47,7 +46,6 @@ export default class ActivityTab extends Component {
     setInterval(() => {
       this.updateDuration()
     }, 1000);
-
     this.processSnapToRoadResponse = this.processSnapToRoadResponse.bind(this);
     setInterval(() => {this.drawRoute()}, 5000);
 	}
@@ -57,26 +55,24 @@ export default class ActivityTab extends Component {
       this.props.setDuration(this.props.activity.duration + 1);
   }
 
+  // Google Roads API
   drawRoute() {
-    // Google Roads API
     var newRouteCoords = [];
-
     var len = this.state.routeCoordinates.length;
     if(len > 0) {
       var baseUrl = "https://roads.googleapis.com/v1/snapToRoads?path=";
       for(var i = this.state.numCoords; i < len - 1; i ++)
         baseUrl += this.state.routeCoordinates[i].latitude + "," + this.state.routeCoordinates[i].longitude + "|";
       baseUrl += this.state.routeCoordinates[len - 1].latitude + "," + this.state.routeCoordinates[len - 1].longitude;
-      baseUrl += "&interpolate=true&key=" + googleRoadsAPIKey;
-      
+      baseUrl += "&interpolate=true&key=" + googleRoadsAPIKey;  
       fetch(baseUrl).then((response) => response.json())
             .then((response) => {
           this.processSnapToRoadResponse(response);
       })
       .catch((error) => {
-        alert("Error (ActivityTab/drawRoute): " + error);
+        console.log("Error (ActivityTab/drawRoute): " + error);
       });
-   }
+    }
   }
 
   // Store snapped polyline returned by the snap-to-road service.
@@ -101,7 +97,7 @@ export default class ActivityTab extends Component {
       (position) => {
         const currLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude};
         this.props.setSrc(currLatLngs);
-        //alert("Source set " + this.props.src.latitude + ", " + this.props.src.longitude);
+        console.log("Source set " + this.props.src.latitude + ", " + this.props.src.longitude);
         this._map.animateToRegion({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -109,13 +105,13 @@ export default class ActivityTab extends Component {
           longitudeDelta: ZOOM_DELTA
         }, 2);
       },
-      (error) => alert("ActivityTab (componentDidMount 1): " + error.message)
+      (error) => console.log("ActivityTab (componentDidMount 1): " + error.message)
     );
 
     // Getting location updates (Only when location changes)
     this.watchID = navigator.geolocation.watchPosition((position) => {
       const { routeCoordinates } = this.state; 
-      //alert("Destination set " + ", latitude: " + position.coords.latitude);
+      console.log("Destination set " + ", latitude: " + position.coords.latitude);
       const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude };
       const positionLatLngs = pick(position.coords, ['latitude', 'longitude']);
       this._map.animateToRegion({
@@ -127,36 +123,27 @@ export default class ActivityTab extends Component {
 
       if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN') {
         this.props.setDistance(this.props.activity.distance + this.calcDistance(newLatLngs));
-
         this.props.setCO2(calcCo2(getFuelRate(), this.props.activity.distance, getMileage()));
         this.props.setDest(newLatLngs);
-
-        // Updating state
         this.setState({
           routeCoordinates: routeCoordinates.concat(positionLatLngs),
           prevLatLng: newLatLngs
         });
       }
     },
-    (error) => alert("ActivityTab (componentDidMount 2): " + error.message),
+    (error) => console.log("ActivityTab (componentDidMount 2): " + error.message),
     {enableHighAccuracy: true, timeout: 1000, maximumAge: 0, distanceFilter:1}
     );
   }
 
   componentWillMount() {
-
-    // Starting Activity Detection
     this.props.startActivityDetection();
   }
 
   componentWillUnmount() {
-
-    // Closing Activity Detection
     //this.props.closeActivityDetection();
-
     // Stop getting location updates
     //navigator.geolocation.clearWatch(this.watchID);
-
     BackgroundJob.schedule({
       jobKey: "myJob",
       period: 5000,
@@ -171,7 +158,6 @@ export default class ActivityTab extends Component {
     return (haversine(prevLatLng, newLatLng) || 0);
   }
 
-  // Updating travel time
   updateTime() {
     if(this.props.activity.duration < 60) {
       return {time: this.props.activity.duration, unit: "s"};
@@ -183,9 +169,6 @@ export default class ActivityTab extends Component {
     }
   }
 
-  // Main function to set whole view of screen
-  // ScrollView is added to deal with different sizes of mobile screen.
-  // MapView component is added to display Google map showing location of user and source/destination (If entered)
 	render() {
     var timeObj = this.updateTime();
     var icon = getIconName(this.props.activity.type);
@@ -244,20 +227,15 @@ export default class ActivityTab extends Component {
 	}
 }
 
-// For styling the screen
 const styles = StyleSheet.create({
-  // Container for whole screen
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF'
   },
-
   mapView: {
     height: Dimensions.get("window").height * 0.5,
     width: Dimensions.get("window").height
   },
-
-  // For giving fixed height to ScrollView
   scrollView: {
     height: Dimensions.get("window").height * 0.9
   },
@@ -266,8 +244,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center'
   },
-
-  // For activity stats - Traveled distance, time and CO2 details
   statsView: {
     flex: 2,
     flexDirection: 'row',

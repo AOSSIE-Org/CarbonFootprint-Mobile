@@ -36,11 +36,13 @@ class Friends extends Component {
                     style={styles.tabStyle}
                     onChangeTab={(obj) => {
                         switch(obj.i) {
+                            // List of friend requests
                             case 1:
                                 this.props.getFriendList("2");
                                 break;
                             case 2:
                                 break;
+                            // List of friends
                             default:
                                 this.props.getFriendList("1");
                                 break;

@@ -1,3 +1,8 @@
+/*
+ * Displays list of friends (this.props.choice = 1) 
+ * and friend requests (this.props.choice = 2)
+*/
+
 import React, { Component } from 'react';
 import {
     View,
@@ -10,7 +15,6 @@ import {
 
 import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { acceptFriendRequest } from '../actions/firebase/Friends';
 import FriendRow from './FriendRow';
 
 class FriendsTab extends Component {
@@ -18,24 +22,17 @@ class FriendsTab extends Component {
         this.props.getFriendList(this.props.choice);
     }
 
-    acceptRequestBtnClick(uid) {
-        //alert("UID: " + uid);
-        if(this.props.choice === "2")
-            acceptFriendRequest(this.props.auth.user.uid, uid);
-        else 
-            alert("Already friends");
-    }
-
     render() {
-        const props = this.props;
-        if (props.friends.isFetching) {
+        var friends = this.props.friends;
+        var friendList = friends.list;
+        if(friends.isFetching) {
             return (
                 <View style={styles.centerScreen}>
                     <ActivityIndicator color={color.primary} size="large" />
                 </View>
             )
-        } else if (props.friends.list === null ||
-            Object.keys(props.friends.list).length <= 0) {
+        } else if (friendList === null ||
+            Object.keys(friendList).length <= 0) {
             return (
                 <View style={styles.centerScreen}>
                     <Icon name={getIcon("sad")} size={56} color={color.lightPrimary} />
@@ -43,9 +40,9 @@ class FriendsTab extends Component {
                 </View>
             )
         } else {
-            var friendList = props.friends.list;
-            if(props.choice === "1") {
-                props.getUser(props.auth.user.uid).then((usr) => {
+            // Gamification: Sorting friends list based on emitted co2
+            if(this.props.choice === "1") {
+                props.getUser(this.props.auth.user.uid).then((usr) => {
                     user = {...usr, uid: user.key};
                     friendList.push(user);
                 }).catch((error) => alert(error))
@@ -62,7 +59,7 @@ class FriendsTab extends Component {
                                     <FriendRow last={index === (props.friends.list.length - 1)}
                                         data={friend}
                                         iconName={this.props.choice === "2"? "checkmark": null}
-                                        link={this.props.choice === "2"? () => this.acceptRequestBtnClick(friend.uid): null}
+                                        link={this.props.choice === "2"? () => props.acceptFriendRequest(this.props.auth.user.uid, friend.uid): null}
                                         text={
                                             friend.data ?
                                             friend.data.total:

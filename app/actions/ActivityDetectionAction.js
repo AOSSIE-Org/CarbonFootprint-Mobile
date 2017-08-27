@@ -1,6 +1,5 @@
 /*
-    This is for detecting user's activity such as Walking, In Vehicle, Still etc.
-    Used External package - 'react-native-activity-recognition'
+ * Detecting user's activity and sending activity data to store in Realm Db
 */
 
 import {
@@ -22,16 +21,16 @@ async function sendDataForStorage(state) {
     await getPlaceName(act.src).then(
       (place) => source = place
     ).catch(
-      error => alert("ActivityDetectionAction (sendDataForStorage 1)" + error)
+      error => console.log("ActivityDetectionAction (sendDataForStorage 1)" + error)
     );
   }
   if(act.dest.latitude === -1) {
-    alert("Error in fetching location (destination)");
+    console.log("Error in fetching location (destination)");
   } else {
     await getPlaceName(act.dest).then(
       (place) => destin = place
     ).catch(
-      error => alert("ActivityDetectionAction (sendDataForStorage 2)" + error)
+      error => console.log("ActivityDetectionAction (sendDataForStorage 2)" + error)
     );
   }
   var data = {
@@ -45,7 +44,7 @@ async function sendDataForStorage(state) {
     co2Emitted: act.type === 'IN_VEHICLE'? act.co2: 0,
     co2Saved: act.type === 'IN_VEHICLE'? 0: act.co2
   };
-  alert("Activity data sent for local storage. Date: " + data.actDate + ", Start time: " + data.startTime + ", Duration: " + 
+  console.log("Activity data sent for local storage. Date: " + data.actDate + ", Start time: " + data.startTime + ", Duration: " + 
     data.duration + ", Source: " + data.src + ", Destination: " + data.dest + ", Type: " + data.actType + 
     ", Distance: " + data.distance + ", co2 emitted: " + data.co2Emitted + ", co2 saved: " + data.co2Saved);
   ActivityHistoryStorage.insertData(data);
@@ -53,24 +52,16 @@ async function sendDataForStorage(state) {
 
 export function startActivityDetection() {
   return function (dispatch, getState) {
-    alert("Activity is being detected ...");
+    console.log("Activity is being detected ...");
     ActivityHistoryStorage.createDB();
-
     // Interval (in ms) for Activity detection updates
     const detectionIntervalMillis = 100;
-
-    // Starting Activity detection/recognition
     ActivityRecognition.start(detectionIntervalMillis);
-
     // Subscribe to updates
     this.unsubscribe = ActivityRecognition.subscribe(detectedActivities => {
-
-      // Activity having maximum probability (confidence) among all detected activities
       const mostProbableActivity = detectedActivities.sorted[0];
-
-      // If detected activity is different from ongoing activity,
-      // set this detected activity in current state.
       var act = getState().activity;
+      // If detected activity is different from ongoing activity
       if(mostProbableActivity.type !== act.type) {
         if((Platform.OS === 'android' && mostProbableActivity.confidence >= 75) || (Platform.OS === 'ios')) {
           if(act.type !== 'STILL' && act.type !== 'TILTING' && act.type !== 'UNKNOWN')
@@ -90,8 +81,7 @@ export function startActivityDetection() {
 }
 
 export function closeActivityDetection() {
-
-  //Stop activity detection and remove the listener
-  ActivityRecognition.stop() ;
-  this.unsubscribe() ;
+  // Stop activity detection and remove the listener
+  ActivityRecognition.stop();
+  this.unsubscribe();
 }

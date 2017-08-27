@@ -7,8 +7,7 @@ import store from '../config/store';
 import { RATE_PETROL, RATE_DIESEL, RATE_CNG, RATE_ELECTRIC } from '../config/constants';
 
 export function getIcon(name) {
-    return (Platform.OS === "android" ?
-        "md-": "ios-") + name;
+  return (Platform.OS === "android" ? "md-": "ios-") + name;
 }
 
 export function formatAMPM(date) {
@@ -28,14 +27,10 @@ export function getPlaceName(loc) {
     Geocoder.setApiKey(geocodingAPIKey);
     Geocoder.getFromLatLng(loc.latitude, loc.longitude).then(
       json => {
-        /*
-         var address_component = json.results[0].address_components[0];
-         place = address_component.long_name;
-        */
          resolve(json.results[0].formatted_address);
       },
       error => {
-         alert("helper (getPlaceName): " + error);
+         console.log("helper (getPlaceName): " + error);
          reject(error);
       }
     );
@@ -48,9 +43,11 @@ export function calcCo2(fuelRate, distance, mileage) {
 }
 
 export function getIconName(activity) {
-	// Selecting activity icon based on detected activity
-  // For more information about detected activity, check below link -
-  // https://developers.google.com/android/reference/com/google/android/gms/location/DetectedActivity
+	/*
+   * Selecting activity icon based on detected activity
+   * For more information about detected activities, check below link -
+   * https://developers.google.com/android/reference/com/google/android/gms/location/DetectedActivity
+  */
     var icon;
     switch(activity) {
       case 'IN_VEHICLE': {

@@ -1,3 +1,7 @@
+/*
+ * Action creators to save activity data in Redux store
+*/
+
 export const SET_ACTIVITY_DATE = "SET_ACTIVITY_DATE";
 export const SET_ACTIVITY_START_TIME = "SET_ACTIVITY_START_TIME";
 export const SET_ACTIVITY_DURATION = "SET_ACTIVITY_DURATION";

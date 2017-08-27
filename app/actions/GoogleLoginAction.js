@@ -1,6 +1,5 @@
 /*
-	This is for social login using Google.
-	Uses External package - 'react-native-google-sign-in'
+ *	Google Native Login Action
 */
 
 import GoogleSignIn from 'react-native-google-sign-in';

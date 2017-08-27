@@ -1,6 +1,5 @@
 /*
-	This is for showing summary stats for today.
-	It will display total traveled distance, CO2 emitted and saved (in comparison to vehicle).
+ * To show summary stats for today
 */
 
 import React, { Component } from 'react';
@@ -14,9 +13,11 @@ import {
   Platform,
   TouchableNativeFeedback
 } from 'react-native';
+
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import images from '../config/images';
 import { getIcon, color } from '../config/helper';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
@@ -41,8 +42,6 @@ export default class TodayTab extends Component {
 		}
 	}
 
-	// Main function to set whole view of screen
-  	// ScrollView is added to deal with different sizes of mobile screen.
 	render() {
 		return(
 			<ScrollView contentContainerStyle = {styles.scrollView}>
@@ -155,29 +154,21 @@ export default class TodayTab extends Component {
 	}
 }
 
-// For styling the screen
 const styles = StyleSheet.create({
-  // Container for whole screen
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFFFFF'
   },
-
-  // For upper view which includes total stats
   upperActivityView: {
   	flex: 2,
   	justifyContent: 'center',
   	alignItems: 'center'
   },
-
-  // For giving fixed height to ScrollView
   scrollView: {
   	height: Dimensions.get("window").height * 0.9
   },
-
-  // For lower view which includes stats of various types of activities
   lowerActivityView: {
   	flex: 1,
   	flexDirection: 'row',

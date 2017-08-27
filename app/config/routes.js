@@ -13,7 +13,6 @@ import Register from '../containers/Register';
 import Calculate from '../containers/Calculate';
 import Main from '../containers/Main';
 import TimelineTab from '../containers/TimelineTab';
-import ActivityHistory from '../containers/ActivityHistory';
 import More from '../containers/More';
 import About from '../containers/About';
 import Terms from '../containers/Terms';
@@ -49,7 +48,6 @@ class Navigator extends Component {
                             <Scene key="settings" component={Settings} hideNavBar />
                             <Scene key="stats" component={Stats} />
                             <Scene key="friends" component={Friends} />
-                            <Scene key="activityHistory" component={ActivityHistory}/>
                         </Scene>
                     </Scene>
 

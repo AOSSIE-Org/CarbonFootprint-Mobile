@@ -1,3 +1,7 @@
+/*
+ *  Functions to interact with Realm Db (local device storage)
+*/
+
 import Realm from 'realm';
 import { setFootprint } from '../actions/firebase/Footprint';
 import store from '../config/store';
@@ -117,7 +121,6 @@ export default class ActivityHistoryStorage {
   static insertData(dataObj) {
 	 this.realm.write(() => {
       const hist = this.realm.create('ActivityHistory', dataObj);
-      //alert("Activity data stored");
       this.insertDataInFirebase();
     });
   }
