@@ -43,7 +43,13 @@ class FriendRow extends Component {
                                         </TouchableNativeFeedback>
                                 :
                                 <View>
-                                    <Text>{data.data.total.footprint + " kg"}</Text>
+                                    <Text>
+                                    {
+                                        data.data?
+                                        data.data.total.footprint + " kg":
+                                        "0 kg" 
+                                    }
+                                    </Text>
                                 </View>
                             }
                         </View>
@@ -77,7 +83,7 @@ const styles = StyleSheet.create({
         marginLeft: 8
     },
     right: {
-        alignSelf: 'flex-end'
+        marginLeft: 50
     },
     image: {
         width: 48,

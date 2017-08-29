@@ -19,8 +19,6 @@ import { color, getIcon } from '../config/helper';
 class Settings extends Component {
     constructor(props) {
         super(props);
-        console.log("}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}");
-        console.log(this.props);
         let data = this.props.storage.data;
         this.state = {
             ...data

@@ -97,7 +97,7 @@ export default class ActivityTab extends Component {
       (position) => {
         const currLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude};
         this.props.setSrc(currLatLngs);
-        console.log("Source set " + this.props.src.latitude + ", " + this.props.src.longitude);
+        console.log("Source set " + this.props.activity.src.latitude + ", " + this.props.activity.src.longitude);
         this._map.animateToRegion({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,

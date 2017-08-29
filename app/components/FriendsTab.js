@@ -41,25 +41,35 @@ class FriendsTab extends Component {
             )
         } else {
             // Gamification: Sorting friends list based on emitted co2
+            /*
             if(this.props.choice === "1") {
-                props.getUser(this.props.auth.user.uid).then((usr) => {
-                    user = {...usr, uid: user.key};
-                    friendList.push(user);
+                this.props.getUser(this.props.auth.user.uid).then((usr) => {
+                    console.log("----------------------------------------------------------------------------------");
+                    console.log(usr);
+                    friendList.push(usr);
                 }).catch((error) => alert(error))
                 friendList.sort(function(f1, f2) {
-                   return f1.data.total.footprint - f2.data.total.footprint;
+                    if(! f1.hasOwnProperty(data) && f2.hasOwnProperty(data))
+                        return -1;
+                    if(f1.hasOwnProperty(data) && ! f2.hasOwnProperty(data))
+                        return 1;
+                    if(! f1.hasOwnProperty(data) && ! f2.hasOwnProperty(data))
+                        return 0;
+                    if(f1.hasOwnProperty(data) && f2.hasOwnProperty(data))
+                       return f1.data.total.footprint - f2.data.total.footprint;
                 });
             }
+            */
             return (
                 <ScrollView contentContainerStyle={styles.friends}>
                     {
                         friendList.map((friend, index) => {
                             return (
                                 <View key={index}>
-                                    <FriendRow last={index === (props.friends.list.length - 1)}
+                                    <FriendRow last={index === (friendList.length - 1)}
                                         data={friend}
                                         iconName={this.props.choice === "2"? "checkmark": null}
-                                        link={this.props.choice === "2"? () => props.acceptFriendRequest(this.props.auth.user.uid, friend.uid): null}
+                                        link={this.props.choice === "2"? () => this.props.acceptFriendRequest(this.props.auth.user.uid, friend.uid): null}
                                         text={
                                             friend.data ?
                                             friend.data.total:

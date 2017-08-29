@@ -129,10 +129,10 @@ export default class TodayTab extends Component {
 							</View>
 							<View style = {styles.activity_icon}>
 							{
-								props.storage.automobile === "Car"?
+								this.props.storage.data.automobile === "Car"?
 								<Icon name={getIcon("car")} size={35} color="white"/>:
 								(
-									props.storage.automobile === "Bus"?
+									this.props.storage.data.automobile === "Bus"?
 									<Icon name={getIcon("bus")} size={35} color="white"/>:
 									<Icon name={getIcon("train")} size={35} color="white"/>
 								)

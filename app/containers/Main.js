@@ -32,7 +32,7 @@ class Main extends Component {
       // 'ScrollableTabView' is predefined in external package 'react-native-scrollable-tab-view' 
 
       <ScrollableTabView style={styles.container} tabBarPosition="bottom" tabBarUnderlineStyle={styles.underline} tabBarBackgroundColor="white" tabBarActiveTextColor={color.primary} tabBarInactiveTextColor="#000000">
-        <TodayTab tabLabel="Today"/>
+        <TodayTab tabLabel="Today" {...this.props}/>
         <ActivityTab tabLabel="Activity" {...this.props}/>
       </ScrollableTabView>
     );

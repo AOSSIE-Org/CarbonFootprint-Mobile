@@ -60,7 +60,7 @@ class Stats extends Component {
                 },
                 {
                     title: "Vehicle",
-                    icon: this.props.storage.automobile === "Car"? "car": (this.props.storage.automobile === "Bus"? "bus": "train"),
+                    icon: this.props.storage.data.automobile === "Car"? "car": (this.props.storage.data.automobile === "Bus"? "bus": "train"),
                     value: user.data?
                         (user.data.driving ?
                             user.data.driving : {}
@@ -83,22 +83,22 @@ class Stats extends Component {
                             <Text style={[styles.largeInfo, styles.whiteText]}>
                                 {
                                     user.data?
-                                    user.data.total.footprint
-                                    :"0g CO2"
+                                    user.data.total.footprint + " kg"
+                                    :"0 kg"
                                 }
                             </Text>
                             <Text style={[styles.smallText, styles.whiteText]}>
                                 {
                                     user.data?
-                                    user.data.total.distance
+                                    user.data.total.distance + " km"
                                     :"0 km"
                                 }
                             </Text>
                             <Text style={[styles.smallText, styles.whiteText]}>
                                 {
                                     user.data?
-                                    user.data.total.time
-                                    : "0 sec"
+                                    user.data.total.time + " s"
+                                    : "0 s"
                                 }
                             </Text>
                         </View>
@@ -126,19 +126,19 @@ class Stats extends Component {
                                                                 <Text style={styles.largeInfo}>
                                                                     {
                                                                         column.value.footprint ?
-                                                                        column.value.footprint : "0g CO2"
+                                                                        column.value.footprint + " kg" : "0 kg"
                                                                     }
                                                                 </Text>
                                                                 <Text style={styles.smallText}>
                                                                     {
                                                                         column.value.time ?
-                                                                        column.value.time : "0 sec"
+                                                                        column.value.time + " s" : "0 s"
                                                                     }
                                                                 </Text>
                                                                 <Text style={styles.smallText}>
                                                                     {
                                                                         column.value.distance ?
-                                                                        column.value.distance: "0 km"
+                                                                        column.value.distance + " km" : "0 km"
                                                                     }
                                                                 </Text>
                                                             </View>
