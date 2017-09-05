@@ -23,12 +23,14 @@ function receive_storage(data) {
 }
 
 export function getStorage() {
-    return(dispatch, state) => {
+    return(dispatch, getState) => {
         dispatch(request_storage());
         AsyncStorage.getItem('data')
             .then(data => {
-                console.log(data);
-                dispatch(receive_storage(JSON.parse(data)))
+                if(data !== null)
+                    dispatch(receive_storage(JSON.parse(data)));
+                else
+                    dispatch(receive_storage(getState().storage.data));
             })
             .catch(err => {
                 // Do nothing, let it take the default values.

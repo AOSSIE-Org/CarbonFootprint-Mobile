@@ -83,7 +83,11 @@ class FootprintCard extends Component {
                             props.distance.text ?
                             <View style={styles.footprintContent}>
                                 <Text style={styles.footprint}>
-                                    160g CO2
+                                    {
+                                        props.footprint !== null ?
+                                        props.footprint.toFixed(2) + " kg":
+                                        null
+                                    }
                                 </Text>
                             </View>
                             : null

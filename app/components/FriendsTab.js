@@ -1,3 +1,8 @@
+/*
+ * Displays list of friends (this.props.choice = 1) 
+ * and friend requests (this.props.choice = 2)
+*/
+
 import React, { Component } from 'react';
 import {
     View,
@@ -5,25 +10,29 @@ import {
     Text,
     ScrollView,
     ActivityIndicator,
+    TouchableNativeFeedback
 } from 'react-native';
 
 import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import FriendRow from './FriendRow';
 
 class FriendsTab extends Component {
+    componentWillMount() {
+        this.props.getFriendList(this.props.choice);
+    }
+
     render() {
-        const props = this.props;
-        console.log(props);
-        if (props.friends.isFetching) {
+        var friends = this.props.friends;
+        var friendList = friends.list;
+        if(friends.isFetching) {
             return (
                 <View style={styles.centerScreen}>
                     <ActivityIndicator color={color.primary} size="large" />
                 </View>
             )
-        } else if (props.friends.list === null ||
-            Object.keys(props.friends.list).length <= 0) {
+        } else if (friendList === null ||
+            Object.keys(friendList).length <= 0) {
             return (
                 <View style={styles.centerScreen}>
                     <Icon name={getIcon("sad")} size={56} color={color.lightPrimary} />
@@ -31,18 +40,42 @@ class FriendsTab extends Component {
                 </View>
             )
         } else {
+            // Gamification: Sorting friends list based on emitted co2
+            /*
+            if(this.props.choice === "1") {
+                this.props.getUser(this.props.auth.user.uid).then((usr) => {
+                    console.log("----------------------------------------------------------------------------------");
+                    console.log(usr);
+                    friendList.push(usr);
+                }).catch((error) => alert(error))
+                friendList.sort(function(f1, f2) {
+                    if(! f1.hasOwnProperty(data) && f2.hasOwnProperty(data))
+                        return -1;
+                    if(f1.hasOwnProperty(data) && ! f2.hasOwnProperty(data))
+                        return 1;
+                    if(! f1.hasOwnProperty(data) && ! f2.hasOwnProperty(data))
+                        return 0;
+                    if(f1.hasOwnProperty(data) && f2.hasOwnProperty(data))
+                       return f1.data.total.footprint - f2.data.total.footprint;
+                });
+            }
+            */
             return (
                 <ScrollView contentContainerStyle={styles.friends}>
                     {
-                        props.friends.list.map((friend, index) => {
+                        friendList.map((friend, index) => {
                             return (
-                                <FriendRow last={index === (props.friends.list.length - 1)}
-                                    data={friend} key={index}
-                                    text={
-                                        friend.data ?
-                                        friend.data.total:
-                                        "No Activity"
-                                    } />
+                                <View key={index}>
+                                    <FriendRow last={index === (friendList.length - 1)}
+                                        data={friend}
+                                        iconName={this.props.choice === "2"? "checkmark": null}
+                                        link={this.props.choice === "2"? () => this.props.acceptFriendRequest(this.props.auth.user.uid, friend.uid): null}
+                                        text={
+                                            friend.data ?
+                                            friend.data.total:
+                                            "No Activity"
+                                        } />
+                                </View>
                             )
                         })
                     }

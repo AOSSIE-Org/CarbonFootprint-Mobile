@@ -1,5 +1,5 @@
 /*
-	This is for social login using Facebook.
+ *	Facebook Native Login Action
 */
 import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk';
 import * as firebase from 'firebase';

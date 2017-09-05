@@ -43,6 +43,11 @@ class More extends Component {
                     icon: "settings",
                     text: "Settings",
                     link: () => Actions.settings(),
+                },
+                {
+                    icon: "stats",
+                    text: "Stats",
+                    link: () => Actions.timeline(),
                 }
             ],
             [

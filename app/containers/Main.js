@@ -12,12 +12,12 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ActivityDetectionAction from '../actions/ActivityDetectionAction';
+import * as ActivityDetailsAction from '../actions/ActivityDetailsAction';
 import ActivityTab from '../components/ActivityTab';
 import TodayTab from '../components/TodayTab';
-import TimelineTab from '../components/TimelineTab';
 import { Actions } from 'react-native-router-flux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-
+import { color } from '../config/helper';
 import Footer from '../components/Footer';
 
 class Main extends Component {
@@ -31,35 +31,32 @@ class Main extends Component {
     return (
       // 'ScrollableTabView' is predefined in external package 'react-native-scrollable-tab-view' 
 
-      <ScrollableTabView tabBarPosition="bottom" tabBarUnderlineStyle={styles.underline} tabBarBackgroundColor="#009688" tabBarActiveTextColor="white" tabBarInactiveTextColor="#eeeeee">
-        <TodayTab tabLabel="Today"/>
+      <ScrollableTabView style={styles.container} tabBarPosition="bottom" tabBarUnderlineStyle={styles.underline} tabBarBackgroundColor="white" tabBarActiveTextColor={color.primary} tabBarInactiveTextColor="#000000">
+        <TodayTab tabLabel="Today" {...this.props}/>
         <ActivityTab tabLabel="Activity" {...this.props}/>
-        <Text tabLabel="Paths"></Text>
-        <TimelineTab tabLabel="Timeline" link={() => Actions.activityHistory()}/>
-        <Text tabLabel="Friends"></Text>
       </ScrollableTabView>
-      //<Footer name="activity" />
     );
   }
 }
 
 const styles = StyleSheet.create({
   underline: {
-    height: 2,
+    height: 0,
     backgroundColor: "white"
+  },
+  container: {
+    marginBottom: 45
   }
 });
 
 // Mapping state to props so that state variables can be used through props in children components
 function mapStateToProps(state) {
-  return {
-    activityType: state.activity.activityType
-  }
+  return state;
 }
 
 // Mapping dispatchable action (ActivityDetectionAction) to props so that actions can be used through props in children components
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, ActivityDetectionAction), dispatch) ;
+    return bindActionCreators(Object.assign({}, ActivityDetectionAction, ActivityDetailsAction), dispatch) ;
 }
 
 //This is needed to allow children components to have access to Actions and store variables

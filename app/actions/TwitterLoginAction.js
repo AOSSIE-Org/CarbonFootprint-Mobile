@@ -31,5 +31,4 @@ export function twitterLogin() {
             console.log("Twitter Login Error: ", error);
         })
     }
-
 }

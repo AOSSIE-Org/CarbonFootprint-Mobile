@@ -1,25 +1,30 @@
+/*
+ * To show friends list item
+*/
+
 import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
     Image,
     Text,
-    Dimensions
+    Dimensions,
+    TouchableNativeFeedback
 } from 'react-native';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import { color, getIcon } from '../config/helper';
-
 import images from '../config/images';
 
 class FriendRow extends Component {
     render() {
-        let { data, text } = this.props;
+        let {data, text} = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.main}>
                     <View style={styles.info}>
                         {
-                            data.picture ?
+                            data.picture?
                             <Image source={{uri: data.picture}} style={styles.image} />
                             :
                             <Image source={images.noImage} style={styles.image} />
@@ -27,13 +32,29 @@ class FriendRow extends Component {
                         <View style={styles.left}>
                             <Text style={styles.largeText}>{data.name}</Text>
                             <Text style={styles.smallText}>
-                                { text }
+                                {text}
                             </Text>
                         </View>
-                        <View></View>
+                        <View style={styles.right}>
+                            {
+                                this.props.iconName?    
+                                        <TouchableNativeFeedback onPress={this.props.link}>
+                                            <Icon name={getIcon(this.props.iconName)} size={30} color="black"/>
+                                        </TouchableNativeFeedback>
+                                :
+                                <View>
+                                    <Text>
+                                    {
+                                        data.data?
+                                        data.data.total.footprint + " kg":
+                                        "0 kg" 
+                                    }
+                                    </Text>
+                                </View>
+                            }
+                        </View>
                     </View>
                 </View>
-
             </View>
         )
     }
@@ -56,9 +77,13 @@ const styles = StyleSheet.create({
     info: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'space-between'
     },
     left: {
         marginLeft: 8
+    },
+    right: {
+        marginLeft: 50
     },
     image: {
         width: 48,
