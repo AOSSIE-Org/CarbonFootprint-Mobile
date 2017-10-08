@@ -42,11 +42,6 @@ class Calculate extends Component {
     }
 
     componentWillMount() {
-        /*
-        console.ignoredYellowBox = [
-            'Setting a timer'
-        ];
-        */
         if (!this.props.location.latitude) {
             this.props.getLocation();
         }
@@ -59,16 +54,15 @@ class Calculate extends Component {
         let destination = props.direction.destination;
         let tab = this.state.tab;
         // I dare you to remove this condition
-        if (source.latitude) {
-            if (destination.latitude) {
-                if (!_.isEqual(this.state.source, source) ||
-                    !_.isEqual(this.state.destination, destination)) {
-                        this.setState({
-                            source,
-                            destination
-                        });
-                        props.getDirections(source, destination, tab);
-                    }
+        if(source.latitude) {
+            if(destination.latitude) {
+                if(!_.isEqual(this.state.source, source) || !_.isEqual(this.state.destination, destination)) {
+                    this.setState({
+                        source,
+                        destination
+                    });
+                    props.getDirections(source, destination, tab);
+                }
             }
         }
     }
@@ -89,7 +83,7 @@ class Calculate extends Component {
         let destination = direction.destination;
         let region = direction.region;
         let coords = direction.coords;
-        let map = null;
+        let map = <StaticMap />;
 
         if (source.latitude) {
             if (destination.latitude) {
@@ -104,11 +98,11 @@ class Calculate extends Component {
             <View style={styles.container}>
                 <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content"/>
                 {
-                    this.props.location.isFetching?
+                    /*this.props.location.isFetching?
                     <View style={styles.center}>
                         <ActivityIndicator size="large" color="#538124"/>
                     </View>
-                    : map
+                    :*/ map
                 }
 
                 <View style={styles.button}>

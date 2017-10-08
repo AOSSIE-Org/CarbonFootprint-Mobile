@@ -26,6 +26,8 @@ class StaticMap extends Component {
         let props = this.props;
         return(
             <MapView provider={PROVIDER_GOOGLE}
+                showsUserLocation={true}
+                showsMyLocationButton={true}
                 region={props.region} style={styles.map}>
                 {
                     props.source ?

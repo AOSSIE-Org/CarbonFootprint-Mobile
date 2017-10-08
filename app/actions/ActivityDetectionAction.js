@@ -21,17 +21,19 @@ async function sendDataForStorage(state) {
     await getPlaceName(act.src).then(
       (place) => source = place
     ).catch(
-      error => console.log("ActivityDetectionAction (sendDataForStorage 1)" + error)
-    );
+      error => {
+        //console.log("ActivityDetectionAction (sendDataForStorage 1)" + error)
+      });
   }
   if(act.dest.latitude === -1) {
-    console.log("Error in fetching location (destination)");
+    //console.log("Error in fetching location (destination)");
   } else {
     await getPlaceName(act.dest).then(
       (place) => destin = place
     ).catch(
-      error => console.log("ActivityDetectionAction (sendDataForStorage 2)" + error)
-    );
+      error => {
+        //console.log("ActivityDetectionAction (sendDataForStorage 2)" + error)
+      });
   }
   var data = {
     actDate: act.date,
@@ -44,27 +46,27 @@ async function sendDataForStorage(state) {
     co2Emitted: act.type === 'IN_VEHICLE'? act.co2: 0,
     co2Saved: act.type === 'IN_VEHICLE'? 0: act.co2
   };
-  console.log("Activity data sent for local storage. Date: " + data.actDate + ", Start time: " + data.startTime + ", Duration: " + 
+  /*console.log("Activity data sent for local storage. Date: " + data.actDate + ", Start time: " + data.startTime + ", Duration: " + 
     data.duration + ", Source: " + data.src + ", Destination: " + data.dest + ", Type: " + data.actType + 
-    ", Distance: " + data.distance + ", co2 emitted: " + data.co2Emitted + ", co2 saved: " + data.co2Saved);
+    ", Distance: " + data.distance + ", co2 emitted: " + data.co2Emitted + ", co2 saved: " + data.co2Saved);*/
   ActivityHistoryStorage.insertData(data);
 }
 
 export function startActivityDetection() {
   return function (dispatch, getState) {
-    console.log("Activity is being detected ...");
     ActivityHistoryStorage.createDB();
     // Interval (in ms) for Activity detection updates
     const detectionIntervalMillis = 100;
     ActivityRecognition.start(detectionIntervalMillis);
     // Subscribe to updates
     this.unsubscribe = ActivityRecognition.subscribe(detectedActivities => {
+      //console.log("Activity is being detected ...");
       const mostProbableActivity = detectedActivities.sorted[0];
       var act = getState().activity;
       // If detected activity is different from ongoing activity
       if(mostProbableActivity.type !== act.type) {
         if((Platform.OS === 'android' && mostProbableActivity.confidence >= 75) || (Platform.OS === 'ios')) {
-          if(act.type !== 'STILL' && act.type !== 'TILTING' && act.type !== 'UNKNOWN')
+          //if(act.type !== 'STILL' && act.type !== 'TILTING' && act.type !== 'UNKNOWN')
             sendDataForStorage(getState());
           var currDate = new Date();
           dispatch(setDate(currDate.toDateString()));

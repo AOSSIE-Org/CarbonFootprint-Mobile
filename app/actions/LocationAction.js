@@ -4,6 +4,7 @@ import {
     set_region
 } from './DirectionAction';
 import { PermissionsAndroid } from 'react-native';
+import { checkGPS } from '../config/helper';
 
 export const REQUEST_LOCATION = "REQUEST_LOCATION";
 export const RECEIVE_LOCATION = "RECEIVE_LOCATION";
@@ -24,7 +25,7 @@ function receive_location(latitude, longitude) {
     }
 }
 
-async function getPermission() {
+export async function getPermission() {
     try {
         const granted = await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -33,15 +34,15 @@ async function getPermission() {
                 'message': 'Allow Carbon Footprint to access your current location'
             }
         );
-        console.log("Granted");
+        //console.log("Granted");
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             return true;
         } else {
-            console.log("Not Granted");
+            //console.log("Not Granted");
             return false;
         }
     } catch (err) {
-        console.log("Error", err);
+        //console.log("Error", err);
         return false;
     }
 }
@@ -49,8 +50,34 @@ async function getPermission() {
 export function getLocation() {
     return async function(dispatch, state) {
         dispatch(request_location());
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
+        let value = true;
+        if(Platform.OS === 'android' && Platform.Version >= 23) {
+            value = await getPermission();
+        }
+        checkGPS();
+        if(value) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    let lat = position.coords.latitude;
+                    let lng = position.coords.longitude;
+                    dispatch(receive_location(lat, lng));
+                    getRegion({ latitude: lat, longitude: lng }, null)
+                    .then(result => {
+                        dispatch(set_region(result));
+                        dispatch(set_source({
+                            latitude: lat,
+                            longitude: lng,
+                        }, "Your Location"));
+                    })
+                },
+                (error) => {
+                    //console.log(error.message);
+                },
+                //{ enableHighAccuracy: true, timeout: 20000, maximumAge: 10000 },
+            );
+
+            // Getting location updates (Only when location changes)
+              this.watchID = navigator.geolocation.watchPosition((position) => {
                 let lat = position.coords.latitude;
                 let lng = position.coords.longitude;
                 dispatch(receive_location(lat, lng));
@@ -62,10 +89,12 @@ export function getLocation() {
                         longitude: lng,
                     }, "Your Location"));
                 })
-            },
-            (error) => {console.log("Geolocation Error: ", error)},
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-        );
-
+              },
+              (error) => {
+                //console.log(error.message)
+              },
+              {enableHighAccuracy: true, timeout: 1000, maximumAge: 0, distanceFilter:1}
+              );
+        }
     }
 }

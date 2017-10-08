@@ -102,7 +102,7 @@ export default class TimelineTab extends Component {
 		    this.forceUpdate();
 		  }
 		} catch ({code, message}) {
-		  	console.log("Cannot open date picker: " + message);
+		  	//console.log("Cannot open date picker: " + message);
 		}
 	}
 
@@ -158,7 +158,7 @@ export default class TimelineTab extends Component {
 			          separator={false}
 			          innerCircle={'dot'}
 			          options={{style:{padding:10}}} />
-			 		: <Text>No Activity found</Text>
+			 		: <Text style={styles.warningText}>No Activity found ...</Text>
 			    }
 	        </View>
 		);
@@ -240,5 +240,11 @@ const styles = StyleSheet.create({
 	},
 	datePickerIOSView: {
 		height: 30
-	}
+	},
+	warningText: {
+        fontSize: 15,
+        color: color.darkPrimary,
+        marginTop: 5,
+        marginLeft: 10
+    }
 });

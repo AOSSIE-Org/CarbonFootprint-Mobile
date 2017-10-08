@@ -57,8 +57,8 @@ export function getRegion(source, destination) {
             data = {
                 latitude: source.latitude,
                 longitude: source.longitude,
-                latitudeDelta: 0.032,
-                longitudeDelta: 0.032
+                latitudeDelta: 0.030,
+                longitudeDelta: 0.030
             }
 
         } else {
@@ -66,11 +66,12 @@ export function getRegion(source, destination) {
             let minY = Math.min(source.longitude, destination.longitude);
             let maxX = Math.max(source.latitude, destination.latitude);
             let maxY = Math.max(source.longitude, destination.longitude);
+            //alert("(maxX - minX): " + (maxX - minX) + ", (maxY - minY): " + (maxY - minY));
             data = {
                 latitude: (minX + maxX) / 2,
                 longitude: (minY + maxY) / 2,
-                latitudeDelta: Math.max((maxX - minX), 0.032),
-                longitudeDelta: Math.max((maxY - minY), 0.032)
+                latitudeDelta: Math.max((maxX - minX + 0.1), 0.030),
+                longitudeDelta: Math.max((maxY - minY + 0.1), 0.030)
             }
         }
         resolve(data);
@@ -122,7 +123,7 @@ export function openSearchModal(key) {
                 }
             })
             .catch(error => {
-                console.log(error.message);
+                //console.log(error.message);
             });
     }
 }
@@ -172,6 +173,8 @@ export function getDirections(source, destination, code) {
                     })
                 }
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                //console.log(error.message)
+            })
     }
 }

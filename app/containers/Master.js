@@ -1,7 +1,9 @@
 import React, { Component, cloneElement } from 'react';
 import {
     View,
-    StyleSheet
+    StyleSheet,
+    NetInfo,
+    Alert
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { connect } from 'react-redux';
@@ -13,10 +15,25 @@ import * as AuthAction from '../actions/AuthAction';
 class Master extends Component {
     constructor(props) {
         super(props);
+        console.disableYellowBox = true;
     }
 
     componentWillMount() {
-        this.props.initApp();
+        // Check Internet connectivity
+        NetInfo.isConnected.fetch().then(isConnected => { 
+            if(isConnected) {
+                this.props.initApp();
+            } else {
+                Alert.alert( 
+                    'Enable Internet', 
+                    'Internet is not connected. Please connect to Internet.', 
+                    [  
+                        { text: 'OK' }, 
+                    ],
+                    { cancelable: true } 
+                );
+            }
+        });
     }
 
     componentWillReceiveProps(props) {

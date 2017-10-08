@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -22,17 +23,17 @@ import { getIcon, color } from '../config/helper';
 class More extends Component {
     logout() {
         Alert.alert(
+            'Logout',
             'Are you sure you want to logout?',
-            '',
             [
                 {
-                    text: 'Cancel', onPress: () => console.log('Wise Choice!!!'), style: 'cancel'
+                    text: 'Cancel', style: 'cancel'
                 },
                 {
                     text: 'OK', onPress: () => this.props.logout()
                 },
             ],
-            { cancelable: false }
+            { cancelable: true }
         )
     }
 
@@ -45,8 +46,8 @@ class More extends Component {
                     link: () => Actions.settings(),
                 },
                 {
-                    icon: "stats",
-                    text: "Stats",
+                    icon: "history",
+                    text: "History",
                     link: () => Actions.timeline(),
                 }
             ],
@@ -84,8 +85,13 @@ class More extends Component {
                                                 <TouchableHighlight onPress={item.link}
                                                     activeOpacity={0.5} underlayColor="#eee" key={i}>
                                                     <View style={styles.button}>
-                                                        <Icon name={getIcon(item.icon)}
+                                                        {
+                                                        item.icon === "history"?
+                                                        <Icon1 name={item.icon}
+                                                            size={20} style={styles.icon} color={color.black} /> 
+                                                        :<Icon name={getIcon(item.icon)}
                                                             size={24} style={styles.icon} color={color.black} />
+                                                        }
                                                         <Text style={styles.text}>{item.text}</Text>
                                                     </View>
                                                 </TouchableHighlight>

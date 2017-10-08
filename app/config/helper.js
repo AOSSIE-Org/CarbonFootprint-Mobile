@@ -1,10 +1,12 @@
 import {
-    Platform
+    Platform,
+    BackHandler
 } from 'react-native';
 import Geocoder from 'react-native-geocoding';
 import { geocodingAPIKey } from './keys';
 import store from '../config/store';
 import { RATE_PETROL, RATE_DIESEL, RATE_CNG, RATE_ELECTRIC } from '../config/constants';
+import LocationServicesDialogBox from "react-native-android-location-services-dialog-box";
 
 export function getIcon(name) {
   return (Platform.OS === "android" ? "md-": "ios-") + name;
@@ -30,7 +32,7 @@ export function getPlaceName(loc) {
          resolve(json.results[0].formatted_address);
       },
       error => {
-         console.log("helper (getPlaceName): " + error);
+         //console.log("helper (getPlaceName): " + error);
          reject(error);
       }
     );
@@ -108,6 +110,26 @@ export function getFuelRate() {
     }
   }
   return rate;
+}
+
+export function checkGPS() {
+  LocationServicesDialogBox.checkLocationServicesIsEnabled({
+      message: "<h2>Enable GPS</h2>This app wants to use GPS. Please enable GPS.",
+      ok: "YES",
+      cancel: "NO",
+      enableHighAccuracy: true, // true => GPS AND NETWORK PROVIDER, false => ONLY GPS PROVIDER
+      showDialog: true // false => Opens the Location access page directly
+  }).then(function(success) {
+        //return true;
+      }.bind(this)
+  ).catch((error) => {
+      //return false;
+      //console.log(error.message);
+  });
+  
+  BackHandler.addEventListener('hardwareBackPress', () => {
+         LocationServicesDialogBox.forceCloseDialog();
+  });
 }
 
 export const color = {

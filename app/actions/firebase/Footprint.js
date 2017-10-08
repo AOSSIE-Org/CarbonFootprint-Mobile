@@ -49,7 +49,7 @@ export function setFootprint(data, currentUid) {
         .then(() => {
             getUser(currentUid)
             .then((user) => {
-                alert("Data sent in Firebase. UID: " + currentUid);
+                //alert("Data sent in Firebase. UID: " + currentUid);
                 resolve(user);
             }).catch((error) => reject(error))
         })
