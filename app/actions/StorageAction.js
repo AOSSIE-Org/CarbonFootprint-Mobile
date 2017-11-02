@@ -34,7 +34,7 @@ export function getStorage() {
             })
             .catch(err => {
                 // Do nothing, let it take the default values.
-                console.log(err);
+                //console.log(err);
             })
     }
 }
@@ -42,7 +42,7 @@ export function getStorage() {
 export function setStorage(data) {
     return (dispatch, state) => {
         dispatch(receive_storage(data));
-        console.log(data);
+        //console.log(data);
         AsyncStorage.setItem('data', JSON.stringify(data))
             .catch(err => {
                 alert("Error while setting")

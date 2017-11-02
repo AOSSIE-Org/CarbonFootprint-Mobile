@@ -32,7 +32,6 @@ class FootprintCard extends Component {
             }
         ];
         let props = this.props;
-
         return(
             <View style={styles.container}>
                 <View style={styles.tabs}>

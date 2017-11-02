@@ -110,7 +110,7 @@ export function logout() {
             Actions.landing({type: ActionConst.RESET});
         })
         .catch((error) => {
-            console.log(error);
+            //console.log(error);
         })
     }
 }

@@ -141,9 +141,10 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-android-location-services-dialog-box')
+    compile project(':react-native-background-timer')
     compile project(':react-native-picker')
     compile project(':realm')
-    compile project(':react-native-background-job')
     compile project(':react-native-google-places')
     compile project(':react-native-maps')
     compile project(':tipsi-twitter')

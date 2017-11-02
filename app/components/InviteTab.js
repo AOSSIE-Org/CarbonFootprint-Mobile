@@ -20,12 +20,14 @@ class InviteTab extends Component {
       super(props);
       this.state = { 
       	email: "",
-      	user: {}
+      	user: {},
+      	userFetched: false
       };
       this.searchFriendsByEmail = this.searchFriendsByEmail.bind(this);
     }
 
     searchFriendsByEmail() {
+    	this.setState({user: {}, userFetched: true});
     	searchFriends(this.state.email).then((snapshot) => {
     		var user = {
     			uid: snapshot.key,
@@ -34,8 +36,9 @@ class InviteTab extends Component {
     		}
     		this.setState({user: user});
     	}).catch(
-	      error => console.log("InviteTab (searchFriendsByEmail)" + error)
-	    );
+	      error => {
+	     	//console.log("InviteTab (searchFriendsByEmail)" + error)
+	 	  });
     }
 
     render() {
@@ -59,8 +62,11 @@ class InviteTab extends Component {
 					                data={this.state.user}
 					                text={this.state.user.name} />
 				            </View>
-		            	</View>:
-	            	<Text>No user found</Text>
+		            	</View>: (
+		            		this.state.userFetched?	
+		            		<Text style={styles.warningText}>No user found ...</Text>
+		            		: null
+		            	)
 	            }
   				</View>
   			</View>
@@ -84,7 +90,13 @@ const styles = StyleSheet.create({
 	whiteText: {
 		fontSize: 15,
 		color: 'white'
-	}
+	},
+	warningText: {
+        fontSize: 15,
+        color: color.darkPrimary,
+        marginTop: 5,
+        marginLeft: 10,
+    }
 });
 
 export default InviteTab;

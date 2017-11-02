@@ -35,7 +35,7 @@ class Stats extends Component {
                 {
                     title: "Walking",
                     icon: "walk",
-                    value: user.data?
+                    value: user && user.data?
                         (user.data.walking ?
                             user.data.walking : {}
                         ): {},
@@ -43,7 +43,7 @@ class Stats extends Component {
                 {
                     title: "Running",
                     icon: "run",
-                    value: user.data ?
+                    value: user && user.data ?
                         (user.data.running ?
                             user.data.running : {}
                         ): {}
@@ -53,7 +53,7 @@ class Stats extends Component {
                 {
                     title: "Cycling",
                     icon: "bicycle",
-                    value: user.data ?
+                    value: user && user.data ?
                         (user.data.cycling ?
                             user.data.cycling : {}
                         ): {}
@@ -61,7 +61,7 @@ class Stats extends Component {
                 {
                     title: "Vehicle",
                     icon: this.props.storage.data.automobile === "Car"? "car": (this.props.storage.data.automobile === "Bus"? "bus": "train"),
-                    value: user.data?
+                    value: user && user.data?
                         (user.data.driving ?
                             user.data.driving : {}
                         ): {}
@@ -82,21 +82,21 @@ class Stats extends Component {
                             <Icon name={getIcon("analytics")} size={56} color={color.white} style={styles.iconHeader} />
                             <Text style={[styles.largeInfo, styles.whiteText]}>
                                 {
-                                    user.data?
-                                    user.data.total.footprint + " kg"
+                                    user && user.data?
+                                    user.data.total.footprint.toFixed(2) + " kg"
                                     :"0 kg"
                                 }
                             </Text>
                             <Text style={[styles.smallText, styles.whiteText]}>
                                 {
-                                    user.data?
-                                    user.data.total.distance + " km"
+                                    user && user.data?
+                                    user.data.total.distance.toFixed(2) + " km"
                                     :"0 km"
                                 }
                             </Text>
                             <Text style={[styles.smallText, styles.whiteText]}>
                                 {
-                                    user.data?
+                                    user && user.data?
                                     user.data.total.time + " s"
                                     : "0 s"
                                 }
@@ -126,19 +126,19 @@ class Stats extends Component {
                                                                 <Text style={styles.largeInfo}>
                                                                     {
                                                                         column.value.footprint ?
-                                                                        column.value.footprint + " kg" : "0 kg"
+                                                                        column.value.footprint.toFixed(2) + " kg" : "0 kg"
+                                                                    }
+                                                                </Text>
+                                                                <Text style={styles.smallText}>
+                                                                    {
+                                                                        column.value.distance ?
+                                                                        column.value.distance.toFixed(2) + " km" : "0 km"
                                                                     }
                                                                 </Text>
                                                                 <Text style={styles.smallText}>
                                                                     {
                                                                         column.value.time ?
                                                                         column.value.time + " s" : "0 s"
-                                                                    }
-                                                                </Text>
-                                                                <Text style={styles.smallText}>
-                                                                    {
-                                                                        column.value.distance ?
-                                                                        column.value.distance + " km" : "0 km"
                                                                     }
                                                                 </Text>
                                                             </View>

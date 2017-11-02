@@ -20,19 +20,12 @@ import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import pick from 'lodash/pick';
 import haversine from 'haversine';
 import MapView from 'react-native-maps';
-import BackgroundJob from 'react-native-background-job';
 import { ZOOM_DELTA } from '../config/constants';
 import { googleRoadsAPIKey } from '../config/keys';
-import { getIcon, getIconName, color, calcCo2, getMileage, getFuelRate } from '../config/helper';
+import { getIcon, getIconName, color, calcCo2, getMileage, getFuelRate, checkGPS } from '../config/helper';
 
-const backgroundJob = {
- jobKey: "myJob",
- job: () => {
-    this.drawRoute();
-  }
-};
-
-BackgroundJob.register(backgroundJob);
+import { getPermission } from '../actions/LocationAction';
+import BackgroundTimer from 'react-native-background-timer';
 
 export default class ActivityTab extends Component {
 	constructor(props) {
@@ -43,15 +36,23 @@ export default class ActivityTab extends Component {
       prevLatLng: {}
     };
     // Incrementing time
+    /*
     setInterval(() => {
       this.updateDuration()
     }, 1000);
+    */
+    const intervalId = BackgroundTimer.setInterval(() => {
+      //console.log("***************************************************************************************************************************************************************");
+      //console.log("Updating duration");
+      this.updateDuration(); 
+    }, 1000);
+
     this.processSnapToRoadResponse = this.processSnapToRoadResponse.bind(this);
-    setInterval(() => {this.drawRoute()}, 5000);
+    //setInterval(() => {this.drawRoute()}, 5000);
 	}
 
   updateDuration() {
-    if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN')
+    //if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN')
       this.props.setDuration(this.props.activity.duration + 1);
   }
 
@@ -70,7 +71,7 @@ export default class ActivityTab extends Component {
           this.processSnapToRoadResponse(response);
       })
       .catch((error) => {
-        console.log("Error (ActivityTab/drawRoute): " + error);
+        //console.log("Error (ActivityTab/drawRoute): " + error);
       });
     }
   }
@@ -90,50 +91,58 @@ export default class ActivityTab extends Component {
     this.setState({numCoords: num + len - 1, routeCoordinates: tempCoords});
   }
 
-  componentDidMount() {
-    BackgroundJob.cancelAll();
+  async componentDidMount() {
     // Getting current location (One-time only)
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const currLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude};
-        this.props.setSrc(currLatLngs);
-        console.log("Source set " + this.props.activity.src.latitude + ", " + this.props.activity.src.longitude);
+    let value = true;
+    if(Platform.OS === 'android' && Platform.Version >= 23) {
+        value = await getPermission();
+    }
+    checkGPS();
+    if(value) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const currLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude};
+          this.props.setSrc(currLatLngs);
+          this._map.animateToRegion({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: ZOOM_DELTA,
+            longitudeDelta: ZOOM_DELTA
+          }, 2);
+        },
+        (error) => {
+          //console.log(error.message);
+        }
+      );
+
+      // Getting location updates (Only when location changes)
+      this.watchID = navigator.geolocation.watchPosition((position) => {
+        const { routeCoordinates } = this.state; 
+        const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude };
+        const positionLatLngs = pick(position.coords, ['latitude', 'longitude']);
         this._map.animateToRegion({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           latitudeDelta: ZOOM_DELTA,
           longitudeDelta: ZOOM_DELTA
-        }, 2);
+        }, 2);   
+
+        //if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN') {
+          this.props.setDistance(this.props.activity.distance + this.calcDistance(newLatLngs));
+          this.props.setCO2(calcCo2(getFuelRate(), this.props.activity.distance, getMileage()));
+          this.props.setDest(newLatLngs);
+          this.setState({
+            routeCoordinates: routeCoordinates.concat(positionLatLngs),
+            prevLatLng: newLatLngs
+          });
+        //}
       },
-      (error) => console.log("ActivityTab (componentDidMount 1): " + error.message)
-    );
-
-    // Getting location updates (Only when location changes)
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      const { routeCoordinates } = this.state; 
-      console.log("Destination set " + ", latitude: " + position.coords.latitude);
-      const newLatLngs = {latitude: position.coords.latitude, longitude: position.coords.longitude };
-      const positionLatLngs = pick(position.coords, ['latitude', 'longitude']);
-      this._map.animateToRegion({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-        latitudeDelta: ZOOM_DELTA,
-        longitudeDelta: ZOOM_DELTA
-      }, 2);   
-
-      if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN') {
-        this.props.setDistance(this.props.activity.distance + this.calcDistance(newLatLngs));
-        this.props.setCO2(calcCo2(getFuelRate(), this.props.activity.distance, getMileage()));
-        this.props.setDest(newLatLngs);
-        this.setState({
-          routeCoordinates: routeCoordinates.concat(positionLatLngs),
-          prevLatLng: newLatLngs
-        });
-      }
-    },
-    (error) => console.log("ActivityTab (componentDidMount 2): " + error.message),
-    {enableHighAccuracy: true, timeout: 1000, maximumAge: 0, distanceFilter:1}
-    );
+      (error) => {
+        //console.log(error.message)
+      },
+      {enableHighAccuracy: true, timeout: 1000, maximumAge: 0, distanceFilter:1}
+      );
+    }
   }
 
   componentWillMount() {
@@ -141,15 +150,9 @@ export default class ActivityTab extends Component {
   }
 
   componentWillUnmount() {
-    //this.props.closeActivityDetection();
+    this.props.closeActivityDetection();
     // Stop getting location updates
-    //navigator.geolocation.clearWatch(this.watchID);
-    BackgroundJob.schedule({
-      jobKey: "myJob",
-      period: 5000,
-      timeout: 5000,
-      networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
-    });
+    navigator.geolocation.clearWatch(this.watchID);
   }
 
   // Calculating traveled distance at runtime using Haversine formula
@@ -179,6 +182,7 @@ export default class ActivityTab extends Component {
           <MapView
             style={styles.mapView}
             ref={(map)=>this._map = map}
+            showsMyLocationButton={true}
             showsUserLocation={true} >
             <MapView.Polyline 
               coordinates={this.state.routeCoordinates}/>

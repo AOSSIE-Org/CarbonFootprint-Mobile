@@ -7,9 +7,10 @@ import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 
 import com.facebook.react.ReactApplication;
+import com.showlocationservicesdialogbox.LocationServicesDialogBoxPackage;
+import com.ocetnik.timer.BackgroundTimerPackage;
 import com.beefe.picker.PickerViewPackage;
 import io.realm.react.RealmReactPackage;
-import com.pilloxa.backgroundjob.BackgroundJobPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.gettipsi.reactnativetwittersdk.TwitterReactPackage;
@@ -48,13 +49,14 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new PickerViewPackage(),
-            new RealmReactPackage(),
-            new BackgroundJobPackage(),
-            new RNGooglePlacesPackage(),
-            new MapsPackage(),
-            new TwitterReactPackage(),
-            new RNActivityRecognitionPackage(),
+            new LocationServicesDialogBoxPackage(),
+            new BackgroundTimerPackage(),
+          new PickerViewPackage(),
+          new RealmReactPackage(),
+          new RNGooglePlacesPackage(),
+          new MapsPackage(),
+          new TwitterReactPackage(),
+          new RNActivityRecognitionPackage(),
           new VectorIconsPackage(),
           new SplashScreenReactPackage(),
           new RNGoogleSignInPackage(),
