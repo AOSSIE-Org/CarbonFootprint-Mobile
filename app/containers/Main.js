@@ -7,7 +7,9 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text
+  Text,
+  StatusBar,
+  View
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -24,28 +26,41 @@ class Main extends Component {
   constructor(props) {
     super(props);
   }
-
   // Main function to set whole view of container, Contains various components as children
   // It sends 'Actions.activity()' to TimelineTab as link (prop) so that TimelineTab can navigate to Activity container (When needed)
   render() {
     return (
-      // 'ScrollableTabView' is predefined in external package 'react-native-scrollable-tab-view' 
-
-      <ScrollableTabView style={styles.container} tabBarPosition="bottom" tabBarUnderlineStyle={styles.underline} tabBarBackgroundColor="white" tabBarActiveTextColor={color.primary} tabBarInactiveTextColor="#000000">
-        <TodayTab tabLabel="Today" {...this.props}/>
-        <ActivityTab tabLabel="Activity" {...this.props}/>
-      </ScrollableTabView>
+      <View style={styles.container}> 
+        <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
+        <View style={styles.pad}></View>
+        <ScrollableTabView
+          tabBarBackgroundColor={color.primary}
+          tabBarActiveTextColor={color.greyBack}
+          tabBarInactiveTextColor={color.grey}
+          tabBarTextStyle={styles.tabText}
+          tabBarUnderlineStyle={styles.tabLine}>
+          <TodayTab tabLabel="Today" {...this.props}/>
+          <ActivityTab tabLabel="Activity" {...this.props}/>
+        </ScrollableTabView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  underline: {
-    height: 0,
-    backgroundColor: "white"
-  },
   container: {
-    marginBottom: 45
+    flex: 1,
+  },
+  tabText: {
+      fontSize: 13,
+  },
+  tabLine: {
+      backgroundColor: color.white,
+      height: 2,
+  },
+  pad: {
+      backgroundColor: color.darkPrimary,
+      height: 7,
   }
 });
 

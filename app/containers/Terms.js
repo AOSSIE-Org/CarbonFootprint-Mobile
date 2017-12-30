@@ -14,16 +14,9 @@ class Terms extends Component {
                 <Header icon={true} iconName="arrow-back" text="Terms and Conditions" />
                 <View style={styles.main}>
                     <Text style={styles.text}>
-                        These are Terms and Conditions.
-                        These are Terms and Conditions.
-                        These are Terms and Conditions.
-                        These are Terms and Conditions.
-                        These are Terms and Conditions.
-                        These are Terms and Conditions.
-                        These are Terms and Conditions.
-                        These are Terms and Conditions.
-                        These are Terms and Conditions.
-                        These are Terms and Conditions.
+                        This mobile application is provided free of cost. We accept no liability for it.
+                        Activity recognition and distance calculation is done using external APIs/Libraries. 
+                        We are not responsible for any incorrect data.  
                     </Text>
                 </View>
             </View>

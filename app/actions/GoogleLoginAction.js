@@ -15,24 +15,21 @@ import { loginCustomFirebase } from './firebase/Auth';
 
 export function googleSignIn() {
 	return function (dispatch) {
-		alert("Trying to sign in");
 	    GoogleSignIn.configure(googleSignInConfig)
 		.then(() => {
 			GoogleSignIn.signInPromise()
 			.then((data) => {
 				loginCustomFirebase("google", data.idToken, data.accessToken)
 				.then((user) => {
-					alert("Signed in");
 					dispatch(receiveAuth(user));
 					Actions.main({type: ActionConst.RESET});
 				})
 				.catch((error) => {
-					alert("Error");
 					dispatch(receiveError(error));
 				})
 			})
 			.catch((error) => {
-				alert(error.message);
+				console.log(error.message);
 			})
 		})
 	}

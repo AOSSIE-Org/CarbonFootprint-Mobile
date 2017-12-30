@@ -16,7 +16,7 @@ export function fbLogin() {
 		LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
 		  function(result) {
 		    if (result.isCancelled) {
-		      alert('Login cancelled');
+		      console.log('Login cancelled');
 		    } else {
 		      AccessToken.getCurrentAccessToken().then(
 				  (data) => {
@@ -33,7 +33,7 @@ export function fbLogin() {
 		    }
 		  },
 		  function(error) {
-		    alert('FB Login failed with error: ' + error);
+		    console.log('FB Login failed with error: ' + error);
 		  }
 		);
 	}

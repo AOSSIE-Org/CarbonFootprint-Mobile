@@ -44,16 +44,16 @@ export default class ActivityTab extends Component {
     const intervalId = BackgroundTimer.setInterval(() => {
       //console.log("***************************************************************************************************************************************************************");
       //console.log("Updating duration");
-      this.updateDuration(); 
-    }, 1000);
+      if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN')
+        this.updateDuration(); 
+    }, 2000);
 
     this.processSnapToRoadResponse = this.processSnapToRoadResponse.bind(this);
     //setInterval(() => {this.drawRoute()}, 5000);
 	}
 
   updateDuration() {
-    //if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN')
-      this.props.setDuration(this.props.activity.duration + 1);
+    this.props.setDuration(this.props.activity.duration + 1);
   }
 
   // Google Roads API
@@ -126,16 +126,16 @@ export default class ActivityTab extends Component {
           latitudeDelta: ZOOM_DELTA,
           longitudeDelta: ZOOM_DELTA
         }, 2);   
-
-        //if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN') {
+        
+        if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN') {
           this.props.setDistance(this.props.activity.distance + this.calcDistance(newLatLngs));
-          this.props.setCO2(calcCo2(getFuelRate(), this.props.activity.distance, getMileage()));
+          this.props.setCO2(calcCo2(getFuelRate(), this.props.activity.distance.toString(), getMileage()));
           this.props.setDest(newLatLngs);
           this.setState({
             routeCoordinates: routeCoordinates.concat(positionLatLngs),
             prevLatLng: newLatLngs
           });
-        //}
+        }
       },
       (error) => {
         //console.log(error.message)
@@ -207,7 +207,7 @@ export default class ActivityTab extends Component {
             <View style = {styles.verline} />
             <View style = {styles.statsViewItems}>
               <View style = {styles.statsViewItems1}>
-                <Text style = {styles.largeText}>{this.props.activity.co2.toFixed(2)}</Text>
+                <Text style = {styles.largeText}>{(this.props.activity == 'IN_VEHICLE')? this.props.activity.co2.toFixed(2): "0.00"}</Text>
                 <Text style = {styles.smallText}>kg</Text>
               </View>
               <View style = {styles.hrView}>
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   mapView: {
-    height: Dimensions.get("window").height * 0.5,
+    height: Dimensions.get("window").height * 0.45,
     width: Dimensions.get("window").height
   },
   scrollView: {
@@ -252,8 +252,7 @@ const styles = StyleSheet.create({
     flex: 2,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'flex-end',
-    marginBottom: 20
+    alignItems: 'flex-start'
   },
   activity_icon: {
     marginTop: 10,

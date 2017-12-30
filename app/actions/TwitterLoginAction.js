@@ -28,7 +28,7 @@ export function twitterLogin() {
             })
         })
         .catch((error) => {
-            //console.log("Twitter Login Error: ", error);
+            console.log("Twitter Login Error: ", error);
         })
     }
 }
