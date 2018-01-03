@@ -128,7 +128,7 @@ class Calculate extends Component {
                     <FootprintCard distance={direction.distance}
                         duration={direction.duration}
                         onChangeTab={this.onChangeTab.bind(this)}
-                        footprint={direction.distance.text? ((this.state.tab === 0 || this.state.tab === 1)? calcCo2(getFuelRate(), parseFloat(direction.distance.text.split(" ")[0]), getMileage()): 0): null} 
+                        footprint={direction.distance.text? ((this.state.tab === 0 || this.state.tab === 1)? calcCo2(getFuelRate(), direction.distance.text, getMileage()): 0): null} 
                         tab={this.state.tab}
                         fetching={direction.isFetching} />
                     : null

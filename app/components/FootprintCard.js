@@ -119,9 +119,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     tabContent: {
-        padding: 5,
         justifyContent: 'space-around',
         flexDirection: 'row',
+        alignItems: 'center',
         height: 90,
     },
     routeContent: {

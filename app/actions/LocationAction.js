@@ -76,6 +76,7 @@ export function getLocation() {
                 //{ enableHighAccuracy: true, timeout: 20000, maximumAge: 10000 },
             );
 
+            /*
             // Getting location updates (Only when location changes)
               this.watchID = navigator.geolocation.watchPosition((position) => {
                 let lat = position.coords.latitude;
@@ -95,6 +96,7 @@ export function getLocation() {
               },
               {enableHighAccuracy: true, timeout: 1000, maximumAge: 0, distanceFilter:1}
               );
+              */
         }
     }
 }

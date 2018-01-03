@@ -8,15 +8,37 @@ import {
 
 import ActivityRecognition from 'react-native-activity-recognition';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
+import BackgroundTimer from 'react-native-background-timer';
 import { setDate, setStartTime, setDuration, setSrc, setDest, setType, setDistance, setCO2 } from '../actions/ActivityDetailsAction';
 import { formatAMPM, getPlaceName } from '../config/helper';
+
+function startTimer(dispatch, getState) {
+  if(Platform.OS === 'android') {
+    this.intervalId = BackgroundTimer.setInterval(() => {
+      dispatch(setDuration(getState().activity.duration + 1));
+    }, 1000);
+  } else { // Not tested for iOS
+    BackgroundTimer.start();
+    setInterval(() => {
+      dispatch(setDuration(getState().activity.duration + 1));
+    }, 1000);
+  }
+}
+
+function stopTimer() {
+  if(Platform.OS === 'android') {
+    BackgroundTimer.clearTimeout(this.intervalId);
+  } else {
+    BackgroundTimer.stop();
+  }
+}
 
 async function sendDataForStorage(state) {
   var act = state.activity;
   var source = "Source";
   var destin = "Destination";
   if(act.src.latitude === -1) {
-    alert("Error in fetching location (source)");
+    console.log("Error in fetching location (source)");
   } else {
     await getPlaceName(act.src).then(
       (place) => source = place
@@ -66,8 +88,10 @@ export function startActivityDetection() {
       // If detected activity is different from ongoing activity
       if(mostProbableActivity.type !== act.type) {
         if((Platform.OS === 'android' && mostProbableActivity.confidence >= 75) || (Platform.OS === 'ios')) {
-          //if(act.type !== 'STILL' && act.type !== 'TILTING' && act.type !== 'UNKNOWN')
+          if(act.type !== 'STILL' && act.type !== 'TILTING' && act.type !== 'UNKNOWN') {
+            stopTimer();
             sendDataForStorage(getState());
+          }
           var currDate = new Date();
           dispatch(setDate(currDate.toDateString()));
           dispatch(setStartTime(formatAMPM(currDate)));
@@ -76,6 +100,9 @@ export function startActivityDetection() {
           dispatch(setType(mostProbableActivity.type));
           dispatch(setDistance(0));
           dispatch(setCO2(0));
+          if(mostProbableActivity.type !== 'STILL' && mostProbableActivity.type !== 'TILTING' && mostProbableActivity.type !== 'UNKNOWN') {
+            startTimer(dispatch, getState);
+          }
         }  
       }
     });

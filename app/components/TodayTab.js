@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   upperActivityView: {
-  	flex: 2,
+  	flex: 3,
   	justifyContent: 'center',
   	alignItems: 'center'
   },
@@ -170,10 +170,11 @@ const styles = StyleSheet.create({
   	height: Dimensions.get("window").height * 0.9
   },
   lowerActivityView: {
-  	flex: 1,
+  	flex: 2,
   	flexDirection: 'row',
   	justifyContent: 'space-around',
-  	alignItems: 'center'
+  	alignItems: 'center',
+  	marginBottom: 10
   },
   lowerActivityItemView: {
   	padding: 5,

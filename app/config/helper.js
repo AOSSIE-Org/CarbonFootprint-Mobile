@@ -41,7 +41,9 @@ export function getPlaceName(loc) {
 
 export function calcCo2(fuelRate, distance, mileage) {
   // co2 in kg
-  return fuelRate * (distance / mileage);
+  distance = distance.replace(/\,/g, ""); // To remove comma (,) from string
+  var dist = parseFloat(distance.split(" ")[0]);
+  return fuelRate * (dist / mileage);
 }
 
 export function getIconName(activity) {
