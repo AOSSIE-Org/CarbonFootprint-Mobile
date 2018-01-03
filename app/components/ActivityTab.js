@@ -18,14 +18,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import pick from 'lodash/pick';
-import haversine from 'haversine';
 import MapView from 'react-native-maps';
 import { ZOOM_DELTA } from '../config/constants';
-import { googleRoadsAPIKey } from '../config/keys';
 import { getIcon, getIconName, color, calcCo2, getMileage, getFuelRate, checkGPS } from '../config/helper';
 
 import { getPermission } from '../actions/LocationAction';
-import BackgroundTimer from 'react-native-background-timer';
+import haversine from 'haversine';
+import { googleRoadsAPIKey } from '../config/keys';
 
 export default class ActivityTab extends Component {
 	constructor(props) {
@@ -41,34 +40,31 @@ export default class ActivityTab extends Component {
       this.updateDuration()
     }, 1000);
     */
-    const intervalId = BackgroundTimer.setInterval(() => {
-      //console.log("***************************************************************************************************************************************************************");
-      //console.log("Updating duration");
-      if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN')
-        this.updateDuration(); 
-    }, 2000);
-
     this.processSnapToRoadResponse = this.processSnapToRoadResponse.bind(this);
-    //setInterval(() => {this.drawRoute()}, 5000);
+    /*
+    setInterval(() => {
+      var res = this.drawRoute(this.state.routeCoordinates, this.state.numCoords);
+      this.setState({
+        numCoords: res.numCoords, 
+        routeCoordinates: res.routeCoordinates
+      });
+    }, 5000);
+    */
 	}
 
-  updateDuration() {
-    this.props.setDuration(this.props.activity.duration + 1);
-  }
-
   // Google Roads API
-  drawRoute() {
+  drawRoute(routeCoordinates, numCoords) {
     var newRouteCoords = [];
-    var len = this.state.routeCoordinates.length;
+    var len = routeCoordinates.length;
     if(len > 0) {
       var baseUrl = "https://roads.googleapis.com/v1/snapToRoads?path=";
-      for(var i = this.state.numCoords; i < len - 1; i ++)
-        baseUrl += this.state.routeCoordinates[i].latitude + "," + this.state.routeCoordinates[i].longitude + "|";
-      baseUrl += this.state.routeCoordinates[len - 1].latitude + "," + this.state.routeCoordinates[len - 1].longitude;
+      for(var i = numCoords; i < len - 1; i ++)
+        baseUrl += routeCoordinates[i].latitude + "," + routeCoordinates[i].longitude + "|";
+      baseUrl += routeCoordinates[len - 1].latitude + "," + routeCoordinates[len - 1].longitude;
       baseUrl += "&interpolate=true&key=" + googleRoadsAPIKey;  
       fetch(baseUrl).then((response) => response.json())
             .then((response) => {
-          this.processSnapToRoadResponse(response);
+            this.processSnapToRoadResponse(routeCoordinates, numCoords, response);
       })
       .catch((error) => {
         //console.log("Error (ActivityTab/drawRoute): " + error);
@@ -77,18 +73,37 @@ export default class ActivityTab extends Component {
   }
 
   // Store snapped polyline returned by the snap-to-road service.
-  processSnapToRoadResponse(data) {
+  processSnapToRoadResponse(routeCoordinates, numCoords, data) {
     snappedCoordinates = [];
     for (var i = 0; data.snappedPoints != undefined && i < data.snappedPoints.length; i++) {
       const latlng = pick(data.snappedPoints[i].location, ['latitude', 'longitude']);
       snappedCoordinates.push(latlng);
     }
-    var tempCoords = this.state.routeCoordinates.slice();
+    var tempCoords = routeCoordinates.slice();
     var len = snappedCoordinates.length;
-    var num = this.state.numCoords;
+    var num = numCoords;
     for(var i = 0; i < len; i ++) 
       tempCoords[i + num] = snappedCoordinates[i];
-    this.setState({numCoords: num + len - 1, routeCoordinates: tempCoords});
+    this.setState({
+      numCoords: num + len - 1, 
+      routeCoordinates: tempCoords
+    });
+  }
+
+  // Calculating traveled distance at runtime using Haversine formula
+  calcDistance(prevLatLng, newLatLng) {
+    return (haversine(prevLatLng, newLatLng) || 0);
+  }
+
+  updateTime(duration) {
+    if(duration < 60) {
+      return {time: duration, unit: "s"};
+    } else {
+      if(duration >= 60 && duration <= 3600)
+        return {time: (duration/60).toFixed(1), unit: "min"};
+      else
+        return {time: (duration/3600).toFixed(1), unit: "hr"};
+    }
   }
 
   async componentDidMount() {
@@ -128,7 +143,7 @@ export default class ActivityTab extends Component {
         }, 2);   
         
         if(this.props.activity.type !== 'STILL' && this.props.activity.type !== 'TILTING' && this.props.activity.type !== 'UNKNOWN') {
-          this.props.setDistance(this.props.activity.distance + this.calcDistance(newLatLngs));
+          this.props.setDistance(this.props.activity.distance + this.calcDistance(this.state.prevLatLng, newLatLngs));
           this.props.setCO2(calcCo2(getFuelRate(), this.props.activity.distance.toString(), getMileage()));
           this.props.setDest(newLatLngs);
           this.setState({
@@ -155,25 +170,8 @@ export default class ActivityTab extends Component {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
-  // Calculating traveled distance at runtime using Haversine formula
-  calcDistance(newLatLng) {
-    const { prevLatLng } = this.state;
-    return (haversine(prevLatLng, newLatLng) || 0);
-  }
-
-  updateTime() {
-    if(this.props.activity.duration < 60) {
-      return {time: this.props.activity.duration, unit: "s"};
-    } else {
-      if(this.props.activity.duration >= 60 && this.props.activity.duration <= 3600)
-        return {time: (this.props.activity.duration/60).toFixed(1), unit: "min"};
-      else
-        return {time: (this.props.activity.duration/3600).toFixed(1), unit: "hr"};
-    }
-  }
-
 	render() {
-    var timeObj = this.updateTime();
+    var timeObj = this.updateTime(this.props.activity.duration);
     var icon = getIconName(this.props.activity.type);
 
 		return(
