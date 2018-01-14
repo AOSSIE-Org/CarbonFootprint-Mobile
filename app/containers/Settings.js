@@ -6,7 +6,7 @@ import {
     Dimensions,
     Text,
     ActivityIndicator,
-    BackAndroid
+    BackHandler
 } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import Picker from 'react-native-picker';
@@ -53,11 +53,11 @@ class Settings extends Component {
     }
 
     componentDidMount() {
-        BackAndroid.addEventListener("hardwareBackPress", () => this.backPress());
+        BackHandler.addEventListener("hardwareBackPress", () => this.backPress());
     }
 
     componentWillUnmount() {
-        BackAndroid.removeEventListener("hardwareBackPress", () => this.backPress())
+        BackHandler.removeEventListener("hardwareBackPress", () => this.backPress())
     }
 
     showPicker() {
