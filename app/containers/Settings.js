@@ -5,12 +5,14 @@ import {
     TouchableHighlight,
     Dimensions,
     Text,
-    ActivityIndicator
+    ActivityIndicator,
+    BackAndroid
 } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import Picker from 'react-native-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Actions } from 'react-native-router-flux';
 
 import * as StorageAction from '../actions/StorageAction';
 import Header from '../components/Header';
@@ -21,8 +23,11 @@ class Settings extends Component {
         super(props);
         let data = this.props.storage.data;
         this.state = {
-            ...data
+            ...data,
+            isPickerOn: false
         }
+        this.showPicker = this.showPicker.bind(this);
+        this.backPress = this.backPress.bind(this);
     }
 
     handlePress(array, value, key) {
@@ -34,6 +39,25 @@ class Settings extends Component {
             })
             this.props.setStorage(data);
         }
+    }
+
+    backPress() {
+        let isPickerOn = this.state.isPickerOn;
+        if(isPickerOn) {
+            Picker.hide();
+            this.setState({isPickerOn: false})
+        } else {
+            Actions.pop();
+        }
+        return true;
+    }
+
+    componentDidMount() {
+        BackAndroid.addEventListener("hardwareBackPress", () => this.backPress());
+    }
+
+    componentWillUnmount() {
+        BackAndroid.removeEventListener("hardwareBackPress", () => this.backPress())
     }
 
     showPicker() {
@@ -56,6 +80,8 @@ class Settings extends Component {
             },
         });
         Picker.show();
+        let isPickerOn = this.state.isPickerOn;
+        this.setState({isPickerOn: true});
     }
 
     render() {
