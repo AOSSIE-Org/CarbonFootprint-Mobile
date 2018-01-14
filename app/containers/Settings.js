@@ -26,8 +26,6 @@ class Settings extends Component {
             ...data,
             isPickerOn: false
         }
-        this.showPicker = this.showPicker.bind(this);
-        this.backPress = this.backPress.bind(this);
     }
 
     handlePress(array, value, key) {
@@ -43,7 +41,7 @@ class Settings extends Component {
 
     backPress() {
         let isPickerOn = this.state.isPickerOn;
-        if(isPickerOn) {
+        if (isPickerOn) {
             Picker.hide();
             this.setState({isPickerOn: false})
         } else {
@@ -61,6 +59,7 @@ class Settings extends Component {
     }
 
     showPicker() {
+        let isPickerOn = this.state.isPickerOn;
         Picker.init({
             pickerData: [values, units],
             selectedValue: [this.state.value, this.state.unit],
@@ -80,7 +79,6 @@ class Settings extends Component {
             },
         });
         Picker.show();
-        let isPickerOn = this.state.isPickerOn;
         this.setState({isPickerOn: true});
     }
 
