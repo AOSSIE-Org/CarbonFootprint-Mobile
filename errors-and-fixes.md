@@ -1,7 +1,6 @@
 # Errors while installing the application and fixes to those errors:
 
 In case there is an error in installation of the react-native application, use the guide below to fix those errors.
-Few of the errors are because of the keys, they will be provided by the mentors within few days and no such errors will be faced.
 
 ## Error 1
 
@@ -38,15 +37,6 @@ This error is related to facebook sdk, hence this is after installing node modul
 
 ## Error 3
 
-File google-services.json is missing. The Google Services Plugin cannot function without it.
-
-## Fix for the error
-As google-services.json file is put in .gitignore. 
-
-Use [google developer console](https://developers.google.com/mobile/add) to get this file. Give the package name as com.carbonfootprint
-
-## Error 4
-
 AAPT: No resource found that matches the given name: attr 'android:keyboardNavigationCluster'.
 
 ### Fix for the error
@@ -63,9 +53,3 @@ dependencies {
      compile 'com.android.support:appcompat-v7:26.0.1'
 }
 ```
-## Error 5
-
-API setup for facebook and google:@string/facebook_app_id and @string/google_maps_api_key
-
-### Fix for the error
-These keys will be provided by the mentors within few days.
