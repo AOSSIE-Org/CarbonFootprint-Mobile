@@ -12,8 +12,12 @@ import {
 	receiveError
 } from './AuthAction';
 import { loginCustomFirebase } from './firebase/Auth';
+import { ToastAndroid } from 'react-native';
 
 export function googleSignIn() {
+	if(googleSignInConfig.clientID === null) {
+		return ToastAndroid.show("keys are not set, hence this functionality is disabled", ToastAndroid.SHORT)
+	}
 	return function (dispatch) {
 	    GoogleSignIn.configure(googleSignInConfig)
 		.then(() => {
