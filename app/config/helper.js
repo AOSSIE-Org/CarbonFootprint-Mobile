@@ -26,22 +26,21 @@ return time;
 }
 
 export function getPlaceName(loc) {
-if(geocodingAPIKey === null) {
-  return ToastAndroid.show("Keys are not set, hence this functionality is disabled", ToastAndroid.SHORT)
-} else {
-  return new Promise((resolve, reject) => {
-    Geocoder.setApiKey(geocodingAPIKey);
-    Geocoder.getFromLatLng(loc.latitude, loc.longitude).then(
-      json => {
-         resolve(json.results[0].formatted_address);
-      },
-      error => {
-         //console.log("helper (getPlaceName): " + error);
-         reject(error);
-      }
-    );
- });
+if (geocodingAPIKey === null) {
+  return ToastAndroid.show("keys are not set, hence this functionality is disabled", ToastAndroid.SHORT)
 }
+return new Promise((resolve, reject) => {
+  Geocoder.setApiKey(geocodingAPIKey);
+  Geocoder.getFromLatLng(loc.latitude, loc.longitude).then(
+    json => {
+       resolve(json.results[0].formatted_address);
+    },
+    error => {
+       //console.log("helper (getPlaceName): " + error);
+       reject(error);
+    }
+  );
+});
 } 
 
 export function calcCo2(fuelRate, distance, mileage) {
