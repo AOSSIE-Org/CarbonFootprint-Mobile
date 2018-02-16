@@ -51,8 +51,10 @@ export function getLocation() {
     return async function(dispatch, state) {
         dispatch(request_location());
         let value = true;
-        if(Platform.OS === 'android' && Platform.Version >= 23) {
-            value = await getPermission();
+        if(Platform.OS === 'android') {
+            if (Platform.Version >= 23) {
+              value = await getPermission();
+            }
             checkGPS();
         }
         if(value) {
