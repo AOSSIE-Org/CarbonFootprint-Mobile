@@ -11,7 +11,7 @@ import Home from '../containers/Home';
 import Login from '../containers/Login';
 import Register from '../containers/Register';
 import Calculate from '../containers/Calculate';
-import Main from '../containers/Main';
+import Activity from '../containers/Activity';
 import TimelineTab from '../containers/TimelineTab';
 import More from '../containers/More';
 import About from '../containers/About';
@@ -41,7 +41,7 @@ class Navigator extends Component {
                         <Scene key="main" navBar={Footer} panHandlers={null}>
                             <Scene key="timeline" component={TimelineTab} panHandlers={null}/>
                             <Scene key="calculate" component={Calculate} panHandlers={null} initial />
-                            <Scene key="activity" component={Main} panHandlers={null}/>
+                            <Scene key="activity" component={Activity} panHandlers={null}/>
                             <Scene key="more" component={More} panHandlers={null}/>
                             <Scene key="about" component={About} panHandlers={null} hideNavBar />
                             <Scene key="terms" component={Terms} panHandlers={null} hideNavBar />

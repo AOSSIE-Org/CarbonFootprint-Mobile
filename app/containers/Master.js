@@ -18,19 +18,31 @@ class Master extends Component {
     }
 
     componentWillMount() {
-        // Check Internet connectivity here.
-        this.props.initApp();
+      this.props.initApp();
     }
 
     componentWillReceiveProps(props) {
-        if (!props.auth.isFetching) {
-            SplashScreen.hide();
-            if (!props.auth.user) {
-                Actions.landing();
+        NetInfo.isConnected.fetch().then(isConnected => {
+            if(isConnected) {
+                if (!props.auth.isFetching) {
+                    SplashScreen.hide();
+                    if (!props.auth.user) {
+                        Actions.landing();
+                    } else {
+                        Actions.main();
+                    }
+                }
             } else {
-                Actions.main();
+                Alert.alert( 
+                            'Enable Internet', 
+                            'Internet is not connected. Please connect to Internet.', 
+                            [  
+                                { text: 'OK' }, 
+                            ],
+                            { cancelable: true } 
+                        );
             }
-        }
+        })
     }
 
     /* Render is just a placeholder here

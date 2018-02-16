@@ -198,7 +198,8 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'flex-end',
 		alignItems: 'flex-end',
-		marginRight: 20
+		marginRight: 15,
+		paddingLeft: 5
 	},
 	largeText1: {
 		fontSize: 20,

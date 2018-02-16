@@ -75,9 +75,8 @@ export function getLocation() {
                 },
                 { enableHighAccuracy: true, timeout: 20000, maximumAge: 10000 },
             );
-
-            /* Getting location updates (Only when location changes)
-             this is going haywire on ios simulator so commenting it for now.
+            /* Getting location updates (Only when location changes). This is going haywire on ios simulator so commenting it for now.
+             
               this.watchID = navigator.geolocation.watchPosition((position) => {
                 let lat = position.coords.latitude;
                 let lng = position.coords.longitude;
