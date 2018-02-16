@@ -1,6 +1,5 @@
 export const firebaseConfig = {
     apiKey: null,
-    apiKey: null,
     authDomain: null,
     databaseURL: null,
     projectId: null,
