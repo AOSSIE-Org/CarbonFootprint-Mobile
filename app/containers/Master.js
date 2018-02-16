@@ -15,25 +15,11 @@ import * as AuthAction from '../actions/AuthAction';
 class Master extends Component {
     constructor(props) {
         super(props);
-        console.disableYellowBox = true;
     }
 
     componentWillMount() {
-        // Check Internet connectivity
-        NetInfo.isConnected.fetch().then(isConnected => { 
-            if(isConnected) {
-                this.props.initApp();
-            } else {
-                Alert.alert( 
-                    'Enable Internet', 
-                    'Internet is not connected. Please connect to Internet.', 
-                    [  
-                        { text: 'OK' }, 
-                    ],
-                    { cancelable: true } 
-                );
-            }
-        });
+        // Check Internet connectivity here.
+        this.props.initApp();
     }
 
     componentWillReceiveProps(props) {
