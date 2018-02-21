@@ -105,7 +105,7 @@ Type `source ~/.profile` to load the config into your current shell.
 #### Firebase SDK
 Follow the steps in **Manually add Firebase** section of https://firebase.google.com/docs/android/setup
 
-#### GeoCodingAPI key
+#### Geocoding API key
 Follow these steps to generate the key and add it to keys.js in app/config/keys.js https://developers.google.com/maps/documentation/geocoding/get-api-key
 
 #### Use AVD or a real device
