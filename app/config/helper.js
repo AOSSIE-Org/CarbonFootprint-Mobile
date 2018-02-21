@@ -25,7 +25,7 @@ return time;
 }
 
 export function getPlaceName(loc) {
-  return new Promise((resolve, reject) => {
+return new Promise((resolve, reject) => {
   Geocoder.setApiKey(geocodingAPIKey);
   Geocoder.getFromLatLng(loc.latitude, loc.longitude).then(
     json => {
