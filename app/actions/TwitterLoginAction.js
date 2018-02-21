@@ -12,11 +12,10 @@ import {
     receiveError
 } from './AuthAction';
 import { loginCustomFirebase } from './firebase/Auth';
-import { ToastAndroid } from 'react-native';
 
 export function twitterLogin() {
     if (twitterSignInConfig.twitter_key === null) {
-        return ToastAndroid.show("keys are not set, hence this functionality is disabled", ToastAndroid.SHORT)
+        return alert("keys are not set, hence this functionality is disabled")
     }
     TwitterAuth.init(twitterSignInConfig);
     return (dispatch) => {

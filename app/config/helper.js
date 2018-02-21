@@ -1,7 +1,6 @@
 import {
   Platform,
-  BackHandler,
-  ToastAndroid
+  BackHandler
 } from 'react-native';
 import Geocoder from 'react-native-geocoding';
 import { geocodingAPIKey } from './keys';
@@ -26,10 +25,7 @@ return time;
 }
 
 export function getPlaceName(loc) {
-if (geocodingAPIKey === null) {
-  return ToastAndroid.show("keys are not set, hence this functionality is disabled", ToastAndroid.SHORT)
-}
-return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
   Geocoder.setApiKey(geocodingAPIKey);
   Geocoder.getFromLatLng(loc.latitude, loc.longitude).then(
     json => {
