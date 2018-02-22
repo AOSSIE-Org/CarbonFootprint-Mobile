@@ -108,6 +108,12 @@ Follow the steps in **Manually add Firebase** section of https://firebase.google
 #### Geocoding API key
 Follow these steps to generate the key and add it to keys.js in app/config/keys.js https://developers.google.com/maps/documentation/geocoding/get-api-key
 
+#### Firebase API key
+Follow these steps to get your firebase API key  
+1. Browse console.firebase.google.com  
+2. Generate an empty project  
+3. Navigate different icons in DEVELOP to get authDomain, databaseUrl, projectID, storageBucket, messagingSenderID and add them to keys.js in app/config/keys.js
+
 #### Use AVD or a real device
 Create your AVD using "AVD Manager" in Android Studio. Choose "Android 6.0 - API Level 23" under Device, and "Intel Atom (x86_64)" under CPU/ABI.
 
