@@ -102,15 +102,12 @@ export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 ```
 Type `source ~/.profile` to load the config into your current shell.
 
-#### Firebase SDK
-Follow the steps in **Manually add Firebase** section of https://firebase.google.com/docs/android/setup
-
 #### Geocoding API key
 Follow these steps to generate the key and add it to keys.js in app/config/keys.js https://developers.google.com/maps/documentation/geocoding/get-api-key
 
 #### Firebase API key
 Follow these steps to get your firebase API key  
-1. Browse console.firebase.google.com  
+1. Browse https://console.firebase.google.com  
 2. Generate an empty project  
 3. Navigate different icons in DEVELOP to get authDomain, databaseUrl, projectID, storageBucket, messagingSenderID and add them to keys.js in app/config/keys.js
 
