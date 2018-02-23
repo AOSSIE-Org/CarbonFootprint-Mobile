@@ -14,6 +14,9 @@ import {
 import { loginCustomFirebase } from './firebase/Auth';
 
 export function googleSignIn() {
+	if(googleSignInConfig.clientID === null) {
+		return alert("keys are not set, hence this functionality is disabled")
+	}
 	return function (dispatch) {
 	    GoogleSignIn.configure(googleSignInConfig)
 		.then(() => {
