@@ -43,12 +43,19 @@ cd <project-dir>/ios
 pod install
 ```
 
-#### Facebook SDK
-Download Facebook SDK from https://developers.facebook.com/docs/ios/.
-Extract it specifically in `~/Documents/FacebookSDK`.
+#### Rename Info.plist
 
-#### Google SDK
-Open `CarbonFootprint.xcworkspace` in Xcode. In `ios` directory, there is a file called `GoogleService-Info.plist`. Drag this file into the workspace. Apply it to all the targets.
+```
+cd <project-dir>/ios
+mv Info.plist.sample Info.plist
+```
+
+#### Facebook SDK
+Follow Step 2, 3, 4 on https://developers.facebook.com/docs/ios/getting-started/.
+
+#### Google Sign In + Firebase
+1. Follow the Step **Add Firebase to your app** on https://firebase.google.com/docs/ios/setup.
+2. Open your `Info.plist` file and change {reverse-google-client-id} with the value from `GoogleService-Info.plist`.
 
 #### Editing Native Project
 For editing native project, use only `CarbonFootprint.xcworkspace` not `CarbonFootprint.xcodeproj`
@@ -94,6 +101,15 @@ export PATH=${PATH}:${ANDROID_HOME}/tools
 export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 ```
 Type `source ~/.profile` to load the config into your current shell.
+
+#### Geocoding API key
+Follow these steps to generate the key and add it to keys.js in app/config/keys.js https://developers.google.com/maps/documentation/geocoding/get-api-key
+
+#### Firebase API key
+Follow these steps to get your firebase API key  
+1. Browse https://console.firebase.google.com  
+2. Generate an empty project  
+3. Navigate different icons in DEVELOP to get authDomain, databaseUrl, projectID, storageBucket, messagingSenderID and add them to keys.js in app/config/keys.js
 
 #### Use AVD or a real device
 Create your AVD using "AVD Manager" in Android Studio. Choose "Android 6.0 - API Level 23" under Device, and "Intel Atom (x86_64)" under CPU/ABI.

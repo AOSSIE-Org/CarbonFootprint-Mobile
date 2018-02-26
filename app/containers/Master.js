@@ -15,11 +15,10 @@ import * as AuthAction from '../actions/AuthAction';
 class Master extends Component {
     constructor(props) {
         super(props);
-        console.disableYellowBox = true;
     }
 
     componentWillMount() {
-                this.props.initApp();
+      this.props.initApp();
     }
 
     componentWillReceiveProps(props) {

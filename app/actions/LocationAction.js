@@ -51,10 +51,12 @@ export function getLocation() {
     return async function(dispatch, state) {
         dispatch(request_location());
         let value = true;
-        if(Platform.OS === 'android' && Platform.Version >= 23) {
-            value = await getPermission();
+        if(Platform.OS === 'android') {
+            if (Platform.Version >= 23) {
+              value = await getPermission();
+            }
+            checkGPS();
         }
-        checkGPS();
         if(value) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
@@ -73,11 +75,10 @@ export function getLocation() {
                 (error) => {
                     //console.log(error.message);
                 },
-                //{ enableHighAccuracy: true, timeout: 20000, maximumAge: 10000 },
+                { enableHighAccuracy: true, timeout: 20000, maximumAge: 10000 },
             );
-
-            /*
-            // Getting location updates (Only when location changes)
+            /* Getting location updates (Only when location changes). This is going haywire on ios simulator so commenting it for now.
+             
               this.watchID = navigator.geolocation.watchPosition((position) => {
                 let lat = position.coords.latitude;
                 let lng = position.coords.longitude;
@@ -96,7 +97,7 @@ export function getLocation() {
               },
               {enableHighAccuracy: true, timeout: 1000, maximumAge: 0, distanceFilter:1}
               );
-              */
+            */
         }
     }
 }

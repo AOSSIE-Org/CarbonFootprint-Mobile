@@ -14,6 +14,9 @@ import {
 import { loginCustomFirebase } from './firebase/Auth';
 
 export function twitterLogin() {
+    if (twitterSignInConfig.twitter_key === null) {
+        return alert("keys are not set, hence this functionality is disabled")
+    }
     TwitterAuth.init(twitterSignInConfig);
     return (dispatch) => {
         TwitterAuth.login()
