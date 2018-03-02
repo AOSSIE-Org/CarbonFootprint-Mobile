@@ -110,7 +110,7 @@ Follow these steps to get your firebase API key
 1. Browse https://console.firebase.google.com  
 2. Generate an empty project  
 3. Navigate different icons in DEVELOP to get authDomain, databaseUrl, projectID, storageBucket, messagingSenderID and add them to keys.js in app/config/keys.js
-4. Go to settings/general in the firebase console and download the google-services.json file and add it to PROJECTNAME/android
+4. Go to settings/general in the firebase console and download the google-services.json file and add it to PROJECT_NAME/android/app
 
 #### Google Maps API key
 1. Browse https://developers.google.com/maps/documentation/javascript/get-api-key
