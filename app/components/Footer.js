@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     View,
     Text,
@@ -11,19 +11,18 @@ import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { getIcon, color } from '../config/helper.js';
 
-class Footer extends Component {
-    render() {
+const Footer  = props => {
         const size = 20;
         const footerColor = {
-            calculate: this.props.name === 'calculate' ?
+            calculate: props.name === 'calculate' ?
                         color.primary: color.black,
-            activity: this.props.name === 'activity' ?
+            activity: props.name === 'activity' ?
                         color.primary: color.black,
-            friends: this.props.name === 'friends' ?
+            friends: props.name === 'friends' ?
                         color.primary: color.black,
-            more: this.props.name === 'more' ?
+            more: props.name === 'more' ?
                         color.primary: color.black,
-            stats: this.props.name === 'stats' ?
+            stats: props.name === 'stats' ?
                         color.primary: color.black,
         }
 
@@ -80,7 +79,6 @@ class Footer extends Component {
                 }
             </View>
         )
-    }
 }
 
 const styles = StyleSheet.create({

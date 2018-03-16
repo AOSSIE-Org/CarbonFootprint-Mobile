@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     StyleSheet,
     Text,
@@ -11,8 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import { getIcon, color } from '../config/helper';
 
-class FootprintCard extends Component {
-    render() {
+const FootprintCard = props => {
         const tabs = [
             {
                 value: 0,
@@ -31,7 +30,6 @@ class FootprintCard extends Component {
                 icon: "walk",
             }
         ];
-        let props = this.props;
         return(
             <View style={styles.container}>
                 <View style={styles.tabs}>
@@ -95,7 +93,6 @@ class FootprintCard extends Component {
                 }
             </View>
         )
-    }
 }
 
 const styles = StyleSheet.create({

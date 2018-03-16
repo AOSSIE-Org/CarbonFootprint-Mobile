@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     View,
     StyleSheet,
@@ -8,30 +8,26 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
 
-class LandingButtons extends Component {
-    constructor(props) {
-        super(props);
-    }
+const LandingButtons = props => {
 
-    render() {
         return(
             <View style={styles.container}>
                 <View style={styles.button}>
                     <Icon.Button name="facebook" backgroundColor="#3b5998" borderRadius={1}
-                        iconStyle={styles.buttonIcon} onPress={() => this.props.fbLogin()}>
+                        iconStyle={styles.buttonIcon} onPress={() => props.fbLogin()}>
                         <Text style={styles.buttonText}>Continue with Facebook</Text>
                     </Icon.Button>
                 </View>
                 <View style={styles.button}>
                     <Icon.Button name="google" backgroundColor="#dd4b39" borderRadius={1}
                         iconStyle={styles.buttonIcon}>
-                        <Text style={styles.buttonText} onPress={() => this.props.googleSignIn()}>Continue with Google</Text>
+                        <Text style={styles.buttonText} onPress={() => props.googleSignIn()}>Continue with Google</Text>
                     </Icon.Button>
                 </View>
                 <View style={styles.button}>
                     <Icon.Button name="twitter" backgroundColor="#4099ff" borderRadius={1}
                         iconStyle={styles.buttonIcon}>
-                        <Text style={styles.buttonText} onPress={() => this.props.twitterLogin()}>Continue with Twitter</Text>
+                        <Text style={styles.buttonText} onPress={() => props.twitterLogin()}>Continue with Twitter</Text>
                     </Icon.Button>
                 </View>
                 <View style={styles.local}>
@@ -49,7 +45,6 @@ class LandingButtons extends Component {
 
             </View>
         )
-    }
 }
 
 const styles = StyleSheet.create({

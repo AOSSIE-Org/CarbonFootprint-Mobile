@@ -2,7 +2,7 @@
  * To show friends list item
 */
 
-import React, { Component } from 'react';
+import React from 'react';
 import {
     View,
     StyleSheet,
@@ -16,48 +16,46 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { color, getIcon } from '../config/helper';
 import images from '../config/images';
 
-class FriendRow extends Component {
-    render() {
-        let {data, text} = this.props;
-        return (
-            <View style={styles.container}>
-                <View style={styles.main}>
-                    <View style={styles.info}>
+const FriendRow = props => {
+    let {data, text} = props;
+    return (
+        <View style={styles.container}>
+            <View style={styles.main}>
+                <View style={styles.info}>
+                    {
+                        data.picture?
+                        <Image source={{uri: data.picture}} style={styles.image} />
+                        :
+                        <Image source={images.noImage} style={styles.image} />
+                    }
+                    <View style={styles.left}>
+                        <Text style={styles.largeText}>{data.name}</Text>
+                        <Text style={styles.smallText}>
+                            {text}
+                        </Text>
+                    </View>
+                    <View style={styles.right}>
                         {
-                            data.picture?
-                            <Image source={{uri: data.picture}} style={styles.image} />
+                            props.iconName?    
+                                <TouchableNativeFeedback onPress={props.link}>
+                                    <Icon name={getIcon(props.iconName)} size={30} color="black"/>
+                                </TouchableNativeFeedback>
                             :
-                            <Image source={images.noImage} style={styles.image} />
+                            <View>
+                                <Text>
+                                {
+                                    data.data?
+                                    data.data.total.footprint + " kg":
+                                    "0 kg" 
+                                }
+                                </Text>
+                            </View>
                         }
-                        <View style={styles.left}>
-                            <Text style={styles.largeText}>{data.name}</Text>
-                            <Text style={styles.smallText}>
-                                {text}
-                            </Text>
-                        </View>
-                        <View style={styles.right}>
-                            {
-                                this.props.iconName?    
-                                        <TouchableNativeFeedback onPress={this.props.link}>
-                                            <Icon name={getIcon(this.props.iconName)} size={30} color="black"/>
-                                        </TouchableNativeFeedback>
-                                :
-                                <View>
-                                    <Text>
-                                    {
-                                        data.data?
-                                        data.data.total.footprint + " kg":
-                                        "0 kg" 
-                                    }
-                                    </Text>
-                                </View>
-                            }
-                        </View>
                     </View>
                 </View>
             </View>
-        )
-    }
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({

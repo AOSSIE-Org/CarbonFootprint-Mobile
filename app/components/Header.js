@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     View,
     StyleSheet,
@@ -11,37 +11,34 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 import { getIcon, color } from '../config/helper';
 
-class Header extends Component {
-    render() {
-        let props = this.props;
-        let topContainerStyle = [styles.container];
-        if (!props.noShadow) {
-            topContainerStyle.push(styles.shadow);
+const Header = props => {
+    let topContainerStyle = [styles.container];
+    if (!props.noShadow) {
+        topContainerStyle.push(styles.shadow);
+    }
+    if (Platform.OS === 'android') {
+        topContainerStyle.push(styles.leftAlign);
+    }
+    if (props.icon) {
+        if (Platform.OS === "ios") {
+            topContainerStyle.push(styles.spaceBetween);
         }
-        if (Platform.OS === 'android') {
-            topContainerStyle.push(styles.leftAlign);
-        }
-        if (props.icon) {
-            if (Platform.OS === "ios") {
-                topContainerStyle.push(styles.spaceBetween);
-            }
-            return (
-                <View style={topContainerStyle}>
-                    <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
-                    <Icon.Button name={getIcon(props.iconName)} backgroundColor={color.primary}
-                        iconStyle={styles.icon} onPress={() => Actions.pop()} size={22}>
-                    </Icon.Button>
-                    <Text style={styles.text}>{props.text}</Text>
-                    <Text style={styles.greenText}>Carbon</Text>
-                </View>
-            )
-        } else {
-            return (
-                <View style={topContainerStyle}>
-                    <Text style={styles.text}>{props.text}</Text>
-                </View>
-            )
-        }
+        return (
+            <View style={topContainerStyle}>
+                <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
+                <Icon.Button name={getIcon(props.iconName)} backgroundColor={color.primary}
+                    iconStyle={styles.icon} onPress={() => Actions.pop()} size={22}>
+                </Icon.Button>
+                <Text style={styles.text}>{props.text}</Text>
+                <Text style={styles.greenText}>Carbon</Text>
+            </View>
+        )
+    } else {
+        return (
+            <View style={topContainerStyle}>
+                <Text style={styles.text}>{props.text}</Text>
+            </View>
+        )
     }
 }
 
