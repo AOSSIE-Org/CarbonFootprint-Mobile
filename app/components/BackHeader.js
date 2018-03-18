@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import {
     View,
@@ -9,24 +9,23 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import { getIcon } from '../config/helper';
 
-class BackHeader extends Component {
-    render() {
-        return(
-            <View style={styles.container}>
-                <Icon.Button name={getIcon("arrow-back")} backgroundColor="#fff" iconStyle={styles.icon}
-                    onPress={() => Actions.home()}>
+const BackHeader = props => {
+    return(
+        <View style={styles.container}>
+            <Icon.Button name={getIcon("arrow-back")} backgroundColor="#fff" iconStyle={styles.icon}
+                onPress={() => Actions.home()}>
+            </Icon.Button>
+            { props.text ?
+                <Icon.Button backgroundColor="#fff" onPress={props.link}
+                    iconStyle={styles.iconText}>
+                    <Text style={styles.text}>{props.text}</Text>
                 </Icon.Button>
-                { this.props.text ?
-                    <Icon.Button backgroundColor="#fff" onPress={this.props.link}
-                        iconStyle={styles.iconText}>
-                        <Text style={styles.text}>{this.props.text}</Text>
-                    </Icon.Button>
-                    : null
-                }
-            </View>
-        )
-    }
+                : null
+            }
+        </View>
+    )
 }
+
 
 const styles = StyleSheet.create({
     container: {

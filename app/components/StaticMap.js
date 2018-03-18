@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import {
     View,
@@ -6,12 +6,9 @@ import {
     StyleSheet
 } from 'react-native';
 
-class StaticMap extends Component {
-    constructor(props) {
-        super(props);
-    }
+const StaticMap = props => {
 
-    markers(location, id) {
+    const markers = (location, id) => {
         let color = !id ?
             "red": "green";
         return (
@@ -22,32 +19,29 @@ class StaticMap extends Component {
         )
     }
 
-    render() {
-        let props = this.props;
-        return(
-            <MapView provider={PROVIDER_GOOGLE}
-                showsUserLocation={true}
-                showsMyLocationButton={true}
-                region={props.region} style={styles.map}>
-                {
-                    props.source ?
-                    this.markers(props.source, 0): null
-                }
-                {
-                    props.destination ?
-                    this.markers(props.destination, 1): null
-                }
-                {
-                    props.coords ?
-                    <MapView.Polyline
-                        coordinates={props.coords}
-                        strokeWidth={4}
-                        strokeColor="#666" />
-                    : null
-                }
-            </MapView>
-        )
-    }
+    return(
+        <MapView provider={PROVIDER_GOOGLE}
+            showsUserLocation={true}
+            showsMyLocationButton={true}
+            region={props.region} style={styles.map}>
+            {
+                props.source ?
+                markers(props.source, 0): null
+            }
+            {
+                props.destination ?
+                markers(props.destination, 1): null
+            }
+            {
+                props.coords ?
+                <MapView.Polyline
+                    coordinates={props.coords}
+                    strokeWidth={4}
+                    strokeColor="#666" />
+                : null
+            }
+        </MapView>
+    )
 }
 
 const styles = StyleSheet.create({
