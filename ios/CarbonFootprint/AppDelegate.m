@@ -30,7 +30,7 @@
   [GMSPlacesClient provideAPIKey:@"AIzaSyC5pNPr-cnD2fuh_4QMIpLB3FzA7Vm3l2E"];
   [GMSServices provideAPIKey:@"AIzaSyDx7ltAnVJ-rQv0815RD49WpsZSJT3Kls8"];
 
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"CarbonFootprint"
