@@ -97,6 +97,10 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
 
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
     defaultConfig {
         applicationId "com.carbonfootprint"
         minSdkVersion 16
@@ -106,7 +110,17 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-         multiDexEnabled true 
+         multiDexEnabled true
+    }
+    signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
+        } 
     }
     splits {
         abi {
@@ -154,8 +168,7 @@ dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:26.1.0"
-    compile "com.facebook.react:react-native:+"
-    compile 'com.android.support:multidex:1.0.1'  // From node_modules
+    compile "com.facebook.react:react-native:+"  // From node_modules
 }
 
 apply plugin: "com.google.gms.google-services"
