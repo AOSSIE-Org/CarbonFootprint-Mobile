@@ -2,7 +2,7 @@ package com.carbonfootprint;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
-import com.cboy.rn.splashscreen.SplashScreen;
+import org.devio.rn.splashscreen.SplashScreen;
 
 import android.content.Intent;
 
