@@ -7,7 +7,7 @@ import {
     Image,
     StatusBar,
     TouchableHighlight,
-    Alert, 
+    Alert,
     Linking
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -15,9 +15,17 @@ import { Actions } from 'react-native-router-flux';
 import Header from '../components/Header';
 import images from '../config/images';
 
+/**
+ * About CarbonFootprint-Mobile Project
+ * @extends Component
+ */
 class About extends Component {
+    /**
+     * renders elements inside to screen
+     * @return {JSX}
+     */
     render() {
-        return(
+        return (
             <View style={styles.container}>
                 <Header icon={true} iconName="arrow-back" text="About Us" />
                 <View style={styles.main}>
@@ -26,43 +34,64 @@ class About extends Component {
                     <View style={styles.text}>
                         <View style={styles.small}>
                             <Text>
-                                Carbon Footprint is an open-source project developed by
+                                Carbon Footprint is an open-source project
+                                developed by
                             </Text>
-                            <Text style={styles.blueText}
-                                  onPress={() => Linking.openURL('http://aossie.org')}>
-                              AOSSIE
+                            <Text
+                                style={styles.blueText}
+                                onPress={() =>
+                                    Linking.openURL('http://aossie.org')
+                                }
+                            >
+                                AOSSIE
                             </Text>
                             <Text>
-                            (the Australian Open Source Software Innovation and Education association). 
-                             This mobile application calculates amount of emitted co2 based on user's activity and traveled distance. 
-                             Method used to calculate co2 emission is given 
-                             </Text>
-                             <TouchableHighlight onPress={this.calcMethod}>
-                                 <Text style={styles.blueText}>
-                                    here
-                                 </Text>    
+                                (the Australian Open Source Software Innovation
+                                and Education association). This mobile
+                                application calculates amount of emitted co2
+                                based on user's activity and traveled distance.
+                                Method used to calculate co2 emission is given
+                            </Text>
+                            <TouchableHighlight onPress={this.calcMethod}>
+                                <Text style={styles.blueText}>here</Text>
                             </TouchableHighlight>
                             <Text>
-                            . Feedbacks and contributions are welcome in our 
+                                . Feedbacks and contributions are welcome in our
                             </Text>
-                            <Text style={styles.blueText} 
-                                onPress={() => Linking.openURL('https://gitlab.com/aossie/CarbonFootprint-Mobile')}>
-                              GitLab repository
+                            <Text
+                                style={styles.blueText}
+                                onPress={() =>
+                                    Linking.openURL(
+                                        'https://gitlab.com/aossie/CarbonFootprint-Mobile'
+                                    )
+                                }
+                            >
+                                GitLab repository
                             </Text>
                             <Text>
-                            . Report bugs and request features in our 
+                                . Report bugs and request features in our
                             </Text>
-                            <Text style={styles.blueText}
-                                  onPress={() => Linking.openURL('https://gitlab.com/aossie/CarbonFootprint-Mobile/issues')}>
-                              issue tracker.
+                            <Text
+                                style={styles.blueText}
+                                onPress={() =>
+                                    Linking.openURL(
+                                        'https://gitlab.com/aossie/CarbonFootprint-Mobile/issues'
+                                    )
+                                }
+                            >
+                                issue tracker.
                             </Text>
                         </View>
                     </View>
                 </View>
             </View>
-        )
+        );
     }
 
+    /**
+     * Showing formula For calculating the co2 emission
+     * @return {Alert} alert dialog containing formula and description
+     */
     calcMethod() {
         Alert.alert(
             'co2 calculation method',
@@ -70,42 +99,44 @@ class About extends Component {
             [
                 {
                     text: 'OK'
-                },
+                }
             ],
             { cancelable: true }
-        )
+        );
     }
 }
 
+//StyleSheet
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1
     },
     main: {
         alignItems: 'center',
         marginTop: 65, // (45 + 20)
-        padding: 13,
+        padding: 13
     },
     image: {
         width: 80,
-        height: 80,
+        height: 80
     },
     large: {
         letterSpacing: 2,
         fontSize: 14,
-        marginTop: 10,
+        marginTop: 10
     },
     small: {
         fontSize: 13,
         color: '#555',
-        padding: 13,
+        padding: 13
     },
     text: {
-        marginTop: 10,
+        marginTop: 10
     },
     blueText: {
         color: 'blue'
     }
-})
+});
 
+//making About Container Available to other parts of App
 export default About;

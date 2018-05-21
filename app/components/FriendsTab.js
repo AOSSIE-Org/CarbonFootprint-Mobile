@@ -1,5 +1,5 @@
 /*
- * Displays list of friends (this.props.choice = 1) 
+ * Displays list of friends (this.props.choice = 1)
  * and friend requests (this.props.choice = 2)
 */
 
@@ -17,6 +17,10 @@ import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FriendRow from './FriendRow';
 
+/**
+ * Component Showing List Of Friends And Friend Requests
+ * @extends Component
+ */
 class FriendsTab extends Component {
     componentWillMount() {
         this.props.getFriendList(this.props.choice);
@@ -25,20 +29,25 @@ class FriendsTab extends Component {
     render() {
         var friends = this.props.friends;
         var friendList = friends.list;
-        if(friends.isFetching) {
+        if (friends.isFetching) {
             return (
                 <View style={styles.centerScreen}>
                     <ActivityIndicator color={color.primary} size="large" />
                 </View>
-            )
-        } else if (friendList === null ||
-            Object.keys(friendList).length <= 0) {
+            );
+        } else if (friendList === null || Object.keys(friendList).length <= 0) {
             return (
                 <View style={styles.centerScreen}>
-                    <Icon name={getIcon("sad")} size={56} color={color.lightPrimary} />
-                    <Text style={styles.warningText}>Its kind of lonely here.</Text>
+                    <Icon
+                        name={getIcon('sad')}
+                        size={56}
+                        color={color.lightPrimary}
+                    />
+                    <Text style={styles.warningText}>
+                        Its kind of lonely here.
+                    </Text>
                 </View>
-            )
+            );
         } else {
             // Gamification: Sorting friends list based on emitted co2
             /*
@@ -62,38 +71,51 @@ class FriendsTab extends Component {
             */
             return (
                 <ScrollView contentContainerStyle={styles.friends}>
-                    {
-                        friendList.map((friend, index) => {
-                            return (
-                                <View key={index}>
-                                    <FriendRow last={index === (friendList.length - 1)}
-                                        data={friend}
-                                        iconName={this.props.choice === "2"? "checkmark": null}
-                                        link={this.props.choice === "2"? () => this.props.acceptFriendRequest(this.props.auth.user.uid, friend.uid): null}
-                                        text={
-                                            friend.data ?
-                                            friend.data.total:
-                                            "No Activity"
-                                        } />
-                                </View>
-                            )
-                        })
-                    }
+                    {friendList.map((friend, index) => {
+                        return (
+                            <View key={index}>
+                                <FriendRow
+                                    last={index === friendList.length - 1}
+                                    data={friend}
+                                    iconName={
+                                        this.props.choice === '2'
+                                            ? 'checkmark'
+                                            : null
+                                    }
+                                    link={
+                                        this.props.choice === '2'
+                                            ? () =>
+                                                  this.props.acceptFriendRequest(
+                                                      this.props.auth.user.uid,
+                                                      friend.uid
+                                                  )
+                                            : null
+                                    }
+                                    text={
+                                        friend.data
+                                            ? friend.data.total
+                                            : 'No Activity'
+                                    }
+                                />
+                            </View>
+                        );
+                    })}
                 </ScrollView>
-            )
+            );
         }
     }
 }
 
+//StyleSheet
 const styles = StyleSheet.create({
     container: {
         backgroundColor: color.greyBack,
-        flex: 1,
+        flex: 1
     },
     warningText: {
         fontSize: 18,
         color: color.darkPrimary,
-        marginTop: 10,
+        marginTop: 10
     },
     centerScreen: {
         top: 0,
@@ -102,13 +124,14 @@ const styles = StyleSheet.create({
         bottom: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        position: 'absolute',
+        position: 'absolute'
     },
     friends: {
         backgroundColor: color.greyBack,
         alignItems: 'center',
-        flex: 1,
+        flex: 1
     }
-})
+});
 
+//Making FriendsTab available to other parts of app
 export default FriendsTab;

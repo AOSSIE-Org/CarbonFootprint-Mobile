@@ -9,53 +9,62 @@ import {
     NO_DIRECTION
 } from '../actions/DirectionAction';
 
-export default function direction(state = {
-    source: {
-        latitude: null,
-        longitude: null,
+/**
+ * direction reducer to handle source,destination,place,distance,duration,isFetching,coords
+ * @param Object state type of data which changes in component and rerenders
+ * @param action which tells reducer to perform certain actions
+ * @return {state} based on action the function changes the state and rerenders
+ */
+export default function direction(
+    state = {
+        source: {
+            latitude: null,
+            longitude: null
+        },
+        destination: {
+            latitude: null,
+            longitude: null
+        },
+        region: {
+            latitude: null,
+            longitude: null,
+            latitudeDelta: null,
+            longitudeDelta: null
+        },
+        coords: null,
+        distance: {
+            value: null,
+            text: null
+        },
+        duration: {
+            value: null,
+            text: null
+        },
+        isFetching: false,
+        sourceName: 'Your Location',
+        destinationName: 'Where to?'
     },
-    destination: {
-        latitude: null,
-        longitude: null,
-    },
-    region: {
-        latitude: null,
-        longitude: null,
-        latitudeDelta: null,
-        longitudeDelta: null
-    },
-    coords: null,
-    distance: {
-        value: null,
-        text: null,
-    },
-    duration: {
-        value: null,
-        text: null
-    },
-    isFetching: false,
-    sourceName: "Your Location",
-    destinationName: "Where to?",
-}, action) {
-    switch(action.type) {
+    action
+) {
+    switch (action.type) {
         case SET_SOURCE:
             return Object.assign({}, state, {
                 source: action.source,
-                sourceName: action.sourceName,
+                sourceName: action.sourceName
             });
         case SET_DESTINATION:
             return Object.assign({}, state, {
                 destination: action.destination,
-                destinationName: action.destinationName,
+                destinationName: action.destinationName
             });
         case REQUEST_DIRECTION:
             return Object.assign({}, state, {
-                isFetching: true,
+                isFetching: true
             });
         case RECEIVE_DIRECTION:
             return Object.assign({}, state, {
                 isFetching: false,
-                coords: action.coords,
+                coords: action.coords
             });
         case SET_REGION:
             return Object.assign({}, state, {
@@ -75,12 +84,12 @@ export default function direction(state = {
                 coords: null,
                 duration: {
                     value: null,
-                    text: null,
+                    text: null
                 },
                 distance: {
                     value: null,
-                    text: null,
-                },
+                    text: null
+                }
             });
         default:
             return state;

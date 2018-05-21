@@ -7,7 +7,7 @@ import {
     TouchableHighlight,
     Dimensions,
     Platform,
-    StatusBar,
+    StatusBar
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -20,6 +20,10 @@ import * as AuthAction from '../actions/AuthAction';
 import Header from '../components/Header';
 import { getIcon, color } from '../config/helper';
 
+/**
+ * More Screen container
+ * @extends Component
+ */
 class More extends Component {
     logout() {
         Alert.alert(
@@ -27,47 +31,49 @@ class More extends Component {
             'Are you sure you want to logout?',
             [
                 {
-                    text: 'Cancel', style: 'cancel'
+                    text: 'Cancel',
+                    style: 'cancel'
                 },
                 {
-                    text: 'OK', onPress: () => this.props.logout()
-                },
+                    text: 'OK',
+                    onPress: () => this.props.logout()
+                }
             ],
             { cancelable: true }
-        )
+        );
     }
 
     render() {
         let groups = [
             [
                 {
-                    icon: "settings",
-                    text: "Settings",
-                    link: () => Actions.settings(),
+                    icon: 'settings',
+                    text: 'Settings',
+                    link: () => Actions.settings()
                 },
                 {
-                    icon: "history",
-                    text: "History",
-                    link: () => Actions.timeline(),
+                    icon: 'history',
+                    text: 'History',
+                    link: () => Actions.timeline()
                 }
             ],
             [
                 {
-                    icon: "information-circle",
-                    text: "About Us",
-                    link: () => Actions.about(),
+                    icon: 'information-circle',
+                    text: 'About Us',
+                    link: () => Actions.about()
                 },
                 {
-                    icon: "clipboard",
-                    text: "Terms and Conditions",
-                    link: () => Actions.terms(),
+                    icon: 'clipboard',
+                    text: 'Terms and Conditions',
+                    link: () => Actions.terms()
                 }
             ],
             [
                 {
-                    icon: "log-out",
-                    text: "Logout",
-                    link: () => this.logout(),
+                    icon: 'log-out',
+                    text: 'Logout',
+                    link: () => this.logout()
                 }
             ]
         ];
@@ -75,51 +81,63 @@ class More extends Component {
             <View style={styles.container}>
                 <Header icon={false} text="More" />
                 <View style={styles.main}>
-                    {
-                        groups.map((group, index) => {
-                            return (
-                                <View style={styles.group} key={index}>
-                                    {
-                                        group.map((item, i) => {
-                                            return (
-                                                <TouchableHighlight onPress={item.link}
-                                                    activeOpacity={0.5} underlayColor="#eee" key={i}>
-                                                    <View style={styles.button}>
-                                                        {
-                                                        item.icon === "history"?
-                                                        <Icon1 name={item.icon}
-                                                            size={20} style={styles.icon} color={color.black} /> 
-                                                        :<Icon name={getIcon(item.icon)}
-                                                            size={24} style={styles.icon} color={color.black} />
-                                                        }
-                                                        <Text style={styles.text}>{item.text}</Text>
-                                                    </View>
-                                                </TouchableHighlight>
-                                            )
-                                        })
-                                    }
-                                </View>
-                            )
-                        })
-                    }
+                    {groups.map((group, index) => {
+                        return (
+                            <View style={styles.group} key={index}>
+                                {group.map((item, i) => {
+                                    return (
+                                        <TouchableHighlight
+                                            onPress={item.link}
+                                            activeOpacity={0.5}
+                                            underlayColor="#eee"
+                                            key={i}
+                                        >
+                                            <View style={styles.button}>
+                                                {item.icon === 'history' ? (
+                                                    <Icon1
+                                                        name={item.icon}
+                                                        size={20}
+                                                        style={styles.icon}
+                                                        color={color.black}
+                                                    />
+                                                ) : (
+                                                    <Icon
+                                                        name={getIcon(
+                                                            item.icon
+                                                        )}
+                                                        size={24}
+                                                        style={styles.icon}
+                                                        color={color.black}
+                                                    />
+                                                )}
+                                                <Text style={styles.text}>
+                                                    {item.text}
+                                                </Text>
+                                            </View>
+                                        </TouchableHighlight>
+                                    );
+                                })}
+                            </View>
+                        );
+                    })}
                 </View>
             </View>
-        )
+        );
     }
 }
-
+/*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get("window").height,
-        backgroundColor: color.greyBack,
+        height: Dimensions.get('window').height,
+        backgroundColor: color.greyBack
     },
     main: {
         marginTop: 55, // 75-20
-        width: Dimensions.get("window").width,
+        width: Dimensions.get('window').width
     },
     group: {
         marginTop: 20,
-        width: Dimensions.get("window").width,
+        width: Dimensions.get('window').width
     },
     button: {
         flexDirection: 'row',
@@ -129,7 +147,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: color.borderGrey,
         shadowColor: color.shadowGrey,
-        height: 50,
+        height: 50
     },
     icon: {
         marginRight: 10
@@ -137,14 +155,22 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 14,
         color: color.black,
-        letterSpacing: 1,
+        letterSpacing: 1
     }
-})
-
+});
+/**
+ * Mapping state to props so that state variables can be used through props in children components
+ * @param state current state
+ * @return state as props
+ */
 function mapStateToProps(state) {
     return state;
 }
-
+/**
+ * Mapping dispatchable actions to props so that actions can be used through props in children components
+ * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
+ * @return Turns an object whose values are action creators, into an object with the same keys,
+ */
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(Object.assign({}, AuthAction), dispatch);
 }

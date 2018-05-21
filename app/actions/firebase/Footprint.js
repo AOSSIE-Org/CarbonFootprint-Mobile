@@ -1,7 +1,5 @@
 import * as firebase from 'firebase';
-import {
-    getUser
-} from './User';
+import { getUser } from './User';
 
 /*
     Do all the calculations locally. Query Firebase only to set (not to update).
@@ -42,17 +40,26 @@ import {
 
     currentUid: UID of the logged in user to set.
 */
+/**
+ *
+ * @param  data total co2 emitted by all sources
+ * @param  currentUid UID of the loggedin user(unique in db)
+ * @return {Promise}
+ */
 export function setFootprint(data, currentUid) {
     return new Promise(function(resolve, reject) {
-        firebase.database().ref('users/' + currentUid + "/data")
-        .set(data)
-        .then(() => {
-            getUser(currentUid)
-            .then((user) => {
-                //alert("Data sent in Firebase. UID: " + currentUid);
-                resolve(user);
-            }).catch((error) => reject(error))
-        })
-        .catch((error) => reject(error))
+        firebase
+            .database()
+            .ref('users/' + currentUid + '/data')
+            .set(data)
+            .then(() => {
+                getUser(currentUid)
+                    .then(user => {
+                        //alert("Data sent in Firebase. UID: " + currentUid);
+                        resolve(user);
+                    })
+                    .catch(error => reject(error));
+            })
+            .catch(error => reject(error));
     });
 }
