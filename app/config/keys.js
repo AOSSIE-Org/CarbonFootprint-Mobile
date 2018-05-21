@@ -9,8 +9,8 @@ export const firebaseConfig = {
 
 export const googleSignInConfig = {
     clientID: null,
-	scopes: ['openid', 'profile', 'email'],
-	shouldFetchBasicProfile: true
+    scopes: ['openid', 'profile', 'email'],
+    shouldFetchBasicProfile: true
 };
 
 export const twitterSignInConfig = {

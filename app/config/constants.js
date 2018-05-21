@@ -1,5 +1,5 @@
 // To set zoom level in map
-export const ZOOM_DELTA = 0.0030;
+export const ZOOM_DELTA = 0.003;
 
 // co2 emission rates of various fuels (in kg/L)
 export const RATE_PETROL = 2.328;

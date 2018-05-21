@@ -1,15 +1,24 @@
 import {
     REQUEST_AUTH,
     RECEIVE_AUTH,
-    RECEIVE_ERROR,
+    RECEIVE_ERROR
 } from '../actions/AuthAction';
 
-export default function login(state = {
-    isFetching: false,
-    user: {},
-    error: "",
-}, action) {
-    switch(action.type) {
+/**
+ * login reducer to handle authentication
+ * @param  Object state type of data which changes in component and rerenders
+ * @param  action which tells reducer to perform certain action
+ * @return {state} based on action the function changes the state and rerenders
+ */
+export default function login(
+    state = {
+        isFetching: false,
+        user: {},
+        error: ''
+    },
+    action
+) {
+    switch (action.type) {
         case REQUEST_AUTH:
             return Object.assign({}, state, {
                 isFetching: true
@@ -24,8 +33,8 @@ export default function login(state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 user: null,
-                error: action.error.message,
-            })
+                error: action.error.message
+            });
         default:
             return state;
     }

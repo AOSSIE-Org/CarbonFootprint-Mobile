@@ -1,32 +1,37 @@
 import React from 'react';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import {
-    View,
-    StyleSheet,
-    Text
-} from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { getIcon } from '../config/helper';
 
+/**
+ * backbutton in header
+ * @param  props properties send from parent class
+ */
 const BackHeader = props => {
-    return(
+    return (
         <View style={styles.container}>
-            <Icon.Button name={getIcon("arrow-back")} backgroundColor="#fff" iconStyle={styles.icon}
-                onPress={() => Actions.home()}>
-            </Icon.Button>
-            { props.text ?
-                <Icon.Button backgroundColor="#fff" onPress={props.link}
-                    iconStyle={styles.iconText}>
+            <Icon.Button
+                name={getIcon('arrow-back')}
+                backgroundColor="#fff"
+                iconStyle={styles.icon}
+                onPress={() => Actions.home()}
+            />
+            {props.text ? (
+                <Icon.Button
+                    backgroundColor="#fff"
+                    onPress={props.link}
+                    iconStyle={styles.iconText}
+                >
                     <Text style={styles.text}>{props.text}</Text>
                 </Icon.Button>
-                : null
-            }
+            ) : null}
         </View>
-    )
-}
+    );
+};
 
-
+/*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
@@ -37,7 +42,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10
     },
     icon: {
-        color: '#666',
+        color: '#666'
     },
     text: {
         fontSize: 14,
@@ -46,6 +51,6 @@ const styles = StyleSheet.create({
     iconText: {
         marginRight: 0
     }
-})
+});
 
 export default BackHeader;

@@ -23,8 +23,18 @@ import Footer from '../components/Footer';
 import StaticMap from '../components/StaticMap';
 import FootprintCard from '../components/FootprintCard';
 
-import { color, getIcon, calcCo2, getMileage, getFuelRate } from '../config/helper';
+import {
+    color,
+    getIcon,
+    calcCo2,
+    getMileage,
+    getFuelRate
+} from '../config/helper';
 
+/**
+ * Calculate container
+ * @extends Component
+ */
 class Calculate extends Component {
     constructor(props) {
         super(props);
@@ -35,10 +45,10 @@ class Calculate extends Component {
             },
             destination: {
                 latitude: null,
-                longitude: null,
+                longitude: null
             },
             tab: 0
-        }
+        };
     }
 
     componentWillMount() {
@@ -54,9 +64,12 @@ class Calculate extends Component {
         let destination = props.direction.destination;
         let tab = this.state.tab;
         // I dare you to remove this condition
-        if(source.latitude) {
-            if(destination.latitude) {
-                if(!_.isEqual(this.state.source, source) || !_.isEqual(this.state.destination, destination)) {
+        if (source.latitude) {
+            if (destination.latitude) {
+                if (
+                    !_.isEqual(this.state.source, source) ||
+                    !_.isEqual(this.state.destination, destination)
+                ) {
                     this.setState({
                         source,
                         destination
@@ -67,13 +80,20 @@ class Calculate extends Component {
         }
     }
 
+    /**
+     * call back function when changed vechile type
+     * @param  tab number each indicates vechle id check FootprintCard.js
+     * @return current tab status
+     */
     onChangeTab(tab) {
         let state;
         this.setState({
             tab
         });
-        this.props.getDirections(this.state.source,
-            this.state.destination, tab
+        this.props.getDirections(
+            this.state.source,
+            this.state.destination,
+            tab
         );
     }
 
@@ -87,16 +107,25 @@ class Calculate extends Component {
 
         if (source.latitude) {
             if (destination.latitude) {
-                map = <StaticMap source={source} destination={destination}
-                        region={region} coords={coords} />
+                map = (
+                    <StaticMap
+                        source={source}
+                        destination={destination}
+                        region={region}
+                        coords={coords}
+                    />
+                );
             } else {
-                map = <StaticMap source={source} region={region} />
+                map = <StaticMap source={source} region={region} />;
             }
         }
 
-        return(
+        return (
             <View style={styles.container}>
-                <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content"/>
+                <StatusBar
+                    backgroundColor={color.darkPrimary}
+                    barStyle="light-content"
+                />
                 {
                     /*this.props.location.isFetching?
                     <View style={styles.center}>
@@ -107,67 +136,89 @@ class Calculate extends Component {
 
                 <View style={styles.button}>
                     <View style={styles.box}>
-                        <Icon.Button name={getIcon("pin")}
-                            backgroundColor={color.lightPrimary} borderRadius={2}
-                            size={16} iconStyle={styles.icon}
-                            onPress={() => this.props.openSearchModal(0)}>
-                            <Text style={styles.text}>{direction.sourceName}</Text>
+                        <Icon.Button
+                            name={getIcon('pin')}
+                            backgroundColor={color.lightPrimary}
+                            borderRadius={2}
+                            size={16}
+                            iconStyle={styles.icon}
+                            onPress={() => this.props.openSearchModal(0)}
+                        >
+                            <Text style={styles.text}>
+                                {direction.sourceName}
+                            </Text>
                         </Icon.Button>
                     </View>
                     <View>
-                        <Icon.Button name={getIcon("flag")}
-                            backgroundColor={color.lightPrimary} borderRadius={2}
-                            size={16} iconStyle={styles.icon}
-                            onPress={() => this.props.openSearchModal(1)}>
-                            <Text style={styles.text}>{direction.destinationName}</Text>
+                        <Icon.Button
+                            name={getIcon('flag')}
+                            backgroundColor={color.lightPrimary}
+                            borderRadius={2}
+                            size={16}
+                            iconStyle={styles.icon}
+                            onPress={() => this.props.openSearchModal(1)}
+                        >
+                            <Text style={styles.text}>
+                                {direction.destinationName}
+                            </Text>
                         </Icon.Button>
                     </View>
                 </View>
-                {
-                    source.latitude && destination.latitude ?
-                    <FootprintCard distance={direction.distance}
+                {source.latitude && destination.latitude ? (
+                    <FootprintCard
+                        distance={direction.distance}
                         duration={direction.duration}
                         onChangeTab={this.onChangeTab.bind(this)}
-                        footprint={direction.distance.text? ((this.state.tab === 0 || this.state.tab === 1)? calcCo2(getFuelRate(), direction.distance.text, getMileage()): 0): null} 
+                        footprint={
+                            direction.distance.text
+                                ? this.state.tab === 0 || this.state.tab === 1
+                                    ? calcCo2(
+                                          getFuelRate(),
+                                          direction.distance.text,
+                                          getMileage()
+                                      )
+                                    : 0
+                                : null
+                        }
                         tab={this.state.tab}
-                        fetching={direction.isFetching} />
-                    : null
-                }
-
+                        fetching={direction.isFetching}
+                    />
+                ) : null}
             </View>
-        )
+        );
     }
 }
 
+//StyleSheet
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get("window").height,
+        height: Dimensions.get('window').height
     },
     map: {
         top: 0,
         bottom: 0,
         left: 0,
         right: 0,
-        position: 'absolute',
+        position: 'absolute'
     },
     button: {
         backgroundColor: color.primary,
         top: 0,
         zIndex: 2,
         padding: 20,
-        paddingTop: Platform.OS === "ios" ? 30: 20,
+        paddingTop: Platform.OS === 'ios' ? 30 : 20
     },
     box: {
         borderBottomWidth: 1,
-        borderColor: color.primary,
+        borderColor: color.primary
     },
     icon: {
-        color: color.grey,
+        color: color.grey
     },
     text: {
         color: color.white,
         fontSize: 14,
-        letterSpacing: 1,
+        letterSpacing: 1
     },
     center: {
         top: 0,
@@ -176,20 +227,27 @@ const styles = StyleSheet.create({
         bottom: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        position: 'absolute',
+        position: 'absolute'
     }
-})
-
+});
+/**
+ * Mapping state to props so that state variables can be used through props in children components
+ * @param state current state
+ * @return state as props
+ */
 function mapStateToProps(state) {
     return state;
 }
-
+/**
+ * Mapping dispatchable actions to props so that actions can be used through props in children components
+ * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
+ * @return Turns an object whose values are action creators, into an object with the same keys,
+ */
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({},
-        LocationAction,
-        DirectionAction,
-        StorageAction
-    ), dispatch);
+    return bindActionCreators(
+        Object.assign({}, LocationAction, DirectionAction, StorageAction),
+        dispatch
+    );
 }
-
+//This is needed to allow children components to have access to Actions and store variables
 export default connect(mapStateToProps, mapDispatchToProps)(Calculate);

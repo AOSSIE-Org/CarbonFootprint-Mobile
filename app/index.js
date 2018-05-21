@@ -6,11 +6,11 @@ import Navigator from './config/routes';
 
 class CarbonFootprint extends Component {
     render() {
-        return(
+        return (
             <Provider store={store}>
                 <Navigator />
             </Provider>
-        )
+        );
     }
 }
 
