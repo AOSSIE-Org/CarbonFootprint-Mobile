@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     dateView: {
         alignItems: 'flex-start',
         paddingLeft: 55,
-		marginLeft : 10,
+        marginLeft : 10,
         flex: 2
     },
     datePickerView: {
