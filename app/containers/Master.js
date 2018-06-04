@@ -4,6 +4,7 @@ import SplashScreen from 'react-native-splash-screen';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 
 import * as AuthAction from '../actions/AuthAction';
 
@@ -78,6 +79,11 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(Object.assign({}, AuthAction), dispatch);
+}
+
+Master.propTypes = {
+    auth: PropTypes.object,
+    initApp: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Master);

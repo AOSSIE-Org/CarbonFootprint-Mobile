@@ -14,6 +14,7 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 import * as LocationAction from '../actions/LocationAction';
 import * as DirectionAction from '../actions/DirectionAction';
@@ -229,12 +230,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute'
     }
-});
-/**
- * Mapping state to props so that state variables can be used through props in children components
- * @param state current state
- * @return state as props
- */
+})
+
+Calculate.propTypes = {
+    location: PropTypes.object.isRequired,
+    getLocation: PropTypes.func.isRequired,
+    getStorage: PropTypes.func.isRequired,
+    getDirections: PropTypes.func.isRequired,
+    openSearchModal: PropTypes.func.isRequired,
+    direction: PropTypes.object
+}
+
 function mapStateToProps(state) {
     return state;
 }

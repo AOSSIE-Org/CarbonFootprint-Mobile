@@ -9,6 +9,7 @@ import {
     ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import PropTypes from 'prop-types';
 import { getIcon, color } from '../config/helper';
 
 /**
@@ -144,5 +145,12 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     }
 });
+
+FootprintCard.propTypes = {
+    onChangeTab: PropTypes.func.isRequired,
+    duration: PropTypes.object,
+    fetching: PropTypes.bool,
+    distance: PropTypes.object
+}
 
 export default FootprintCard;

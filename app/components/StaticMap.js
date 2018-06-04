@@ -1,6 +1,7 @@
 import React from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { View, Text, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
 /**
  *  Map to show Users
@@ -51,5 +52,11 @@ const styles = StyleSheet.create({
         position: 'absolute'
     }
 });
+
+StaticMap.propTypes = {
+    source: PropTypes.object,
+    destination: PropTypes.object,
+    coords: PropTypes.object
+}
 
 export default StaticMap;

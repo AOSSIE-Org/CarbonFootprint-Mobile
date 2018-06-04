@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import * as AuthAction from '../actions/AuthAction';
 
@@ -173,6 +174,10 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(Object.assign({}, AuthAction), dispatch);
+}
+
+More.propTypes = {
+    logout: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(More);

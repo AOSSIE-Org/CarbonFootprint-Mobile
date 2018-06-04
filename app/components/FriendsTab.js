@@ -12,6 +12,7 @@ import {
     ActivityIndicator,
     TouchableNativeFeedback
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -132,6 +133,13 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
+
+FriendsTab.propTypes = {
+    acceptFriendRequest: PropTypes.func.isRequired,
+    getFriendList: PropTypes.func.isRequired,
+    friends: PropTypes.object,
+    choice: PropTypes.string
+}
 
 //Making FriendsTab available to other parts of app
 export default FriendsTab;

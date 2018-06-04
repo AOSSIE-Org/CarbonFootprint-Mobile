@@ -13,6 +13,7 @@ import Picker from 'react-native-picker';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 
 import * as StorageAction from '../actions/StorageAction';
 import Header from '../components/Header';
@@ -236,6 +237,11 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(Object.assign({}, StorageAction), dispatch);
+}
+
+Settings.propTypes = {
+    setStorage: PropTypes.func.isRequired,
+    storage: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
