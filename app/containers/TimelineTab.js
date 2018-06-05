@@ -17,6 +17,7 @@ import Timeline from 'react-native-timeline-listview';
 import { Actions } from 'react-native-router-flux';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
 import { getIcon, getIconName, color } from '../config/helper';
+import Header from '../components/Header';
 
 /**
  * TimelineTab Container
@@ -35,8 +36,8 @@ export default class TimelineTab extends Component {
     }
 
     /**
-     * [getHistoryData description]
-     * @return {[type]} [description]
+     * getHistoryData
+     * @return data
      */
     getHistoryData() {
         var obj = ActivityHistoryStorage.getData(
@@ -61,10 +62,10 @@ export default class TimelineTab extends Component {
     /**
 	 * Function to set view of ListView item
 	   This function will be sent to Timeline component as prop and will be rendered by it.
-	 * @param  {[type]} rowData   [description]
-	 * @param  {[type]} sectionID [description]
-	 * @param  {[type]} rowID     [description]
-	 * @return {[type]}           [description]
+	 * @param   rowData   
+	 * @param   sectionID 
+	 * @param   rowID     
+     * @return  rowData       
 	 */
     renderDetail(rowData, sectionID, rowID) {
         var icon = getIconName(rowData.activityType);
@@ -183,6 +184,7 @@ export default class TimelineTab extends Component {
     formatHeader() {
         return (
             <View style={styles.header}>
+                <Header icon={true} iconName="arrow-back" />
                 <View style={styles.dateView}>
                     <Text style={[styles.largeText1, styles.whiteText]}>
                         {this.getDateStr(this.state.date)}
@@ -295,7 +297,8 @@ const styles = StyleSheet.create({
     },
     dateView: {
         alignItems: 'flex-start',
-        paddingLeft: 50,
+        paddingLeft: 55,
+        marginLeft: 10,
         flex: 2
     },
     datePickerView: {

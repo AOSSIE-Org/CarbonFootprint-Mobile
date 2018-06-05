@@ -227,7 +227,9 @@ const styles = StyleSheet.create({
  * @return state as props
  */
 function mapStateToProps(state) {
-    return { storage: state.storage };
+    return {
+        storage: state.storage
+    };
 }
 /**
  * Mapping dispatchable actions to props so that actions can be used through props in children components
@@ -238,4 +240,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(Object.assign({}, StorageAction), dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Settings);

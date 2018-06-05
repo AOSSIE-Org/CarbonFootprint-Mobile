@@ -97,7 +97,9 @@ const styles = StyleSheet.create({
  * @return state as props
  */
 function mapStateToProps(state) {
-    return { friends: state.friends };
+    return {
+        friends: state.friends
+    };
 }
 /**
  * Mapping dispatchable actions to props so that actions can be used through props in children components
@@ -111,4 +113,7 @@ function mapDispatchToProps(dispatch) {
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Friends);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Friends);
