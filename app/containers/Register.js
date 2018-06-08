@@ -41,7 +41,9 @@ const styles = StyleSheet.create({
  * @return state as props
  */
 function mapStateToProps(state) {
-    return state;
+    return {
+        auth: state.auth
+    };
 }
 /**
  * Mapping dispatchable actions to props so that actions can be used through props in children components
@@ -52,4 +54,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(Object.assign({}, AuthAction), dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Register);

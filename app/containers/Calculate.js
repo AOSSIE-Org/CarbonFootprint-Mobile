@@ -242,7 +242,10 @@ Calculate.propTypes = {
 }
 
 function mapStateToProps(state) {
-    return state;
+    return {
+        location: state.location,
+        direction: state.direction
+    };
 }
 /**
  * Mapping dispatchable actions to props so that actions can be used through props in children components

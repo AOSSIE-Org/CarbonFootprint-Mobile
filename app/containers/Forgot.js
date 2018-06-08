@@ -149,7 +149,9 @@ Forgot.propTypes = {
 }
 
 function mapStateToProps(state) {
-    return state;
+    return {
+        forgot: state.forgot
+    };
 }
 /**
  * Mapping dispatchable actions to props so that actions can be used through props in children components
@@ -160,4 +162,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(Object.assign({}, AuthAction), dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Forgot);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Forgot);

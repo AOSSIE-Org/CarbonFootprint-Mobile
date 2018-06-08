@@ -62,9 +62,11 @@ const styles = StyleSheet.create({
  * @return {state} getting as props
  */
 function mapStateToProps(state) {
-    return state;
+    return {
+        activity: state.activity,
+        storage: state.storage
+    };
 }
-
 /**
  * Mapping dispatchable action (ActivityDetectionAction) to props so that actions can be used through props in children components
  * @param  dispatch Dispatches an action. This is the only way to trigger a state change.

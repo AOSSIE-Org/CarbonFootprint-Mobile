@@ -71,7 +71,7 @@ const About = () => {
                 }
             ],
             { cancelable: true }
-        );
+        );  
     }
 }
 
