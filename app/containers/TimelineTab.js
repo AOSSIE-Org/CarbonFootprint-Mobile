@@ -36,8 +36,8 @@ export default class TimelineTab extends Component {
     }
 
     /**
-     * [getHistoryData description]
-     * @return {[type]} [description]
+     * getHistoryData
+     * @return data
      */
     getHistoryData() {
         var obj = ActivityHistoryStorage.getData(
@@ -62,10 +62,10 @@ export default class TimelineTab extends Component {
     /**
 	 * Function to set view of ListView item
 	   This function will be sent to Timeline component as prop and will be rendered by it.
-	 * @param  {[type]} rowData   [description]
-	 * @param  {[type]} sectionID [description]
-	 * @param  {[type]} rowID     [description]
-	 * @return {[type]}           [description]
+	 * @param   rowData   
+	 * @param   sectionID 
+	 * @param   rowID     
+     * @return  rowData       
 	 */
     renderDetail(rowData, sectionID, rowID) {
         var icon = getIconName(rowData.activityType);
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     dateView: {
         alignItems: 'flex-start',
         paddingLeft: 55,
-        marginLeft : 10,
+        marginLeft: 10,
         flex: 2
     },
     datePickerView: {

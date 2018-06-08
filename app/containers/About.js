@@ -102,7 +102,7 @@ class About extends Component {
                 }
             ],
             { cancelable: true }
-        );
+        );  
     }
 }
 

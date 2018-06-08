@@ -36,14 +36,7 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
-/**
- * Mapping state to props so that state variables can be used through props in children components
- * @param state current state
- * @return state as props
- */
-function mapStateToProps(state) {
-    return state;
-}
+
 /**
  * Mapping dispatchable actions to props so that actions can be used through props in children components
  * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
@@ -56,4 +49,4 @@ function mapDispatchToProps(dispatch) {
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(null, mapDispatchToProps)(Home);
