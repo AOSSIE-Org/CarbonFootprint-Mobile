@@ -13,19 +13,17 @@ import * as AuthAction from '../actions/AuthAction';
  * Login Form Container
  * @extends Component
  */
-class Login extends Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <StatusBar hidden={true} />
-                <BackHeader
-                    text="Forgot Password?"
-                    link={() => Actions.forgot()}
-                />
-                <LoginForm {...this.props} />
-            </View>
-        );
-    }
+const Login = props => {
+    return (
+        <View style={styles.container}>
+            <StatusBar hidden={true} />
+            <BackHeader
+                text="Forgot Password?"
+                link={() => Actions.forgot()}
+            />
+            <LoginForm {...props} />
+        </View>
+    );
 }
 /*StyleSheet*/
 const styles = StyleSheet.create({

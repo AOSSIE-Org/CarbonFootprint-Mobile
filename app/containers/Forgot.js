@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/Ionicons';
+import PropTypes from 'prop-types';
 
 import BackHeader from '../components/BackHeader';
 import LoginForm from '../components/LoginForm';
@@ -141,12 +142,12 @@ const styles = StyleSheet.create({
     topMargin: {
         marginTop: 10
     }
-});
-/**
- * Mapping state to props so that state variables can be used through props in children components
- * @param state current state
- * @return state as props
- */
+})
+
+Forgot.propTypes = {
+    forgot: PropTypes.object
+}
+
 function mapStateToProps(state) {
     return {
         forgot: state.forgot

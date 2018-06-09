@@ -6,6 +6,7 @@ import {
     StyleSheet,
     Button
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 class StaticMap extends Component {
     constructor(props) {
@@ -79,5 +80,11 @@ const styles = StyleSheet.create({
     }
 })
 
+
+StaticMap.propTypes = {
+    source: PropTypes.object,
+    destination: PropTypes.object,
+    coords: PropTypes.object
+}
 
 export default StaticMap;

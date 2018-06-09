@@ -19,6 +19,7 @@ import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import pick from 'lodash/pick';
 import MapView from 'react-native-maps';
+import PropTypes from 'prop-types';
 import { ZOOM_DELTA } from '../config/constants';
 import {
     getIcon,
@@ -429,3 +430,12 @@ const styles = StyleSheet.create({
         paddingTop: 4
     }
 });
+
+ActivityTab.propTypes = {
+  setSrc: PropTypes.func.isRequired,
+  setCO2: PropTypes.func.isRequired,
+  setDistance: PropTypes.func,
+  setDest: PropTypes.func.isRequired,
+  activity: PropTypes.object.isRequired,
+  startActivityDetection: PropTypes.func.isRequired
+}

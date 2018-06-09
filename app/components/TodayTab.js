@@ -17,6 +17,7 @@ import {
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+import PropTypes from 'prop-types';
 
 import images from '../config/images';
 import { getIcon, color } from '../config/helper';
