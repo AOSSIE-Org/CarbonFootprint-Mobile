@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
+import PropTypes from 'prop-types';
 import images from '../config/images';
 
 /**
@@ -33,5 +34,9 @@ const styles = StyleSheet.create({
         letterSpacing: 2
     }
 });
+
+ImageHeader.propTypes = {
+    text: PropTypes.string
+}
 
 export default ImageHeader;

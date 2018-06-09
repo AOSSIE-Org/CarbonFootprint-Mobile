@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/Ionicons';
+import PropTypes from 'prop-types';
 
 import { getIcon } from '../config/helper.js';
 import ImageHeader from './ImageHeader';
@@ -162,5 +163,10 @@ const styles = StyleSheet.create({
         marginTop: 10
     }
 });
+
+RegisterForm.propTypes = {
+    auth: PropTypes.object,
+    register: PropTypes.func.isRequired
+}
 
 export default RegisterForm;

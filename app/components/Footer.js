@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
+import PropTypes from 'prop-types';
 import { getIcon, color } from '../config/helper.js';
 
 /**
@@ -117,5 +118,9 @@ const styles = StyleSheet.create({
         paddingRight: 5
     }
 });
+
+Footer.propTypes = {
+    name: PropTypes.string, 
+}
 
 export default Footer;

@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons'
+import PropTypes from 'prop-types';
 
 import { getIcon } from '../config/helper';
 import ImageHeader from './ImageHeader';
@@ -151,5 +152,9 @@ const styles = StyleSheet.create({
         marginTop: 10
     }
 });
+
+LoginForm.propTypes = {
+    auth: PropTypes.object.isRequired
+}
 
 export default LoginForm;

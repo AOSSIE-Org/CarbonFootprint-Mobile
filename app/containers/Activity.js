@@ -17,41 +17,25 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { color } from '../config/helper';
 import Footer from '../components/Footer';
 
-/**
- * Main function to set whole view of container, Contains various components as children
- * It sends 'Actions.activity()' to TimelineTab as link (prop) so that TimelineTab can navigate to
- * Activity container (When needed)
- * @extends Component
- */
-class Activity extends Component {
-    constructor(props) {
-        super(props);
-    }
-    /**
-     * renders JSX inside to device screen
-     * @return {JSX}
-     */
-    render() {
-        return (
-            <View style={styles.container}>
-                <StatusBar
-                    backgroundColor={color.darkPrimary}
-                    barStyle="light-content"
-                />
-                <View style={styles.pad} />
-                <ScrollableTabView
-                    tabBarBackgroundColor={color.primary}
-                    tabBarActiveTextColor={color.greyBack}
-                    tabBarInactiveTextColor={color.grey}
-                    tabBarTextStyle={styles.tabText}
-                    tabBarUnderlineStyle={styles.tabLine}
-                >
-                    <TodayTab tabLabel="Today" {...this.props} />
-                    <ActivityTab tabLabel="Activity" {...this.props} />
-                </ScrollableTabView>
-            </View>
-        );
-    }
+const Activity = props => {
+
+  // Main function to set whole view of container, Contains various components as children
+  // It sends 'Actions.activity()' to TimelineTab as link (prop) so that TimelineTab can navigate to Activity container (When needed)
+    return (
+      <View style={styles.container}> 
+        <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
+        <View style={styles.pad}></View>
+        <ScrollableTabView
+          tabBarBackgroundColor={color.primary}
+          tabBarActiveTextColor={color.greyBack}
+          tabBarInactiveTextColor={color.grey}
+          tabBarTextStyle={styles.tabText}
+          tabBarUnderlineStyle={styles.tabLine}>
+          <TodayTab tabLabel="Today" {...props}/>
+          <ActivityTab tabLabel="Activity" {...props}/>
+        </ScrollableTabView>
+      </View>
+    );
 }
 
 //StyleSheet
