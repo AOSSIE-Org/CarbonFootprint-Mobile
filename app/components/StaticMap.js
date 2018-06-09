@@ -25,7 +25,7 @@ class StaticMap extends Component {
         )
     }
     componentWillMount() {
-     //Hack to ensure the showsMyLocationButton is shown initially. Idea is to force a repaint
+        //Hack to ensure the showsMyLocationButton is shown initially. Idea is to force a repaint
         setTimeout( () => {
             this.setState({ statusBarHeight: 110 })
         });
