@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 
 /**
  * Home Screens Login buttons
@@ -118,5 +119,11 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width * 0.3
     }
 });
+
+LandingButtons.propTypes = {
+    fbLogin: PropTypes.func.isRequired,
+    googleSignIn: PropTypes.func.isRequired,
+    twitterLogin: PropTypes.func.isRequired
+}
 
 export default LandingButtons;

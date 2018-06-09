@@ -11,6 +11,7 @@ import {
     Dimensions,
     TouchableNativeFeedback
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { color, getIcon } from '../config/helper';
@@ -105,5 +106,11 @@ const styles = StyleSheet.create({
         marginTop: 2
     }
 });
+
+FriendRow.propTypes = {
+    data: PropTypes.any,
+    iconName: PropTypes.string,
+    text: PropTypes.string
+}
 
 export default FriendRow;

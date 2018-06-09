@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
+import PropTypes from 'prop-types';
 
 import Header from '../components/Header';
 import { getIcon, color } from '../config/helper';
@@ -111,6 +112,10 @@ function mapDispatchToProps(dispatch) {
         Object.assign({}, FriendsAction, FirebaseAction, User),
         dispatch
     );
+}
+
+Friends.propTypes = {
+    getFriendList: PropTypes.func.isRequired
 }
 
 export default connect(
