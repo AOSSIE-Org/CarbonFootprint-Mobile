@@ -23,7 +23,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.5.0",
     "react-native-maps": "^0.21.0",
     "react-native-picker": "^4.3.6",
-    "react-native-router-flux": "^4.0.0-beta.31",
+    "react-native-router-flux": "^3.43.0",
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-simple-auth": "^2.3.0",
     "react-native-splash-screen": "^3.0.6",
