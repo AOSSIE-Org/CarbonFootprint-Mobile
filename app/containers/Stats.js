@@ -139,7 +139,9 @@ class Stats extends Component {
                       }
                       return (
                         <View style={columnStyle} key={i}>
-                          <View style={styles.social}>
+                          <View
+                            style={{ alignSelf: "flex-end", marginTop: -23 }}
+                          >
                             <Icon2
                               name="share-2"
                               size={20}
@@ -208,10 +210,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: color.greyBack
   },
-  social: {
-    alignSelf: "flex-end",
-    marginTop: -23
-  },
   main: {
     flex: 1
   },
@@ -226,7 +224,7 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   content: {
-    flex: 1
+    flex: 0.6
   },
   largeText: {
     fontSize: 13,
