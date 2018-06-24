@@ -24,7 +24,7 @@ class StaticMap extends Component {
     //Hack to ensure the showsMyLocationButton is shown initially. Idea is to force a repaint
     setTimeout(() => {
       this.setState({ statusBarHeight: 110 });
-    });
+    }, 500);
   }
 
   render() {
