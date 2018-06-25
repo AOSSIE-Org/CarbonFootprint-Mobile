@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import { View, Text, StyleSheet, Button } from "react-native";
+import React, { Component } from 'react';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
 class StaticMap extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class StaticMap extends Component {
   }
 
   markers(location, id) {
-    let color = !id ? "red" : "green";
+    let color = !id ? 'red' : 'green';
     return (
       <MapView.Marker
         coordinate={{
@@ -58,7 +58,7 @@ class StaticMap extends Component {
 
 const styles = StyleSheet.create({
   mapContainer: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     right: 0,
     left: 0,
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    position: "absolute"
+    position: 'absolute'
   }
 });
 
