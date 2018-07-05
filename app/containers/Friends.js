@@ -99,7 +99,8 @@ const styles = StyleSheet.create({
  */
 function mapStateToProps(state) {
     return {
-        friends: state.friends
+        friends: state.friends,
+        auth: state.auth
     };
 }
 /**
@@ -116,7 +117,7 @@ function mapDispatchToProps(dispatch) {
 
 Friends.propTypes = {
     getFriendList: PropTypes.func.isRequired
-}
+};
 
 export default connect(
     mapStateToProps,
