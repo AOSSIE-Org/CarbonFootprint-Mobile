@@ -180,6 +180,25 @@ export function openSearchModal(key) {
     };
 }
 
+export function customFunction(location) {
+    console.log('custom func', location);
+    return dispatch => {
+        getRegion(
+            { latitude: location.latitude, longitude: location.longitude },
+            null
+        ).then(result => {
+            dispatch(set_region(result));
+            dispatch(set_source(location, 'unknown'));
+        });
+    };
+}
+
+export function customFunction2(location) {
+    return dispatch => {
+        dispatch(set_destination(location, 'unknown2'));
+    };
+}
+
 /**
  * Getting Directions From Google Maps API By Passing The Source,Destination And Code
  * @param String source start point of travel
