@@ -7,14 +7,15 @@ import { bindActionCreators } from 'redux';
 import * as DirectionAction from '../actions/DirectionAction';
 import { getRegion, getDirections } from '../actions/DirectionAction';
 import { connect } from 'react-redux';
+import { googleRoadsAPIKey } from '../config/keys';
 class StaticMap extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             statusBarHeight: 60,
-            source: null,
-            destination: null
+            source: this.props.source,
+            destination: this.props.destination
         };
     }
 
@@ -26,8 +27,29 @@ class StaticMap extends Component {
                 coordinate={location}
                 pinColor={color}
                 onDragEnd={e => {
-                    this.setState({ source: e.nativeEvent.coordinate });
-                    props.customFunction(location);
+                    this.setState(
+                        { source: e.nativeEvent.coordinate },
+                        function() {
+                            fetch(
+                                'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+                                    this.state.source.latitude +
+                                    ',' +
+                                    this.state.source.longitude +
+                                    '&key=' +
+                                    googleRoadsAPIKey
+                            )
+                                .then(response => response.json())
+                                .then(responseJson => {
+                                    props.customFunction(
+                                        this.state.source,
+                                        JSON.stringify(
+                                            responseJson.results[0]
+                                                .formatted_address
+                                        )
+                                    );
+                                });
+                        }
+                    );
                 }}
             />
         );
@@ -40,10 +62,36 @@ class StaticMap extends Component {
                 coordinate={location}
                 pinColor={color}
                 onDragEnd={e => {
-                    this.setState({
-                        destination: e.nativeEvent.coordinate
-                    });
-                    props.customFunction2(location);
+                    this.setState(
+                        {
+                            destination: e.nativeEvent.coordinate
+                        },
+                        function() {
+                            fetch(
+                                'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+                                    this.state.source.latitude +
+                                    ',' +
+                                    this.state.source.longitude +
+                                    '&key=' +
+                                    googleRoadsAPIKey
+                            )
+                                .then(response => response.json())
+                                .then(responseJson => {
+                                    props.customFunction2(
+                                        this.state.source,
+                                        JSON.stringify(
+                                            responseJson.results[0]
+                                                .formatted_address
+                                        )
+                                    );
+                                    props.getDirections(
+                                        this.state.source,
+                                        this.state.destination,
+                                        0
+                                    );
+                                });
+                        }
+                    );
                 }}
             />
         );

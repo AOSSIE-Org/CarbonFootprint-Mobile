@@ -180,22 +180,21 @@ export function openSearchModal(key) {
     };
 }
 
-export function customFunction(location) {
-    console.log('custom func', location);
+export function customFunction(location, placename) {
     return dispatch => {
         getRegion(
             { latitude: location.latitude, longitude: location.longitude },
             null
         ).then(result => {
             dispatch(set_region(result));
-            dispatch(set_source(location, 'unknown'));
+            dispatch(set_source(location, placename));
         });
     };
 }
 
-export function customFunction2(location) {
+export function customFunction2(location, placename) {
     return dispatch => {
-        dispatch(set_destination(location, 'unknown2'));
+        dispatch(set_destination(location, placename));
     };
 }
 
