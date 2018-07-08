@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Scene, Router, Modal } from 'react-native-router-flux';
+import { Scene, Router, Modal, Stack } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
+import Intro from '../containers/Intro';
 import Master from '../containers/Master';
 import Home from '../containers/Home';
 import Login from '../containers/Login';
@@ -32,10 +33,16 @@ class Navigator extends Component {
                 <Scene key="modal" component={Modal} panHandlers={null}>
                     <Scene key="root" panHandlers={null}>
                         <Scene
+                            key="intro"
+                            component={Intro}
+                            panHandlers={null}
+                            hideNavBar
+                            initial
+                        />
+                        <Scene
                             key="master"
                             component={Master}
                             panHandlers={null}
-                            initial
                             hideNavBar
                         />
                         <Scene key="landing" hideNavBar>
