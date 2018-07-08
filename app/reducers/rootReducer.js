@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import storage from './storage';
+import intro from './intro';
 import route from './route';
 import auth from './auth';
 import activity from './activity';
@@ -14,6 +15,7 @@ import forgot from './forgot';
  * and gathers their results into a single state object.
  */
 const appReducer = combineReducers({
+    intro,
     storage,
     route,
     auth,
