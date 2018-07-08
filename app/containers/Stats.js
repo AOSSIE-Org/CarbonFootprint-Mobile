@@ -106,7 +106,7 @@ class Stats extends Component {
                 style={styles.iconHeader}
               />
               <Text style={[styles.largeInfo, styles.whiteText]}>
-                Co2 saved till date: {user.data.total.co2Saved}
+                Co2 saved till date: {user.data.total.co2Saved.toFixed(2)} kg
               </Text>
               <Text style={[styles.largeInfo, styles.whiteText]}>
                 {user && user.data
