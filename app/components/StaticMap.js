@@ -69,16 +69,16 @@ class StaticMap extends Component {
                         function() {
                             fetch(
                                 'https://maps.googleapis.com/maps/api/geocode/json?address=' +
-                                    this.state.source.latitude +
+                                    this.state.destination.latitude +
                                     ',' +
-                                    this.state.source.longitude +
+                                    this.state.destination.longitude +
                                     '&key=' +
                                     googleRoadsAPIKey
                             )
                                 .then(response => response.json())
                                 .then(responseJson => {
                                     props.customFunction2(
-                                        this.state.source,
+                                        this.state.destination,
                                         JSON.stringify(
                                             responseJson.results[0]
                                                 .formatted_address
