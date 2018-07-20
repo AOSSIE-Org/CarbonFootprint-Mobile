@@ -19,8 +19,7 @@ class StaticMap extends Component {
         };
     }
 
-    markers(location, id, props) {
-        let color = !id ? 'red' : 'green';
+    redMarker(location, color, props) {
         return (
             <MapView.Marker
                 draggable
@@ -54,8 +53,7 @@ class StaticMap extends Component {
             />
         );
     }
-    marker(location, id, props) {
-        let color = !id ? 'red' : 'green';
+    greenMarker(location, color, props) {
         return (
             <MapView.Marker
                 draggable
@@ -134,10 +132,14 @@ class StaticMap extends Component {
                     style={styles.map}
                 >
                     {props.source
-                        ? this.markers(this.state.source, 0, props)
+                        ? this.redMarker(this.state.source, 'red', props)
                         : null}
                     {props.destination
-                        ? this.marker(this.state.destination, 1, props)
+                        ? this.greenMarker(
+                              this.state.destination,
+                              'green',
+                              props
+                          )
                         : null}
                     {props.coords ? (
                         <MapView.Polyline
