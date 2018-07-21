@@ -45,22 +45,19 @@ class Stats extends Component {
         {
           title: 'Walking',
           icon: 'walk',
-          value:
-            user && user.data && user.data.walking ? user.data.walking : {}
+          value: user && user.data && user.data.walking ? user.data.walking : {}
         },
         {
           title: 'Running',
           icon: 'run',
-          value:
-            user && user.data && user.data.running ? user.data.running : {}
+          value: user && user.data && user.data.running ? user.data.running : {}
         }
       ],
       [
         {
           title: 'Cycling',
           icon: 'bicycle',
-          value:
-            user && user.data && user.data.cycling ? user.data.cycling : {}
+          value: user && user.data && user.data.cycling ? user.data.cycling : {}
         },
         {
           title: 'Vehicle',
@@ -70,8 +67,7 @@ class Stats extends Component {
               : this.props.storage.data.automobile === 'Bus'
                 ? 'bus'
                 : 'train',
-          value:
-            user && user.data && user.data.driving ? user.data.driving : {}
+          value: user && user.data && user.data.driving ? user.data.driving : {}
         }
       ]
     ];
@@ -131,7 +127,19 @@ class Stats extends Component {
                               size={20}
                               onPress={() =>
                                 this.ShareMessage(
-                                  `I emitted ${column.value.footprint.toFixed(2)} kg on ${column.icon} travelling a distance of ${column.value.distance.toFixed(2)} km in ${column.value.time}s. Analyse yours too, download the CarbonFootprint-Mobile app now play.google.com`
+                                  `I emitted ${
+                                    column.value.footprint
+                                      ? column.value.footprint.toFixed(2)
+                                      : 0.0
+                                  } kg on ${
+                                    column.icon
+                                  } travelling a distance of ${
+                                    column.value.distance
+                                      ? column.value.distance.toFixed(2)
+                                      : 0.0
+                                  } km in ${
+                                    column.value.time
+                                  }s. Analyse yours too, download the CarbonFootprint-Mobile app now play.google.com`
                                 )
                               }
                             />
