@@ -139,6 +139,8 @@ class Stats extends Component {
                                       : 0.0
                                   } km in ${
                                     column.value.time
+                                      ? column.value.time
+                                      : 0
                                   }s. Analyse yours too, download the CarbonFootprint-Mobile app now play.google.com`
                                 )
                               }
