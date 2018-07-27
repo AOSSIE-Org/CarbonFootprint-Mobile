@@ -142,7 +142,7 @@ class Stats extends Component {
                                       ? column.value.distance.toFixed(2)
                                       : 0.0
                                   } km in ${
-                                    column.value.time ? column.value.time : 0.0
+                                    column.value.time ? column.value.time : 0
                                   }s. Analyse yours too, download the CarbonFootprint-Mobile app now play.google.com`
                                 )
                               }
