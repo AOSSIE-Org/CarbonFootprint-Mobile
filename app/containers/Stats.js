@@ -43,24 +43,24 @@ class Stats extends Component {
     const rows = [
       [
         {
-          title: 'Walking',
+          activityType: 'walking',
           icon: 'walk',
           value: user && user.data && user.data.walking ? user.data.walking : {}
         },
         {
-          title: 'Running',
+          activityType: 'running',
           icon: 'run',
           value: user && user.data && user.data.running ? user.data.running : {}
         }
       ],
       [
         {
-          title: 'Cycling',
+          activityType: 'cycling',
           icon: 'bicycle',
           value: user && user.data && user.data.cycling ? user.data.cycling : {}
         },
         {
-          title: 'Vehicle',
+          activityType: 'vehicle',
           icon:
             this.props.storage.data.automobile === 'Car'
               ? 'car'
@@ -127,18 +127,22 @@ class Stats extends Component {
                               size={20}
                               onPress={() =>
                                 this.ShareMessage(
-                                  `I emitted ${
+                                  `I ${
+                                    column.activityType == 'vehicle'
+                                      ? 'emitted'
+                                      : 'saved'
+                                  } ${
                                     column.value.footprint
                                       ? column.value.footprint.toFixed(2)
                                       : 0.0
-                                  } kg on ${
-                                    column.icon
+                                  } kg by ${
+                                    column.activityType
                                   } travelling a distance of ${
                                     column.value.distance
                                       ? column.value.distance.toFixed(2)
                                       : 0.0
                                   } km in ${
-                                    column.value.time
+                                    column.value.time ? column.value.time : 0.0
                                   }s. Analyse yours too, download the CarbonFootprint-Mobile app now play.google.com`
                                 )
                               }
