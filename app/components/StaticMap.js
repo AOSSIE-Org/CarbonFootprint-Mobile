@@ -14,6 +14,7 @@ class StaticMap extends Component {
 
         this.state = {
             statusBarHeight: 60,
+            zoom: 15,
             source: this.props.source,
             destination: this.props.destination
         };
@@ -109,7 +110,8 @@ class StaticMap extends Component {
         if (nextProps.destination) {
             this.setState({
                 source: nextProps.source,
-                destination: nextProps.destination
+                destination: nextProps.destination,
+                zoom: 10
             });
         }
     }
@@ -128,6 +130,8 @@ class StaticMap extends Component {
                     showsUserLocation={true}
                     showsMyLocationButton={true}
                     showsCompass={true}
+                    minZoomLevel={this.state.zoom}
+                    loadingEnabled={true}
                     region={props.region}
                     style={styles.map}
                 >
