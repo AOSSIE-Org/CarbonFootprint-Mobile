@@ -8,10 +8,16 @@ import {
     Text,
     TextInput,
     StyleSheet,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    FlatList,
+    ScrollView
 } from 'react-native';
 import { getIcon, color } from '../config/helper';
-import { searchFriends, sendFriendRequest } from '../actions/firebase/Friends';
+import {
+    searchFriendsByEmail,
+    searchFriendsByUserName,
+    sendFriendRequest
+} from '../actions/firebase/Friends';
 import FriendRow from './FriendRow';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -23,68 +29,73 @@ class InviteTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            user: {},
+            search: '',
+            user: [],
             userFetched: false
         };
-        this.searchFriendsByEmail = this.searchFriendsByEmail.bind(this);
+        this.searchFriends = this.searchFriends.bind(this);
     }
 
     /**
-     * function to search friends by their Email id
+     * Function to search friends by their email id or username
      * @return updating state
      */
-    searchFriendsByEmail() {
-        this.setState({ user: {}, userFetched: true });
-        searchFriends(this.state.email)
-            .then(snapshot => {
-                var user = {
-                    uid: snapshot.key,
-                    name: snapshot.val().name,
-                    picture: snapshot.val().picture
-                };
-                this.setState({ user: user });
-            })
-            .catch(error => {
-                //console.log("InviteTab (searchFriendsByEmail)" + error)
-            });
+    searchFriends() {
+        this.setState({ user: [], userFetched: true });
+        reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //REGEX to check if user entered email
+        if (!reg.test(this.state.search)) {
+            searchFriendsByUserName(this.state.search)
+                .then(users => {
+                    this.setState({ user: users });
+                })
+                .catch(error => {});
+        } else {
+            searchFriendsByEmail(this.state.search)
+                .then(user => {
+                    this.setState({ user: user });
+                })
+                .catch(error => {});
+        }
     }
 
     render() {
         return (
             <View>
                 <TextInput
-                    onChangeText={text => this.setState({ email: text })}
-                    placeholder="Search friends by Email"
+                    onChangeText={text => this.setState({ search: text })}
+                    placeholder="Search friends by Email or Username"
                 />
-                <TouchableNativeFeedback onPress={this.searchFriendsByEmail}>
+                <TouchableNativeFeedback onPress={this.searchFriends}>
                     <View style={styles.searchBtn}>
                         <Text style={styles.whiteText}>Search</Text>
                     </View>
                 </TouchableNativeFeedback>
-                <View style={styles.container}>
-                    {this.state.user.name ? (
-                        <View>
-                            <View>
-                                <FriendRow
-                                    iconName="person-add"
-                                    link={() =>
-                                        sendFriendRequest(
-                                            this.props.auth.user.uid,
-                                            this.state.user.uid
-                                        )
-                                    }
-                                    data={this.state.user}
-                                    text={this.state.user.name}
-                                />
-                            </View>
+                <ScrollView style={styles.container}>
+                    {this.state.user ? (
+                        <View style={styles.view}>
+                            <FlatList
+                                data={this.state.user}
+                                renderItem={({ item }) => (
+                                    <FriendRow
+                                        iconName="person-add"
+                                        link={() =>
+                                            sendFriendRequest(
+                                                this.props.auth.user.uid,
+                                                item.uid
+                                            )
+                                        }
+                                        data={item}
+                                        text={item.email}
+                                    />
+                                )}
+                            />
                         </View>
                     ) : this.state.userFetched ? (
                         <Text style={styles.warningText}>
                             No user found ...
                         </Text>
                     ) : null}
-                </View>
+                </ScrollView>
             </View>
         );
     }
@@ -93,7 +104,11 @@ class InviteTab extends Component {
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row'
+        backgroundColor: color.greyBack
+    },
+    view: {
+        flex: 1,
+        paddingBottom: 140
     },
     searchBtn: {
         height: 35,
