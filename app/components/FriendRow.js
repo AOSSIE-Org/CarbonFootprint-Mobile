@@ -39,25 +39,25 @@ const FriendRow = props => {
                         <Text style={styles.largeText}>{data.name}</Text>
                         <Text style={styles.smallText}>{text}</Text>
                     </View>
-                    <View style={styles.right}>
-                        {props.iconName ? (
-                            <TouchableNativeFeedback onPress={props.link}>
-                                <Icon
-                                    name={getIcon(props.iconName)}
-                                    size={30}
-                                    color="black"
-                                />
-                            </TouchableNativeFeedback>
-                        ) : (
-                            <View>
-                                <Text>
-                                    {data.data
-                                        ? data.data.total.footprint + ' kg'
-                                        : '0 kg'}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
+                </View>
+                <View style={styles.right}>
+                    {props.iconName ? (
+                        <TouchableNativeFeedback onPress={props.link}>
+                            <Icon
+                                name={getIcon(props.iconName)}
+                                size={30}
+                                color="black"
+                            />
+                        </TouchableNativeFeedback>
+                    ) : (
+                        <View>
+                            <Text>
+                                {data.data
+                                    ? data.data.total.footprint + ' kg'
+                                    : '0 kg'}
+                            </Text>
+                        </View>
+                    )}
                 </View>
             </View>
         </View>
@@ -88,7 +88,10 @@ const styles = StyleSheet.create({
         marginLeft: 8
     },
     right: {
-        marginLeft: 50
+        paddingRight: 8,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end'
     },
     image: {
         width: 48,
@@ -111,6 +114,6 @@ FriendRow.propTypes = {
     data: PropTypes.any,
     iconName: PropTypes.string,
     text: PropTypes.string
-}
+};
 
 export default FriendRow;
