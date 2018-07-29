@@ -5,7 +5,8 @@ import android.app.Application;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
-
+import android.content.Context;
+import android.support.multidex.MultiDex;
 import com.facebook.react.ReactApplication;
 import com.showlocationservicesdialogbox.LocationServicesDialogBoxPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
@@ -67,7 +68,11 @@ public class MainApplication extends Application implements ReactApplication {
       );
     }
   };
-
+ @Override
+    protected void attachBaseContext(Context base) {
+       super.attachBaseContext(base);
+       MultiDex.install(this);
+    }
   @Override
   public ReactNativeHost getReactNativeHost() {
     return mReactNativeHost;
