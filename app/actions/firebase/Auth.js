@@ -13,16 +13,16 @@ export function registerFirebase(name, email, password) {
         firebase
             .auth()
             .createUserWithEmailAndPassword(email, password)
-            .then(user => {
+            .then(() => {
                 let temp = {
                     name,
                     email,
                     picture: null,
                     provider: 'email'
                 };
-                setUser(user.uid, temp)
+                setUser(firebase.auth().currentUser.uid, temp)
                     .then(() => {
-                        getUser(user.uid)
+                        getUser(firebase.auth().currentUser.uid)
                             .then(user => {
                                 resolve(user);
                             })
