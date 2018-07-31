@@ -92,9 +92,7 @@ class Stats extends Component {
               />
               <Text style={[styles.largeInfo, styles.whiteText]}>
                 Co2 saved:{' '}
-                {user.data.total.co2Saved
-                  ? user.data.total.co2Saved.toFixed(2)
-                  : 0.0}{' '}
+                {user && user.data ? user.data.total.co2Saved.toFixed(2) : 0.0}{' '}
                 kg
               </Text>
               <Text style={[styles.largeInfo, styles.whiteText]}>
@@ -128,9 +126,7 @@ class Stats extends Component {
                       }
                       return (
                         <View style={columnStyle} key={i}>
-                          <View
-                            style={{ alignSelf: 'flex-end', marginTop: -23 }}
-                          >
+                          <View style={styles.shareStyle}>
                             <ShareIcon
                               name="share-2"
                               size={20}
@@ -144,7 +140,7 @@ class Stats extends Component {
                                     column.value.footprint
                                       ? column.value.footprint.toFixed(2)
                                       : 0.0
-                                  } kg by ${
+                                  } kg  Co2 by ${
                                     column.activityType
                                   } travelling a distance of ${
                                     column.value.distance
@@ -282,6 +278,10 @@ const styles = StyleSheet.create({
     zIndex: 3,
     fontWeight: '700',
     color: color.grey
+  },
+  shareStyle: {
+    alignSelf: 'flex-end',
+    marginTop: -23
   }
 });
 
