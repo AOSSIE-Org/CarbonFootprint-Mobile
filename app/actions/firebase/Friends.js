@@ -93,10 +93,10 @@ export function acceptFriendRequest(currentUid, friendUid) {
 
 /**
  * Search Friends Via email
- * @param  value email of friend
- * @return {Promise}
+ * @param  value email user searched for
+ * @return {Promise} snapshot of user with that email
  */
-export function searchFriends(value) {
+export function searchFriendsByEmail(value) {
     return new Promise(function(resolve, reject) {
         firebase
             .database()
@@ -104,8 +104,40 @@ export function searchFriends(value) {
             .orderByChild('email')
             .equalTo(value)
             .on('child_added', function(snapshot) {
+                var user = [
+                    {
+                        uid: snapshot.key,
+                        name: snapshot.val().name,
+                        picture: snapshot.val().picture,
+                        email: snapshot.val().email
+                    }
+                ];
+                resolve(user);
+            });
+    });
+}
+/**
+ * function to search friends by their name
+ * @param  value username user searched for
+ * @return {Promise} snapshot of list of users with that username
+ */
+export function searchFriendsByUserName(value) {
+    return new Promise(function(resolve, reject) {
+        let users = [];
+        firebase
+            .database()
+            .ref('users/')
+            .orderByChild('name')
+            .equalTo(value)
+            .on('child_added', function(snapshot) {
                 // this will have all the users.
-                resolve(snapshot);
+                users.push({
+                    email: snapshot.val().email,
+                    name: snapshot.val().name,
+                    picture: snapshot.val().picture,
+                    key: snapshot.key
+                });
+                resolve(users);
             });
     });
 }

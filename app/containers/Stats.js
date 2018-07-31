@@ -7,20 +7,18 @@ import {
   Image,
   StatusBar,
   Dimensions,
-  ActivityIndicator
+  ActivityIndicator,
+  Share
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
 import Icon from 'react-native-vector-icons/Ionicons';
-import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+import RunningIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ShareIcon from 'react-native-vector-icons/Feather';
 import PropTypes from 'prop-types';
-
 import * as ProfileAction from '../actions/ProfileAction';
-
-import Header from '../components/Header';
-import images from '../config/images';
 import { getIcon, color } from '../config/helper';
 
 /**
@@ -32,57 +30,44 @@ class Stats extends Component {
     this.props.getProfile();
   }
 
+  ShareMessage(msg) {
+    Share.share({
+      message: msg
+    })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
   render() {
     const auth = this.props.auth;
     const user = auth.user;
     const rows = [
       [
         {
-          title: 'Walking',
+          activityType: 'walking',
           icon: 'walk',
-          value:
-            user && user.data
-              ? user.data.walking
-                ? user.data.walking
-                : {}
-              : {}
+          value: user && user.data && user.data.walking ? user.data.walking : {}
         },
         {
-          title: 'Running',
+          activityType: 'running',
           icon: 'run',
-          value:
-            user && user.data
-              ? user.data.running
-                ? user.data.running
-                : {}
-              : {}
+          value: user && user.data && user.data.running ? user.data.running : {}
         }
       ],
       [
         {
-          title: 'Cycling',
+          activityType: 'cycling',
           icon: 'bicycle',
-          value:
-            user && user.data
-              ? user.data.cycling
-                ? user.data.cycling
-                : {}
-              : {}
+          value: user && user.data && user.data.cycling ? user.data.cycling : {}
         },
         {
-          title: 'Vehicle',
+          activityType: 'vehicle',
           icon:
             this.props.storage.data.automobile === 'Car'
               ? 'car'
               : this.props.storage.data.automobile === 'Bus'
                 ? 'bus'
                 : 'train',
-          value:
-            user && user.data
-              ? user.data.driving
-                ? user.data.driving
-                : {}
-              : {}
+          value: user && user.data && user.data.driving ? user.data.driving : {}
         }
       ]
     ];
@@ -106,24 +91,26 @@ class Stats extends Component {
                 style={styles.iconHeader}
               />
               <Text style={[styles.largeInfo, styles.whiteText]}>
-                Co2 saved till date:{' '}
+                Co2 saved:{' '}
                 {user.data.total.co2Saved
                   ? user.data.total.co2Saved.toFixed(2)
                   : 0.0}{' '}
                 kg
               </Text>
               <Text style={[styles.largeInfo, styles.whiteText]}>
+                Footprint:{' '}
                 {user && user.data
                   ? user.data.total.footprint.toFixed(2) + ' kg'
                   : '0 kg'}
               </Text>
               <Text style={[styles.smallText, styles.whiteText]}>
+                Distance:{' '}
                 {user && user.data
                   ? user.data.total.distance.toFixed(2) + ' km'
                   : '0 km'}
               </Text>
               <Text style={[styles.smallText, styles.whiteText]}>
-                {user && user.data ? user.data.total.time + ' s' : '0 s'}
+                Time: {user && user.data ? user.data.total.time + ' s' : '0 s'}
               </Text>
             </View>
             <ScrollView contentContainerStyle={styles.content}>
@@ -141,8 +128,37 @@ class Stats extends Component {
                       }
                       return (
                         <View style={columnStyle} key={i}>
+                          <View
+                            style={{ alignSelf: 'flex-end', marginTop: -23 }}
+                          >
+                            <ShareIcon
+                              name="share-2"
+                              size={20}
+                              onPress={() =>
+                                this.ShareMessage(
+                                  `I ${
+                                    column.activityType == 'vehicle'
+                                      ? 'emitted'
+                                      : 'saved'
+                                  } ${
+                                    column.value.footprint
+                                      ? column.value.footprint.toFixed(2)
+                                      : 0.0
+                                  } kg by ${
+                                    column.activityType
+                                  } travelling a distance of ${
+                                    column.value.distance
+                                      ? column.value.distance.toFixed(2)
+                                      : 0.0
+                                  } km in ${
+                                    column.value.time ? column.value.time : 0
+                                  }s. Analyse yours too, download the CarbonFootprint-Mobile app now play.google.com`
+                                )
+                              }
+                            />
+                          </View>
                           {column.icon === 'run' ? (
-                            <Icon1
+                            <RunningIcon
                               name={column.icon}
                               size={32}
                               color={color.darkPrimary}
@@ -205,7 +221,7 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   content: {
-    flex: 0.6
+    flex: 1
   },
   largeText: {
     fontSize: 13,
