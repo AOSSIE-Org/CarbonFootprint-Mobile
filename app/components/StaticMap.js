@@ -40,7 +40,7 @@ class StaticMap extends Component {
                             )
                                 .then(response => response.json())
                                 .then(responseJson => {
-                                    props.customFunction(
+                                    props.getRedMarkerDetails(
                                         this.state.source,
                                         JSON.stringify(
                                             responseJson.results[0]
@@ -76,7 +76,7 @@ class StaticMap extends Component {
                             )
                                 .then(response => response.json())
                                 .then(responseJson => {
-                                    props.customFunction2(
+                                    props.getGreenMarkerDetails(
                                         this.state.destination,
                                         JSON.stringify(
                                             responseJson.results[0]

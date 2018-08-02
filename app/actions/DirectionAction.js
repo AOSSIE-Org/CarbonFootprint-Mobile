@@ -180,7 +180,7 @@ export function openSearchModal(key) {
     };
 }
 
-export function customFunction(location, placename) {
+export function getRedMarkerDetails(location, placename) {
     return dispatch => {
         getRegion(
             { latitude: location.latitude, longitude: location.longitude },
@@ -192,7 +192,7 @@ export function customFunction(location, placename) {
     };
 }
 
-export function customFunction2(location, placename) {
+export function getGreenMarkerDetails(location, placename) {
     return dispatch => {
         dispatch(set_destination(location, placename));
     };
