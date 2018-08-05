@@ -164,8 +164,7 @@ const styles = StyleSheet.create({
         top: 0,
         right: 0,
         left: 0,
-        bottom: 0,
-        height: 430
+        bottom: 0
     },
     map: {
         top: 0,
