@@ -132,10 +132,10 @@ export function searchFriendsByUserName(value) {
             .on('child_added', function(snapshot) {
                 // this will have all the users.
                 users.push({
-                    email: snapshot.val().email,
+                    uid: snapshot.key,
                     name: snapshot.val().name,
                     picture: snapshot.val().picture,
-                    key: snapshot.key
+                    email: snapshot.val().email
                 });
                 resolve(users);
             });
