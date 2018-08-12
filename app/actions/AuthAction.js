@@ -160,11 +160,11 @@ export function logout() {
             .auth()
             .signOut()
             .then(() => {
+                Actions.landing({ type: ActionConst.RESET });
                 // Reset the store
                 dispatch({
                     type: 'USER_LOGOUT'
                 });
-                Actions.landing({ type: ActionConst.RESET });
             })
             .catch(error => {
                 //console.log(error);
