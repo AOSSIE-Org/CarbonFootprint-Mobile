@@ -69,3 +69,9 @@ https://drive.google.com/open?id=11G5g7PMDi0VBx0ckBkzD8iVsO9Xffc6n
 -   MR !56 - [ Added Multidex ](https://gitlab.com/aossie/CarbonFootprint-Mobile/merge_requests/56) (MERGED)
 
 -   MR !58 - [ Fixed Logout ](https://gitlab.com/aossie/CarbonFootprint-Mobile/merge_requests/58) (MERGED)
+
+## Future Scope
+
+1.  Gamification improvement
+2.  suggesting user friends after signing in with social accounts
+3.  Showing suggestion to user with notification based on how much co2 released
