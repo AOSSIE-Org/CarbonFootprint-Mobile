@@ -2,7 +2,6 @@ import * as firebase from 'firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { setStorage } from './StorageAction';
 import { firebaseConfig } from '../config/keys';
-
 import { initFirebase } from './firebase/Init';
 import {
     registerFirebase,
@@ -160,11 +159,11 @@ export function logout() {
             .auth()
             .signOut()
             .then(() => {
+                Actions.landing({ type: ActionConst.RESET });
                 // Reset the store
                 dispatch({
                     type: 'USER_LOGOUT'
                 });
-                Actions.landing({ type: ActionConst.RESET });
             })
             .catch(error => {
                 //console.log(error);

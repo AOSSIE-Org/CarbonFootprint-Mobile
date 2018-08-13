@@ -1,5 +1,5 @@
 import * as firebase from 'firebase';
-import { setUser, getUser } from './User';
+import { setUser, getUser, updateUser } from './User';
 
 /**
  * firebase function to register user
@@ -93,7 +93,19 @@ export function loginCustomFirebase(type, token, secret) {
             .signInWithCredential(credential)
             .then(user => {
                 getUser(user.uid)
-                    .then(user => resolve(user))
+                    .then(() => {
+                        let temp = {
+                            name: user.displayName,
+                            email: user.email || null,
+                            picture: user.photoURL || null,
+                            provider: provider
+                        };
+
+                        updateUser(user.uid, temp)
+                            .then(() => resolve())
+                            .catch(error => reject(error));
+                        resolve(user);
+                    })
                     .catch(error => {
                         let temp = {
                             name: user.displayName,

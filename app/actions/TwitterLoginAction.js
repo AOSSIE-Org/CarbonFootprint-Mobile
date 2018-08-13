@@ -5,9 +5,9 @@
 import TwitterAuth from 'tipsi-twitter';
 import * as firebase from 'firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
-
 import { twitterSignInConfig } from '../config/keys';
 import { receiveAuth, receiveError } from './AuthAction';
+import { showAlert } from '../config/helper';
 import { loginCustomFirebase } from './firebase/Auth';
 
 /**
@@ -32,6 +32,7 @@ export function twitterLogin() {
                         Actions.main({ type: ActionConst.RESET });
                     })
                     .catch(error => {
+                        showAlert('Login Issue', error.message, 'OK');
                         dispatch(receiveError(error));
                     });
             })

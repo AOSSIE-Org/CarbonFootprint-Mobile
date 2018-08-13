@@ -45,3 +45,25 @@ export function getUser(uid) {
             });
     });
 }
+/**
+ * updating user details with uid
+ * @param  uid user id or unique id of logged in user
+ * @param data updated user details
+ * @return {Promise}
+ */
+export function updateUser(uid, data) {
+    return new Promise((resolve, reject) => {
+        firebase
+            .database()
+            .ref('users/')
+            .child(uid)
+            .update({
+                name: data.name,
+                provider: data.provider,
+                picture: data.picture,
+                email: data.email
+            })
+            .then(() => resolve())
+            .catch(error => reject(error));
+    });
+}
