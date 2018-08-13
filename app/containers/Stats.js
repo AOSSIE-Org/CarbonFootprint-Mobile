@@ -84,6 +84,22 @@ class Stats extends Component {
         ) : (
           <ScrollView contentContainerStyle={styles.main}>
             <View style={styles.header}>
+              <View style={styles.shareStyle}>
+                <ShareIcon
+                  name="share-2"
+                  size={25}
+                  color="white"
+                  onPress={() =>
+                    this.ShareMessage(
+                      `I saved ${
+                        user && user.data
+                          ? user.data.total.co2Saved.toFixed(2)
+                          : 0.0
+                      } kg Co2. Analyse yours too, download the CarbonFootprint-Mobile app now play.google.com`
+                    )
+                  }
+                />
+              </View>
               <Icon
                 name={getIcon('analytics')}
                 size={56}
@@ -96,7 +112,7 @@ class Stats extends Component {
                 kg
               </Text>
               <Text style={[styles.largeInfo, styles.whiteText]}>
-                Footprint:{' '}
+                Co2 Emitted:{' '}
                 {user && user.data
                   ? user.data.total.footprint.toFixed(2) + ' kg'
                   : '0 kg'}
@@ -126,33 +142,6 @@ class Stats extends Component {
                       }
                       return (
                         <View style={columnStyle} key={i}>
-                          <View style={styles.shareStyle}>
-                            <ShareIcon
-                              name="share-2"
-                              size={20}
-                              onPress={() =>
-                                this.ShareMessage(
-                                  `I ${
-                                    column.activityType == 'vehicle'
-                                      ? 'emitted'
-                                      : 'saved'
-                                  } ${
-                                    column.value.footprint
-                                      ? column.value.footprint.toFixed(2)
-                                      : 0.0
-                                  } kg  Co2 by ${
-                                    column.activityType
-                                  } travelling a distance of ${
-                                    column.value.distance
-                                      ? column.value.distance.toFixed(2)
-                                      : 0.0
-                                  } km in ${
-                                    column.value.time ? column.value.time : 0
-                                  }s. Analyse yours too, download the CarbonFootprint-Mobile app now play.google.com`
-                                )
-                              }
-                            />
-                          </View>
                           {column.icon === 'run' ? (
                             <RunningIcon
                               name={column.icon}
@@ -167,7 +156,13 @@ class Stats extends Component {
                             />
                           )}
                           <View style={styles.columnInfo}>
-                            <Text style={styles.largeInfo}>
+                            <Text
+                              style={
+                                column.icon == 'car'
+                                  ? styles.emittedCo2
+                                  : styles.largeInfo
+                              }
+                            >
                               {column.value.footprint
                                 ? column.value.footprint.toFixed(2) + ' kg'
                                 : '0 kg'}
@@ -255,7 +250,12 @@ const styles = StyleSheet.create({
   largeInfo: {
     fontSize: 18,
     letterSpacing: 1,
-    color: color.black
+    color: '#31db0f'
+  },
+  emittedCo2: {
+    fontSize: 18,
+    letterSpacing: 1,
+    color: '#e01702'
   },
   columnInfo: {
     marginTop: 10
@@ -281,7 +281,8 @@ const styles = StyleSheet.create({
   },
   shareStyle: {
     alignSelf: 'flex-end',
-    marginTop: -23
+    marginTop: -35,
+    marginRight: 10
   }
 });
 

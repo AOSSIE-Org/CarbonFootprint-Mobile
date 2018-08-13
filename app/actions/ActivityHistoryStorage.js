@@ -136,17 +136,17 @@ export default class ActivityHistoryStorage {
       },
       cycling: {
         time: dataObj.durCycle,
-        footprint: 0.0,
+        footprint: dataObj.co2CycleSaved,
         distance: dataObj.distCycle
       },
       walking: {
         time: dataObj.durWalk,
-        footprint: 0.0,
+        footprint: dataObj.co2WalkSaved,
         distance: dataObj.distWalk
       },
       running: {
         time: dataObj.durRun,
-        footprint: 0.0,
+        footprint: dataObj.co2RunSaved,
         distance: dataObj.distRun
       }
     };
