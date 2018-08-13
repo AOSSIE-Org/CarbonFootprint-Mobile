@@ -1,6 +1,7 @@
 import { Platform, BackHandler } from 'react-native';
 import Geocoder from 'react-native-geocoding';
 import { geocodingAPIKey } from './keys';
+import { Alert } from 'react-native';
 import store from '../config/store';
 import {
     RATE_PETROL,
@@ -172,6 +173,26 @@ export function checkGPS() {
     BackHandler.addEventListener('hardwareBackPress', () => {
         LocationServicesDialogBox.forceCloseDialog();
     });
+}
+
+/**
+ * showing up a alert dialog with passed parameters
+ * @param  header
+ * @param  message
+ * @param  buttonLabel
+ * @return JSX alert
+ */
+export function showAlert(header, message, buttonLabel) {
+    return Alert.alert(
+        header,
+        message,
+        [
+            {
+                text: buttonLabel
+            }
+        ],
+        { cancelable: false }
+    );
 }
 
 /*colors*/
