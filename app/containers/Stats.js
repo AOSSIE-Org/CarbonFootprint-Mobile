@@ -67,7 +67,7 @@ class Stats extends Component {
               : this.props.storage.data.automobile === 'Bus'
                 ? 'bus'
                 : 'train',
-          value: user && user.data && user.data.driving ? user.data.driving : {}
+          value: user && user.data && user.data.car ? user.data.car : {}
         }
       ]
     ];
@@ -92,7 +92,10 @@ class Stats extends Component {
                   onPress={() =>
                     this.ShareMessage(
                       `I saved ${
-                        user && user.data
+                        user &&
+                        user.data &&
+                        user.data.total &&
+                        user.data.total.co2Saved
                           ? user.data.total.co2Saved.toFixed(2)
                           : 0.0
                       } kg Co2. Analyse yours too, download the CarbonFootprint-Mobile app now play.google.com`
@@ -108,7 +111,12 @@ class Stats extends Component {
               />
               <Text style={[styles.largeInfo, styles.whiteText]}>
                 Co2 saved:{' '}
-                {user && user.data ? user.data.total.co2Saved.toFixed(2) : 0.0}{' '}
+                {user &&
+                user.data &&
+                user.data.total &&
+                user.data.total.co2Saved
+                  ? user.data.total.co2Saved.toFixed(2)
+                  : 0.0}{' '}
                 kg
               </Text>
               <Text style={[styles.largeInfo, styles.whiteText]}>
