@@ -1,7 +1,8 @@
 import {
-    REQUEST_AUTH,
-    RECEIVE_AUTH,
-    RECEIVE_ERROR
+  REQUEST_AUTH,
+  RECEIVE_AUTH,
+  RECEIVE_ERROR,
+  ADD_USER_FIRABASE
 } from '../actions/AuthAction';
 
 /**
@@ -11,31 +12,36 @@ import {
  * @return {state} based on action the function changes the state and rerenders
  */
 export default function login(
-    state = {
-        isFetching: false,
-        user: {},
-        error: ''
-    },
-    action
+  state = {
+    isFetching: false,
+    user: {},
+    error: ''
+  },
+  action
 ) {
-    switch (action.type) {
-        case REQUEST_AUTH:
-            return Object.assign({}, state, {
-                isFetching: true
-            });
-        case RECEIVE_AUTH:
-            return Object.assign({}, state, {
-                isFetching: false,
-                user: action.user,
-                error: ''
-            });
-        case RECEIVE_ERROR:
-            return Object.assign({}, state, {
-                isFetching: false,
-                user: null,
-                error: action.error.message
-            });
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case REQUEST_AUTH:
+      return Object.assign({}, state, {
+        isFetching: true
+      });
+    case RECEIVE_AUTH:
+      return Object.assign({}, state, {
+        isFetching: false,
+        user: action.user,
+        error: ''
+      });
+    case ADD_USER_FIRABASE:
+      return Object.assign({}, state, {
+        user: action.user,
+        error: ''
+      });
+    case RECEIVE_ERROR:
+      return Object.assign({}, state, {
+        isFetching: false,
+        user: null,
+        error: action.error.message
+      });
+    default:
+      return state;
+  }
 }

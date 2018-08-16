@@ -4,9 +4,9 @@ import { setStorage } from './StorageAction';
 import { firebaseConfig } from '../config/keys';
 import { initFirebase } from './firebase/Init';
 import {
-    registerFirebase,
-    loginEmailFirebase,
-    forgotPasswordFirebase
+  registerFirebase,
+  loginEmailFirebase,
+  forgotPasswordFirebase
 } from './firebase/Auth';
 
 export const REQUEST_AUTH = 'REQUEST_AUTH';
@@ -14,15 +14,16 @@ export const RECEIVE_AUTH = 'RECEIVE_AUTH';
 export const RECEIVE_ERROR = 'RECEIVE_ERROR';
 export const REQUEST_FORGOT = 'REQUEST_FORGOT';
 export const RECEIVE_FORGOT = 'RECEIVE_FORGOT';
+export const ADD_USER_FIREBASE = 'ADD_USER_FIREBASE';
 
 /**
  * action creator for request auth
  * @return {Object} action for REQUEST_AUTH
  */
 export function requestAuth() {
-    return {
-        type: REQUEST_AUTH
-    };
+  return {
+    type: REQUEST_AUTH
+  };
 }
 
 /**
@@ -31,10 +32,10 @@ export function requestAuth() {
  * @return {Object} action for RECEIVE_AUTH
  */
 export function receiveAuth(json) {
-    return {
-        type: RECEIVE_AUTH,
-        user: json
-    };
+  return {
+    type: RECEIVE_AUTH,
+    user: json
+  };
 }
 
 /**
@@ -43,10 +44,10 @@ export function receiveAuth(json) {
  * @return {Object} action for RECEIVE_ERROR
  */
 export function receiveError(json) {
-    return {
-        type: RECEIVE_ERROR,
-        error: json
-    };
+  return {
+    type: RECEIVE_ERROR,
+    error: json
+  };
 }
 
 /**
@@ -54,9 +55,9 @@ export function receiveError(json) {
  * @return {Object} action for REQUEST_FORGOT
  */
 export function requestForgot() {
-    return {
-        type: REQUEST_FORGOT
-    };
+  return {
+    type: REQUEST_FORGOT
+  };
 }
 
 /**
@@ -65,10 +66,17 @@ export function requestForgot() {
  * @return {Object} action for RECEIVE_FORGOT
  */
 export function receiveForgot(message) {
-    return {
-        type: RECEIVE_FORGOT,
-        message
-    };
+  return {
+    type: RECEIVE_FORGOT,
+    message
+  };
+}
+
+export function addUserDetails(userDetails) {
+  return {
+    type: ADD_USER_FIREBASE,
+    user: userDetails
+  };
 }
 
 /**
@@ -78,17 +86,17 @@ export function receiveForgot(message) {
  * @return login the user
  */
 export function login(email, password) {
-    return (dispatch, getState) => {
-        dispatch(requestAuth());
-        loginEmailFirebase(email, password)
-            .then(user => {
-                dispatch(receiveAuth(user));
-                Actions.main({ type: ActionConst.RESET });
-            })
-            .catch(error => {
-                dispatch(receiveError(error));
-            });
-    };
+  return (dispatch, getState) => {
+    dispatch(requestAuth());
+    loginEmailFirebase(email, password)
+      .then(user => {
+        dispatch(receiveAuth(user));
+        Actions.main({ type: ActionConst.RESET });
+      })
+      .catch(error => {
+        dispatch(receiveError(error));
+      });
+  };
 }
 
 /**
@@ -99,17 +107,17 @@ export function login(email, password) {
  * @return register the user
  */
 export function register(name, email, password) {
-    return (dispatch, getState) => {
-        dispatch(requestAuth());
-        registerFirebase(name, email, password)
-            .then(user => {
-                dispatch(receiveAuth(user));
-                Actions.main({ type: ActionConst.RESET });
-            })
-            .catch(error => {
-                dispatch(receiveError(error));
-            });
-    };
+  return (dispatch, getState) => {
+    dispatch(requestAuth());
+    registerFirebase(name, email, password)
+      .then(user => {
+        dispatch(receiveAuth(user));
+        Actions.main({ type: ActionConst.RESET });
+      })
+      .catch(error => {
+        dispatch(receiveError(error));
+      });
+  };
 }
 
 /**
@@ -117,16 +125,16 @@ export function register(name, email, password) {
  * @return recieving user auth
  */
 export function initApp() {
-    return (dispatch, getState) => {
-        dispatch(requestAuth());
-        initFirebase()
-            .then(user => {
-                dispatch(receiveAuth(user));
-            })
-            .catch(() => {
-                dispatch(receiveAuth(null));
-            });
-    };
+  return (dispatch, getState) => {
+    dispatch(requestAuth());
+    initFirebase()
+      .then(user => {
+        dispatch(receiveAuth(user));
+      })
+      .catch(() => {
+        dispatch(receiveAuth(null));
+      });
+  };
 }
 
 /**
@@ -135,18 +143,30 @@ export function initApp() {
  * @return password reset
  */
 export function forgotPassword(email) {
-    return dispatch => {
-        dispatch(requestForgot());
-        forgotPasswordFirebase(email)
-            .then(() =>
-                dispatch(
-                    receiveForgot(
-                        'Password reset link has been sent to your email'
-                    )
-                )
-            )
-            .catch(error => dispatch(receiveForgot(error.message)));
-    };
+  return dispatch => {
+    dispatch(requestForgot());
+    forgotPasswordFirebase(email)
+      .then(() =>
+        dispatch(
+          receiveForgot('Password reset link has been sent to your email')
+        )
+      )
+      .catch(error => dispatch(receiveForgot(error.message)));
+  };
+}
+
+export function updateUserFirebase(user) {
+  return dispatch => {
+    return new Promise((resolve, reject) => {
+      const uid = firebase.auth().currentUser.uid;
+      firebase
+        .database()
+        .ref('users/' + uid)
+        .update(user);
+      dispatch(addUserDetails(user));
+      resolve();
+    });
+  };
 }
 
 /**
@@ -154,19 +174,19 @@ export function forgotPassword(email) {
  * @return logout the user
  */
 export function logout() {
-    return dispatch => {
-        firebase
-            .auth()
-            .signOut()
-            .then(() => {
-                Actions.landing({ type: ActionConst.RESET });
-                // Reset the store
-                dispatch({
-                    type: 'USER_LOGOUT'
-                });
-            })
-            .catch(error => {
-                //console.log(error);
-            });
-    };
+  return dispatch => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        Actions.landing({ type: ActionConst.RESET });
+        // Reset the store
+        dispatch({
+          type: 'USER_LOGOUT'
+        });
+      })
+      .catch(error => {
+        //console.log(error);
+      });
+  };
 }
