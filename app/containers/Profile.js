@@ -10,7 +10,8 @@ import {
   StyleSheet,
   ToastAndroid,
   TouchableNativeFeedback,
-  Platform
+  Platform,
+  ActivityIndicator
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -34,12 +35,15 @@ class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      updateClicked: false,
       name: this.props.user.name,
       email: this.props.user.email,
       phone_no: this.props.user.phone_no ? this.props.user.phone_no : null,
-      picture: this.props.user.picture.uri
+      picture: this.props.user.picture
         ? this.props.user.picture.uri
-        : this.props.user.picture
+          ? this.props.user.picture.uri
+          : this.props.user.picture
+        : images.logo
     };
   }
 
@@ -48,14 +52,18 @@ class UserProfile extends Component {
       ToastAndroid.show('You cannot leave email blank', ToastAndroid.SHORT);
     } else if (this.state.name === '') {
       ToastAndroid.show('You cannot leave name blank', ToastAndroid.SHORT);
-    } else if (this.state.phone_no.length !== 10) {
+    } else if (this.state.phone_no && this.state.phone_no.length !== 10) {
       ToastAndroid.show(
         'Please enter valid 10 digit number',
         ToastAndroid.SHORT
       );
     } else {
+      this.setState({ updateClicked: true });
       this.props.updateUserFirebase(this.state).then(() => {
-        ToastAndroid.show('Profile Updated', ToastAndroid.SHORT);
+        setTimeout(() => {
+          ToastAndroid.show('Profile Updated', ToastAndroid.SHORT);
+          this.setState({ updateClicked: false });
+        }, 2000);
       });
     }
   }
@@ -79,7 +87,6 @@ class UserProfile extends Component {
       } else if (response.customButton) {
         ToastAndroid.show('User Tapped Custom Button', ToastAndroid.SHORT);
       } else {
-        let source = { uri: response.uri };
         this.setState({
           picture: response.uri
         });
@@ -94,11 +101,19 @@ class UserProfile extends Component {
         <Header iconName="arrow-back" icon={true} text="Profile" />
         <View>
           <View style={styles.avatarContainer}>
-            <Image
-              style={styles.avatar}
-              resizeMethod={'resize'}
-              source={{ uri: this.state.picture }}
-            />
+            {this.state.picture == images.logo ? (
+              <Image
+                style={styles.avatar}
+                resizeMethod={'resize'}
+                source={images.logo}
+              />
+            ) : (
+              <Image
+                style={styles.avatar}
+                resizeMethod={'resize'}
+                source={{ uri: this.state.picture }}
+              />
+            )}
             <TouchableOpacity
               activeOpacity={0.4}
               onPress={() => this._cameraImage()}
@@ -158,6 +173,9 @@ class UserProfile extends Component {
               value={this.state.phone_no}
             />
           </View>
+          {this.state.updateClicked ? (
+            <ActivityIndicator size="small" color={color.primary} />
+          ) : null}
           <TouchableNativeFeedback onPress={() => this.handleUpdate()}>
             <View style={styles.updateButton}>
               <Text style={styles.whiteText}>Update</Text>
@@ -240,6 +258,15 @@ const styles = StyleSheet.create({
   },
   updateText: {
     color: 'white'
+  },
+  loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 
