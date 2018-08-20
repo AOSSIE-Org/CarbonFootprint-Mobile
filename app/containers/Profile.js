@@ -37,7 +37,6 @@ class UserProfile extends Component {
     this.state = {
       updateClicked: false,
       name: this.props.user.name,
-      email: this.props.user.email,
       phone_no: this.props.user.phone_no ? this.props.user.phone_no : null,
       picture: this.props.user.picture
         ? this.props.user.picture.uri
@@ -48,9 +47,7 @@ class UserProfile extends Component {
   }
 
   handleUpdate() {
-    if (this.state.email === '') {
-      ToastAndroid.show('You cannot leave email blank', ToastAndroid.SHORT);
-    } else if (this.state.name === '') {
+    if (this.state.name === '') {
       ToastAndroid.show('You cannot leave name blank', ToastAndroid.SHORT);
     } else if (this.state.phone_no && this.state.phone_no.length !== 10) {
       ToastAndroid.show(
@@ -142,19 +139,7 @@ class UserProfile extends Component {
             <View style={styles.valueTextContainer}>
               <Text style={styles.valueText}>Email</Text>
             </View>
-            <TextInput
-              autoCapitalize="none"
-              autoCorrect={false}
-              ref={input => (this.emailInput = input)}
-              onChangeText={email => this.setState({ email })}
-              onSubmitEditing={() => this.phoneNoInput.focus()}
-              keyboardType="email-address"
-              returnKeyType="next"
-              style={styles.textInput}
-              underlineColorAndroid="transparent"
-              placeholder="Email"
-              value={this.state.email}
-            />
+            <Text style={styles.textInput}>{this.props.user.email}</Text>
           </View>
           <View style={styles.valueItem}>
             <View style={styles.valueTextContainer}>
