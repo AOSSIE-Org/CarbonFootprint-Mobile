@@ -8,6 +8,7 @@ import {
   loginEmailFirebase,
   forgotPasswordFirebase
 } from './firebase/Auth';
+import { RESET_PASSWORD } from '../config/constants';
 
 export const REQUEST_AUTH = 'REQUEST_AUTH';
 export const RECEIVE_AUTH = 'RECEIVE_AUTH';
@@ -71,6 +72,12 @@ export function receiveForgot(message) {
     message
   };
 }
+
+/**
+ * action creator to handle update of user details
+ * @param userDetails
+ * @return {Object} action for ADD_USER_FIREBASE
+ */
 
 export function addUserDetails(userDetails) {
   return {
@@ -146,11 +153,7 @@ export function forgotPassword(email) {
   return dispatch => {
     dispatch(requestForgot());
     forgotPasswordFirebase(email)
-      .then(() =>
-        dispatch(
-          receiveForgot('Password reset link has been sent to your email')
-        )
-      )
+      .then(() => dispatch(receiveForgot(RESET_PASSWORD)))
       .catch(error => dispatch(receiveForgot(error.message)));
   };
 }
