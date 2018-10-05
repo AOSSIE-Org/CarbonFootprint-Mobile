@@ -156,6 +156,26 @@ react-native run-android
 
 You can also run it directly from within Android Studio or Nuclide
 
+----
+
+#### Screenshots
+
+<table>
+    <tr>
+     <td><kbd><img src="./doc/Screenshots/Screenshot_2018-10-04-23-30-19-364_com.mi.android.globalFileexplorer.png"></kbd></td>
+     <td><kbd><img src="./doc/Screenshots/Screenshot_2018-10-04-23-30-08-966_com.mi.android.globalFileexplorer.png"></kbd></td>
+     <td><kbd><img src="./doc/Screenshots/Screenshot_2018-10-04-23-29-29-107_com.mi.android.globalFileexplorer.png"></kbd></td>
+     <td><kbd><img src="./doc/Screenshots/Screenshot_2018-10-02-15-39-00-978_com.carbonfootprint.png"></kbd></td>
+     <tr> 
+      <td><kbd><img src="./doc/Screenshots/Screenshot_2018-10-02-15-38-35-923_com.carbonfootprint.png"></kbd></td>
+      <td><kbd><img src="./doc/Screenshots/Screenshot_2018-10-02-15-38-22-235_com.carbonfootprint.png"></kbd></td>
+      <td><kbd><img src="./doc/Screenshots/Screenshot_2018-09-25-23-42-05-012_com.carbonfootprint.png"></kbd></td>
+      <td><kbd><img src="./doc/Screenshots/Screenshot_2018-09-18-23-55-32-571_com.carbonfootprint.png"></kbd></td>
+    </tr>
+  </table>
+
+----
+
 **NOTE -** Please add the SHA-1 certificate fingerprints of your debug keystore in project settings in Firebase. To generate SHA-1 certificate fingerprints, see https://developers.google.com/android/guides/client-auth .
 
 **NOTE -** In case of errors faced while installation of the application refer to this [errors-and-fixes](errors-and-fixes.md) file, to resolve the errors.
