@@ -9,6 +9,7 @@ import { twitterSignInConfig } from '../config/keys';
 import { receiveAuth, receiveError } from './AuthAction';
 import { showAlert } from '../config/helper';
 import { loginCustomFirebase } from './firebase/Auth';
+import { KEYS_NOT_SET } from '../config/constants';
 
 /**
  * twitter login functionality in app
@@ -16,7 +17,7 @@ import { loginCustomFirebase } from './firebase/Auth';
  */
 export function twitterLogin() {
     if (twitterSignInConfig.twitter_key === null) {
-        return alert('keys are not set, hence this functionality is disabled');
+        return alert(KEYS_NOT_SET);
     }
     TwitterAuth.init(twitterSignInConfig);
     return dispatch => {

@@ -23,7 +23,7 @@ const Footer = props => {
         activity: props.name === 'activity' ? color.primary : color.black,
         friends: props.name === 'friends' ? color.primary : color.black,
         more: props.name === 'more' ? color.primary : color.black,
-        stats: props.name === 'stats' ? color.primary : color.black
+        dashboard: props.name === 'dashboard' ? color.primary : color.black
     };
 
     const tabs = [
@@ -46,10 +46,10 @@ const Footer = props => {
             name: 'Friends'
         },
         {
-            action: () => Actions.stats(),
+            action: () => Actions.dashboard(),
             icon: 'stats',
-            color: footerColor.stats,
-            name: 'Stats'
+            color: footerColor.dashboard,
+            name: 'Dashboard'
         },
         {
             action: () => Actions.more(),
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
 });
 
 Footer.propTypes = {
-    name: PropTypes.string, 
-}
+    name: PropTypes.string
+};
 
 export default Footer;

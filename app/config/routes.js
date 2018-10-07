@@ -13,10 +13,11 @@ import TimelineTab from '../containers/TimelineTab';
 import More from '../containers/More';
 import About from '../containers/About';
 import Terms from '../containers/Terms';
-import Stats from '../containers/Stats';
+import Dashboard from '../containers/Dashboard';
 import Friends from '../containers/Friends';
 import Settings from '../containers/Settings';
 import Forgot from '../containers/Forgot';
+import UserProfile from '../containers/Profile';
 
 import Footer from '../components/Footer';
 
@@ -109,8 +110,13 @@ class Navigator extends Component {
                                 hideNavBar
                             />
                             <Scene
-                                key="stats"
-                                component={Stats}
+                                key="profile"
+                                component={UserProfile}
+                                panHandlers={null}
+                            />
+                            <Scene
+                                key="dashboard"
+                                component={Dashboard}
                                 panHandlers={null}
                             />
                             <Scene

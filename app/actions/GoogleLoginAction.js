@@ -9,6 +9,7 @@ import { googleSignInConfig } from '../config/keys';
 import { receiveAuth, receiveError } from './AuthAction';
 import { showAlert } from '../config/helper';
 import { loginCustomFirebase } from './firebase/Auth';
+import { KEYS_NOT_SET } from '../config/constants';
 
 /**
  * google signin functionality to app
@@ -16,7 +17,7 @@ import { loginCustomFirebase } from './firebase/Auth';
  */
 export function googleSignIn() {
     if (googleSignInConfig.clientID === null) {
-        return alert('keys are not set, hence this functionality is disabled');
+        return alert(KEYS_NOT_SET);
     }
     return function(dispatch) {
         GoogleSignIn.configure(googleSignInConfig).then(() => {

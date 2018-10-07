@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+import HistoryIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import UserIcon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -44,6 +45,37 @@ class More extends Component {
         );
     }
 
+    renderIcon(icon) {
+        if (icon == 'history') {
+            return (
+                <HistoryIcon
+                    name={icon}
+                    size={20}
+                    style={styles.icon}
+                    color={color.black}
+                />
+            );
+        } else if (icon == 'user') {
+            return (
+                <UserIcon
+                    name="user"
+                    size={20}
+                    style={styles.icon}
+                    color={color.black}
+                />
+            );
+        } else {
+            return (
+                <Icon
+                    name={getIcon(icon)}
+                    size={20}
+                    color={color.black}
+                    style={styles.icon}
+                />
+            );
+        }
+    }
+
     render() {
         let groups = [
             [
@@ -72,6 +104,13 @@ class More extends Component {
             ],
             [
                 {
+                    icon: 'user',
+                    text: 'Profile',
+                    link: () => Actions.profile()
+                }
+            ],
+            [
+                {
                     icon: 'log-out',
                     text: 'Logout',
                     link: () => this.logout()
@@ -94,23 +133,7 @@ class More extends Component {
                                             key={i}
                                         >
                                             <View style={styles.button}>
-                                                {item.icon === 'history' ? (
-                                                    <Icon1
-                                                        name={item.icon}
-                                                        size={20}
-                                                        style={styles.icon}
-                                                        color={color.black}
-                                                    />
-                                                ) : (
-                                                    <Icon
-                                                        name={getIcon(
-                                                            item.icon
-                                                        )}
-                                                        size={24}
-                                                        style={styles.icon}
-                                                        color={color.black}
-                                                    />
-                                                )}
+                                                {this.renderIcon(item.icon)}
                                                 <Text style={styles.text}>
                                                     {item.text}
                                                 </Text>
@@ -171,6 +194,9 @@ function mapDispatchToProps(dispatch) {
 
 More.propTypes = {
     logout: PropTypes.func.isRequired
-}
+};
 
-export default connect(null, mapDispatchToProps)(More);
+export default connect(
+    null,
+    mapDispatchToProps
+)(More);
