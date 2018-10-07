@@ -2,6 +2,26 @@
 
 This project is for Carbon Footprint Mobile Application
 
+----
+
+#### Screenshots
+
+<table>
+    <tr>
+     <td><kbd><img src="./doc/Screenshots/tour1.png"></kbd></td>
+     <td><kbd><img src="./doc/Screenshots/tour3.png"></kbd></td>
+     <td><kbd><img src="./doc/Screenshots/login.png"></kbd></td>
+     <td><kbd><img src="./doc/Screenshots/maps.png"></kbd></td>
+     <tr> 
+      <td><kbd><img src="./doc/Screenshots/activity.png"></kbd></td>
+      <td><kbd><img src="./doc/Screenshots/friends.png"></kbd></td>
+      <td><kbd><img src="./doc/Screenshots/stats.png"></kbd></td>
+      <td><kbd><img src="./doc/Screenshots/more.png"></kbd></td>
+    </tr>
+  </table>
+
+----
+
 ## Install Dependencies
 
 This project is built using React Native. You will need the following dependencies.
@@ -155,6 +175,7 @@ react-native run-android
 ```
 
 You can also run it directly from within Android Studio or Nuclide
+
 
 **NOTE -** Please add the SHA-1 certificate fingerprints of your debug keystore in project settings in Firebase. To generate SHA-1 certificate fingerprints, see https://developers.google.com/android/guides/client-auth .
 
