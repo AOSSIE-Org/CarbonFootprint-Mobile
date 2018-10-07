@@ -6,6 +6,7 @@ export const REQUEST_LOCATION = 'REQUEST_LOCATION';
 export const RECEIVE_LOCATION = 'RECEIVE_LOCATION';
 
 import { Platform } from 'react-native';
+import { GEOLOCATION_PERMISSION, GRANT_PERMISSION } from '../config/constants';
 
 /**
  * action creator to request location
@@ -40,9 +41,8 @@ export async function getPermission() {
         const granted = await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
             {
-                title: 'Carbon Footprint Geolocation Permission',
-                message:
-                    'Allow Carbon Footprint to access your current location'
+                title: GEOLOCATION_PERMISSION,
+                message: GRANT_PERMISSION
             }
         );
         //console.log("Granted");

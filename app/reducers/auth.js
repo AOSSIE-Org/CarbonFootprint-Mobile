@@ -1,7 +1,8 @@
 import {
     REQUEST_AUTH,
     RECEIVE_AUTH,
-    RECEIVE_ERROR
+    RECEIVE_ERROR,
+    ADD_USER_FIRABASE
 } from '../actions/AuthAction';
 
 /**
@@ -26,6 +27,11 @@ export default function login(
         case RECEIVE_AUTH:
             return Object.assign({}, state, {
                 isFetching: false,
+                user: action.user,
+                error: ''
+            });
+        case ADD_USER_FIRABASE:
+            return Object.assign({}, state, {
                 user: action.user,
                 error: ''
             });
