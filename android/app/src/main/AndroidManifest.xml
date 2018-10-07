@@ -34,7 +34,7 @@
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
       <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/google_maps_api_key"/>
-      <service android:name="com.xebia.activityrecognition.DetectionService"/>
+        <service android:name="com.xebia.activityrecognition.DetectionService"/>
       <meta-data
           android:name="io.fabric.ApiKey"
           android:value="6085fd67c7f2500302bf77143d298c546a420daa"

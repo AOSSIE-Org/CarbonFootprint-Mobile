@@ -13,9 +13,9 @@ import { GEOLOCATION_PERMISSION, GRANT_PERMISSION } from '../config/constants';
  * @return {Object} action for REQUEST_LOCATION
  */
 function request_location() {
-  return {
-    type: REQUEST_LOCATION
-  };
+    return {
+        type: REQUEST_LOCATION
+    };
 }
 
 /**
@@ -25,11 +25,11 @@ function request_location() {
  * @return {Object} action for RECEIVE_LOCATION
  */
 function receive_location(latitude, longitude) {
-  return {
-    type: RECEIVE_LOCATION,
-    latitude: latitude,
-    longitude: longitude
-  };
+    return {
+        type: RECEIVE_LOCATION,
+        latitude: latitude,
+        longitude: longitude
+    };
 }
 
 /**
@@ -37,65 +37,67 @@ function receive_location(latitude, longitude) {
  * @return boolean permission
  */
 export async function getPermission() {
-  try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        title: GEOLOCATION_PERMISSION,
-        message: GRANT_PERMISSION
-      }
-    );
-    //console.log("Granted");
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      return true;
-    } else {
-      //console.log("Not Granted");
-      return false;
+    try {
+        const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+            {
+                title: GEOLOCATION_PERMISSION,
+                message: GRANT_PERMISSION
+            }
+        );
+        //console.log("Granted");
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            return true;
+        } else {
+            //console.log("Not Granted");
+            return false;
+        }
+    } catch (err) {
+        //console.log("Error", err);
+        return false;
     }
-  } catch (err) {
-    //console.log("Error", err);
-    return false;
-  }
 }
 /**
  * getting user location
  * @return async function handling location
  */
 export function getLocation() {
-  return async function(dispatch, state) {
-    dispatch(request_location());
-    let value = true;
-    if (Platform.OS === 'android') {
-      if (Platform.Version >= 23) {
-        value = await getPermission();
-      }
-      checkGPS();
-    }
-    if (value) {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          let lat = position.coords.latitude;
-          let lng = position.coords.longitude;
-          dispatch(receive_location(lat, lng));
-          getRegion({ latitude: lat, longitude: lng }, null).then(result => {
-            dispatch(set_region(result));
-            dispatch(
-              set_source(
-                {
-                  latitude: lat,
-                  longitude: lng
+    return async function(dispatch, state) {
+        dispatch(request_location());
+        let value = true;
+        if (Platform.OS === 'android') {
+            if (Platform.Version >= 23) {
+                value = await getPermission();
+            }
+            checkGPS();
+        }
+        if (value) {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    let lat = position.coords.latitude;
+                    let lng = position.coords.longitude;
+                    dispatch(receive_location(lat, lng));
+                    getRegion({ latitude: lat, longitude: lng }, null).then(
+                        result => {
+                            dispatch(set_region(result));
+                            dispatch(
+                                set_source(
+                                    {
+                                        latitude: lat,
+                                        longitude: lng
+                                    },
+                                    'Your Location'
+                                )
+                            );
+                        }
+                    );
                 },
-                'Your Location'
-              )
+                error => {
+                    //console.log(error.message);
+                },
+                { enableHighAccuracy: true, timeout: 20000, maximumAge: 10000 }
             );
-          });
-        },
-        error => {
-          //console.log(error.message);
-        },
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 10000 }
-      );
-      /* Getting location updates (Only when location changes). This is going haywire on ios simulator so commenting it for now.
+            /* Getting location updates (Only when location changes). This is going haywire on ios simulator so commenting it for now.
              
               this.watchID = navigator.geolocation.watchPosition((position) => {
                 let lat = position.coords.latitude;
@@ -116,6 +118,6 @@ export function getLocation() {
               {enableHighAccuracy: true, timeout: 1000, maximumAge: 0, distanceFilter:1}
               );
             */
-    }
-  };
+        }
+    };
 }

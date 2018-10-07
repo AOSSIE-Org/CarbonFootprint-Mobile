@@ -16,25 +16,29 @@ import { KEYS_NOT_SET } from '../config/constants';
  * @return handling twitter login
  */
 export function twitterLogin() {
-  if (twitterSignInConfig.twitter_key === null) {
-    return alert(KEYS_NOT_SET);
-  }
-  TwitterAuth.init(twitterSignInConfig);
-  return dispatch => {
-    TwitterAuth.login()
-      .then(data => {
-        loginCustomFirebase('twitter', data.authToken, data.authTokenSecret)
-          .then(user => {
-            dispatch(receiveAuth(user));
-            Actions.main({ type: ActionConst.RESET });
-          })
-          .catch(error => {
-            showAlert('Login Issue', error.message, 'OK');
-            dispatch(receiveError(error));
-          });
-      })
-      .catch(error => {
-        console.log('Twitter Login Error: ', error);
-      });
-  };
+    if (twitterSignInConfig.twitter_key === null) {
+        return alert(KEYS_NOT_SET);
+    }
+    TwitterAuth.init(twitterSignInConfig);
+    return dispatch => {
+        TwitterAuth.login()
+            .then(data => {
+                loginCustomFirebase(
+                    'twitter',
+                    data.authToken,
+                    data.authTokenSecret
+                )
+                    .then(user => {
+                        dispatch(receiveAuth(user));
+                        Actions.main({ type: ActionConst.RESET });
+                    })
+                    .catch(error => {
+                        showAlert('Login Issue', error.message, 'OK');
+                        dispatch(receiveError(error));
+                    });
+            })
+            .catch(error => {
+                console.log('Twitter Login Error: ', error);
+            });
+    };
 }

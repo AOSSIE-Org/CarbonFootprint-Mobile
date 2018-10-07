@@ -16,26 +16,30 @@ import { KEYS_NOT_SET } from '../config/constants';
  * @return handling google login feature
  */
 export function googleSignIn() {
-  if (googleSignInConfig.clientID === null) {
-    return alert(KEYS_NOT_SET);
-  }
-  return function(dispatch) {
-    GoogleSignIn.configure(googleSignInConfig).then(() => {
-      GoogleSignIn.signInPromise()
-        .then(data => {
-          loginCustomFirebase('google', data.idToken, data.accessToken)
-            .then(user => {
-              dispatch(receiveAuth(user));
-              Actions.main({ type: ActionConst.RESET });
-            })
-            .catch(error => {
-              showAlert('Login Issue', error.message, 'OK');
-              dispatch(receiveError(error));
-            });
-        })
-        .catch(error => {
-          console.log(error.message);
+    if (googleSignInConfig.clientID === null) {
+        return alert(KEYS_NOT_SET);
+    }
+    return function(dispatch) {
+        GoogleSignIn.configure(googleSignInConfig).then(() => {
+            GoogleSignIn.signInPromise()
+                .then(data => {
+                    loginCustomFirebase(
+                        'google',
+                        data.idToken,
+                        data.accessToken
+                    )
+                        .then(user => {
+                            dispatch(receiveAuth(user));
+                            Actions.main({ type: ActionConst.RESET });
+                        })
+                        .catch(error => {
+                            showAlert('Login Issue', error.message, 'OK');
+                            dispatch(receiveError(error));
+                        });
+                })
+                .catch(error => {
+                    console.log(error.message);
+                });
         });
-    });
-  };
+    };
 }
