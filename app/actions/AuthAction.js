@@ -158,6 +158,11 @@ export function forgotPassword(email) {
     };
 }
 
+/**
+ * update action using firebase function
+ * @return updates the user firebase
+ */
+
 export function updateUserFirebase(user) {
     return dispatch => {
         return new Promise((resolve, reject) => {
