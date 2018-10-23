@@ -183,3 +183,4 @@ You can also run it directly from within Android Studio or Nuclide
 
 #### For Tester
 For new tester's flexibility  [link](https://drive.google.com/file/d/1_LATGTOs50WxCygy7vlELYlKalnrfNvr/view?usp=sharing) to latest apk. Download and Install the latest apk in your mobile phone to test the working of app.
+Here is the link to the app's instance running on a remote device [link](https://appetize.io/app/njfc2f37r21zyey2hbjbb7vn70?device=nexus5&scale=75&orientation=portrait&osVersion=7.1) 
