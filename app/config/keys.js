@@ -1,10 +1,10 @@
 export const firebaseConfig = {
-    apiKey: null,
-    authDomain: null,
-    databaseURL: null,
-    projectId: null,
-    storageBucket: null,
-    messagingSenderId: null
+    apiKey: "AIzaSyAKKLtd_lBLfiiZKhA8HbbRERoYHjvAKh0",
+    authDomain: "cgi-task.firebaseapp.com",
+    databaseURL: "https://cgi-task.firebaseio.com",
+    projectId: "cgi-task",
+    storageBucket: "cgi-task.appspot.com",
+    messagingSenderId: "317961617630"
 };
 
 export const googleSignInConfig = {
@@ -19,4 +19,4 @@ export const twitterSignInConfig = {
 };
 
 export const googleRoadsAPIKey = null;
-export const geocodingAPIKey = null;
+export const geocodingAPIKey = "AIzaSyBBF78K8cCM8DEI4y98s2LqvCqQ_X84O9o";

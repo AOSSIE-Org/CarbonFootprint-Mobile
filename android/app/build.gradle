@@ -93,9 +93,12 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+def _ext = rootProject.ext
+def _googlePlayServicesVersion = _ext.has('googlePlayServicesVersion') ? _ext.googlePlayServicesVersion : '+'
+
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
 
     dexOptions {
         incremental true
@@ -152,6 +155,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-picker')
     compile project(':react-native-android-location-services-dialog-box')
     compile project(':react-native-background-timer')
     compile project(':react-native-picker')
@@ -166,8 +170,7 @@ dependencies {
     compile project(':react-native-google-sign-in')
     compile project(':react-native-fbsdk')
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:27.1.1"
+    compile 'com.android.support:appcompat-v7:26.0.1'
     compile 'com.android.support:multidex:1.0.1'
     compile "com.facebook.react:react-native:+"  // From node_modules
 }

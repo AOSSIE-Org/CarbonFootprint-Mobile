@@ -2,6 +2,7 @@
 
 buildscript {
     repositories {
+        maven { url "https://maven.google.com" }
         jcenter()
     }
     dependencies {
@@ -14,6 +15,11 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url 'https://maven.google.com'
+        }
+        // Add fabric repository (added by tipsi-twitter)
+        maven { url "https://maven.fabric.io/public" }
         // Add fabric repository (added by tipsi-twitter)
         maven { url "https://maven.fabric.io/public" }
         mavenLocal()
@@ -22,8 +28,17 @@ allprojects {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
-        maven {
-            url 'https://maven.google.com'
+
+    }
+}
+
+subprojects {
+    afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion 26
+                buildToolsVersion '26.0.1'
+            }
         }
     }
 }

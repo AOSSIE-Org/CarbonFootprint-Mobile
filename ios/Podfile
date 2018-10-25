@@ -33,6 +33,8 @@ target 'CarbonFootprint' do
   pod 'Firebase/Storage'
   pod 'Firebase/Messaging'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'CarbonFootprintTests' do
     inherit! :search_paths
     # Pods for testing
