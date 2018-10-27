@@ -2,11 +2,7 @@
 
 buildscript {
     repositories {
-<<<<<<< HEAD
         maven { url "https://maven.google.com" }
-=======
-        google()
->>>>>>> bb981600b6873a1864252191c5bc70f227b8c18d
         jcenter()
     }
     dependencies {
@@ -19,13 +15,9 @@ buildscript {
 
 allprojects {
     repositories {
-<<<<<<< HEAD
         maven {
             url 'https://maven.google.com'
         }
-=======
-        maven { url 'https://maven.google.com' }
->>>>>>> bb981600b6873a1864252191c5bc70f227b8c18d
         // Add fabric repository (added by tipsi-twitter)
         maven { url "https://maven.fabric.io/public" }
         // Add fabric repository (added by tipsi-twitter)
