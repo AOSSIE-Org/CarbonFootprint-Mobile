@@ -93,9 +93,6 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
-def _ext = rootProject.ext
-def _googlePlayServicesVersion = _ext.has('googlePlayServicesVersion') ? _ext.googlePlayServicesVersion : '+'
-
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.1'
