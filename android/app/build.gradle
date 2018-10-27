@@ -152,6 +152,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-picker')
     compile project(':react-native-android-location-services-dialog-box')
     compile project(':react-native-background-timer')
     compile project(':react-native-picker')
@@ -180,3 +181,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
