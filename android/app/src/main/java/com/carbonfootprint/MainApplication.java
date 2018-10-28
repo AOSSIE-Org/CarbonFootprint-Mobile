@@ -8,6 +8,7 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.showlocationservicesdialogbox.LocationServicesDialogBoxPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 import com.beefe.picker.PickerViewPackage;
@@ -53,6 +54,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ImagePickerPackage(),
             new LocationServicesDialogBoxPackage(),
             new BackgroundTimerPackage(),
           new PickerViewPackage(),

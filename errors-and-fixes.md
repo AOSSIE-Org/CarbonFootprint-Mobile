@@ -92,3 +92,34 @@ and ensure DEFAULT_GOOGLE_PLAY_SERVICES_VERSION = "12.0.1" if there is any other
 ```
 def DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = "12.0.1"
 ```
+
+##Error 5
+
+Could not find play-services-ads.aar (com.google.android.gms:play-services-ads:12.0.1).
+
+###Fix for the error
+
+1.open android/app/build.gradle and add this:
+
+```
+def _ext = rootProject.ext
+def _googlePlayServicesVersion = _ext.has('googlePlayServicesVersion') ? _ext.googlePlayServicesVersion : '+'
+```
+
+2.open android/build.gradle 
+
+```
+buildscript { 
+ repositories { 
+    maven { url "https://maven.google.com" }
+    jcenter()
+    ...
+ ...
+ allprojects { 
+   repositories { 
+     mavenLocal() 
+     maven { url "https://maven.google.com" } 
+     jcenter()
+     ...
+ ...
+```
