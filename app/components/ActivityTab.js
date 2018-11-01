@@ -278,7 +278,7 @@ export default class ActivityTab extends Component {
           <TouchableOpacity 
             style={styles.currentLocationButton} 
           >
-            <Image source={require('../images/gps.png')} style={styles.currentLocationIcon}/>
+            <Icon name="locate" style={styles.currentLocationIcon}/>
           </TouchableOpacity>
         </View>
         <View style={styles.container}>
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
     height: 35, 
     width: 35, 
     position: 'absolute', 
-    justifyContent: "center", 
+    justifyContent: 'center', 
     margin: 10, 
     alignItems: 'center', 
     elevation: 3, 
