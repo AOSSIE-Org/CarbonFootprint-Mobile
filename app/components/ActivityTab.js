@@ -10,7 +10,8 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  Platform
+  Platform,
+  TouchableOpacity
 } from 'react-native';
 
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
@@ -148,6 +149,30 @@ export default class ActivityTab extends Component {
     }
   }
 
+  getCurrentLocation() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const currLatLngs = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        };
+        this.props.setSrc(currLatLngs);
+        this._map.animateToRegion(
+          {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: ZOOM_DELTA,
+            longitudeDelta: ZOOM_DELTA
+          },
+          2
+        );
+        console.log(position);
+      },
+      error => {
+        //console.log(error.message);
+      }
+    );
+  }
   /**
    * Getting current location (One-time only)
    * @return Promise updating current location
@@ -159,28 +184,7 @@ export default class ActivityTab extends Component {
     }
     checkGPS();
     if (value) {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          const currLatLngs = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          };
-          this.props.setSrc(currLatLngs);
-          this._map.animateToRegion(
-            {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              latitudeDelta: ZOOM_DELTA,
-              longitudeDelta: ZOOM_DELTA
-            },
-            2
-          );
-        },
-        error => {
-          //console.log(error.message);
-        }
-      );
-
+      this.getCurrentLocation()
       /**
        * Getting location updates (Only when location changes
        */
@@ -274,6 +278,12 @@ export default class ActivityTab extends Component {
           >
             <MapView.Polyline coordinates={this.state.routeCoordinates} />
           </MapView>
+          <TouchableOpacity 
+            onPress={this.getCurrentLocation()} 
+            style={styles.currentLocationButton} 
+          >
+            <Image source={require('../images/gps.png')} style={styles.currentLocationIcon}/>
+          </TouchableOpacity>
         </View>
         <View style={styles.container}>
           <View style={styles.activityView}>
@@ -401,6 +411,22 @@ const styles = StyleSheet.create({
   subText: {
     fontSize: 9,
     paddingTop: 4
+  },
+  currentLocationButton: {
+    backgroundColor: '#efefef', 
+    height: 35, 
+    width: 35, 
+    position: 'absolute', 
+    justifyContent: "center", 
+    margin: 10, 
+    alignItems: 'center', 
+    elevation: 3, 
+    borderRadius: 2 
+  },
+  currentLocationIcon:{
+    width: 22, 
+    height: 22, 
+    tintColor: '#464749' 
   }
 });
 
