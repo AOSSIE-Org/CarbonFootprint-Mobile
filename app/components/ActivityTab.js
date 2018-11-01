@@ -149,30 +149,6 @@ export default class ActivityTab extends Component {
     }
   }
 
-  getCurrentLocation() {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        const currLatLngs = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
-        };
-        this.props.setSrc(currLatLngs);
-        this._map.animateToRegion(
-          {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: ZOOM_DELTA,
-            longitudeDelta: ZOOM_DELTA
-          },
-          2
-        );
-        console.log(position);
-      },
-      error => {
-        //console.log(error.message);
-      }
-    );
-  }
   /**
    * Getting current location (One-time only)
    * @return Promise updating current location
@@ -184,7 +160,28 @@ export default class ActivityTab extends Component {
     }
     checkGPS();
     if (value) {
-      this.getCurrentLocation()
+      this.getCurrentLocation = navigator.geolocation.getCurrentPosition(
+        position => {
+          const currLatLngs = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          };
+          this.props.setSrc(currLatLngs);
+          this._map.animateToRegion(
+            {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              latitudeDelta: ZOOM_DELTA,
+              longitudeDelta: ZOOM_DELTA
+            },
+            2
+          );
+          console.log(position);
+        },
+        error => {
+          //console.log(error.message);
+        }
+      );
       /**
        * Getting location updates (Only when location changes
        */
@@ -279,7 +276,6 @@ export default class ActivityTab extends Component {
             <MapView.Polyline coordinates={this.state.routeCoordinates} />
           </MapView>
           <TouchableOpacity 
-            onPress={this.getCurrentLocation()} 
             style={styles.currentLocationButton} 
           >
             <Image source={require('../images/gps.png')} style={styles.currentLocationIcon}/>
