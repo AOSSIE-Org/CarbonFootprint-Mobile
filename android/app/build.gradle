@@ -170,7 +170,15 @@ dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:27.1.1"
     compile 'com.android.support:multidex:1.0.1'
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    
+     // From node modules
+    compile "com.facebook.react:react-native:+"
+
+    // Using Google Play Services version 12.0.1 for node_module packages
+    compile ("com.google.android.gms:play-services:12.0.1")
+    compile ("com.google.android.gms:play-services-auth:12.0.1")
+    compile ('com.google.android.gms:play-services-base:12.0.1')
+    compile ('com.google.android.gms:play-services-maps:12.0.1')
 }
 
 apply plugin: "com.google.gms.google-services"
