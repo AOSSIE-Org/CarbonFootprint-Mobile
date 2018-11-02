@@ -10,7 +10,8 @@ import {
   Image,
   ScrollView,
   Dimensions,
-  Platform
+  Platform,
+  TouchableOpacity
 } from 'react-native';
 
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
@@ -159,7 +160,7 @@ export default class ActivityTab extends Component {
     }
     checkGPS();
     if (value) {
-      navigator.geolocation.getCurrentPosition(
+      this.getCurrentLocation = navigator.geolocation.getCurrentPosition(
         position => {
           const currLatLngs = {
             latitude: position.coords.latitude,
@@ -175,12 +176,12 @@ export default class ActivityTab extends Component {
             },
             2
           );
+          console.log(position);
         },
         error => {
           //console.log(error.message);
         }
       );
-
       /**
        * Getting location updates (Only when location changes
        */
@@ -274,6 +275,11 @@ export default class ActivityTab extends Component {
           >
             <MapView.Polyline coordinates={this.state.routeCoordinates} />
           </MapView>
+          <TouchableOpacity 
+            style={styles.currentLocationButton} 
+          >
+            <Icon name="locate" style={styles.currentLocationIcon}/>
+          </TouchableOpacity>
         </View>
         <View style={styles.container}>
           <View style={styles.activityView}>
@@ -401,6 +407,22 @@ const styles = StyleSheet.create({
   subText: {
     fontSize: 9,
     paddingTop: 4
+  },
+  currentLocationButton: {
+    backgroundColor: '#efefef', 
+    height: 35, 
+    width: 35, 
+    position: 'absolute', 
+    justifyContent: 'center', 
+    margin: 10, 
+    alignItems: 'center', 
+    elevation: 3, 
+    borderRadius: 2 
+  },
+  currentLocationIcon:{
+    width: 22, 
+    height: 22, 
+    tintColor: '#464749' 
   }
 });
 
