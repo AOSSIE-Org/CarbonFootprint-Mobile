@@ -25,6 +25,7 @@ This project is for Carbon Footprint Mobile Application
 ## Install Dependencies
 
 This project is built using React Native. You will need the following dependencies.
+You can also follow the [Setup guide for android]()
 
 ### Node and Watchman
 
@@ -184,3 +185,14 @@ You can also run it directly from within Android Studio or Nuclide
 #### For Tester
 For new tester's flexibility  [link](https://drive.google.com/file/d/1_LATGTOs50WxCygy7vlELYlKalnrfNvr/view?usp=sharing) to latest apk. Download and Install the latest apk in your mobile phone to test the working of app.
 Here is the link to the app's instance running on a remote device [link](https://appetize.io/app/njfc2f37r21zyey2hbjbb7vn70?device=nexus5&scale=75&orientation=portrait&osVersion=7.1) 
+
+#### Setup guide for android
+
+You can follow the video tutorial to setup the Carbonfootprint-Mobile app for android
+[See Android setup guide](https://www.youtube.com/watch?v=NpKVA5hL3pM)
+
+[![Android setup guide video](https://img.youtube.com/vi/NpKVA5hL3pM/0.jpg)](https://www.youtube.com/watch?v=NpKVA5hL3pM)
+
+Pre-requisites:
+- Android Studio
+- Android AVD or a real device 
