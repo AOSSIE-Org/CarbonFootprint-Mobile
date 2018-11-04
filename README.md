@@ -188,7 +188,8 @@ Here is the link to the app's instance running on a remote device [link](https:/
 
 #### Setup guide for android
 
-You can follow the video tutorial to setup the Carbonfootprint-Mobile app for android
+You can follow the video tutorial to setup the Carbonfootprint-Mobile app for android.
+
 [See Android setup guide](https://www.youtube.com/watch?v=NpKVA5hL3pM)
 
 [![Android setup guide video](https://img.youtube.com/vi/NpKVA5hL3pM/0.jpg)](https://www.youtube.com/watch?v=NpKVA5hL3pM)
