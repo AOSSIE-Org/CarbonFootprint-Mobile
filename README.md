@@ -25,7 +25,7 @@ This project is for Carbon Footprint Mobile Application
 ## Install Dependencies
 
 This project is built using React Native. You will need the following dependencies.
-You can also follow the [Setup guide for android]()
+You can also follow the [Setup guide for android](#setup-guide-for-android)
 
 ### Node and Watchman
 
