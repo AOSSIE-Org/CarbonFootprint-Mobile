@@ -11,6 +11,8 @@ import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import { getIcon, color } from '../config/helper.js';
+import OfflineNotice from './OfflineNotice'
+
 
 /**
  * footer component
@@ -84,6 +86,7 @@ const Footer = props => {
                     </TouchableHighlight>
                 );
             })}
+            <OfflineNotice/>
         </View>
     );
 };
