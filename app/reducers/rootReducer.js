@@ -9,6 +9,7 @@ import location from './location';
 import direction from './direction';
 import friends from './friends';
 import forgot from './forgot';
+import { reducer as network } from 'react-native-offline';
 
 /**
  * appReducer using combineReducers The resulting reducer calls every child reducer
@@ -23,7 +24,9 @@ const appReducer = combineReducers({
     location,
     direction,
     friends,
-    forgot
+    forgot,
+    network
+
 });
 
 /**

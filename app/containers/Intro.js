@@ -104,6 +104,7 @@ class Intro extends Component {
                 console.log(result);
             }
         });
+        this.setState({ statusBarColorState: '#59b2ab' })
     }
     componentWillReceiveProps(props) {
         if (!props.intro.isFirst) {
@@ -114,9 +115,12 @@ class Intro extends Component {
         AsyncStorage.setItem('isIntroShown', 'forIntro');
         this.props.firstOpen();
     };
+    
     render() {
+        const statusBarColor = ['#20837C', '#132584', '#CD0045', '#8E2200', '#3E0560', '#044208']
         return (
             <Swiper
+                onIndexChanged={(index) => StatusBar.setBackgroundColor(statusBarColor[index])}
                 style={styles.wrapper}
                 loop={false}
                 showsButtons={true}
@@ -131,6 +135,12 @@ class Intro extends Component {
                 prevButton={<Text style={styles.buttonText} />}
             >
                 <View style={styles.slide1}>
+                <StatusBar 
+                    barStyle="light-content"
+                    hidden={false} 
+                    backgroundColor='#20837C' 
+                    translucent={true}
+                />
                     <View style={styles.mainView}>
                         <Image
                             source={require('../images/logo.png')}

@@ -92,3 +92,83 @@ and ensure DEFAULT_GOOGLE_PLAY_SERVICES_VERSION = "12.0.1" if there is any other
 ```
 def DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = "12.0.1"
 ```
+
+##Error 5
+
+Could not find play-services-ads.aar (com.google.android.gms:play-services-ads:12.0.1).
+
+###Fix for the error
+
+1.open android/app/build.gradle and add this:
+
+```
+def _ext = rootProject.ext
+def _googlePlayServicesVersion = _ext.has('googlePlayServicesVersion') ? _ext.googlePlayServicesVersion : '+'
+```
+
+2.open android/build.gradle 
+
+```
+buildscript { 
+ repositories { 
+    maven { url "https://maven.google.com" }
+    jcenter()
+    ...
+ ...
+ allprojects { 
+   repositories { 
+     mavenLocal() 
+     maven { url "https://maven.google.com" } 
+     jcenter()
+     ...
+ ...
+```
+
+## Error 6
+
+Incase you get an error in mac for command 'adb' not found
+
+### Fix for the error
+
+Type the following in terminal and hit enter
+
+```
+export PATH=~/Library/Android/sdk/platform-tools:$PATH
+```
+
+## Error 7
+
+A problem occurred evaluating project ':react-native-maps'.
+> Could not find method compileOnly() for arguments
+
+### Fix for the error
+
+Type the following command
+```
+cd ./node_modules/react-native-maps/lib/android/
+```
+
+Now, open the `build.gradle` file
+Scroll down to find 'compileOnly()' written
+
+Now replace `compileOnly()` with `provided` make sure you don't write the parenthesis '()' after provided
+and below that you'll find `implementation` written in 2-3 places
+replace that word with `compile` and save the file.
+
+## Error 8
+
+Execution failed for task ':react-native-activity-recognition:compileReleaseJavaWithJavac'
+
+### Fix for the error
+
+Type the following
+
+```
+cd ./node_modules/react-native-activity-recognition/android/src/main/java/com/xebia/activityrecognition/
+```
+
+Open `RNActivityRecognitionPackage.java` file and remove the `@Override` which is above the 
+`createJSModules` function
+
+- This same fix can be applied in case some other packages fail. Just need to remove the 
+@Override which sits on top of the `createJSModule` function
