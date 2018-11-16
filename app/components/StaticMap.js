@@ -2,22 +2,96 @@ import React, { Component } from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 
+import * as DirectionAction from '../actions/DirectionAction';
+import { getRegion, getDirections } from '../actions/DirectionAction';
+import { connect } from 'react-redux';
+import { googleRoadsAPIKey } from '../config/keys';
 class StaticMap extends Component {
     constructor(props) {
         super(props);
-        this.state = { statusBarHeight: 60 };
+
+        this.state = {
+            statusBarHeight: 60,
+            zoom: 15,
+            source: this.props.source,
+            destination: this.props.destination
+        };
     }
 
-    markers(location, id) {
-        let color = !id ? 'red' : 'green';
+    redMarker(location, color, props) {
         return (
             <MapView.Marker
-                coordinate={{
-                    latitude: location.latitude,
-                    longitude: location.longitude
-                }}
+                draggable
+                coordinate={location}
                 pinColor={color}
+                onDragEnd={e => {
+                    this.setState(
+                        { source: e.nativeEvent.coordinate },
+                        function() {
+                            fetch(
+                                'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+                                    this.state.source.latitude +
+                                    ',' +
+                                    this.state.source.longitude +
+                                    '&key=' +
+                                    googleRoadsAPIKey
+                            )
+                                .then(response => response.json())
+                                .then(responseJson => {
+                                    props.getRedMarkerDetails(
+                                        this.state.source,
+                                        JSON.stringify(
+                                            responseJson.results[0]
+                                                .formatted_address
+                                        )
+                                    );
+                                });
+                        }
+                    );
+                }}
+            />
+        );
+    }
+    greenMarker(location, color, props) {
+        return (
+            <MapView.Marker
+                draggable
+                coordinate={location}
+                pinColor={color}
+                onDragEnd={e => {
+                    this.setState(
+                        {
+                            destination: e.nativeEvent.coordinate
+                        },
+                        function() {
+                            fetch(
+                                'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+                                    this.state.destination.latitude +
+                                    ',' +
+                                    this.state.destination.longitude +
+                                    '&key=' +
+                                    googleRoadsAPIKey
+                            )
+                                .then(response => response.json())
+                                .then(responseJson => {
+                                    props.getGreenMarkerDetails(
+                                        this.state.destination,
+                                        JSON.stringify(
+                                            responseJson.results[0]
+                                                .formatted_address
+                                        )
+                                    );
+                                    props.getDirections(
+                                        this.state.source,
+                                        this.state.destination,
+                                        0
+                                    );
+                                });
+                        }
+                    );
+                }}
             />
         );
     }
@@ -26,6 +100,20 @@ class StaticMap extends Component {
         setTimeout(() => {
             this.setState({ statusBarHeight: 110 });
         }, 500);
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.source !== this.props.source) {
+            this.setState({
+                source: nextProps.source
+            });
+        }
+        if (nextProps.destination) {
+            this.setState({
+                source: nextProps.source,
+                destination: nextProps.destination,
+                zoom: 10
+            });
+        }
     }
 
     render() {
@@ -42,12 +130,20 @@ class StaticMap extends Component {
                     showsUserLocation={true}
                     showsMyLocationButton={true}
                     showsCompass={true}
+                    minZoomLevel={this.state.zoom}
+                    loadingEnabled={true}
                     region={props.region}
                     style={styles.map}
                 >
-                    {props.source ? this.markers(props.source, 0) : null}
+                    {props.source
+                        ? this.redMarker(this.state.source, 'red', props)
+                        : null}
                     {props.destination
-                        ? this.markers(props.destination, 1)
+                        ? this.greenMarker(
+                              this.state.destination,
+                              'green',
+                              props
+                          )
                         : null}
                     {props.coords ? (
                         <MapView.Polyline
@@ -85,4 +181,10 @@ StaticMap.propTypes = {
     coords: PropTypes.object
 };
 
-export default StaticMap;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(Object.assign({}, DirectionAction), dispatch);
+}
+export default connect(
+    null,
+    mapDispatchToProps
+)(StaticMap);
