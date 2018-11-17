@@ -28,6 +28,7 @@
     "react-native-router-flux": "^3.43.0",
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-simple-auth": "^2.3.0",
+    "react-native-simple-toast": "0.0.8",
     "react-native-splash-screen": "^3.0.6",
     "react-native-swiper": "^1.5.13",
     "react-native-timeline-listview": "^0.2.3",

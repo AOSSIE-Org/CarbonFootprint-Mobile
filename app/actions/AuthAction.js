@@ -15,7 +15,6 @@ export const RECEIVE_AUTH = 'RECEIVE_AUTH';
 export const RECEIVE_ERROR = 'RECEIVE_ERROR';
 export const REQUEST_FORGOT = 'REQUEST_FORGOT';
 export const RECEIVE_FORGOT = 'RECEIVE_FORGOT';
-export const ADD_USER_FIREBASE = 'ADD_USER_FIREBASE';
 
 /**
  * action creator for request auth
@@ -70,19 +69,6 @@ export function receiveForgot(message) {
     return {
         type: RECEIVE_FORGOT,
         message
-    };
-}
-
-/**
- * action creator to handle update of user details
- * @param userDetails
- * @return {Object} action for ADD_USER_FIREBASE
- */
-
-export function addUserDetails(userDetails) {
-    return {
-        type: ADD_USER_FIREBASE,
-        user: userDetails
     };
 }
 
@@ -171,7 +157,7 @@ export function updateUserFirebase(user) {
                 .database()
                 .ref('users/' + uid)
                 .update(user);
-            dispatch(addUserDetails(user));
+            dispatch(receiveAuth(user));
             resolve();
         });
     };

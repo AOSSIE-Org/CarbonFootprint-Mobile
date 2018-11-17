@@ -8,18 +8,20 @@ import {
     TextInput,
     Dimensions,
     StyleSheet,
-    ToastAndroid,
     TouchableNativeFeedback,
     Platform,
     ActivityIndicator
 } from 'react-native';
+import * as firebase from 'firebase';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import Toast from 'react-native-simple-toast';
 import PropTypes from 'prop-types';
 
 import Header from '../components/Header';
 import { updateUserFirebase } from '../actions/AuthAction';
+import { getUser } from '../actions/firebase/User';
 import Icon from 'react-native-vector-icons/EvilIcons';
 var ImagePicker = require('react-native-image-picker');
 import images from '../config/images';
@@ -38,39 +40,49 @@ class UserProfile extends Component {
         this.state = {
             updateClicked: false,
             name: this.props.user.name,
+            email: this.props.user.email,
             phone_no: this.props.user.phone_no
                 ? this.props.user.phone_no
                 : null,
             picture: this.props.user.picture
-                ? this.props.user.picture.uri
-                    ? this.props.user.picture.uri
-                    : this.props.user.picture
+                ? this.props.user.picture
                 : images.logo
         };
     }
+
+    /**
+    * verify updatation of user details in the database
+    * @param  uid  user id or unique id of logged in user
+    * @return if current state user profile matches with the entry in the database
+    */
+    verifyProfileUpdate(uid)
+    {
+        getUser(uid)
+        .then((user) => {
+            if (user.name === this.state.name && user.phone_no == this.state.phone_no && user.picture === this.state.picture)
+                {
+                    Toast.show('Profile Updated');
+                    this.setState({ updateClicked: false });   
+                }
+            else
+                verifyProfileUpdate(uid);
+        });
+    }
+
     /**
      * handle update function that is fired up on pressing update button
      * @return updated user firebase
      */
-
     handleUpdate() {
         if (this.state.name === '') {
-            ToastAndroid.show(
-                'You cannot leave name blank',
-                ToastAndroid.SHORT
-            );
+            Toast.show('You cannot leave name blank');
         } else if (this.state.phone_no && this.state.phone_no.length !== 10) {
-            ToastAndroid.show(
-                'Please enter valid 10 digit number',
-                ToastAndroid.SHORT
-            );
+            Toast.show('Please enter valid 10 digit number');
         } else {
             this.setState({ updateClicked: true });
             this.props.updateUserFirebase(this.state).then(() => {
-                setTimeout(() => {
-                    ToastAndroid.show('Profile Updated', ToastAndroid.SHORT);
-                    this.setState({ updateClicked: false });
-                }, 2000);
+                    const uid = firebase.auth().currentUser.uid;
+                    this.verifyProfileUpdate(uid);
             });
         }
     }
@@ -89,18 +101,21 @@ class UserProfile extends Component {
         };
         ImagePicker.showImagePicker(options, response => {
             if (response.error) {
-                ToastAndroid.show('Image Pick Error', ToastAndroid.SHORT);
+                Toast.show('Image Pick Error');
             } else if (response.didCancel) {
             } else if (response.customButton) {
-                ToastAndroid.show(
-                    'User Tapped Custom Button',
-                    ToastAndroid.SHORT
-                );
+                Toast.show('User Tapped Custom Button');
             } else {
-                this.setState({
-                    picture: response.uri
-                });
-                ToastAndroid.show('Image Added', ToastAndroid.SHORT);
+                if (response.fileSize > 500000)
+                {
+                    Toast.show('Size of image should be less than 500KB');
+                }
+                else {
+                    this.setState({
+                        picture: response.data
+                    });
+                    Toast.show('Image added');
+                }
             }
         });
     };
@@ -121,7 +136,7 @@ class UserProfile extends Component {
                             <Image
                                 style={styles.avatar}
                                 resizeMethod={'resize'}
-                                source={{ uri: this.state.picture }}
+                                source={{ uri: 'data:image/png;base64,' + this.state.picture }}
                             />
                         )}
                         <TouchableOpacity
@@ -155,7 +170,7 @@ class UserProfile extends Component {
                             <Text style={styles.valueText}>Email</Text>
                         </View>
                         <Text style={styles.textInput}>
-                            {this.props.user.email}
+                            {this.state.email}
                         </Text>
                     </View>
                     <View style={styles.valueItem}>
