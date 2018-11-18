@@ -60,3 +60,7 @@ google-services.json
 strings.xml
 GoogleService-Info.plist
 Info.plist
+
+# Extra files and cache
+metro-cache-120bf580e7195776082456ae1ee23ca321b8df5c
+haste-map-metro-3-efa0b1bbf7aa6d53c24b3d19ee80ee1e

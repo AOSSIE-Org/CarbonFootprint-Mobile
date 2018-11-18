@@ -25,7 +25,8 @@ const Terms = () => {
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        marginTop: StatusBar.currentHeight
     },
     main: {
         alignItems: 'center',

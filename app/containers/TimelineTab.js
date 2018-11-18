@@ -10,7 +10,8 @@ import {
     TouchableNativeFeedback,
     DatePickerAndroid,
     DatePickerIOS,
-    Platform
+    Platform,
+    StatusBar
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Timeline from 'react-native-timeline-listview';
@@ -234,7 +235,8 @@ export default class TimelineTab extends Component {
 const styles = StyleSheet.create({
     viewStyle: {
         flex: 1,
-        marginBottom: 45
+        marginBottom: 45,
+        marginTop: StatusBar.currentHeight
     },
     container: {
         flex: 1,
