@@ -31,7 +31,7 @@ export function getUser(uid) {
             .ref('users/' + uid)
             .once('value')
             .then(function(snapshot) {
-                if (snapshot.val() !== null) {
+                if (snapshot !== null) {
                     resolve({
                         ...snapshot.val(),
                         uid: uid
