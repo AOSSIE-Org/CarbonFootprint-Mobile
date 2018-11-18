@@ -153,7 +153,8 @@ class More extends Component {
 const styles = StyleSheet.create({
     container: {
         height: Dimensions.get('window').height,
-        backgroundColor: color.greyBack
+        backgroundColor: color.greyBack,
+        marginTop: StatusBar.currentHeight
     },
     main: {
         marginTop: 55, // 75-20

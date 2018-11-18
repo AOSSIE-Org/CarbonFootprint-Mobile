@@ -73,7 +73,8 @@ class Friends extends Component {
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        marginTop: StatusBar.currentHeight
     },
     underline: {
         height: 2,
