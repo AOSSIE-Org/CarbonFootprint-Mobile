@@ -10,7 +10,8 @@ import {
     StyleSheet,
     TouchableNativeFeedback,
     Platform,
-    ActivityIndicator
+    ActivityIndicator,
+    StatusBar
 } from 'react-native';
 import * as firebase from 'firebase';
 import { bindActionCreators } from 'redux';
@@ -229,7 +230,8 @@ UserProfile.propTypes = {
 //Styling for the profile editing screen.
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        marginTop: StatusBar.currentHeight
     },
     textInput: {
         flex: 2,

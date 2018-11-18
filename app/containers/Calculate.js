@@ -193,7 +193,8 @@ class Calculate extends Component {
 //StyleSheet
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('window').height
+        height: Dimensions.get('window').height,
+        marginTop: StatusBar.currentHeight
     },
     map: {
         top: 0,

@@ -6,7 +6,8 @@ import {
     Dimensions,
     Text,
     ActivityIndicator,
-    BackHandler
+    BackHandler,
+    StatusBar
 } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import Picker from 'react-native-picker';
@@ -185,7 +186,8 @@ for (var i = 0; i <= 40; i += 0.1) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.greyBack
+        backgroundColor: color.greyBack,
+        marginTop: StatusBar.currentHeight
     },
     main: {
         marginTop: 75,
