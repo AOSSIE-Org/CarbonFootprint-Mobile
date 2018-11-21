@@ -92,6 +92,27 @@ export function acceptFriendRequest(currentUid, friendUid) {
 }
 
 /**
+ * Get all possible friends
+ * @return {Promise} snapshot of all users
+ */
+
+export function getAllFriends() {
+    return new Promise(function(resolve, reject){
+        firebase
+            .database()
+            .ref('users/')
+            .orderByChild('name')
+            .on('value', function(snapshot) {
+                let users = [];
+                snapshot.forEach( user => {
+                    users.push({name: user.val().name, email: user.val().email});
+                });
+                resolve(users);
+            });
+    });
+}
+
+/**
  * Search Friends Via email
  * @param  value email user searched for
  * @return {Promise} snapshot of user with that email
