@@ -15,6 +15,7 @@
     "react-native-actionsheet": "^2.4.2",
     "react-native-activity-recognition": "^3.2.0",
     "react-native-android-location-services-dialog-box": "^2.4.4",
+    "react-native-autocomplete-input": "^3.6.0",
     "react-native-background-timer": "^2.0.1",
     "react-native-fbsdk": "^0.8.0",
     "react-native-geocoding": "^0.3.0",
