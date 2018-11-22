@@ -14,14 +14,12 @@ import {
 } from 'react-native';
 import { getIcon, color } from '../config/helper';
 import {
-    getAllFriends,
     searchFriendsByEmail,
     searchFriendsByUserName,
     sendFriendRequest
 } from '../actions/firebase/Friends';
 import FriendRow from './FriendRow';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Autocomplete from 'react-native-autocomplete-input';
 
 /**
  * Invite Component to invite Your Friends
@@ -33,39 +31,15 @@ class InviteTab extends Component {
         this.state = {
             search: '',
             user: [],
-            userFetched: false,
-            friends: []
+            userFetched: false
         };
         this.searchFriends = this.searchFriends.bind(this);
-    }
-    
-    componentDidMount() {
-        getAllFriends()
-        .then( friends => {
-            this.setState({ friends });
-        })
-        .catch( err => {});
-    }
-    /**
-     * Function to search for friends based on input in autocomplete
-     * @param query - query to search through friends
-     * @return list of friends names
-     */
-    autocompleteFriends(query){
-        if(query == '') {
-            return [];
-        }
-
-        const { friends } = this.state;
-        const regex = new RegExp(`${query.trim()}`, 'i');
-        return friends.filter(friend => friend.email.search(regex) >=0 || friend.name.search(regex) >= 0);
     }
 
     /**
      * Function to search friends by their email id or username
      * @return updating state
      */
-
     searchFriends() {
         this.setState({ user: [], userFetched: true });
         reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //REGEX to check if user entered email
@@ -85,27 +59,11 @@ class InviteTab extends Component {
     }
 
     render() {
-        const {search} = this.state;
-        const friends = this.autocompleteFriends(search)
-        const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
-
         return (
             <View>
-                <Autocomplete
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    containerStyle={styles.autocompleteContainer}
-                    data={friends.length === 1 && comp(search, friends[0].name) ? [] : friends}                    
+                <TextInput
                     onChangeText={text => this.setState({ search: text })}
-                    placeholder="Search friends by username or email"
-                    defaultValue={search}
-                    renderItem={({name, email}) => (
-                        <TouchableNativeFeedback onPress={() => this.setState({ search: email })}>
-                          <Text style={styles.itemText}>
-                            {name} {email}
-                          </Text>
-                        </TouchableNativeFeedback>
-                    )}
+                    placeholder="Search friends by Email or Username"
                 />
                 <TouchableNativeFeedback onPress={this.searchFriends}>
                     <View style={styles.searchBtn}>
@@ -146,23 +104,20 @@ class InviteTab extends Component {
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white'
+        backgroundColor: color.greyBack
     },
     view: {
         flex: 1,
         paddingBottom: 140
     },
     searchBtn: {
-        height: 29,
+        height: 35,
         width: 75,
         justifyContent: 'center',
         alignSelf: 'center',
         alignItems: 'center',
         backgroundColor: color.primary,
-        margin: 5,
-        zIndex: 5,
-        right: 0,
-        position: 'absolute'
+        marginBottom: 10
     },
     whiteText: {
         fontSize: 15,
@@ -173,18 +128,6 @@ const styles = StyleSheet.create({
         color: color.darkPrimary,
         marginTop: 5,
         marginLeft: 10
-    },
-    autocompleteContainer: {
-        flex: 1,
-        left: 0,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        zIndex: 1
-    },
-    itemText: {
-        fontSize: 15,
-        margin: 2
     }
 });
 
