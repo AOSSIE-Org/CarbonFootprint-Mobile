@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
+import { acceptFriendRequest } from '../actions/firebase/Friends';
 import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FriendRow from './FriendRow';
@@ -86,10 +87,15 @@ class FriendsTab extends Component {
                                     link={
                                         this.props.choice === '2'
                                             ? () =>
-                                                  this.props.acceptFriendRequest(
+                                                  {
+                                                      acceptFriendRequest(
                                                       this.props.auth.user.uid,
                                                       friend.uid
                                                   )
+                                                  .then((user) => {
+                                                      this.props.getFriendList(this.props.choice);
+                                                  });
+                                                }
                                             : null
                                     }
                                     text={
