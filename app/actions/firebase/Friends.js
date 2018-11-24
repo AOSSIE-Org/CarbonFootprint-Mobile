@@ -15,20 +15,43 @@ export function sendFriendRequest(currentUid, friendUid) {
             alert('You can not send friend request to yourself');
             reject('You can not send friend request to yourself');
         } else {
-            firebase
+            const databaseRef = firebase
                 .database()
-                .ref('users/' + currentUid + '/friends/' + friendUid)
-                .set(1)
-                .then(() => {
-                    firebase
-                        .database()
-                        .ref('users/' + friendUid + '/friends/' + currentUid)
-                        .set(2)
+                .ref('users/' + currentUid + '/friends/' + friendUid);
+            databaseRef
+            .once('value')
+            .then(function(snapshot) {
+                const currentState = snapshot.val();
+                if (currentState == 0) {
+                    alert('You have already added this user as your friend.');
+                    reject('You have already added this user as your friend.');
+                }
+                else if (currentState == 1) {
+                    alert('You have already sent a friend request to this user.');
+                    reject('You have already sent a friend request to this user.');
+                }
+                else if (currentState == 2) {
+                    alert('This user has already sent you a request.');
+                    reject('This user has already sent you a request.');
+                }
+                else {
+                    databaseRef
+                        .set(1) 
                         .then(() => {
-                            getUser(currentUid)
-                                .then(user => {
-                                    resolve(user);
-                                    alert('Friend request sent');
+                            firebase
+                                .database()
+                                .ref('users/' + friendUid + '/friends/' + currentUid)
+                                .set(2)
+                                .then(() => {
+                                    getUser(currentUid)
+                                        .then(user => {
+                                            resolve(user);
+                                            alert('Friend request sent');
+                                        })
+                                        .catch(error => {
+                                            reject(error);
+                                            alert(error);
+                                        });
                                 })
                                 .catch(error => {
                                     reject(error);
@@ -39,11 +62,8 @@ export function sendFriendRequest(currentUid, friendUid) {
                             reject(error);
                             alert(error);
                         });
-                })
-                .catch(error => {
-                    reject(error);
-                    alert(error);
-                });
+                    }
+            });            
         }
     });
 }
