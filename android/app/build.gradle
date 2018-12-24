@@ -152,33 +152,33 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-image-picker')
-    compile project(':react-native-android-location-services-dialog-box')
-    compile project(':react-native-background-timer')
-    compile project(':react-native-picker')
-    compile project(':realm')
-    compile project(':react-native-google-places')
-    compile project(':react-native-maps')
-    compile project(':tipsi-twitter')
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-splash-screen')
-    compile project(':react-native-activity-recognition')
-    compile "com.google.android.gms:play-services-auth:12.0.1"
-    compile project(':react-native-google-sign-in')
-    compile project(':react-native-fbsdk')
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:27.1.1"
-    compile 'com.android.support:multidex:1.0.1'
+    implementation project(':react-native-image-picker')
+    implementation project(':react-native-android-location-services-dialog-box')
+    implementation project(':react-native-background-timer')
+    implementation project(':react-native-picker')
+    implementation project(':realm')
+    implementation project(':react-native-google-places')
+    implementation project(':react-native-maps')
+    implementation project(':tipsi-twitter')
+    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-splash-screen')
+    implementation project(':react-native-activity-recognition')
+    implementation "com.google.android.gms:play-services-auth:12.0.1"
+    implementation project(':react-native-google-sign-in')
+    implementation project(':react-native-fbsdk')
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.android.support:appcompat-v7:27.1.1"
+    implementation 'com.android.support:multidex:1.0.1'
     
      // From node modules
-    compile "com.facebook.react:react-native:+"
+    implementation "com.facebook.react:react-native:+"
 
     // Using Google Play Services version 12.0.1 for node_module packages
-    compile ("com.google.android.gms:play-services:12.0.1")
-    compile ("com.google.android.gms:play-services-auth:12.0.1")
-    compile ('com.google.android.gms:play-services-base:12.0.1')
-    compile ('com.google.android.gms:play-services-maps:12.0.1')
+    implementation ("com.google.android.gms:play-services:12.0.1")
+    implementation ("com.google.android.gms:play-services-auth:12.0.1")
+    implementation ('com.google.android.gms:play-services-base:12.0.1')
+    implementation ('com.google.android.gms:play-services-maps:12.0.1')
 }
 
 apply plugin: "com.google.gms.google-services"
