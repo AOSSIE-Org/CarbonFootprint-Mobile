@@ -45,9 +45,15 @@ export function loginEmailFirebase(email, password) {
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then(user => {
-                getUser(user.uid)
-                    .then(user => resolve(user))
-                    .catch(error => reject(user));
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        getUser(user.uid)
+                            .then(user => resolve(user))
+                            .catch(error => reject());
+                    } else {
+                        reject();
+                    }
+                });
             })
             .catch(error => reject(error));
     });
