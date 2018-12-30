@@ -195,3 +195,16 @@ You can follow the video tutorial to setup the Carbonfootprint-Mobile app for an
 Pre-requisites:
 - Android Studio
 - Android AVD or a real device 
+
+### Setup guide for testing
+1. First of all create a new firebase app for a test database.
+2. Browse https://console.firebase.google.com.
+3. Generate an empty project.
+4. Go to **Authentication** icon under **Develop** section, in the **sign-in-method** tab enable **email**.
+5. Go to **Database** icon under **Develop** section and create a **Real Time Database** with both read and write access.
+6. Go to the **Authentication** icon again and click on the **Web Setup** option on the top right corner and copy the credentials, paste them to the `app/config/keys.js` file in the firebase in the `firebaseConfigForTesting` object.
+7. Make sure you have `firebase-admin` module installed.
+8. Create an empty `serviceAccountKey.json` file in the path `app/config/`.
+9. Navigate to the [Service Accounts](https://console.firebase.google.com/u/0/project/_/settings/serviceaccounts/adminsdk) tab in your project's settings (Project created for Test Databse) page.
+10. Choose the **Node.js** option and generate the private key.
+11. Copy the contents of the generated file to the `serviceAccountKey.json` file.

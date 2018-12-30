@@ -7,6 +7,16 @@ export const firebaseConfig = {
     messagingSenderId: null
 };
 
+export const firebaseConfigForTesting = {
+    apiKey: null,
+    authDomain: null,
+    databaseURL: null,
+    projectId: null,
+    storageBucket: null,
+    messagingSenderId: null
+};
+
+
 export const googleSignInConfig = {
     clientID: null,
     scopes: ['openid', 'profile', 'email'],
