@@ -93,11 +93,11 @@ and ensure DEFAULT_GOOGLE_PLAY_SERVICES_VERSION = "12.0.1" if there is any other
 def DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = "12.0.1"
 ```
 
-##Error 5
+## Error 5
 
 Could not find play-services-ads.aar (com.google.android.gms:play-services-ads:12.0.1).
 
-###Fix for the error
+### Fix for the error
 
 1.open android/app/build.gradle and add this:
 
@@ -172,3 +172,66 @@ Open `RNActivityRecognitionPackage.java` file and remove the `@Override` which i
 
 - This same fix can be applied in case some other packages fail. Just need to remove the 
 @Override which sits on top of the `createJSModule` function
+
+
+## Error 9
+
+Build error while compiling react-native-image-picker , react-native-vector-icons and realm
+
+### Fix for the error 
+
+1.Open android/build.gradle 
+
+```
+ repositories {
+        google()  // ADD THIS
+        maven { url "https://maven.google.com" }
+        jcenter()
+    }
+```
+
+2.Open node_modules/react-native-image-picker/android/build.gradle
+
+```
+buildscript {
+    repositories {
+        jcenter()
+        google()   // ADD THIS
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.0' //  UPDATE THIS
+    }
+}
+```
+
+3.Open node_modules/react-native-vector-icons/android/build.gradle
+
+```
+buildscript {
+  repositories {
+    google()  // ADD THIS
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'com.android.tools.build:gradle:3.1.0'  // UPDATE THIS
+  }
+}
+```
+
+4.Open node_modules/realm/android/buil.gradle
+
+```
+buildscript {
+    repositories {
+        jcenter()
+        google()  // ADD THIS
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.0'  // UPDATE THIS
+    }
+}
+```
+
+
