@@ -126,6 +126,7 @@ class Calculate extends Component {
                 <StatusBar
                     backgroundColor={color.darkPrimary}
                     barStyle="light-content"
+                    hidden={false}
                 />
                 {
                     /*this.props.location.isFetching?

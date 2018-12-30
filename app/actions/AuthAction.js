@@ -84,7 +84,7 @@ export function login(email, password) {
         loginEmailFirebase(email, password)
             .then(user => {
                 dispatch(receiveAuth(user));
-                Actions.main({ type: ActionConst.RESET });
+                Actions.main({ type: ActionConst.REPLACE });
             })
             .catch(error => {
                 dispatch(receiveError(error));
