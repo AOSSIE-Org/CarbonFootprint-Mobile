@@ -43,12 +43,17 @@
   "devDependencies": {
     "babel-jest": "22.4.3",
     "babel-preset-react-native": "4.0.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
+    "enzyme-to-json": "^3.3.5",
+    "firebase-admin": "^6.4.0",
+    "firebase-server": "^1.0.1",
     "jest": "22.4.3",
     "react-test-renderer": "^16.3.2",
-    "redux-devtools": "^3.4.0",
-    "firebase-admin": "^6.4.0"
+    "redux-devtools": "^3.4.0"
   },
   "jest": {
+    "testPathIgnorePatterns": ["<rootDir>/__tests__/setup/"],
     "preset": "react-native",
     "clearMocks": true
   }
