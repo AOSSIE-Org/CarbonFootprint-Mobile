@@ -278,7 +278,7 @@ export default class ActivityTab extends Component {
           <TouchableOpacity 
             style={styles.currentLocationButton} 
           >
-            <Icon name="locate" style={styles.currentLocationIcon}/>
+            <Icon name={getIcon('locate')} size={22} />
           </TouchableOpacity>
         </View>
         <View style={styles.container}>
@@ -419,11 +419,6 @@ const styles = StyleSheet.create({
     elevation: 3, 
     borderRadius: 2 
   },
-  currentLocationIcon:{
-    width: 22, 
-    height: 22, 
-    tintColor: '#464749' 
-  }
 });
 
 ActivityTab.propTypes = {
