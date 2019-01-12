@@ -338,9 +338,9 @@ const styles = StyleSheet.create({
         color: color.grey
     },
     shareStyle: {
-        alignSelf: 'flex-end',
-        marginTop: -35,
-        marginRight: 10
+        position: 'absolute',
+        right: 10,
+        top:10
     }
 });
 
