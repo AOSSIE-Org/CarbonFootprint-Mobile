@@ -220,7 +220,7 @@ buildscript {
 }
 ```
 
-4.Open node_modules/realm/android/buil.gradle
+4.Open node_modules/realm/android/build.gradle
 
 ```
 buildscript {
@@ -234,4 +234,20 @@ buildscript {
 }
 ```
 
+
+
+
+## Error 10
+
+Possible Error messages:
+
+ 1. ```Couldn't follow symbolic link``` 
+
+ 2. ```unable to resolve class javax.xml.bind.DatatypeConverter.```
+
+ 3. Any reference to node_modules/.bin folder
+
+ Fix:
+
+ delete ```node_modules/.bin``` folder. 
 
