@@ -105,7 +105,7 @@ export function register(name, email, password) {
         registerFirebase(name, email, password)
             .then(user => {
                 dispatch(receiveAuth(user));
-                Actions.main({ type: ActionConst.RESET });
+                Actions.main({ type: ActionConst.REPLACE });
             })
             .catch(error => {
                 dispatch(receiveError(error));
@@ -173,7 +173,7 @@ export function logout() {
             .auth()
             .signOut()
             .then(() => {
-                Actions.landing({ type: ActionConst.RESET });
+                Actions.intro({ type: ActionConst.RESET });
                 // Reset the store
                 dispatch({
                     type: 'USER_LOGOUT'
