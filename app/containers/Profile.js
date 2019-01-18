@@ -122,7 +122,7 @@ class UserProfile extends Component {
     };
 
     render() {
-        let CustomButton = (Platform.OS==='android')?TouchableNativeFeedback:TouchableOpacity;
+        let CustomButton = ( Platform.OS==='android' )? TouchableNativeFeedback: TouchableOpacity;
 
         return (
             <View style={styles.container}>
