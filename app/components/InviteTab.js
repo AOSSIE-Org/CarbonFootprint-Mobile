@@ -19,6 +19,7 @@ import {
     sendFriendRequest
 } from '../actions/firebase/Friends';
 import FriendRow from './FriendRow';
+import Loader from './Loader';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 /**
@@ -31,7 +32,8 @@ class InviteTab extends Component {
         this.state = {
             search: '',
             user: [],
-            userFetched: false
+            userFetched: false,
+            firebaseProcessing: false
         };
         this.searchFriends = this.searchFriends.bind(this);
     }
@@ -41,18 +43,18 @@ class InviteTab extends Component {
      * @return updating state
      */
     searchFriends() {
-        this.setState({ user: [], userFetched: true });
+        this.setState({ user: [], userFetched: true, firebaseProcessing: true });
         reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //REGEX to check if user entered email
         if (!reg.test(this.state.search)) {
             searchFriendsByUserName(this.state.search)
                 .then(users => {
-                    this.setState({ user: users });
+                    this.setState({ user: users, firebaseProcessing: false });
                 })
                 .catch(error => {});
         } else {
             searchFriendsByEmail(this.state.search)
                 .then(user => {
-                    this.setState({ user: user });
+                    this.setState({ user: user, firebaseProcessing: false });
                 })
                 .catch(error => {});
         }
@@ -61,6 +63,7 @@ class InviteTab extends Component {
     render() {
         return (
             <View>
+                <Loader loading = {this.state.firebaseProcessing} />
                 <TextInput
                     onChangeText={text => this.setState({ search: text })}
                     placeholder="Search friends by Email or Username"
@@ -70,6 +73,7 @@ class InviteTab extends Component {
                         <Text style={styles.whiteText}>Search</Text>
                     </View>
                 </TouchableNativeFeedback>
+
                 <ScrollView style={styles.container}>
                     {this.state.user ? (
                         <View style={styles.view}>
@@ -78,14 +82,23 @@ class InviteTab extends Component {
                                 renderItem={({ item }) => (
                                     <FriendRow
                                         iconName="person-add"
-                                        link={() =>
+                                        link={() => {
+                                            this.setState({ firebaseProcessing: true });
+                                            console.log("invite", this.state.firebaseProcessing);
                                             sendFriendRequest(
                                                 this.props.auth.user.uid,
-                                                item.uid
-                                            )
+                                                item.uid )
+                                                .then(() => {
+                                                    this.setState({ firebaseProcessing: false });
+                                                })
+                                                .catch(() => {
+                                                    this.setState({ firebaseProcessing: false });
+                                                });
+                                        }
                                         }
                                         data={item}
                                         text={item.email}
+                                        firebaseProcessing={this.state.firebaseProcessing}
                                     />
                                 )}
                             />

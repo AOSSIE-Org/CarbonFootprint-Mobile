@@ -18,12 +18,19 @@ import { acceptFriendRequest } from '../actions/firebase/Friends';
 import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FriendRow from './FriendRow';
+import Loader from './Loader';
 
 /**
  * Component Showing List Of Friends And Friend Requests
  * @extends Component
  */
 class FriendsTab extends Component {
+    constructor(props) {
+        super();
+        this.state = {
+            firebaseProcessing: false
+        };
+    }
     componentWillMount() {
         this.props.getFriendList(this.props.choice);
     }
@@ -31,15 +38,10 @@ class FriendsTab extends Component {
     render() {
         var friends = this.props.friends;
         var friendList = friends.list;
-        if (friends.isFetching) {
+        if (friendList === null || Object.keys(friendList).length <= 0) {
             return (
                 <View style={styles.centerScreen}>
-                    <ActivityIndicator color={color.primary} size="large" />
-                </View>
-            );
-        } else if (friendList === null || Object.keys(friendList).length <= 0) {
-            return (
-                <View style={styles.centerScreen}>
+                    <Loader loading = {this.state.firebaseProcessing || friends.isFetching} />
                     <Icon
                         name={getIcon('sad')}
                         size={56}
@@ -73,6 +75,7 @@ class FriendsTab extends Component {
             */
             return (
                 <ScrollView contentContainerStyle={styles.friends}>
+                    <Loader loading = {this.state.firebaseProcessing} />
                     {friendList.map((friend, index) => {
                         return (
                             <View key={index}>
@@ -88,11 +91,13 @@ class FriendsTab extends Component {
                                         this.props.choice === '2'
                                             ? () =>
                                                   {
+                                                      this.setState({ firebaseProcessing: true });
                                                       acceptFriendRequest(
                                                       this.props.auth.user.uid,
                                                       friend.uid
                                                   )
                                                   .then((user) => {
+                                                      this.setState({ firebaseProcessing: false });
                                                       this.props.getFriendList(this.props.choice);
                                                   });
                                                 }
