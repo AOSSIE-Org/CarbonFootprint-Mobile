@@ -122,6 +122,8 @@ class UserProfile extends Component {
     };
 
     render() {
+        let CustomButton = (Platform.OS === 'android') ? TouchableNativeFeedback : TouchableOpacity;
+
         return (
             <View style={styles.container}>
                 <Header iconName="arrow-back" icon={true} text="Profile" />
@@ -198,13 +200,13 @@ class UserProfile extends Component {
                     {this.state.updateClicked ? (
                         <ActivityIndicator size="small" color={color.primary} />
                     ) : null}
-                    <TouchableNativeFeedback
+                    <CustomButton
                         onPress={() => this.handleUpdate()}
                     >
                         <View style={styles.updateButton}>
                             <Text style={styles.whiteText}>Update</Text>
                         </View>
-                    </TouchableNativeFeedback>
+                    </CustomButton>
                 </View>
             </View>
         );
