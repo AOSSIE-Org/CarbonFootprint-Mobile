@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 import { getUser } from './User';
+import Toast from 'react-native-simple-toast';
 
 /**
  * 0 - Request accepted (Friends)
@@ -12,7 +13,7 @@ import { getUser } from './User';
 export function sendFriendRequest(currentUid, friendUid) {
     return new Promise(function(resolve, reject) {
         if (currentUid === friendUid) {
-            alert('You can not send friend request to yourself');
+            Toast.show('You can not send friend request to yourself');
             reject('You can not send friend request to yourself');
         } else {
             const databaseRef = firebase
@@ -23,15 +24,15 @@ export function sendFriendRequest(currentUid, friendUid) {
             .then(function(snapshot) {
                 const currentState = snapshot.val();
                 if (currentState == 0) {
-                    alert('You have already added this user as your friend.');
+                    Toast.show('You have already added this user as your friend.');
                     reject('You have already added this user as your friend.');
                 }
                 else if (currentState == 1) {
-                    alert('You have already sent a friend request to this user.');
+                    Toast.show('You have already sent a friend request to this user.');
                     reject('You have already sent a friend request to this user.');
                 }
                 else if (currentState == 2) {
-                    alert('This user has already sent you a request.');
+                    Toast.show('This user has already sent you a request.');
                     reject('This user has already sent you a request.');
                 }
                 else {
@@ -46,7 +47,7 @@ export function sendFriendRequest(currentUid, friendUid) {
                                     getUser(currentUid)
                                         .then(user => {
                                             resolve(user);
-                                            alert('Friend request sent');
+                                            Toast.show('Friend request sent');
                                         })
                                         .catch(error => {
                                             reject(error);
@@ -89,7 +90,7 @@ export function acceptFriendRequest(currentUid, friendUid) {
                         getUser(currentUid)
                             .then(user => {
                                 resolve(user);
-                                alert('Friend request accepted');
+                                Toast.show('Friend request accepted');
                             })
                             .catch(error => {
                                 reject(error);
