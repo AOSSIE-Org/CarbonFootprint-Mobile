@@ -30,7 +30,7 @@ export function twitterLogin() {
                 )
                     .then(user => {
                         dispatch(receiveAuth(user));
-                        Actions.main({ type: ActionConst.RESET });
+                        Actions.main({ type: ActionConst.REPLACE });
                     })
                     .catch(error => {
                         showAlert('Login Issue', error.message, 'OK');

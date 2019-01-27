@@ -27,7 +27,7 @@ export function fbLogin() {
                         loginCustomFirebase('facebook', data.accessToken, null)
                             .then(user => {
                                 dispatch(receiveAuth(user));
-                                Actions.main({ type: ActionConst.RESET });
+                                Actions.main({ type: ActionConst.REPLACE });
                             })
                             .catch(error => {
                                 showAlert('Login Issue', error.message, 'OK');
