@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing of googleSignIn checks the working of google sign in 1`] = `
+Array [
+  Object {
+    "type": "RECEIVE_AUTH",
+    "user": Object {
+      "accessToken": "someRandomStringOfAccessToken",
+      "idToken": "someRandomStringOfIdToken",
+    },
+  },
+]
+`;
