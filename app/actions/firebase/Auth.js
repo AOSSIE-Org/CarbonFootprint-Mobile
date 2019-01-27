@@ -96,8 +96,9 @@ export function loginCustomFirebase(type, token, secret) {
         }
         firebase
             .auth()
-            .signInWithCredential(credential)
+            .signInAndRetrieveDataWithCredential(credential)
             .then(user => {
+                user = user.user;
                 getUser(user.uid)
                     .then(() => {
                         let temp = {
