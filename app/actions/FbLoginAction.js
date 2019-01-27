@@ -17,8 +17,8 @@ import { loginCustomFirebase } from './firebase/Auth';
  * @return function handling login
  */
 export function fbLogin() {
-    return function(dispatch) {
-        LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
+    return async function(dispatch) {
+        await LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
             function(result) {
                 if (result.isCancelled) {
                     console.log('Login cancelled');
