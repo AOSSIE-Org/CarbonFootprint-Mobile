@@ -8,50 +8,45 @@ import {
     AsyncStorage,
     StyleSheet
 } from 'react-native';
-import Swiper, { nextButton } from 'react-native-swiper';
-import { connect } from 'react-redux';
+import Swiper from 'react-native-swiper';
 import { Actions } from 'react-native-router-flux';
-import { bindActionCreators } from 'redux';
 import SplashScreen from 'react-native-splash-screen';
-import * as IntroAction from '../actions/IntroAction';
 
 
 
-class Intro extends Component {
-    state = {
-        index:0
+export default class Intro extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            index:0
+        }
+        this.checkIsIntroShown();
     }
-    componentWillMount() {
+    checkIsIntroShown = () => {
         AsyncStorage.getItem('isIntroShown', (err, result) => {
             if (result !== null) {
-                console.log(result);
                 Actions.master();
             } else {
                 SplashScreen.hide();
-                console.log(result);
             }
         });
-        this.setState({ statusBarColorState: '#59b2ab' })
     }
-    componentWillReceiveProps(props) {
-        if (!props.intro.isFirst) {
-            Actions.master();
-        }
-    }
+
     onPress = () => {
         AsyncStorage.setItem('isIntroShown', 'forIntro');
-        this.props.firstOpen();
+        Actions.master();
     };
     
     render() {
         let skipButton = null;
-        if(this.state.index!=5){
+        if(this.state.index != 5){
             skipButton = (
-<TouchableOpacity
+                <TouchableOpacity
                     style={styles.absoluteSkipButton}
                     onPress={this.onPress}
                 >
-                        <Text>skip</Text>
+                    <Text>skip</Text>
                 </TouchableOpacity>
             )
         }
@@ -101,12 +96,6 @@ class Intro extends Component {
                                 footprints.
                             </Text>
                         </View>
-                        {/* <TouchableOpacity
-                            style={styles.skipButton}
-                            onPress={this.onPress}
-                        >
-                            <Text>skip</Text>
-                        </TouchableOpacity> */}
                     </View>
                     <View style={styles.slide2}>
                         <View style={styles.mainView}>
@@ -122,12 +111,6 @@ class Intro extends Component {
                                 this app will calculate your release of co2
                             </Text>
                         </View>
-                        {/* <TouchableOpacity
-                            style={styles.skipButton}
-                            onPress={this.onPress}
-                        >
-                            <Text>Skip</Text>
-                        </TouchableOpacity> */}
                     </View>
                     <View style={styles.slide3}>
                         <View style={styles.mainView}>
@@ -145,12 +128,6 @@ class Intro extends Component {
                                 distance and amount of emitted co2 (at runtime)
                             </Text>
                         </View>
-                        {/* <TouchableOpacity
-                            style={styles.skipButton}
-                            onPress={this.onPress}
-                        >
-                            <Text>skip</Text>
-                        </TouchableOpacity> */}
                     </View>
                     <View style={styles.slide4}>
                         <View style={styles.mainView}>
@@ -166,12 +143,6 @@ class Intro extends Component {
                                 activity
                             </Text>
                         </View>
-                        {/* <TouchableOpacity
-                            style={styles.skipButton}
-                            onPress={this.onPress}
-                        >
-                            <Text>skip</Text>
-                        </TouchableOpacity> */}
                     </View>
                     <View style={styles.slide5}>
                         <View style={styles.mainView}>
@@ -189,12 +160,6 @@ class Intro extends Component {
                                 CO2 release
                             </Text>
                         </View>
-                        {/* <TouchableOpacity
-                            style={styles.skipButton}
-                            onPress={this.onPress}
-                        >
-                            <Text>skip</Text>
-                        </TouchableOpacity> */}
                     </View>
                     <View style={styles.slide6}>
                         <View style={styles.mainView}>
@@ -313,15 +278,3 @@ const styles = StyleSheet.create({
     },
 });
 
-function mapStateToProps(state) {
-    return {
-        intro: state.intro
-    };
-}
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, IntroAction), dispatch);
-}
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Intro);
