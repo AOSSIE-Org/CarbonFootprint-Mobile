@@ -10,11 +10,12 @@ import {
     Text,
     ScrollView,
     ActivityIndicator,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    Alert
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { acceptFriendRequest } from '../actions/firebase/Friends';
+import { acceptFriendRequest, deleteFriendRequest } from '../actions/firebase/Friends';
 import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FriendRow from './FriendRow';
@@ -35,9 +36,21 @@ class FriendsTab extends Component {
         this.props.getFriendList(this.props.choice);
     }
 
+    rejectFriendRequest = (currentUid, friendUid) => {
+        this.setState({ firebaseProcessing: true });
+        deleteFriendRequest(
+        currentUid,
+        friendUid
+    )
+    .then((user) => {
+        this.setState({ firebaseProcessing: false });
+        this.props.getFriendList(this.props.choice);
+    });
+  }
+
     render() {
-        var friends = this.props.friends;
-        var friendList = friends.list;
+        let friends = this.props.friends;
+        let friendList = friends.list;
         if (friendList === null || Object.keys(friendList).length <= 0) {
             return (
                 <View style={styles.centerScreen}>
@@ -73,6 +86,7 @@ class FriendsTab extends Component {
                 });
             }
             */
+           console.log(friendList);
             return (
                 <ScrollView contentContainerStyle={styles.friends}>
                     <Loader loading = {this.state.firebaseProcessing} />
@@ -84,9 +98,19 @@ class FriendsTab extends Component {
                                     data={friend}
                                     iconName={
                                         this.props.choice === '2'
-                                            ? 'checkmark'
+                                            ? ['checkmark', 'close']
                                             : null
                                     }
+                                    reject = {() =>{
+                                        Alert.alert(
+                                            'Friend Request',
+                                            'Are you sure you want to delete this friend request?',
+                                            [
+                                                { text: 'Yes', onPress: this.rejectFriendRequest.bind(this, this.props.auth.user.uid, friend.uid) },
+                                                { text: 'No', onPress: null }
+                                            ]
+                                            )}
+                                        }
                                     link={
                                         this.props.choice === '2'
                                             ? () =>

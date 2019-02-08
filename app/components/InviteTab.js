@@ -81,7 +81,7 @@ class InviteTab extends Component {
                                 data={this.state.user}
                                 renderItem={({ item }) => (
                                     <FriendRow
-                                        iconName="person-add"
+                                        iconName={['person-add']}
                                         link={() => {
                                             this.setState({ firebaseProcessing: true });
                                             console.log("invite", this.state.firebaseProcessing);

@@ -113,6 +113,38 @@ export function acceptFriendRequest(currentUid, friendUid) {
 }
 
 /**
+ * Delete Friend Request
+ * @param  currentUid unique id or user id given to user logged in
+ * @param  friendUid  unique id or user id of friend
+ * @return {Promise}
+ */
+export function deleteFriendRequest(currentUid, friendUid) {
+    return new Promise(function(resolve, reject){
+        firebase
+        .database()
+        .ref('users/' + currentUid + '/friends/' + friendUid)
+        .remove()
+        .then(() => {
+            firebase
+            .database()
+            .ref('users/' + friendUid + '/friends/' + currentUid)
+            .remove()
+            .then(() => {
+                getUser(currentUid)
+                .then(user => {
+                    resolve(user);
+                    Toast.show('Friend Request deleted.');
+                })
+                .catch(error =>{
+                    reject(error);
+                    Toast.show('An error was encountered. Please try again later.')
+                });
+            });
+        });
+    });
+}
+
+/**
  * Search Friends Via email
  * @param  value email user searched for
  * @return {Promise} snapshot of user with that email
@@ -162,3 +194,4 @@ export function searchFriendsByUserName(value) {
             });
     });
 }
+

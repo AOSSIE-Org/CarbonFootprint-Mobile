@@ -44,7 +44,7 @@ const FriendRow = props => {
                     {props.iconName ? (
                         <TouchableNativeFeedback onPress={props.link}>
                             <Icon
-                                name={getIcon(props.iconName)}
+                                name={getIcon(props.iconName[0])}
                                 size={30}
                                 color="black"
                             />
@@ -58,6 +58,17 @@ const FriendRow = props => {
                             </Text>
                         </View>
                     )}
+                    {props.iconName && props.iconName.length === 2 ? (
+                        <TouchableNativeFeedback onPress={props.reject}>
+                            <Icon
+                                name={getIcon(props.iconName[1])}
+                                size={30}
+                                color="black"
+                                style={{paddingLeft: 16}}
+                            />
+                        </TouchableNativeFeedback>
+                    ) : null
+                    }
                 </View>
             </View>
         </View>
@@ -112,7 +123,7 @@ const styles = StyleSheet.create({
 
 FriendRow.propTypes = {
     data: PropTypes.any,
-    iconName: PropTypes.string,
+    iconName: PropTypes.array,
     text: PropTypes.string
 };
 
