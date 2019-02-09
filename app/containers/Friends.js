@@ -18,9 +18,11 @@ import { getIcon, color } from '../config/helper';
 
 import FriendsTab from '../components/FriendsTab';
 import InviteTab from '../components/InviteTab';
+import Loader from '../components/Loader';
 
 import * as FirebaseAction from '../actions/firebase/Friends';
 import * as FriendsAction from '../actions/FriendsAction';
+import * as LoaderAction from '../actions/LoaderAction';
 import * as User from '../actions/firebase/User';
 
 /**
@@ -31,6 +33,7 @@ class Friends extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Loader loading = {this.props.loader.isLoading} />
                 <StatusBar
                     backgroundColor={color.darkPrimary}
                     barStyle="light-content"
@@ -101,7 +104,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
     return {
         friends: state.friends,
-        auth: state.auth
+        auth: state.auth,
+        loader: state.loader
     };
 }
 /**
@@ -111,7 +115,7 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(
-        Object.assign({}, FriendsAction, FirebaseAction, User),
+        Object.assign({}, FriendsAction, FirebaseAction, User, LoaderAction),
         dispatch
     );
 }

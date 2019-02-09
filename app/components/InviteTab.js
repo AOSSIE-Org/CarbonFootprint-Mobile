@@ -12,6 +12,8 @@ import {
     FlatList,
     ScrollView
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { getIcon, color } from '../config/helper';
 import {
     searchFriendsByEmail,
@@ -19,7 +21,7 @@ import {
     sendFriendRequest
 } from '../actions/firebase/Friends';
 import FriendRow from './FriendRow';
-import Loader from './Loader';
+import * as LoaderAction from '../actions/LoaderAction';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 /**
@@ -33,7 +35,6 @@ class InviteTab extends Component {
             search: '',
             user: [],
             userFetched: false,
-            firebaseProcessing: false
         };
         this.searchFriends = this.searchFriends.bind(this);
     }
@@ -43,18 +44,21 @@ class InviteTab extends Component {
      * @return updating state
      */
     searchFriends() {
-        this.setState({ user: [], userFetched: true, firebaseProcessing: true });
+        this.props.loaderToggle();
+        this.setState({ user: [], userFetched: true});
         reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //REGEX to check if user entered email
         if (!reg.test(this.state.search)) {
             searchFriendsByUserName(this.state.search)
                 .then(users => {
-                    this.setState({ user: users, firebaseProcessing: false });
+                    this.setState({ user: users });
+                    this.props.loaderToggle();
                 })
                 .catch(error => {});
         } else {
             searchFriendsByEmail(this.state.search)
                 .then(user => {
-                    this.setState({ user: user, firebaseProcessing: false });
+                    this.setState({ user: user });
+                    this.props.loaderToggle();
                 })
                 .catch(error => {});
         }
@@ -63,7 +67,6 @@ class InviteTab extends Component {
     render() {
         return (
             <View>
-                <Loader loading = {this.state.firebaseProcessing} />
                 <TextInput
                     onChangeText={text => this.setState({ search: text })}
                     placeholder="Search friends by Email or Username"
@@ -83,22 +86,20 @@ class InviteTab extends Component {
                                     <FriendRow
                                         iconName={['person-add']}
                                         link={() => {
-                                            this.setState({ firebaseProcessing: true });
-                                            console.log("invite", this.state.firebaseProcessing);
+                                            this.props.loaderToggle();
                                             sendFriendRequest(
                                                 this.props.auth.user.uid,
                                                 item.uid )
                                                 .then(() => {
-                                                    this.setState({ firebaseProcessing: false });
+                                                    this.props.loaderToggle();
                                                 })
                                                 .catch(() => {
-                                                    this.setState({ firebaseProcessing: false });
+                                                    this.props.loaderToggle();
                                                 });
                                         }
                                         }
                                         data={item}
                                         text={item.email}
-                                        firebaseProcessing={this.state.firebaseProcessing}
                                     />
                                 )}
                             />
@@ -144,4 +145,30 @@ const styles = StyleSheet.create({
     }
 });
 
-export default InviteTab;
+/**
+ * Mapping state to props so that state variables can be used through props in children components
+ * @param state current state
+ * @return state as props
+ */
+function mapStateToProps(state) {
+    return {
+        loader: state.loader
+    };
+}
+/**
+ * Mapping dispatchable actions to props so that actions can be used through props in children components
+ * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
+ * @return Turns an object whose values are action creators, into an object with the same keys,
+ */
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+        Object.assign({}, LoaderAction),
+        dispatch
+    );
+}
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(InviteTab);
