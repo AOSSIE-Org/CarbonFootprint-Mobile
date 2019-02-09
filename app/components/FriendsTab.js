@@ -14,12 +14,14 @@ import {
     Alert
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import * as LoaderAction from '../actions/LoaderAction';
 import { acceptFriendRequest, deleteFriendRequest } from '../actions/firebase/Friends';
 import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FriendRow from './FriendRow';
-import Loader from './Loader';
 
 /**
  * Component Showing List Of Friends And Friend Requests
@@ -28,22 +30,19 @@ import Loader from './Loader';
 class FriendsTab extends Component {
     constructor(props) {
         super();
-        this.state = {
-            firebaseProcessing: false
-        };
     }
     componentWillMount() {
         this.props.getFriendList(this.props.choice);
     }
 
     rejectFriendRequest = (currentUid, friendUid) => {
-        this.setState({ firebaseProcessing: true });
+        this.props.loaderToggle();
         deleteFriendRequest(
         currentUid,
         friendUid
     )
     .then((user) => {
-        this.setState({ firebaseProcessing: false });
+        this.props.loaderToggle();
         this.props.getFriendList(this.props.choice);
     });
   }
@@ -54,7 +53,6 @@ class FriendsTab extends Component {
         if (friendList === null || Object.keys(friendList).length <= 0) {
             return (
                 <View style={styles.centerScreen}>
-                    <Loader loading = {this.state.firebaseProcessing || friends.isFetching} />
                     <Icon
                         name={getIcon('sad')}
                         size={56}
@@ -89,7 +87,6 @@ class FriendsTab extends Component {
            console.log(friendList);
             return (
                 <ScrollView contentContainerStyle={styles.friends}>
-                    <Loader loading = {this.state.firebaseProcessing} />
                     {friendList.map((friend, index) => {
                         return (
                             <View key={index}>
@@ -115,13 +112,13 @@ class FriendsTab extends Component {
                                         this.props.choice === '2'
                                             ? () =>
                                                   {
-                                                      this.setState({ firebaseProcessing: true });
+                                                      this.props.loaderToggle();
                                                       acceptFriendRequest(
                                                       this.props.auth.user.uid,
                                                       friend.uid
                                                   )
                                                   .then((user) => {
-                                                      this.setState({ firebaseProcessing: false });
+                                                      this.props.loaderToggle();
                                                       this.props.getFriendList(this.props.choice);
                                                   });
                                                 }
@@ -176,5 +173,30 @@ FriendsTab.propTypes = {
     choice: PropTypes.string
 }
 
-//Making FriendsTab available to other parts of app
-export default FriendsTab;
+/**
+ * Mapping state to props so that state variables can be used through props in children components
+ * @param state current state
+ * @return state as props
+ */
+function mapStateToProps(state) {
+    return {
+        loader: state.loader
+    };
+}
+/**
+ * Mapping dispatchable actions to props so that actions can be used through props in children components
+ * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
+ * @return Turns an object whose values are action creators, into an object with the same keys,
+ */
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+        Object.assign({}, LoaderAction),
+        dispatch
+    );
+}
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(FriendsTab);

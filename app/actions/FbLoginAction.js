@@ -9,6 +9,7 @@ import FBSDK, {
 import * as firebase from 'firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { receiveAuth, receiveError } from './AuthAction';
+import { loaderToggle } from './LoaderAction';
 import { showAlert } from '../config/helper';
 import { loginCustomFirebase } from './firebase/Auth';
 
@@ -24,13 +25,16 @@ export function fbLogin() {
                     console.log('Login cancelled');
                 } else {
                     AccessToken.getCurrentAccessToken().then(data => {
+                        dispatch(loaderToggle());
                         loginCustomFirebase('facebook', data.accessToken, null)
                             .then(user => {
                                 dispatch(receiveAuth(user));
+                                dispatch(loaderToggle());
                                 Actions.main({ type: ActionConst.REPLACE });
                             })
                             .catch(error => {
                                 showAlert('Login Issue', error.message, 'OK');
+                                dispatch(loaderToggle());
                                 dispatch(receiveError(error));
                             });
                     });

@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "debug:apk": "react-native bundle --dev false --platform android --entry-file index.js --bundle-output ./android/app/build/intermediates/assets/debug/index.android.bundle --assets-dest ./android/app/build/intermediates/res/merged/debug && cd android && ./gradlew assembleDebug"
+    "debug:apk": "react-native bundle --dev false --platform android --entry-file index.js --bundle-output ./android/app/build/intermediates/assets/debug/index.android.bundle --assets-dest ./android/app/build/intermediates/res/merged/debug && cd android && ./gradlew assembleDebug",
+    "fix-modal": "node node_modules/react-native-modal-translucent/scripts/translucent-modal.js",
+    "postinstall": "npm run fix-modal"
   },
   "dependencies": {
     "@mapbox/polyline": "^1.0.0",
@@ -24,6 +26,7 @@
     "react-native-image-picker": "^0.26.10",
     "react-native-keyboard-aware-scroll-view": "^0.5.0",
     "react-native-maps": "^0.21.0",
+    "react-native-modal-translucent": "^2.0.0",
     "react-native-offline": "^3.14.1",
     "react-native-picker": "^4.3.6",
     "react-native-router-flux": "^3.43.0",

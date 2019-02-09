@@ -3,7 +3,7 @@
 */
 
 import GoogleSignIn from 'react-native-google-sign-in';
-import * as firebase from 'firebase';
+import { loaderToggle } from './LoaderAction';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { googleSignInConfig } from '../config/keys';
 import * as actions from './AuthAction';
@@ -23,6 +23,7 @@ export function googleSignIn() {
         await GoogleSignIn.configure(googleSignInConfig).then(() => {
             GoogleSignIn.signInPromise()
                 .then(data => {
+                    dispatch(loaderToggle());
                     loginCustomFirebase(
                         'google',
                         data.idToken,
@@ -30,10 +31,12 @@ export function googleSignIn() {
                     )
                         .then(user => {
                             dispatch(actions.receiveAuth(user));
+                            dispatch(loaderToggle());
                             Actions.main({ type: ActionConst.REPLACE });
                         })
                         .catch(error => {
                             showAlert('Login Issue', error.message, 'OK');
+                            dispatch(loaderToggle());
                             dispatch(actions.receiveError(error));
                         });
                 })

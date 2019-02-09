@@ -9,6 +9,7 @@ import location from './location';
 import direction from './direction';
 import friends from './friends';
 import forgot from './forgot';
+import loader from './loader';
 import { reducer as network } from 'react-native-offline';
 
 /**
@@ -25,8 +26,8 @@ const appReducer = combineReducers({
     direction,
     friends,
     forgot,
-    network
-
+    network,
+    loader
 });
 
 /**

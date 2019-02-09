@@ -10,6 +10,8 @@ import { receiveAuth, receiveError } from './AuthAction';
 import { showAlert } from '../config/helper';
 import { loginCustomFirebase } from './firebase/Auth';
 import { KEYS_NOT_SET } from '../config/constants';
+import { loaderToggle } from './LoaderAction';
+import loader from '../reducers/loader';
 
 /**
  * twitter login functionality in app
@@ -23,6 +25,7 @@ export function twitterLogin() {
     return dispatch => {
         TwitterAuth.login()
             .then(data => {
+                dispatch(loaderToggle());
                 loginCustomFirebase(
                     'twitter',
                     data.authToken,
@@ -30,10 +33,12 @@ export function twitterLogin() {
                 )
                     .then(user => {
                         dispatch(receiveAuth(user));
+                        dispatch(loaderToggle());
                         Actions.main({ type: ActionConst.REPLACE });
                     })
                     .catch(error => {
                         showAlert('Login Issue', error.message, 'OK');
+                        dispatch(loaderToggle());
                         dispatch(receiveError(error));
                     });
             })
