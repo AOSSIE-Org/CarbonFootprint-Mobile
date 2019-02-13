@@ -2,19 +2,14 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    ScrollView,
-    Image,
-    Text,
     StatusBar
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import PropTypes from 'prop-types';
 
-import Header from '../components/Header';
-import { getIcon, color } from '../config/helper';
+import { color } from '../config/helper';
 
 import FriendsTab from '../components/FriendsTab';
 import InviteTab from '../components/InviteTab';
@@ -27,52 +22,47 @@ import * as User from '../actions/firebase/User';
 
 /**
  * Friends Section Container
- * @extends Component
  */
-class Friends extends Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <Loader loading = {this.props.loader.isLoading} />
-                <StatusBar
-                    backgroundColor={color.darkPrimary}
-                    barStyle="light-content"
-                />
-                <View style={styles.pad} />
-                <ScrollableTabView
-                    tabBarBackgroundColor={color.primary}
-                    tabBarActiveTextColor={color.greyBack}
-                    tabBarInactiveTextColor={color.grey}
-                    tabBarTextStyle={styles.tabText}
-                    tabBarUnderlineStyle={styles.tabLine}
-                    style={styles.tabStyle}
-                    onChangeTab={obj => {
-                        switch (obj.i) {
-                            // List of friend requests
-                            case 1:
-                                this.props.getFriendList('2');
-                                break;
-                            case 2:
-                                break;
-                            // List of friends
-                            default:
-                                this.props.getFriendList('1');
-                                break;
-                        }
-                    }}
-                >
-                    <FriendsTab tabLabel="Friends" {...this.props} choice="1" />
-                    <FriendsTab
-                        tabLabel="Requests"
-                        {...this.props}
-                        choice="2"
-                    />
-                    <InviteTab tabLabel="Invite" {...this.props} />
-                </ScrollableTabView>
-            </View>
-        );
-    }
-}
+
+const Friends = (props) => (
+    <View style={styles.container}>
+        <StatusBar
+            backgroundColor={color.darkPrimary}
+            barStyle="light-content"
+        />
+        <View style={styles.pad} />
+        <ScrollableTabView
+            tabBarBackgroundColor={color.primary}
+            tabBarActiveTextColor={color.greyBack}
+            tabBarInactiveTextColor={color.grey}
+            tabBarTextStyle={styles.tabText}
+            tabBarUnderlineStyle={styles.tabLine}
+            style={styles.tabStyle}
+            onChangeTab={obj => {
+                switch (obj.i) {
+                    // List of friend requests
+                    case 1:
+                        props.getFriendList('2');
+                        break;
+                    case 2:
+                        break;
+                    // List of friends
+                    default:
+                        props.getFriendList('1');
+                        break;
+                }
+            }}
+        >
+            <FriendsTab tabLabel="Friends" {...props} choice="1" />
+            <FriendsTab
+                tabLabel="Requests"
+                {...props}
+                choice="2"
+            />
+            <InviteTab tabLabel="Invite" {...props} />
+        </ScrollableTabView>
+    </View>
+)
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
