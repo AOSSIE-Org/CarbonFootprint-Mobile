@@ -24,7 +24,7 @@ import { formatAMPM, getPlaceName } from '../config/helper';
  * @param dispatch Dispatches an action. This is the only way to trigger a state change.
  * @param getState Returns the current state tree of your application.
  */
-function startTimer(dispatch, getState) {
+export function startTimer(dispatch, getState) {
     if (Platform.OS === 'android') {
         this.intervalId = BackgroundTimer.setInterval(() => {
             dispatch(setDuration(getState().activity.duration + 1));
@@ -41,7 +41,7 @@ function startTimer(dispatch, getState) {
 /**
  * stop the timer using react-native-background-timer
  */
-function stopTimer() {
+export function stopTimer() {
     if (Platform.OS === 'android') {
         BackgroundTimer.clearTimeout(this.intervalId);
     } else {
@@ -52,7 +52,7 @@ function stopTimer() {
  * sending data for storage asynchronously
  * @param state current state of activity
  */
-async function sendDataForStorage(state) {
+export async function sendDataForStorage(state) {
     var act = state.activity;
     var source = 'Source';
     var destin = 'Destination';
