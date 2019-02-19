@@ -181,9 +181,9 @@ describe('tests the loginCustomFirebase function with provider google', () => {
         firebase.auth.GoogleAuthProvider.credential = jest.fn();
         firebase
             .auth()
-            .signInWithCredential = jest.fn(() => {
+            .signInAndRetrieveDataWithCredential = jest.fn(() => {
                 return new Promise((resolve) => {
-                    resolve(user);
+                    resolve({user});
                 });
             });
     });
@@ -202,7 +202,7 @@ describe('tests the loginCustomFirebase function with provider google', () => {
             }
         });
         expect(firebase.auth.GoogleAuthProvider.credential).toHaveBeenCalledTimes(1);
-        expect(firebase.auth().signInWithCredential).toHaveBeenCalledTimes(1);
+        expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
     });
 
     it('tests the loginCustomFirebase when the user is not present', async() => {
@@ -219,7 +219,7 @@ describe('tests the loginCustomFirebase function with provider google', () => {
             provider: user.provider
         });
         expect(firebase.auth.GoogleAuthProvider.credential).toHaveBeenCalledTimes(1);
-        expect(firebase.auth().signInWithCredential).toHaveBeenCalledTimes(1);
+        expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
         expect(User.updateUser).toHaveBeenCalledTimes(0);
     });
 });
@@ -241,9 +241,9 @@ describe('tests the loginCustomFirebase function with provider facebook', () => 
         firebase.auth.FacebookAuthProvider.credential = jest.fn();
         firebase
             .auth()
-            .signInWithCredential = jest.fn(() => {
+            .signInAndRetrieveDataWithCredential = jest.fn(() => {
                 return new Promise((resolve) => {
-                    resolve(user);
+                    resolve({user});
                 });
             });
     });
@@ -262,7 +262,7 @@ describe('tests the loginCustomFirebase function with provider facebook', () => 
             }
         });
         expect(firebase.auth.FacebookAuthProvider.credential).toHaveBeenCalledTimes(1);
-        expect(firebase.auth().signInWithCredential).toHaveBeenCalledTimes(1);
+        expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
     });
 
     it('tests the loginCustomFirebase when the user is not present', async() => {
@@ -279,15 +279,15 @@ describe('tests the loginCustomFirebase function with provider facebook', () => 
             provider: user.provider
         });
         expect(firebase.auth.FacebookAuthProvider.credential).toHaveBeenCalledTimes(1);
-        expect(firebase.auth().signInWithCredential).toHaveBeenCalledTimes(1);
+        expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
         expect(User.updateUser).toHaveBeenCalledTimes(0);
     });
 });
 
-/* 
-    Tests the loginCustom firebase
-    function for type twitter
-*/
+// /* 
+//     Tests the loginCustom firebase
+//     function for type twitter
+// */
 describe('tests the loginCustomFirebase function with provider twitter', () => {
     let user;
     beforeAll(async() => {
@@ -301,9 +301,9 @@ describe('tests the loginCustomFirebase function with provider twitter', () => {
         firebase.auth.TwitterAuthProvider.credential = jest.fn();
         firebase
             .auth()
-            .signInWithCredential = jest.fn(() => {
+            .signInAndRetrieveDataWithCredential = jest.fn(() => {
                 return new Promise((resolve) => {
-                    resolve(user);
+                    resolve({user});
                 });
             });
     });
@@ -321,7 +321,7 @@ describe('tests the loginCustomFirebase function with provider twitter', () => {
             }
         });
         expect(firebase.auth.TwitterAuthProvider.credential).toHaveBeenCalledTimes(1);
-        expect(firebase.auth().signInWithCredential).toHaveBeenCalledTimes(1);
+        expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
     });
 
     it('tests the loginCustomFirebase when the user is not present', async() => {
@@ -338,7 +338,7 @@ describe('tests the loginCustomFirebase function with provider twitter', () => {
             provider: user.provider
         });
         expect(firebase.auth.TwitterAuthProvider.credential).toHaveBeenCalledTimes(1);
-        expect(firebase.auth().signInWithCredential).toHaveBeenCalledTimes(1);
+        expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
         expect(User.updateUser).toHaveBeenCalledTimes(0);
     });
 });

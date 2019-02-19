@@ -1,13 +1,14 @@
 jest.mock('react-native-google-sign-in', () => {
-    return {
-      configure: jest.fn(),
-      signInPromise: jest.fn()
-    }
+  return {
+    configure: jest.fn(),
+    signInPromise: jest.fn()
+  }
 });
+
 jest.mock('react-native-simple-toast', () => {
-    return {
-      show: jest.fn()
-    }
+  return {
+    show: jest.fn()
+  }
 });
 
 jest.mock('react-native-activity-recognition', () => {
