@@ -22,6 +22,7 @@ import { acceptFriendRequest, deleteFriendRequest } from '../actions/firebase/Fr
 import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FriendRow from './FriendRow';
+import WarningTextAndIcon from './WarningTextAndIcon';
 
 /**
  * Component Showing List Of Friends And Friend Requests
@@ -52,16 +53,10 @@ class FriendsTab extends Component {
         let friendList = friends.list;
         if (friendList === null || Object.keys(friendList).length <= 0) {
             return (
-                <View style={styles.centerScreen}>
-                    <Icon
-                        name={getIcon('sad')}
-                        size={56}
-                        color={color.lightPrimary}
-                    />
-                    <Text style={styles.warningText}>
-                        Its kind of lonely here.
-                    </Text>
-                </View>
+                <WarningTextAndIcon 
+                    iconName = 'sad' 
+                    text = "It's kind of lonely here." 
+                />
             );
         } else {
             // Gamification: Sorting friends list based on emitted co2
@@ -144,20 +139,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: color.greyBack,
         flex: 1
-    },
-    warningText: {
-        fontSize: 18,
-        color: color.darkPrimary,
-        marginTop: 10
-    },
-    centerScreen: {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute'
     },
     friends: {
         backgroundColor: color.greyBack,
