@@ -156,16 +156,20 @@ export function searchFriendsByEmail(value) {
             .ref('users/')
             .orderByChild('email')
             .equalTo(value)
-            .on('child_added', function(snapshot) {
-                var user = [
-                    {
-                        uid: snapshot.key,
-                        name: snapshot.val().name,
-                        picture: snapshot.val().picture,
-                        email: snapshot.val().email
-                    }
-                ];
-                resolve(user);
+            .on('value', function(snapshot) {
+                if(snapshot.val()) {    
+                    snapshot.forEach(function(data) {
+                        let user = [{
+                                uid: data.key,
+                                name: data.val().name,
+                                picture: data.val().picture,
+                                email: data.val().email
+                            }];
+                        resolve(user);
+                    }); 
+                }
+                else
+                    reject('No user found');
             });
     });
 }
@@ -182,15 +186,22 @@ export function searchFriendsByUserName(value) {
             .ref('users/')
             .orderByChild('name')
             .equalTo(value)
-            .on('child_added', function(snapshot) {
-                // this will have all the users.
-                users.push({
-                    uid: snapshot.key,
-                    name: snapshot.val().name,
-                    picture: snapshot.val().picture,
-                    email: snapshot.val().email
-                });
-                resolve(users);
+            .on('value', function(snapshot) {
+                if(snapshot.val()) {
+                    snapshot.forEach(function(data) {
+                        // this will have all the users.
+                        users.push({
+                            uid: data.key,
+                            name: data.val().name,
+                            picture: data.val().picture,
+                            email: data.val().email
+                        });
+                        resolve(users);
+                    });
+                }
+                else {
+                    reject('No user found');
+                }
             });
     });
 }
