@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import { color } from '../config/helper';
 
 import FriendsTab from '../components/FriendsTab';
-import InviteTab from '../components/InviteTab';
+import InviteTab from './InviteTab';
 import Loader from '../components/Loader';
 
 import * as FirebaseAction from '../actions/firebase/Friends';

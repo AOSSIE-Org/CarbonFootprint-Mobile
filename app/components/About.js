@@ -18,7 +18,7 @@ import {
 	aossieDescription,
 	appDescription
 } from '../config/constants';
-import Header from '../components/Header';
+import Header from './Header';
 import images from '../config/images';
 const { width, height } = Dimensions.get('window');
 const About = () => {

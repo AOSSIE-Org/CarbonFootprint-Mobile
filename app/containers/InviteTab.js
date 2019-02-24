@@ -20,8 +20,8 @@ import {
     searchFriendsByUserName,
     sendFriendRequest
 } from '../actions/firebase/Friends';
-import FriendRow from './FriendRow';
-import WarningTextAndIcon from './WarningTextAndIcon';
+import FriendRow from '../components/FriendRow';
+import WarningTextAndIcon from '../components/WarningTextAndIcon';
 import * as LoaderAction from '../actions/LoaderAction';
 
 /**

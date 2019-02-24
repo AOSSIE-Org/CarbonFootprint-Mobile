@@ -18,7 +18,7 @@ import Timeline from 'react-native-timeline-listview';
 import { Actions } from 'react-native-router-flux';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
 import { getIcon, getIconName, color } from '../config/helper';
-import Header from '../components/Header';
+import Header from './Header';
 
 /**
  * TimelineTab Container

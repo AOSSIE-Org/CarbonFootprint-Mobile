@@ -21,7 +21,7 @@ import * as DirectionAction from '../actions/DirectionAction';
 import * as StorageAction from '../actions/StorageAction';
 
 import Footer from '../components/Footer';
-import StaticMap from '../components/StaticMap';
+import StaticMap from './StaticMap';
 import FootprintCard from '../components/FootprintCard';
 
 import {

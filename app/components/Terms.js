@@ -5,7 +5,7 @@ import {
     Text,
     StatusBar,
 } from 'react-native';
-import Header from '../components/Header';
+import Header from './Header';
 
 const Terms = () => {
     return (
