@@ -1,5 +1,5 @@
 /*
-    This is container for components - TodayTab, ActivityTab, TimelineTab etc.
+    This is container for components - TodayTab, ActivityTab etc.
     It includes bottom scrollable tab bar. Each tab bar item contains a component.
     Used External package - 'react-native-scrollable-tab-view'
 */
