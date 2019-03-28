@@ -27,29 +27,23 @@ class StaticMap extends Component {
                 coordinate={location}
                 pinColor={color}
                 onDragEnd={e => {
-                    this.setState(
-                        { source: e.nativeEvent.coordinate },
-                        function() {
-                            fetch(
-                                'https://maps.googleapis.com/maps/api/geocode/json?address=' +
-                                    this.state.source.latitude +
-                                    ',' +
-                                    this.state.source.longitude +
-                                    '&key=' +
-                                    googleRoadsAPIKey
-                            )
-                                .then(response => response.json())
-                                .then(responseJson => {
-                                    props.getRedMarkerDetails(
-                                        this.state.source,
-                                        JSON.stringify(
-                                            responseJson.results[0]
-                                                .formatted_address
-                                        )
-                                    );
-                                });
-                        }
-                    );
+                    this.setState({ source: e.nativeEvent.coordinate }, function() {
+                        fetch(
+                            'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+                                this.state.source.latitude +
+                                ',' +
+                                this.state.source.longitude +
+                                '&key=' +
+                                googleRoadsAPIKey
+                        )
+                            .then(response => response.json())
+                            .then(responseJson => {
+                                props.getRedMarkerDetails(
+                                    this.state.source,
+                                    JSON.stringify(responseJson.results[0].formatted_address)
+                                );
+                            });
+                    });
                 }}
             />
         );
@@ -78,10 +72,7 @@ class StaticMap extends Component {
                                 .then(responseJson => {
                                     props.getGreenMarkerDetails(
                                         this.state.destination,
-                                        JSON.stringify(
-                                            responseJson.results[0]
-                                                .formatted_address
-                                        )
+                                        JSON.stringify(responseJson.results[0].formatted_address)
                                     );
                                     props.getDirections(
                                         this.state.source,
@@ -119,12 +110,7 @@ class StaticMap extends Component {
     render() {
         let props = this.props;
         return (
-            <View
-                style={[
-                    styles.mapContainer,
-                    { marginTop: this.state.statusBarHeight }
-                ]}
-            >
+            <View style={[styles.mapContainer, { marginTop: this.state.statusBarHeight }]}>
                 <MapView
                     provider={PROVIDER_GOOGLE}
                     showsUserLocation={true}
@@ -135,15 +121,9 @@ class StaticMap extends Component {
                     region={props.region}
                     style={styles.map}
                 >
-                    {props.source
-                        ? this.redMarker(this.state.source, 'red', props)
-                        : null}
+                    {props.source ? this.redMarker(this.state.source, 'red', props) : null}
                     {props.destination
-                        ? this.greenMarker(
-                              this.state.destination,
-                              'green',
-                              props
-                          )
+                        ? this.greenMarker(this.state.destination, 'green', props)
                         : null}
                     {props.coords ? (
                         <MapView.Polyline

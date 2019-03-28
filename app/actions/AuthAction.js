@@ -3,11 +3,7 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import { setStorage } from './StorageAction';
 import { firebaseConfig } from '../config/keys';
 import { initFirebase } from './firebase/Init';
-import {
-    registerFirebase,
-    loginEmailFirebase,
-    forgotPasswordFirebase
-} from './firebase/Auth';
+import { registerFirebase, loginEmailFirebase, forgotPasswordFirebase } from './firebase/Auth';
 import { RESET_PASSWORD } from '../config/constants';
 
 export const REQUEST_AUTH = 'REQUEST_AUTH';

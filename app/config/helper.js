@@ -3,12 +3,7 @@ import Geocoder from 'react-native-geocoding';
 import { geocodingAPIKey } from './keys';
 import { Alert } from 'react-native';
 import store from '../config/store';
-import {
-    RATE_PETROL,
-    RATE_DIESEL,
-    RATE_CNG,
-    RATE_ELECTRIC
-} from '../config/constants';
+import { RATE_PETROL, RATE_DIESEL, RATE_CNG, RATE_ELECTRIC } from '../config/constants';
 import LocationServicesDialogBox from 'react-native-android-location-services-dialog-box';
 
 /**
@@ -153,8 +148,7 @@ export function getFuelRate() {
  */
 export function checkGPS() {
     LocationServicesDialogBox.checkLocationServicesIsEnabled({
-        message:
-            '<h2>Enable GPS</h2>This app wants to use GPS. Please enable GPS.',
+        message: '<h2>Enable GPS</h2>This app wants to use GPS. Please enable GPS.',
         ok: 'YES',
         cancel: 'NO',
         enableHighAccuracy: true, // true => GPS AND NETWORK PROVIDER, false => ONLY GPS PROVIDER

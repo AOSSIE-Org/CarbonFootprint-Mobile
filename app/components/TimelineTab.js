@@ -1,6 +1,6 @@
 /*
  * To display history of user's activities in form of timeline for whole day
-*/
+ */
 
 import React, { Component } from 'react';
 import {
@@ -41,9 +41,7 @@ export default class TimelineTab extends Component {
      * @return data
      */
     getHistoryData() {
-        var obj = ActivityHistoryStorage.getData(
-            this.state.date.toDateString()
-        );
+        var obj = ActivityHistoryStorage.getData(this.state.date.toDateString());
         data = [];
         for (i = 0; i < obj.length; i++) {
             let temp = {
@@ -79,22 +77,14 @@ export default class TimelineTab extends Component {
                 </View>
                 <View style={styles.activityView}>
                     <Icon name={getIcon(icon)} size={25} color="black" />
-                    <Text style={styles.mediumText}>
-                        {rowData.activityType}
-                    </Text>
+                    <Text style={styles.mediumText}>{rowData.activityType}</Text>
                     <View style={styles.hrView}>
                         <View>
-                            <Text style={styles.smallText}>
-                                {rowData.distance}
-                            </Text>
-                            <Text style={styles.smallText}>
-                                {rowData.duration}
-                            </Text>
+                            <Text style={styles.smallText}>{rowData.distance}</Text>
+                            <Text style={styles.smallText}>{rowData.duration}</Text>
                         </View>
                         <View>
-                            <Text style={styles.smallText}>
-                                {rowData.co2Emitted}
-                            </Text>
+                            <Text style={styles.smallText}>{rowData.co2Emitted}</Text>
                             <Text style={[styles.smallText, styles.greenText]}>
                                 {rowData.co2Saved}
                             </Text>
@@ -125,12 +115,7 @@ export default class TimelineTab extends Component {
             'November',
             'December'
         ];
-        var dateStr =
-            names[date.getMonth()] +
-            ' ' +
-            date.getDate() +
-            ', ' +
-            date.getFullYear();
+        var dateStr = names[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
         return dateStr;
     }
 
@@ -191,9 +176,7 @@ export default class TimelineTab extends Component {
                         {this.getDateStr(this.state.date)}
                     </Text>
                 </View>
-                <View style={styles.datePickerView}>
-                    {this.datePickerView()}
-                </View>
+                <View style={styles.datePickerView}>{this.datePickerView()}</View>
             </View>
         );
     }
@@ -223,9 +206,7 @@ export default class TimelineTab extends Component {
                         options={{ style: { padding: 10 } }}
                     />
                 ) : (
-                    <Text style={styles.warningText}>
-                        No Activity found ...
-                    </Text>
+                    <Text style={styles.warningText}>No Activity found ...</Text>
                 )}
             </View>
         );

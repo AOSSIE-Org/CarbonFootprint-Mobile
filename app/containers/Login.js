@@ -17,14 +17,11 @@ const Login = props => {
     return (
         <View style={styles.container}>
             <StatusBar hidden={true} />
-            <BackHeader
-                text="Forgot Password?"
-                link={() => Actions.forgot()}
-            />
+            <BackHeader text="Forgot Password?" link={() => Actions.forgot()} />
             <LoginForm {...props} />
         </View>
     );
-}
+};
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {

@@ -1,13 +1,12 @@
 import { LOADER_TOGGLE } from '../actions/LoaderAction';
 
-export default function loader (
+export default function loader(
     state = {
         isLoading: false
     },
     action
 ) {
-
-    switch(action.type) {
+    switch (action.type) {
         case LOADER_TOGGLE:
             return Object.assign({}, state, {
                 isLoading: !state.isLoading
@@ -16,4 +15,3 @@ export default function loader (
             return state;
     }
 }
-

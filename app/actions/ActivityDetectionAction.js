@@ -1,6 +1,6 @@
 /*
  * Detecting user's activity and sending activity data to store in Realm Db
-*/
+ */
 
 import { Platform } from 'react-native';
 
@@ -108,15 +108,10 @@ export function startActivityDetection() {
             // If detected activity is different from ongoing activity
             if (mostProbableActivity.type !== act.type) {
                 if (
-                    (Platform.OS === 'android' &&
-                        mostProbableActivity.confidence >= 75) ||
+                    (Platform.OS === 'android' && mostProbableActivity.confidence >= 75) ||
                     Platform.OS === 'ios'
                 ) {
-                    if (
-                        act.type !== 'STILL' &&
-                        act.type !== 'TILTING' &&
-                        act.type !== 'UNKNOWN'
-                    ) {
+                    if (act.type !== 'STILL' && act.type !== 'TILTING' && act.type !== 'UNKNOWN') {
                         stopTimer();
                         sendDataForStorage(getState());
                     }

@@ -1,6 +1,6 @@
 /*
  * To show summary stats for today
-*/
+ */
 
 import React, { Component } from 'react';
 import {
@@ -31,9 +31,7 @@ export default class TodayTab extends Component {
     constructor(props) {
         super(props);
         ActivityHistoryStorage.createDB();
-        var data = ActivityHistoryStorage.getTotalData(
-            new Date().toDateString()
-        );
+        var data = ActivityHistoryStorage.getTotalData(new Date().toDateString());
         this.state = {
             co2Emitted: data.co2Emitted,
             co2Saved: data.co2Saved,
@@ -65,15 +63,10 @@ export default class TodayTab extends Component {
                         <View style={styles.largeActivity_icon}>
                             <Text style={styles.mediumText}>TODAY</Text>
                             <View style={styles.hrView}>
-                                <Text style={styles.mediumText}>
-                                    {this.state.dist.toFixed(2)}
-                                </Text>
+                                <Text style={styles.mediumText}>{this.state.dist.toFixed(2)}</Text>
                                 <Text style={styles.smallText}>km</Text>
                             </View>
-                            <Image
-                                source={images.co2Icon}
-                                style={styles.co2Icon}
-                            />
+                            <Image source={images.co2Icon} style={styles.co2Icon} />
                             <View style={styles.hrView}>
                                 <Text style={styles.mediumText}>
                                     {this.state.co2Emitted.toFixed(2)}
@@ -97,11 +90,7 @@ export default class TodayTab extends Component {
                                 <Text style={styles.smallText}>km</Text>
                             </View>
                             <View style={styles.activity_icon}>
-                                <Icon
-                                    name={getIcon('walk')}
-                                    size={35}
-                                    color="white"
-                                />
+                                <Icon name={getIcon('walk')} size={35} color="white" />
                             </View>
                             <View style={styles.hrView}>
                                 <Text style={styles.smallText}>0.00</Text>
@@ -143,11 +132,7 @@ export default class TodayTab extends Component {
                                 <Text style={styles.smallText}>km</Text>
                             </View>
                             <View style={styles.activity_icon}>
-                                <Icon
-                                    name={getIcon('bicycle')}
-                                    size={35}
-                                    color="white"
-                                />
+                                <Icon name={getIcon('bicycle')} size={35} color="white" />
                             </View>
                             <View style={styles.hrView}>
                                 <Text style={styles.smallText}>0.00</Text>
@@ -168,26 +153,12 @@ export default class TodayTab extends Component {
                                 <Text style={styles.smallText}>km</Text>
                             </View>
                             <View style={styles.activity_icon}>
-                                {this.props.storage.data.automobile ===
-                                'Car' ? (
-                                    <Icon
-                                        name={getIcon('car')}
-                                        size={35}
-                                        color="white"
-                                    />
-                                ) : this.props.storage.data.automobile ===
-                                'Bus' ? (
-                                    <Icon
-                                        name={getIcon('bus')}
-                                        size={35}
-                                        color="white"
-                                    />
+                                {this.props.storage.data.automobile === 'Car' ? (
+                                    <Icon name={getIcon('car')} size={35} color="white" />
+                                ) : this.props.storage.data.automobile === 'Bus' ? (
+                                    <Icon name={getIcon('bus')} size={35} color="white" />
                                 ) : (
-                                    <Icon
-                                        name={getIcon('train')}
-                                        size={35}
-                                        color="white"
-                                    />
+                                    <Icon name={getIcon('train')} size={35} color="white" />
                                 )}
                             </View>
                             <View style={styles.hrView}>

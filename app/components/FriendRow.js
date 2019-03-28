@@ -1,16 +1,9 @@
 /*
  * To show friends list item
-*/
+ */
 
 import React from 'react';
-import {
-    View,
-    StyleSheet,
-    Image,
-    Text,
-    Dimensions,
-    TouchableNativeFeedback
-} from 'react-native';
+import { View, StyleSheet, Image, Text, Dimensions, TouchableNativeFeedback } from 'react-native';
 import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -28,10 +21,7 @@ const FriendRow = props => {
             <View style={styles.main}>
                 <View style={styles.info}>
                     {data.picture ? (
-                        <Image
-                            source={{ uri: data.picture }}
-                            style={styles.image}
-                        />
+                        <Image source={{ uri: data.picture }} style={styles.image} />
                     ) : (
                         <Image source={images.noImage} style={styles.image} />
                     )}
@@ -43,19 +33,11 @@ const FriendRow = props => {
                 <View style={styles.right}>
                     {props.iconName ? (
                         <TouchableNativeFeedback onPress={props.link}>
-                            <Icon
-                                name={getIcon(props.iconName[0])}
-                                size={30}
-                                color="black"
-                            />
+                            <Icon name={getIcon(props.iconName[0])} size={30} color="black" />
                         </TouchableNativeFeedback>
                     ) : (
                         <View>
-                            <Text>
-                                {data.data
-                                    ? data.data.total.footprint + ' kg'
-                                    : '0 kg'}
-                            </Text>
+                            <Text>{data.data ? data.data.total.footprint + ' kg' : '0 kg'}</Text>
                         </View>
                     )}
                     {props.iconName && props.iconName.length === 2 ? (
@@ -64,11 +46,12 @@ const FriendRow = props => {
                                 name={getIcon(props.iconName[1])}
                                 size={30}
                                 color="black"
-                                style={{paddingLeft: 16}}
+                                style={{
+                                    paddingLeft: 16
+                                }}
                             />
                         </TouchableNativeFeedback>
-                    ) : null
-                    }
+                    ) : null}
                 </View>
             </View>
         </View>

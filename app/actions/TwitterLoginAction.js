@@ -1,6 +1,6 @@
 /*
  * Twitter Native Login Action
-*/
+ */
 
 import TwitterAuth from 'tipsi-twitter';
 import * as firebase from 'firebase';
@@ -26,15 +26,13 @@ export function twitterLogin() {
         TwitterAuth.login()
             .then(data => {
                 dispatch(loaderToggle());
-                loginCustomFirebase(
-                    'twitter',
-                    data.authToken,
-                    data.authTokenSecret
-                )
+                loginCustomFirebase('twitter', data.authToken, data.authTokenSecret)
                     .then(user => {
                         dispatch(receiveAuth(user));
                         dispatch(loaderToggle());
-                        Actions.main({ type: ActionConst.REPLACE });
+                        Actions.main({
+                            type: ActionConst.REPLACE
+                        });
                     })
                     .catch(error => {
                         showAlert('Login Issue', error.message, 'OK');

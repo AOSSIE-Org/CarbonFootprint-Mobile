@@ -1,11 +1,7 @@
 /*
  *	Facebook Native Login Action
-*/
-import FBSDK, {
-    LoginManager,
-    LoginButton,
-    AccessToken
-} from 'react-native-fbsdk';
+ */
+import FBSDK, { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk';
 import * as firebase from 'firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { receiveAuth, receiveError } from './AuthAction';
@@ -30,7 +26,9 @@ export function fbLogin() {
                             .then(user => {
                                 dispatch(receiveAuth(user));
                                 dispatch(loaderToggle());
-                                Actions.main({ type: ActionConst.REPLACE });
+                                Actions.main({
+                                    type: ActionConst.REPLACE
+                                });
                             })
                             .catch(error => {
                                 showAlert('Login Issue', error.message, 'OK');

@@ -12,13 +12,13 @@ import * as AuthAction from '../actions/AuthAction';
 /**
  * Register Screen Container
  */
-const Register = (props) =>(
+const Register = props => (
     <View style={styles.container}>
         <StatusBar hidden={true} />
         <BackHeader text="Login" link={() => Actions.login()} />
-        <RegisterForm {...this.props} />
+        <RegisterForm {...props} />
     </View>
-)
+);
 
 /*StyleSheet*/
 const styles = StyleSheet.create({

@@ -42,31 +42,26 @@ class UserProfile extends Component {
             updateClicked: false,
             name: this.props.user.name,
             email: this.props.user.email,
-            phone_no: this.props.user.phone_no
-                ? this.props.user.phone_no
-                : null,
-            picture: this.props.user.picture
-                ? this.props.user.picture
-                : images.logo
+            phone_no: this.props.user.phone_no ? this.props.user.phone_no : null,
+            picture: this.props.user.picture ? this.props.user.picture : images.logo
         };
     }
 
     /**
-    * verify updatation of user details in the database
-    * @param  uid  user id or unique id of logged in user
-    * @return if current state user profile matches with the entry in the database
-    */
-    verifyProfileUpdate(uid)
-    {
-        getUser(uid)
-        .then((user) => {
-            if (user.name === this.state.name && user.phone_no == this.state.phone_no && user.picture === this.state.picture)
-                {
-                    Toast.show('Profile Updated');
-                    this.setState({ updateClicked: false });   
-                }
-            else
-                verifyProfileUpdate(uid);
+     * verify updatation of user details in the database
+     * @param  uid  user id or unique id of logged in user
+     * @return if current state user profile matches with the entry in the database
+     */
+    verifyProfileUpdate(uid) {
+        getUser(uid).then(user => {
+            if (
+                user.name === this.state.name &&
+                user.phone_no == this.state.phone_no &&
+                user.picture === this.state.picture
+            ) {
+                Toast.show('Profile Updated');
+                this.setState({ updateClicked: false });
+            } else verifyProfileUpdate(uid);
         });
     }
 
@@ -82,8 +77,8 @@ class UserProfile extends Component {
         } else {
             this.setState({ updateClicked: true });
             this.props.updateUserFirebase(this.state).then(() => {
-                    const uid = firebase.auth().currentUser.uid;
-                    this.verifyProfileUpdate(uid);
+                const uid = firebase.auth().currentUser.uid;
+                this.verifyProfileUpdate(uid);
             });
         }
     }
@@ -107,11 +102,9 @@ class UserProfile extends Component {
             } else if (response.customButton) {
                 Toast.show('User Tapped Custom Button');
             } else {
-                if (response.fileSize > 500000)
-                {
+                if (response.fileSize > 500000) {
                     Toast.show('Size of image should be less than 500KB');
-                }
-                else {
+                } else {
                     this.setState({
                         picture: response.data
                     });
@@ -122,7 +115,7 @@ class UserProfile extends Component {
     };
 
     render() {
-        let CustomButton = (Platform.OS === 'android') ? TouchableNativeFeedback : TouchableOpacity;
+        let CustomButton = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
 
         return (
             <View style={styles.container}>
@@ -139,16 +132,13 @@ class UserProfile extends Component {
                             <Image
                                 style={styles.avatar}
                                 resizeMethod={'resize'}
-                                source={{ uri: 'data:image/png;base64,' + this.state.picture }}
+                                source={{
+                                    uri: 'data:image/png;base64,' + this.state.picture
+                                }}
                             />
                         )}
-                        <TouchableOpacity
-                            activeOpacity={0.4}
-                            onPress={() => this._cameraImage()}
-                        >
-                            <Text style={styles.userName}>
-                                Change Profile Photo
-                            </Text>
+                        <TouchableOpacity activeOpacity={0.4} onPress={() => this._cameraImage()}>
+                            <Text style={styles.userName}>Change Profile Photo</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.valueItem}>
@@ -158,7 +148,11 @@ class UserProfile extends Component {
                         <TextInput
                             autoCorrect={false}
                             ref={input => (this.nameInput = input)}
-                            onChangeText={name => this.setState({ name })}
+                            onChangeText={name =>
+                                this.setState({
+                                    name
+                                })
+                            }
                             onSubmitEditing={() => this.emailInput.focus()}
                             returnKeyType="next"
                             style={styles.textInput}
@@ -172,9 +166,7 @@ class UserProfile extends Component {
                         <View style={styles.valueTextContainer}>
                             <Text style={styles.valueText}>Email</Text>
                         </View>
-                        <Text style={styles.textInput}>
-                            {this.state.email}
-                        </Text>
+                        <Text style={styles.textInput}>{this.state.email}</Text>
                     </View>
                     <View style={styles.valueItem}>
                         <View style={styles.valueTextContainer}>
@@ -184,11 +176,11 @@ class UserProfile extends Component {
                             autoCorrect={false}
                             ref={input => (this.phoneNoInput = input)}
                             onChangeText={phone_no =>
-                                this.setState({ phone_no })
+                                this.setState({
+                                    phone_no
+                                })
                             }
-                            onSubmitEditing={() =>
-                                this.emergencyContactNameInput.focus()
-                            }
+                            onSubmitEditing={() => this.emergencyContactNameInput.focus()}
                             keyboardType="phone-pad"
                             returnKeyType="next"
                             style={styles.textInput}
@@ -200,9 +192,7 @@ class UserProfile extends Component {
                     {this.state.updateClicked ? (
                         <ActivityIndicator size="small" color={color.primary} />
                     ) : null}
-                    <CustomButton
-                        onPress={() => this.handleUpdate()}
-                    >
+                    <CustomButton onPress={() => this.handleUpdate()}>
                         <View style={styles.updateButton}>
                             <Text style={styles.whiteText}>Update</Text>
                         </View>

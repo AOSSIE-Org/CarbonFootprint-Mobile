@@ -24,13 +24,7 @@ import Footer from '../components/Footer';
 import StaticMap from './StaticMap';
 import FootprintCard from '../components/FootprintCard';
 
-import {
-    color,
-    getIcon,
-    calcCo2,
-    getMileage,
-    getFuelRate
-} from '../config/helper';
+import { color, getIcon, calcCo2, getMileage, getFuelRate } from '../config/helper';
 
 /**
  * Calculate container
@@ -91,11 +85,7 @@ class Calculate extends Component {
         this.setState({
             tab
         });
-        this.props.getDirections(
-            this.state.source,
-            this.state.destination,
-            tab
-        );
+        this.props.getDirections(this.state.source, this.state.destination, tab);
     }
 
     render() {
@@ -146,9 +136,7 @@ class Calculate extends Component {
                             iconStyle={styles.icon}
                             onPress={() => this.props.openSearchModal(0)}
                         >
-                            <Text style={styles.text}>
-                                {direction.sourceName}
-                            </Text>
+                            <Text style={styles.text}>{direction.sourceName}</Text>
                         </Icon.Button>
                     </View>
                     <View>
@@ -160,9 +148,7 @@ class Calculate extends Component {
                             iconStyle={styles.icon}
                             onPress={() => this.props.openSearchModal(1)}
                         >
-                            <Text style={styles.text}>
-                                {direction.destinationName}
-                            </Text>
+                            <Text style={styles.text}>{direction.destinationName}</Text>
                         </Icon.Button>
                     </View>
                 </View>
@@ -174,11 +160,7 @@ class Calculate extends Component {
                         footprint={
                             direction.distance.text
                                 ? this.state.tab === 0 || this.state.tab === 1
-                                    ? calcCo2(
-                                          getFuelRate(),
-                                          direction.distance.text,
-                                          getMileage()
-                                      )
+                                    ? calcCo2(getFuelRate(), direction.distance.text, getMileage())
                                     : 0
                                 : null
                         }
@@ -232,7 +214,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute'
     }
-})
+});
 
 Calculate.propTypes = {
     location: PropTypes.object.isRequired,
@@ -241,7 +223,7 @@ Calculate.propTypes = {
     getDirections: PropTypes.func.isRequired,
     openSearchModal: PropTypes.func.isRequired,
     direction: PropTypes.object
-}
+};
 
 function mapStateToProps(state) {
     return {
@@ -261,4 +243,7 @@ function mapDispatchToProps(dispatch) {
     );
 }
 //This is needed to allow children components to have access to Actions and store variables
-export default connect(mapStateToProps, mapDispatchToProps)(Calculate);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Calculate);
