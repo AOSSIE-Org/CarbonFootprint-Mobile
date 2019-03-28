@@ -5,17 +5,11 @@ import { getIcon, color } from '../config/helper';
 
 const WarningTextAndIcon = props => {
     const { iconName, text } = props;
-    
+
     return (
         <View style={styles.centerScreen}>
-            <Icon
-                name={getIcon(iconName)}
-                size={56}
-                color={color.lightPrimary}
-            />
-            <Text style={styles.warningText}>
-                {text}
-            </Text>
+            <Icon name={getIcon(iconName)} size={56} color={color.lightPrimary} />
+            <Text style={styles.warningText}>{text}</Text>
         </View>
     );
 };

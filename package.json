@@ -7,10 +7,17 @@
     "test": "jest",
     "debug:apk": "react-native bundle --dev false --platform android --entry-file index.js --bundle-output ./android/app/build/intermediates/assets/debug/index.android.bundle --assets-dest ./android/app/build/intermediates/res/merged/debug && cd android && ./gradlew assembleDebug",
     "fix-modal": "node node_modules/react-native-modal-translucent/scripts/translucent-modal.js",
-    "postinstall": "npm run fix-modal"
+    "postinstall": "npm run fix-modal",
+    "lint": "./node_modules/.bin/eslint 'app/**'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "NODE_ENV=production lint-staged"
+    }
   },
   "dependencies": {
     "@mapbox/polyline": "^1.0.0",
+    "eslint-staged-files": "1.0.0",
     "firebase": "^5.0.3",
     "haversine": "^1.1.0",
     "react": "16.3.2",
@@ -50,9 +57,20 @@
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
     "enzyme-to-json": "^3.3.5",
+    "eslint": "5.15.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-config-prettier": "4.1.0",
+    "eslint-plugin-import": "2.16.0",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-prettier": "3.0.1",
+    "eslint-plugin-react": "7.12.4",
     "firebase-admin": "^6.4.0",
     "firebase-server": "^1.0.1",
+    "husky": "1.3.1",
     "jest": "22.4.3",
+    "lint-staged": "8.1.5",
+    "prettier": "1.16.4",
+    "pretty-quick": "1.10.0",
     "react-test-renderer": "^16.3.2",
     "redux-devtools": "^3.4.0",
     "redux-mock-store": "^1.5.3"

@@ -1,18 +1,10 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    Dimensions,
-    StyleSheet,
-    TouchableHighlight,
-    Platform
-} from 'react-native';
+import { View, Text, Dimensions, StyleSheet, TouchableHighlight, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import { getIcon, color } from '../config/helper.js';
 import OfflineNotice from './OfflineNotice';
-
 
 /**
  * footer component
@@ -79,14 +71,21 @@ const Footer = props => {
                                 color={tab.color}
                                 style={styles.icon}
                             />
-                            <Text style={[styles.text, { color: tab.color }]}>
+                            <Text
+                                style={[
+                                    styles.text,
+                                    {
+                                        color: tab.color
+                                    }
+                                ]}
+                            >
                                 {tab.name}
                             </Text>
                         </View>
                     </TouchableHighlight>
                 );
             })}
-            <OfflineNotice/>
+            <OfflineNotice />
         </View>
     );
 };

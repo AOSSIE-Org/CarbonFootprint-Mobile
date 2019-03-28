@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-    View,
-    StyleSheet,
-    Dimensions,
-    Text,
-    Platform,
-    StatusBar
-} from 'react-native';
+import { View, StyleSheet, Dimensions, Text, Platform, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
@@ -30,10 +23,7 @@ const Header = props => {
         }
         return (
             <View style={topContainerStyle}>
-                <StatusBar
-                    backgroundColor={color.darkPrimary}
-                    barStyle="light-content"
-                />
+                <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
                 <Icon.Button
                     name={getIcon(props.iconName)}
                     backgroundColor={color.primary}
@@ -106,6 +96,6 @@ Header.propTypes = {
     noShadow: PropTypes.bool,
     text: PropTypes.string,
     iconName: PropTypes.string
-}
+};
 
 export default Header;

@@ -82,7 +82,7 @@ function mapDispatchToProps(dispatch) {
 Master.propTypes = {
     auth: PropTypes.object,
     initApp: PropTypes.func.isRequired
-}
+};
 
 export default connect(
     mapStateToProps,

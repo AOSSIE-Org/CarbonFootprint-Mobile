@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-    View,
-    StyleSheet,
-    StatusBar
-} from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -24,12 +20,9 @@ import * as User from '../actions/firebase/User';
  * Friends Section Container
  */
 
-const Friends = (props) => (
+const Friends = props => (
     <View style={styles.container}>
-        <StatusBar
-            backgroundColor={color.darkPrimary}
-            barStyle="light-content"
-        />
+        <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
         <View style={styles.pad} />
         <ScrollableTabView
             tabBarBackgroundColor={color.primary}
@@ -54,15 +47,11 @@ const Friends = (props) => (
             }}
         >
             <FriendsTab tabLabel="Friends" {...props} choice="1" />
-            <FriendsTab
-                tabLabel="Requests"
-                {...props}
-                choice="2"
-            />
+            <FriendsTab tabLabel="Requests" {...props} choice="2" />
             <InviteTab tabLabel="Invite" {...props} />
         </ScrollableTabView>
     </View>
-)
+);
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {

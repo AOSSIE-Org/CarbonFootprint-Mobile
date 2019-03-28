@@ -12,15 +12,12 @@ import Swiper from 'react-native-swiper';
 import { Actions } from 'react-native-router-flux';
 import SplashScreen from 'react-native-splash-screen';
 
-
-
 export default class Intro extends Component {
-
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            index:0
-        }
+            index: 0
+        };
         this.checkIsIntroShown();
     }
     checkIsIntroShown = () => {
@@ -31,33 +28,30 @@ export default class Intro extends Component {
                 SplashScreen.hide();
             }
         });
-    }
+    };
 
     onPress = () => {
         AsyncStorage.setItem('isIntroShown', 'forIntro');
         Actions.master();
     };
-    
+
     render() {
         let skipButton = null;
-        if(this.state.index != 5){
+        if (this.state.index != 5) {
             skipButton = (
-                <TouchableOpacity
-                    style={styles.absoluteSkipButton}
-                    onPress={this.onPress}
-                >
+                <TouchableOpacity style={styles.absoluteSkipButton} onPress={this.onPress}>
                     <Text>skip</Text>
                 </TouchableOpacity>
-            )
+            );
         }
 
-        const statusBarColor = ['#20837C', '#132584', '#CD0045', '#8E2200', '#3E0560', '#044208']
+        const statusBarColor = ['#20837C', '#132584', '#CD0045', '#8E2200', '#3E0560', '#044208'];
         return (
             <View style={styles.container}>
                 <Swiper
-                    onIndexChanged={(index) => {
+                    onIndexChanged={index => {
                         StatusBar.setBackgroundColor(statusBarColor[index]);
-                        this.setState({index})
+                        this.setState({ index });
                     }}
                     style={styles.wrapper}
                     loop={false}
@@ -73,42 +67,33 @@ export default class Intro extends Component {
                     prevButton={<Text style={styles.buttonText} />}
                 >
                     <View style={styles.slide1}>
-                    <StatusBar 
-                        barStyle="light-content"
-                        hidden={false} 
-                        backgroundColor='#20837C' 
-                        translucent={true}
-                    />
+                        <StatusBar
+                            barStyle="light-content"
+                            hidden={false}
+                            backgroundColor="#20837C"
+                            translucent={true}
+                        />
                         <View style={styles.mainView}>
-                            <Image
-                                source={require('../images/logo.png')}
-                                style={styles.image}
-                            />
+                            <Image source={require('../images/logo.png')} style={styles.image} />
                         </View>
                         <View style={styles.whiteView}>
-                            <Text style={styles.titleText}>
-                                CarbonFootprint - Mobile
-                            </Text>
+                            <Text style={styles.titleText}>CarbonFootprint - Mobile</Text>
                             <Text style={styles.descText}>
-                                CarbonFootprint Mobile is Mobile 
-                                application that raises environmental awareness
-                                by tracking user activity and calculating carbon
-                                footprints.
+                                CarbonFootprint Mobile is Mobile application that raises
+                                environmental awareness by tracking user activity and calculating
+                                carbon footprints.
                             </Text>
                         </View>
                     </View>
                     <View style={styles.slide2}>
                         <View style={styles.mainView}>
-                            <Image
-                                source={require('../images/co2.png')}
-                                style={styles.image}
-                            />
+                            <Image source={require('../images/co2.png')} style={styles.image} />
                         </View>
                         <View style={styles.whiteView}>
                             <Text style={styles.titleText}>Emission of co2</Text>
                             <Text style={styles.descText}>
-                                Release of co2 in environment is increasing everyday
-                                this app will calculate your release of co2
+                                Release of co2 in environment is increasing everyday this app will
+                                calculate your release of co2
                             </Text>
                         </View>
                     </View>
@@ -120,53 +105,38 @@ export default class Intro extends Component {
                             />
                         </View>
                         <View style={styles.whiteView}>
-                            <Text style={styles.titleText}>
-                                Activity Recognition
-                            </Text>
+                            <Text style={styles.titleText}>Activity Recognition</Text>
                             <Text style={styles.descText}>
-                                Detects user's activity and calculate travelled
-                                distance and amount of emitted co2 (at runtime)
+                                Detects user's activity and calculate travelled distance and amount
+                                of emitted co2 (at runtime)
                             </Text>
                         </View>
                     </View>
                     <View style={styles.slide4}>
                         <View style={styles.mainView}>
-                            <Image
-                                source={require('../images/notif.png')}
-                                style={styles.image}
-                            />
+                            <Image source={require('../images/notif.png')} style={styles.image} />
                         </View>
                         <View style={styles.whiteView}>
                             <Text style={styles.titleText}>Live Notification</Text>
                             <Text style={styles.descText}>
-                                push notification service to inform user about his
-                                activity
+                                push notification service to inform user about his activity
                             </Text>
                         </View>
                     </View>
                     <View style={styles.slide5}>
                         <View style={styles.mainView}>
-                            <Image
-                                source={require('../images/route.png')}
-                                style={styles.image}
-                            />
+                            <Image source={require('../images/route.png')} style={styles.image} />
                         </View>
                         <View style={styles.whiteView}>
-                            <Text style={styles.titleText}>
-                                Google Maps Service
-                            </Text>
+                            <Text style={styles.titleText}>Google Maps Service</Text>
                             <Text style={styles.descText}>
-                                Travel from one point to another point and find your
-                                CO2 release
+                                Travel from one point to another point and find your CO2 release
                             </Text>
                         </View>
                     </View>
                     <View style={styles.slide6}>
                         <View style={styles.mainView}>
-                            <Image
-                                source={require('../images/green.png')}
-                                style={styles.image}
-                            />
+                            <Image source={require('../images/green.png')} style={styles.image} />
                         </View>
                         <View style={styles.whiteView}>
                             <Text style={styles.titleText}>Carbon Footprints</Text>
@@ -174,10 +144,7 @@ export default class Intro extends Component {
                                 Goal is to make everyone aware of CO2 usage
                             </Text>
                         </View>
-                        <TouchableOpacity
-                            style={styles.doneButton}
-                            onPress={this.onPress}
-                        >
+                        <TouchableOpacity style={styles.doneButton} onPress={this.onPress}>
                             <Text>Done</Text>
                         </TouchableOpacity>
                     </View>
@@ -188,13 +155,11 @@ export default class Intro extends Component {
     }
 }
 
-
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1
     },
-    wrapper:{
-    },
+    wrapper: {},
     slide1: {
         flex: 1,
         justifyContent: 'center',
@@ -275,6 +240,5 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 20,
         left: 10
-    },
+    }
 });
-

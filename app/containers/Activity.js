@@ -18,25 +18,25 @@ import { color } from '../config/helper';
 import Footer from '../components/Footer';
 
 const Activity = props => {
-
-  // Main function to set whole view of container, Contains various components as children
-  // It sends 'Actions.activity()' to TimelineTab as link (prop) so that TimelineTab can navigate to Activity container (When needed)
+    // Main function to set whole view of container, Contains various components as children
+    // It sends 'Actions.activity()' to TimelineTab as link (prop) so that TimelineTab can navigate to Activity container (When needed)
     return (
-      <View style={styles.container}> 
-        <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
-        <View style={styles.pad}></View>
-        <ScrollableTabView
-          tabBarBackgroundColor={color.primary}
-          tabBarActiveTextColor={color.greyBack}
-          tabBarInactiveTextColor={color.grey}
-          tabBarTextStyle={styles.tabText}
-          tabBarUnderlineStyle={styles.tabLine}>
-          <TodayTab tabLabel="Today" {...props}/>
-          <ActivityTab tabLabel="Activity" {...props}/>
-        </ScrollableTabView>
-      </View>
+        <View style={styles.container}>
+            <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
+            <View style={styles.pad} />
+            <ScrollableTabView
+                tabBarBackgroundColor={color.primary}
+                tabBarActiveTextColor={color.greyBack}
+                tabBarInactiveTextColor={color.grey}
+                tabBarTextStyle={styles.tabText}
+                tabBarUnderlineStyle={styles.tabLine}
+            >
+                <TodayTab tabLabel="Today" {...props} />
+                <ActivityTab tabLabel="Activity" {...props} />
+            </ScrollableTabView>
+        </View>
     );
-}
+};
 
 //StyleSheet
 const styles = StyleSheet.create({
@@ -81,4 +81,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 //This is needed to allow children components to have access to Actions and store variables
-export default connect(mapStateToProps, mapDispatchToProps)(Activity);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Activity);

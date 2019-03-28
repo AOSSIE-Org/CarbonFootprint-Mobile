@@ -30,101 +30,29 @@ const Navigator = () => (
     <RouterWithRedux>
         <Scene key="modal" component={Modal} panHandlers={null}>
             <Scene key="root" panHandlers={null}>
-                <Scene
-                    key="intro"
-                    component={Intro}
-                    panHandlers={null}
-                    hideNavBar
-                    initial
-                />
-                <Scene
-                    key="master"
-                    component={Master}
-                    panHandlers={null}
-                    hideNavBar
-                />
+                <Scene key="intro" component={Intro} panHandlers={null} hideNavBar initial />
+                <Scene key="master" component={Master} panHandlers={null} hideNavBar />
                 <Scene key="landing" hideNavBar>
-                    <Scene
-                        key="home"
-                        component={Home}
-                        panHandlers={null}
-                        initial
-                    />
-                    <Scene
-                        key="login"
-                        component={Login}
-                        panHandlers={null}
-                    />
-                    <Scene
-                        key="register"
-                        component={Register}
-                        panHandlers={null}
-                    />
-                    <Scene
-                        key="forgot"
-                        component={Forgot}
-                        panHandlers={null}
-                    />
+                    <Scene key="home" component={Home} panHandlers={null} initial />
+                    <Scene key="login" component={Login} panHandlers={null} />
+                    <Scene key="register" component={Register} panHandlers={null} />
+                    <Scene key="forgot" component={Forgot} panHandlers={null} />
                 </Scene>
                 <Scene key="main" navBar={Footer} panHandlers={null}>
-                    <Scene
-                        key="timeline"
-                        component={TimelineTab}
-                        panHandlers={null}
-                    />
-                    <Scene
-                        key="calculate"
-                        component={Calculate}
-                        panHandlers={null}
-                        initial
-                    />
-                    <Scene
-                        key="activity"
-                        component={Activity}
-                        panHandlers={null}
-                    />
-                    <Scene
-                        key="more"
-                        component={More}
-                        panHandlers={null}
-                    />
-                    <Scene
-                        key="about"
-                        component={About}
-                        panHandlers={null}
-                        hideNavBar
-                    />
-                    <Scene
-                        key="terms"
-                        component={Terms}
-                        panHandlers={null}
-                        hideNavBar
-                    />
-                    <Scene
-                        key="settings"
-                        component={Settings}
-                        panHandlers={null}
-                        hideNavBar
-                    />
-                    <Scene
-                        key="profile"
-                        component={UserProfile}
-                        panHandlers={null}
-                    />
-                    <Scene
-                        key="dashboard"
-                        component={Dashboard}
-                        panHandlers={null}
-                    />
-                    <Scene
-                        key="friends"
-                        component={Friends}
-                        panHandlers={null}
-                    />
+                    <Scene key="timeline" component={TimelineTab} panHandlers={null} />
+                    <Scene key="calculate" component={Calculate} panHandlers={null} initial />
+                    <Scene key="activity" component={Activity} panHandlers={null} />
+                    <Scene key="more" component={More} panHandlers={null} />
+                    <Scene key="about" component={About} panHandlers={null} hideNavBar />
+                    <Scene key="terms" component={Terms} panHandlers={null} hideNavBar />
+                    <Scene key="settings" component={Settings} panHandlers={null} hideNavBar />
+                    <Scene key="profile" component={UserProfile} panHandlers={null} />
+                    <Scene key="dashboard" component={Dashboard} panHandlers={null} />
+                    <Scene key="friends" component={Friends} panHandlers={null} />
                 </Scene>
             </Scene>
         </Scene>
     </RouterWithRedux>
-)
+);
 
 export default Navigator;

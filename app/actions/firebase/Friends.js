@@ -19,25 +19,20 @@ export function sendFriendRequest(currentUid, friendUid) {
             const databaseRef = firebase
                 .database()
                 .ref('users/' + currentUid + '/friends/' + friendUid);
-            databaseRef
-            .once('value')
-            .then(function(snapshot) {
+            databaseRef.once('value').then(function(snapshot) {
                 const currentState = snapshot.val();
                 if (currentState == 0) {
                     Toast.show('You have already added this user as your friend.');
                     reject('You have already added this user as your friend.');
-                }
-                else if (currentState == 1) {
+                } else if (currentState == 1) {
                     Toast.show('You have already sent a friend request to this user.');
                     reject('You have already sent a friend request to this user.');
-                }
-                else if (currentState == 2) {
+                } else if (currentState == 2) {
                     Toast.show('This user has already sent you a request.');
                     reject('This user has already sent you a request.');
-                }
-                else {
+                } else {
                     databaseRef
-                        .set(1) 
+                        .set(1)
                         .then(() => {
                             firebase
                                 .database()
@@ -63,8 +58,8 @@ export function sendFriendRequest(currentUid, friendUid) {
                             reject(error);
                             alert(error);
                         });
-                    }
-            });            
+                }
+            });
         }
     });
 }
@@ -94,10 +89,7 @@ export function acceptFriendRequest(currentUid, friendUid) {
                             })
                             .catch(error => {
                                 reject(error);
-                                alert(
-                                    'Friends.js (acceptFriendRequest 1): ' +
-                                        error
-                                );
+                                alert('Friends.js (acceptFriendRequest 1): ' + error);
                             });
                     })
                     .catch(error => {
@@ -119,28 +111,28 @@ export function acceptFriendRequest(currentUid, friendUid) {
  * @return {Promise}
  */
 export function deleteFriendRequest(currentUid, friendUid) {
-    return new Promise(function(resolve, reject){
+    return new Promise(function(resolve, reject) {
         firebase
-        .database()
-        .ref('users/' + currentUid + '/friends/' + friendUid)
-        .remove()
-        .then(() => {
-            firebase
             .database()
-            .ref('users/' + friendUid + '/friends/' + currentUid)
+            .ref('users/' + currentUid + '/friends/' + friendUid)
             .remove()
             .then(() => {
-                getUser(currentUid)
-                .then(user => {
-                    resolve(user);
-                    Toast.show('Friend Request deleted.');
-                })
-                .catch(error =>{
-                    reject(error);
-                    Toast.show('An error was encountered. Please try again later.')
-                });
+                firebase
+                    .database()
+                    .ref('users/' + friendUid + '/friends/' + currentUid)
+                    .remove()
+                    .then(() => {
+                        getUser(currentUid)
+                            .then(user => {
+                                resolve(user);
+                                Toast.show('Friend Request deleted.');
+                            })
+                            .catch(error => {
+                                reject(error);
+                                Toast.show('An error was encountered. Please try again later.');
+                            });
+                    });
             });
-        });
     });
 }
 
@@ -157,19 +149,19 @@ export function searchFriendsByEmail(value) {
             .orderByChild('email')
             .equalTo(value)
             .on('value', function(snapshot) {
-                if(snapshot.val()) {    
+                if (snapshot.val()) {
                     snapshot.forEach(function(data) {
-                        let user = [{
+                        let user = [
+                            {
                                 uid: data.key,
                                 name: data.val().name,
                                 picture: data.val().picture,
                                 email: data.val().email
-                            }];
+                            }
+                        ];
                         resolve(user);
-                    }); 
-                }
-                else
-                    reject('No user found');
+                    });
+                } else reject('No user found');
             });
     });
 }
@@ -187,7 +179,7 @@ export function searchFriendsByUserName(value) {
             .orderByChild('name')
             .equalTo(value)
             .on('value', function(snapshot) {
-                if(snapshot.val()) {
+                if (snapshot.val()) {
                     snapshot.forEach(function(data) {
                         // this will have all the users.
                         users.push({
@@ -198,11 +190,9 @@ export function searchFriendsByUserName(value) {
                         });
                         resolve(users);
                     });
-                }
-                else {
+                } else {
                     reject('No user found');
                 }
             });
     });
 }
-

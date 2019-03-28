@@ -1,7 +1,7 @@
 /*
  * Displays list of friends (this.props.choice = 1)
  * and friend requests (this.props.choice = 2)
-*/
+ */
 
 import React, { Component } from 'react';
 import {
@@ -38,26 +38,17 @@ class FriendsTab extends Component {
 
     rejectFriendRequest = (currentUid, friendUid) => {
         this.props.loaderToggle();
-        deleteFriendRequest(
-        currentUid,
-        friendUid
-    )
-    .then((user) => {
-        this.props.loaderToggle();
-        this.props.getFriendList(this.props.choice);
-    });
-  }
+        deleteFriendRequest(currentUid, friendUid).then(user => {
+            this.props.loaderToggle();
+            this.props.getFriendList(this.props.choice);
+        });
+    };
 
     render() {
         let friends = this.props.friends;
         let friendList = friends.list;
         if (friendList === null || Object.keys(friendList).length <= 0) {
-            return (
-                <WarningTextAndIcon 
-                    iconName = 'sad' 
-                    text = "It's kind of lonely here." 
-                />
-            );
+            return <WarningTextAndIcon iconName="sad" text="It's kind of lonely here." />;
         } else {
             // Gamification: Sorting friends list based on emitted co2
             /*
@@ -79,7 +70,7 @@ class FriendsTab extends Component {
                 });
             }
             */
-           console.log(friendList);
+            console.log(friendList);
             return (
                 <ScrollView contentContainerStyle={styles.friends}>
                     {friendList.map((friend, index) => {
@@ -89,41 +80,43 @@ class FriendsTab extends Component {
                                     last={index === friendList.length - 1}
                                     data={friend}
                                     iconName={
-                                        this.props.choice === '2'
-                                            ? ['checkmark', 'close']
-                                            : null
+                                        this.props.choice === '2' ? ['checkmark', 'close'] : null
                                     }
-                                    reject = {() =>{
+                                    reject={() => {
                                         Alert.alert(
                                             'Friend Request',
                                             'Are you sure you want to delete this friend request?',
                                             [
-                                                { text: 'Yes', onPress: this.rejectFriendRequest.bind(this, this.props.auth.user.uid, friend.uid) },
-                                                { text: 'No', onPress: null }
+                                                {
+                                                    text: 'Yes',
+                                                    onPress: this.rejectFriendRequest.bind(
+                                                        this,
+                                                        this.props.auth.user.uid,
+                                                        friend.uid
+                                                    )
+                                                },
+                                                {
+                                                    text: 'No',
+                                                    onPress: null
+                                                }
                                             ]
-                                            )}
-                                        }
+                                        );
+                                    }}
                                     link={
                                         this.props.choice === '2'
-                                            ? () =>
-                                                  {
-                                                      this.props.loaderToggle();
-                                                      acceptFriendRequest(
+                                            ? () => {
+                                                  this.props.loaderToggle();
+                                                  acceptFriendRequest(
                                                       this.props.auth.user.uid,
                                                       friend.uid
-                                                  )
-                                                  .then((user) => {
+                                                  ).then(user => {
                                                       this.props.loaderToggle();
                                                       this.props.getFriendList(this.props.choice);
                                                   });
-                                                }
+                                              }
                                             : null
                                     }
-                                    text={
-                                        friend.data
-                                            ? friend.data.total
-                                            : 'No Activity'
-                                    }
+                                    text={friend.data ? friend.data.total : 'No Activity'}
                                 />
                             </View>
                         );
@@ -152,7 +145,7 @@ FriendsTab.propTypes = {
     getFriendList: PropTypes.func.isRequired,
     friends: PropTypes.object,
     choice: PropTypes.string
-}
+};
 
 /**
  * Mapping state to props so that state variables can be used through props in children components
@@ -170,12 +163,8 @@ function mapStateToProps(state) {
  * @return Turns an object whose values are action creators, into an object with the same keys,
  */
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-        Object.assign({}, LoaderAction),
-        dispatch
-    );
+    return bindActionCreators(Object.assign({}, LoaderAction), dispatch);
 }
-
 
 export default connect(
     mapStateToProps,

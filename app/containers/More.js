@@ -47,32 +47,11 @@ class More extends Component {
 
     renderIcon(icon) {
         if (icon == 'history') {
-            return (
-                <HistoryIcon
-                    name={icon}
-                    size={20}
-                    style={styles.icon}
-                    color={color.black}
-                />
-            );
+            return <HistoryIcon name={icon} size={20} style={styles.icon} color={color.black} />;
         } else if (icon == 'user') {
-            return (
-                <UserIcon
-                    name="user"
-                    size={20}
-                    style={styles.icon}
-                    color={color.black}
-                />
-            );
+            return <UserIcon name="user" size={20} style={styles.icon} color={color.black} />;
         } else {
-            return (
-                <Icon
-                    name={getIcon(icon)}
-                    size={20}
-                    color={color.black}
-                    style={styles.icon}
-                />
-            );
+            return <Icon name={getIcon(icon)} size={20} color={color.black} style={styles.icon} />;
         }
     }
 
@@ -134,9 +113,7 @@ class More extends Component {
                                         >
                                             <View style={styles.button}>
                                                 {this.renderIcon(item.icon)}
-                                                <Text style={styles.text}>
-                                                    {item.text}
-                                                </Text>
+                                                <Text style={styles.text}>{item.text}</Text>
                                             </View>
                                         </TouchableHighlight>
                                     );

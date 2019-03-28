@@ -1,6 +1,6 @@
 /*
  *	Google Native Login Action
-*/
+ */
 
 import GoogleSignIn from 'react-native-google-sign-in';
 import { loaderToggle } from './LoaderAction';
@@ -19,20 +19,18 @@ export function googleSignIn() {
     if (googleSignInConfig.clientID === null) {
         return alert(KEYS_NOT_SET);
     }
-    return async (dispatch) => {
+    return async dispatch => {
         await GoogleSignIn.configure(googleSignInConfig).then(() => {
             GoogleSignIn.signInPromise()
                 .then(data => {
                     dispatch(loaderToggle());
-                    loginCustomFirebase(
-                        'google',
-                        data.idToken,
-                        data.accessToken
-                    )
+                    loginCustomFirebase('google', data.idToken, data.accessToken)
                         .then(user => {
                             dispatch(actions.receiveAuth(user));
                             dispatch(loaderToggle());
-                            Actions.main({ type: ActionConst.REPLACE });
+                            Actions.main({
+                                type: ActionConst.REPLACE
+                            });
                         })
                         .catch(error => {
                             showAlert('Login Issue', error.message, 'OK');
@@ -44,5 +42,5 @@ export function googleSignIn() {
                     console.log(error.message);
                 });
         });
-    }
-};
+    };
+}

@@ -77,25 +77,27 @@ export function getLocation() {
                     let lat = position.coords.latitude;
                     let lng = position.coords.longitude;
                     dispatch(receive_location(lat, lng));
-                    getRegion({ latitude: lat, longitude: lng }, null).then(
-                        result => {
-                            dispatch(set_region(result));
-                            dispatch(
-                                set_source(
-                                    {
-                                        latitude: lat,
-                                        longitude: lng
-                                    },
-                                    'Your Location'
-                                )
-                            );
-                        }
-                    );
+                    getRegion({ latitude: lat, longitude: lng }, null).then(result => {
+                        dispatch(set_region(result));
+                        dispatch(
+                            set_source(
+                                {
+                                    latitude: lat,
+                                    longitude: lng
+                                },
+                                'Your Location'
+                            )
+                        );
+                    });
                 },
                 error => {
                     //console.log(error.message);
                 },
-                { enableHighAccuracy: true, timeout: 20000, maximumAge: 10000 }
+                {
+                    enableHighAccuracy: true,
+                    timeout: 20000,
+                    maximumAge: 10000
+                }
             );
             /* Getting location updates (Only when location changes). This is going haywire on ios simulator so commenting it for now.
              

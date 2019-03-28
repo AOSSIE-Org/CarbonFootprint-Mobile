@@ -1,6 +1,6 @@
 /*
  * To invite friends (send friend requests)
-*/
+ */
 
 import React, { Component } from 'react';
 import {
@@ -34,7 +34,7 @@ class InviteTab extends Component {
         this.state = {
             search: '',
             user: null,
-            userFetched: false,
+            userFetched: false
         };
         this.searchFriends = this.searchFriends.bind(this);
     }
@@ -45,7 +45,7 @@ class InviteTab extends Component {
      */
     searchFriends() {
         this.props.loaderToggle();
-        this.setState({ user: null, userFetched: true});
+        this.setState({ user: null, userFetched: true });
         reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //REGEX to check if user entered email
         if (!reg.test(this.state.search)) {
             searchFriendsByUserName(this.state.search)
@@ -53,14 +53,18 @@ class InviteTab extends Component {
                     this.setState({ user: users });
                     this.props.loaderToggle();
                 })
-                .catch(error => {this.props.loaderToggle()});
+                .catch(error => {
+                    this.props.loaderToggle();
+                });
         } else {
             searchFriendsByEmail(this.state.search)
                 .then(user => {
                     this.setState({ user: user });
                     this.props.loaderToggle();
                 })
-                .catch(error => {this.props.loaderToggle()});
+                .catch(error => {
+                    this.props.loaderToggle();
+                });
         }
     }
 
@@ -77,40 +81,34 @@ class InviteTab extends Component {
                     </View>
                 </TouchableNativeFeedback>
 
-                    {this.state.user ? (
-                        <ScrollView style={styles.container}>
-                            <View style={styles.view}>
-                                <FlatList
-                                    data={this.state.user}
-                                    renderItem={({ item }) => (
-                                        <FriendRow
-                                            iconName={['person-add']}
-                                            link={() => {
-                                                this.props.loaderToggle();
-                                                sendFriendRequest(
-                                                    this.props.auth.user.uid,
-                                                    item.uid )
-                                                    .then(() => {
-                                                        this.props.loaderToggle();
-                                                    })
-                                                    .catch(() => {
-                                                        this.props.loaderToggle();
-                                                    });
-                                            }
-                                            }
-                                            data={item}
-                                            text={item.email}
-                                        />
-                                    )}
-                                />
-                            </View>
-                            </ScrollView>
-                    ) : this.state.userFetched ? (
-                        <WarningTextAndIcon 
-                            iconName='sad' 
-                            text='No User Found.' 
-                        />
-                    ) : null}
+                {this.state.user ? (
+                    <ScrollView style={styles.container}>
+                        <View style={styles.view}>
+                            <FlatList
+                                data={this.state.user}
+                                renderItem={({ item }) => (
+                                    <FriendRow
+                                        iconName={['person-add']}
+                                        link={() => {
+                                            this.props.loaderToggle();
+                                            sendFriendRequest(this.props.auth.user.uid, item.uid)
+                                                .then(() => {
+                                                    this.props.loaderToggle();
+                                                })
+                                                .catch(() => {
+                                                    this.props.loaderToggle();
+                                                });
+                                        }}
+                                        data={item}
+                                        text={item.email}
+                                    />
+                                )}
+                            />
+                        </View>
+                    </ScrollView>
+                ) : this.state.userFetched ? (
+                    <WarningTextAndIcon iconName="sad" text="No User Found." />
+                ) : null}
             </View>
         );
     }
@@ -122,7 +120,7 @@ const styles = StyleSheet.create({
         backgroundColor: color.greyBack
     },
     view: {
-        flex: 1,
+        flex: 1
     },
     searchBtn: {
         height: 35,
@@ -155,12 +153,8 @@ function mapStateToProps(state) {
  * @return Turns an object whose values are action creators, into an object with the same keys,
  */
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-        Object.assign({}, LoaderAction),
-        dispatch
-    );
+    return bindActionCreators(Object.assign({}, LoaderAction), dispatch);
 }
-
 
 export default connect(
     mapStateToProps,
