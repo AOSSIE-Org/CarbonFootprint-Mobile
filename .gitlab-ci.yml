@@ -42,6 +42,7 @@ build:
   - "sed -i 's/DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = \"11.6.2\"/DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = \"12.0.1\"/' ./node_modules/react-native-google-places/android/build.gradle"
   - "sed -i 's/com.google.android.gms:play-services-auth:+/com.google.android.gms:play-services-auth:12.0.1/' ./node_modules/react-native-google-sign-in/android/build.gradle"
   - "sed -i 's/DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = \"10.2.4\"/DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = \"12.0.1\"/' ./node_modules/react-native-maps/lib/android/build.gradle"
+  - "sed -i 's/io.fabric.tools:gradle:1.+/io.fabric.tools:gradle:1.26.1/' ./node_modules/tipsi-twitter/android/build.gradle"
   - "envsubst < ./android/app/src/main/res/values/strings.xml > ./android/app/src/main/res/values/temp.xml && mv ./android/app/src/main/res/values/temp.xml ./android/app/src/main/res/values/strings.xml"
   - "sed -i 's/apiKey: null/apiKey: \"$FIREBASE_API_KEY\"/' ./app/config/keys.js"
   - "sed -i 's/authDomain: null/authDomain: \"$FIREBASE_AUTH_DOMAIN\"/' ./app/config/keys.js"
