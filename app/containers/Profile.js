@@ -76,7 +76,9 @@ class UserProfile extends Component {
             Toast.show('Please enter valid 10 digit number');
         } else {
             this.setState({ updateClicked: true });
-            this.props.updateUserFirebase(this.state).then(() => {
+            const userProfle = Object.assign({}, this.state);
+            delete userProfle.updateClicked;
+            this.props.updateUserFirebase(userProfle).then(() => {
                 const uid = firebase.auth().currentUser.uid;
                 this.verifyProfileUpdate(uid);
             });
