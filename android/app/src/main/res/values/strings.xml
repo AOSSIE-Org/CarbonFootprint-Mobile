@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CarbonFootprint</string>
+    <string name="facebook_app_id">$FACEBOOK_APP_ID</string>
+    <string name="google_maps_api_key">$GEOCODING_API</string> 
+</resources>
