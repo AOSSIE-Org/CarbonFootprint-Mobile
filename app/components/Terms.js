@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-    View,
-    StyleSheet,
-    Text,
-    StatusBar,
-} from 'react-native';
-import Header from '../components/Header';
+import { View, StyleSheet, Text, StatusBar } from 'react-native';
+import Header from './Header';
 
 const Terms = () => {
     return (
@@ -14,13 +9,13 @@ const Terms = () => {
             <View style={styles.main}>
                 <Text style={styles.text}>
                     This mobile application is provided free of cost. We accept no liability for it.
-                    Activity recognition and distance calculation is done using external APIs/Libraries. 
-                    We are not responsible for any incorrect data.  
+                    Activity recognition and distance calculation is done using external
+                    APIs/Libraries. We are not responsible for any incorrect data.
                 </Text>
             </View>
         </View>
-    )
-}
+    );
+};
 
 /*StyleSheet*/
 const styles = StyleSheet.create({

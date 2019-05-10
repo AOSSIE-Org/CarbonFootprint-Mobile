@@ -1,5 +1,7 @@
 import { getMultiple } from './firebase/Helper';
 import { getUser } from './firebase/User';
+import { loaderToggle } from './LoaderAction';
+import loader from '../reducers/loader';
 export const REQUEST_FRIENDS = 'REQUEST_FRIENDS';
 export const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS';
 export const RECEIVE_ERROR = 'RECEIVE_ERROR';
@@ -45,9 +47,9 @@ function receiveError(error) {
  */
 export function getFriendList(choice) {
     return (dispatch, getState) => {
-        getUser(getState().auth.user.uid)
-        .then(user => {
+        getUser(getState().auth.user.uid).then(user => {
             dispatch(requestFriends());
+            dispatch(loaderToggle());
             var friends = {};
             const obj = user.friends;
             for (var key in obj) {
@@ -58,9 +60,11 @@ export function getFriendList(choice) {
             }
             if (friends === undefined) {
                 dispatch(receiveFriends({}));
+                dispatch(loaderToggle());
             } else {
                 getMultiple(Object.keys(friends)).then(friends => {
                     dispatch(receiveFriends(friends));
+                    dispatch(loaderToggle());
                 });
             }
         });

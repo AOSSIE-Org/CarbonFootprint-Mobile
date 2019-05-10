@@ -37,6 +37,6 @@ const styles = StyleSheet.create({
 
 ImageHeader.propTypes = {
     text: PropTypes.string
-}
+};
 
 export default ImageHeader;

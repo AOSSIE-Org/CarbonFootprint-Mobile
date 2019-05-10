@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, StyleSheet, Text, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,23 +11,14 @@ import * as AuthAction from '../actions/AuthAction';
 
 /**
  * Register Screen Container
- * @extends Component
  */
-class Register extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <View style={styles.container}>
-                <StatusBar hidden={true} />
-                <BackHeader text="Login" link={() => Actions.login()} />
-                <RegisterForm {...this.props} />
-            </View>
-        );
-    }
-}
+const Register = props => (
+    <View style={styles.container}>
+        <StatusBar hidden={true} />
+        <BackHeader text="Login" link={() => Actions.login()} />
+        <RegisterForm {...props} />
+    </View>
+);
 
 /*StyleSheet*/
 const styles = StyleSheet.create({

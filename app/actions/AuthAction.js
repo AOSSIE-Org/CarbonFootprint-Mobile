@@ -3,11 +3,7 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import { setStorage } from './StorageAction';
 import { firebaseConfig } from '../config/keys';
 import { initFirebase } from './firebase/Init';
-import {
-    registerFirebase,
-    loginEmailFirebase,
-    forgotPasswordFirebase
-} from './firebase/Auth';
+import { registerFirebase, loginEmailFirebase, forgotPasswordFirebase } from './firebase/Auth';
 import { RESET_PASSWORD } from '../config/constants';
 
 export const REQUEST_AUTH = 'REQUEST_AUTH';
@@ -105,7 +101,7 @@ export function register(name, email, password) {
         registerFirebase(name, email, password)
             .then(user => {
                 dispatch(receiveAuth(user));
-                Actions.main({ type: ActionConst.RESET });
+                Actions.main({ type: ActionConst.REPLACE });
             })
             .catch(error => {
                 dispatch(receiveError(error));
@@ -173,7 +169,7 @@ export function logout() {
             .auth()
             .signOut()
             .then(() => {
-                Actions.landing({ type: ActionConst.RESET });
+                Actions.intro({ type: ActionConst.RESET });
                 // Reset the store
                 dispatch({
                     type: 'USER_LOGOUT'

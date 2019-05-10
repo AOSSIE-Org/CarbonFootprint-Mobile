@@ -1,7 +1,7 @@
 /*
  * Displays list of friends (this.props.choice = 1)
  * and friend requests (this.props.choice = 2)
-*/
+ */
 
 import React, { Component } from 'react';
 import {
@@ -10,46 +10,45 @@ import {
     Text,
     ScrollView,
     ActivityIndicator,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    Alert
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import { acceptFriendRequest } from '../actions/firebase/Friends';
+import * as LoaderAction from '../actions/LoaderAction';
+import { acceptFriendRequest, deleteFriendRequest } from '../actions/firebase/Friends';
 import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FriendRow from './FriendRow';
+import WarningTextAndIcon from './WarningTextAndIcon';
 
 /**
  * Component Showing List Of Friends And Friend Requests
  * @extends Component
  */
 class FriendsTab extends Component {
+    constructor(props) {
+        super();
+    }
     componentWillMount() {
         this.props.getFriendList(this.props.choice);
     }
 
+    rejectFriendRequest = (currentUid, friendUid) => {
+        this.props.loaderToggle();
+        deleteFriendRequest(currentUid, friendUid).then(user => {
+            this.props.loaderToggle();
+            this.props.getFriendList(this.props.choice);
+        });
+    };
+
     render() {
-        var friends = this.props.friends;
-        var friendList = friends.list;
-        if (friends.isFetching) {
-            return (
-                <View style={styles.centerScreen}>
-                    <ActivityIndicator color={color.primary} size="large" />
-                </View>
-            );
-        } else if (friendList === null || Object.keys(friendList).length <= 0) {
-            return (
-                <View style={styles.centerScreen}>
-                    <Icon
-                        name={getIcon('sad')}
-                        size={56}
-                        color={color.lightPrimary}
-                    />
-                    <Text style={styles.warningText}>
-                        Its kind of lonely here.
-                    </Text>
-                </View>
-            );
+        let friends = this.props.friends;
+        let friendList = friends.list;
+        if (friendList === null || Object.keys(friendList).length <= 0) {
+            return <WarningTextAndIcon iconName="sad" text="It's kind of lonely here." />;
         } else {
             // Gamification: Sorting friends list based on emitted co2
             /*
@@ -71,6 +70,7 @@ class FriendsTab extends Component {
                 });
             }
             */
+            console.log(friendList);
             return (
                 <ScrollView contentContainerStyle={styles.friends}>
                     {friendList.map((friend, index) => {
@@ -80,29 +80,43 @@ class FriendsTab extends Component {
                                     last={index === friendList.length - 1}
                                     data={friend}
                                     iconName={
-                                        this.props.choice === '2'
-                                            ? 'checkmark'
-                                            : null
+                                        this.props.choice === '2' ? ['checkmark', 'close'] : null
                                     }
+                                    reject={() => {
+                                        Alert.alert(
+                                            'Friend Request',
+                                            'Are you sure you want to delete this friend request?',
+                                            [
+                                                {
+                                                    text: 'Yes',
+                                                    onPress: this.rejectFriendRequest.bind(
+                                                        this,
+                                                        this.props.auth.user.uid,
+                                                        friend.uid
+                                                    )
+                                                },
+                                                {
+                                                    text: 'No',
+                                                    onPress: null
+                                                }
+                                            ]
+                                        );
+                                    }}
                                     link={
                                         this.props.choice === '2'
-                                            ? () =>
-                                                  {
-                                                      acceptFriendRequest(
+                                            ? () => {
+                                                  this.props.loaderToggle();
+                                                  acceptFriendRequest(
                                                       this.props.auth.user.uid,
                                                       friend.uid
-                                                  )
-                                                  .then((user) => {
+                                                  ).then(user => {
+                                                      this.props.loaderToggle();
                                                       this.props.getFriendList(this.props.choice);
                                                   });
-                                                }
+                                              }
                                             : null
                                     }
-                                    text={
-                                        friend.data
-                                            ? friend.data.total
-                                            : 'No Activity'
-                                    }
+                                    text={friend.data ? friend.data.total : 'No Activity'}
                                 />
                             </View>
                         );
@@ -119,20 +133,6 @@ const styles = StyleSheet.create({
         backgroundColor: color.greyBack,
         flex: 1
     },
-    warningText: {
-        fontSize: 18,
-        color: color.darkPrimary,
-        marginTop: 10
-    },
-    centerScreen: {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute'
-    },
     friends: {
         backgroundColor: color.greyBack,
         alignItems: 'center',
@@ -145,7 +145,28 @@ FriendsTab.propTypes = {
     getFriendList: PropTypes.func.isRequired,
     friends: PropTypes.object,
     choice: PropTypes.string
+};
+
+/**
+ * Mapping state to props so that state variables can be used through props in children components
+ * @param state current state
+ * @return state as props
+ */
+function mapStateToProps(state) {
+    return {
+        loader: state.loader
+    };
+}
+/**
+ * Mapping dispatchable actions to props so that actions can be used through props in children components
+ * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
+ * @return Turns an object whose values are action creators, into an object with the same keys,
+ */
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(Object.assign({}, LoaderAction), dispatch);
 }
 
-//Making FriendsTab available to other parts of app
-export default FriendsTab;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(FriendsTab);

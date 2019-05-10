@@ -1,7 +1,7 @@
 /*
  * Handles SET and GET Operations on AsyncStorage
  * Used for User Preferences in Settings.
-*/
+ */
 
 import { AsyncStorage } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';

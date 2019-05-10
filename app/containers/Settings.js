@@ -57,15 +57,11 @@ class Settings extends Component {
     }
 
     componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', () =>
-            this.backPress()
-        );
+        BackHandler.addEventListener('hardwareBackPress', () => this.backPress());
     }
 
     componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', () =>
-            this.backPress()
-        );
+        BackHandler.removeEventListener('hardwareBackPress', () => this.backPress());
     }
 
     showPicker() {
@@ -108,12 +104,8 @@ class Settings extends Component {
                             underlayColor="#eee"
                         >
                             <View style={styles.button}>
-                                <Text style={styles.text}>
-                                    Preferred Automobile
-                                </Text>
-                                <Text style={styles.small}>
-                                    {this.state.automobile}
-                                </Text>
+                                <Text style={styles.text}>Preferred Automobile</Text>
+                                <Text style={styles.small}>{this.state.automobile}</Text>
                             </View>
                         </TouchableHighlight>
                         <TouchableHighlight
@@ -123,9 +115,7 @@ class Settings extends Component {
                         >
                             <View style={styles.button}>
                                 <Text style={styles.text}>Fuel Type</Text>
-                                <Text style={styles.small}>
-                                    {this.state.type}
-                                </Text>
+                                <Text style={styles.small}>{this.state.type}</Text>
                             </View>
                         </TouchableHighlight>
                         <TouchableHighlight
@@ -134,9 +124,7 @@ class Settings extends Component {
                             underlayColor="#eee"
                         >
                             <View style={styles.button}>
-                                <Text style={styles.text}>
-                                    Approximate Mileage
-                                </Text>
+                                <Text style={styles.text}>Approximate Mileage</Text>
                                 <Text style={styles.small}>
                                     {this.state.value + ' ' + this.state.unit}
                                 </Text>
@@ -150,9 +138,7 @@ class Settings extends Component {
                     title={automobileTitle}
                     options={automobileOptions}
                     cancelButtonIndex={CANCEL_INDEX}
-                    onPress={i =>
-                        this.handlePress(automobileOptions, i, 'automobile')
-                    }
+                    onPress={i => this.handlePress(automobileOptions, i, 'automobile')}
                 />
                 <ActionSheet
                     ref={o => (this.TypeSheet = o)}
@@ -246,7 +232,7 @@ function mapDispatchToProps(dispatch) {
 Settings.propTypes = {
     setStorage: PropTypes.func.isRequired,
     storage: PropTypes.object
-}
+};
 
 export default connect(
     mapStateToProps,

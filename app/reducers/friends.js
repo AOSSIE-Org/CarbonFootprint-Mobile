@@ -1,8 +1,4 @@
-import {
-    REQUEST_FRIENDS,
-    RECEIVE_FRIENDS,
-    RECEIVE_ERROR
-} from '../actions/FriendsAction';
+import { REQUEST_FRIENDS, RECEIVE_FRIENDS, RECEIVE_ERROR } from '../actions/FriendsAction';
 
 /**
  * friends reducer to handle friends section state

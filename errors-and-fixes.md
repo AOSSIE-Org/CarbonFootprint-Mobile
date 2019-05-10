@@ -220,7 +220,7 @@ buildscript {
 }
 ```
 
-4.Open node_modules/realm/android/buil.gradle
+4.Open node_modules/realm/android/build.gradle
 
 ```
 buildscript {
@@ -235,3 +235,35 @@ buildscript {
 ```
 
 
+
+
+## Error 10
+
+Possible Error messages:
+
+ 1. ```Couldn't follow symbolic link``` 
+
+ 2. ```unable to resolve class javax.xml.bind.DatatypeConverter.```
+
+ 3. Any reference to node_modules/.bin folder
+
+ Fix:
+
+ delete ```node_modules/.bin``` folder. 
+
+## Error 11
+A problem occured configuring project ':tipsi-twitter'.\
+Could not get unknow property 'assemble' for task ':tipsi-twitter:assembleDebug' of type org.gradle.api.DefaultTask.
+
+### Fix for the error
+
+```
+buildscript {
+  repositories {
+    mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
+  }
+  dependencies {
+    classpath 'io.fabric.tools:gradle:1.26.1' //UPDATE THIS
+  }
+}

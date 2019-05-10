@@ -40,20 +40,13 @@ const FootprintCard = props => {
             <View style={styles.tabs}>
                 {tabs.map(item => (
                     <TouchableHighlight
-                        style={[
-                            props.tab === item.value ? styles.tab : null,
-                            styles.tabWidth
-                        ]}
+                        style={[props.tab === item.value ? styles.tab : null, styles.tabWidth]}
                         onPress={() => props.onChangeTab(item.value)}
                         key={item.value}
                         underlayColor={color.white}
                         activeOpacity={0.5}
                     >
-                        <Icon
-                            name={getIcon(item.icon)}
-                            size={20}
-                            color={color.black}
-                        />
+                        <Icon name={getIcon(item.icon)} size={20} color={color.black} />
                     </TouchableHighlight>
                 ))}
             </View>
@@ -66,8 +59,7 @@ const FootprintCard = props => {
                     <View style={styles.routeContent}>
                         {props.distance.text ? null : (
                             <Text style={styles.error}>
-                                Sorry!!! No straight route available between
-                                source and destination
+                                Sorry!!! No straight route available between source and destination
                             </Text>
                         )}
                         <Text style={styles.route}>
@@ -151,6 +143,6 @@ FootprintCard.propTypes = {
     duration: PropTypes.object,
     fetching: PropTypes.bool,
     distance: PropTypes.object
-}
+};
 
 export default FootprintCard;

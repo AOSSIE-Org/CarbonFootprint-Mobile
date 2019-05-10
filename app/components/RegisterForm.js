@@ -46,7 +46,11 @@ class RegisterForm extends Component {
                         <TextInput
                             placeholder="Name"
                             style={styles.field}
-                            onChangeText={text => this.setState({ name: text })}
+                            onChangeText={text =>
+                                this.setState({
+                                    name: text
+                                })
+                            }
                             underlineColorAndroid="transparent"
                         />
                     </View>
@@ -57,7 +61,9 @@ class RegisterForm extends Component {
                             style={styles.field}
                             autoCapitalize="none"
                             onChangeText={text =>
-                                this.setState({ email: text })
+                                this.setState({
+                                    email: text
+                                })
                             }
                             underlineColorAndroid="transparent"
                         />
@@ -69,7 +75,9 @@ class RegisterForm extends Component {
                             style={styles.field}
                             secureTextEntry={true}
                             onChangeText={text =>
-                                this.setState({ password: text })
+                                this.setState({
+                                    password: text
+                                })
                             }
                             autoCapitalize="none"
                             underlineColorAndroid="transparent"
@@ -95,9 +103,7 @@ class RegisterForm extends Component {
                         activeOpacity={0.5}
                     >
                         <Text style={styles.text}>
-                            {this.props.auth.isFetching
-                                ? 'Registering....'
-                                : 'Register'}
+                            {this.props.auth.isFetching ? 'Registering....' : 'Register'}
                         </Text>
                     </TouchableHighlight>
                     {this.props.auth.isFetching ? (
@@ -167,6 +173,6 @@ const styles = StyleSheet.create({
 RegisterForm.propTypes = {
     auth: PropTypes.object,
     register: PropTypes.func.isRequired
-}
+};
 
 export default RegisterForm;

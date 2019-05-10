@@ -1,6 +1,6 @@
 /*
  * To invite friends (send friend requests)
-*/
+ */
 
 import React, { Component } from 'react';
 import {
@@ -12,14 +12,17 @@ import {
     FlatList,
     ScrollView
 } from 'react-native';
-import { getIcon, color } from '../config/helper';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { color } from '../config/helper';
 import {
     searchFriendsByEmail,
     searchFriendsByUserName,
     sendFriendRequest
 } from '../actions/firebase/Friends';
-import FriendRow from './FriendRow';
-import Icon from 'react-native-vector-icons/Ionicons';
+import FriendRow from '../components/FriendRow';
+import WarningTextAndIcon from '../components/WarningTextAndIcon';
+import * as LoaderAction from '../actions/LoaderAction';
 
 /**
  * Invite Component to invite Your Friends
@@ -30,7 +33,7 @@ class InviteTab extends Component {
         super(props);
         this.state = {
             search: '',
-            user: [],
+            user: null,
             userFetched: false
         };
         this.searchFriends = this.searchFriends.bind(this);
@@ -41,26 +44,33 @@ class InviteTab extends Component {
      * @return updating state
      */
     searchFriends() {
-        this.setState({ user: [], userFetched: true });
+        this.props.loaderToggle();
+        this.setState({ user: null, userFetched: true });
         reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //REGEX to check if user entered email
         if (!reg.test(this.state.search)) {
             searchFriendsByUserName(this.state.search)
                 .then(users => {
                     this.setState({ user: users });
+                    this.props.loaderToggle();
                 })
-                .catch(error => {});
+                .catch(error => {
+                    this.props.loaderToggle();
+                });
         } else {
             searchFriendsByEmail(this.state.search)
                 .then(user => {
                     this.setState({ user: user });
+                    this.props.loaderToggle();
                 })
-                .catch(error => {});
+                .catch(error => {
+                    this.props.loaderToggle();
+                });
         }
     }
 
     render() {
         return (
-            <View>
+            <View style={styles.view}>
                 <TextInput
                     onChangeText={text => this.setState({ search: text })}
                     placeholder="Search friends by Email or Username"
@@ -70,32 +80,35 @@ class InviteTab extends Component {
                         <Text style={styles.whiteText}>Search</Text>
                     </View>
                 </TouchableNativeFeedback>
-                <ScrollView style={styles.container}>
-                    {this.state.user ? (
+
+                {this.state.user ? (
+                    <ScrollView style={styles.container}>
                         <View style={styles.view}>
                             <FlatList
                                 data={this.state.user}
                                 renderItem={({ item }) => (
                                     <FriendRow
-                                        iconName="person-add"
-                                        link={() =>
-                                            sendFriendRequest(
-                                                this.props.auth.user.uid,
-                                                item.uid
-                                            )
-                                        }
+                                        iconName={['person-add']}
+                                        link={() => {
+                                            this.props.loaderToggle();
+                                            sendFriendRequest(this.props.auth.user.uid, item.uid)
+                                                .then(() => {
+                                                    this.props.loaderToggle();
+                                                })
+                                                .catch(() => {
+                                                    this.props.loaderToggle();
+                                                });
+                                        }}
                                         data={item}
                                         text={item.email}
                                     />
                                 )}
                             />
                         </View>
-                    ) : this.state.userFetched ? (
-                        <Text style={styles.warningText}>
-                            No user found ...
-                        </Text>
-                    ) : null}
-                </ScrollView>
+                    </ScrollView>
+                ) : this.state.userFetched ? (
+                    <WarningTextAndIcon iconName="sad" text="No User Found." />
+                ) : null}
             </View>
         );
     }
@@ -107,8 +120,7 @@ const styles = StyleSheet.create({
         backgroundColor: color.greyBack
     },
     view: {
-        flex: 1,
-        paddingBottom: 140
+        flex: 1
     },
     searchBtn: {
         height: 35,
@@ -122,13 +134,29 @@ const styles = StyleSheet.create({
     whiteText: {
         fontSize: 15,
         color: 'white'
-    },
-    warningText: {
-        fontSize: 15,
-        color: color.darkPrimary,
-        marginTop: 5,
-        marginLeft: 10
     }
 });
 
-export default InviteTab;
+/**
+ * Mapping state to props so that state variables can be used through props in children components
+ * @param state current state
+ * @return state as props
+ */
+function mapStateToProps(state) {
+    return {
+        loader: state.loader
+    };
+}
+/**
+ * Mapping dispatchable actions to props so that actions can be used through props in children components
+ * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
+ * @return Turns an object whose values are action creators, into an object with the same keys,
+ */
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(Object.assign({}, LoaderAction), dispatch);
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(InviteTab);

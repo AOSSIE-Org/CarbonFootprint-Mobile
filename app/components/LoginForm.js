@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 
 import { getIcon } from '../config/helper';
@@ -48,7 +48,9 @@ class LoginForm extends Component {
                             style={styles.field}
                             autoCapitalize="none"
                             onChangeText={text =>
-                                this.setState({ email: text })
+                                this.setState({
+                                    email: text
+                                })
                             }
                             underlineColorAndroid="transparent"
                         />
@@ -60,7 +62,9 @@ class LoginForm extends Component {
                             style={styles.field}
                             secureTextEntry={true}
                             onChangeText={text =>
-                                this.setState({ password: text })
+                                this.setState({
+                                    password: text
+                                })
                             }
                             autoCapitalize="none"
                             underlineColorAndroid="transparent"
@@ -75,19 +79,14 @@ class LoginForm extends Component {
                         onPress={() =>
                             this.props.auth.isFetching
                                 ? {}
-                                : this.props.login(
-                                      this.state.email,
-                                      this.state.password
-                                  )
+                                : this.props.login(this.state.email, this.state.password)
                         }
                         style={styles.button}
                         underlayColor="#538124"
                         activeOpacity={0.5}
                     >
                         <Text style={styles.text}>
-                            {this.props.auth.isFetching
-                                ? 'Logging....'
-                                : 'Login'}
+                            {this.props.auth.isFetching ? 'Logging....' : 'Login'}
                         </Text>
                     </TouchableHighlight>
                     {this.props.auth.isFetching ? (
@@ -155,6 +154,6 @@ const styles = StyleSheet.create({
 
 LoginForm.propTypes = {
     auth: PropTypes.object.isRequired
-}
+};
 
 export default LoginForm;

@@ -4,6 +4,12 @@ This project is for Carbon Footprint Mobile Application
 
 ----
 
+# Carbon Footprint Mobile Application
+
+This project is for Carbon Footprint Mobile Application
+
+----
+
 #### Screenshots
 
 <table>
@@ -29,12 +35,54 @@ You can also follow the [Setup guide for android](#setup-guide-for-android)
 
 ### Node and Watchman
 
+#### Windows
+
+* Download the Windows installer from the [Nodes.js® web site](http://nodejs.org/).
+* Run and Follow the prompts in the installer.
+* Download the latest [watchman.zip](https://ci.appveyor.com/api/buildjobs/vkp4mmk1cri9jsel/artifacts/watchman.zip)
+* Extract the zip file and make sure that **watchman.exe** is located in a directory that is in your **PATH**.
+* Restart your computer.
+
+#### macOS
+
 Install Node and Watchman using Homebrew.
 
 ```
 brew install node
 brew install watchman
 ```
+
+#### Linux
+
+##### Ubuntu
+
+* Install Curl
+  ```
+  sudo apt-get install curl python-software-properties
+  ```
+* Add PPA to your system
+  ```
+  curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+  ```
+* Install Nodejs
+  ```
+  sudo apt-get install nodejs
+  ```
+* Install Watchman
+
+  ```
+  git clone https://github.com/facebook/watchman.git
+  cd watchman
+  git checkout v4.9.0  # the latest stable release
+  ./autogen.sh
+  ./configure
+  make
+  sudo make install
+  ```
+##### For installation in other Linux Distros
+
+* [Read instructions](https://nodejs.org/en/download/package-manager/) for installing Node.js via package manager.
+* [Read offical docs](https://facebook.github.io/watchman/docs/install.html) for watchman installation.
 
 ### React Native CLI
 
@@ -209,3 +257,54 @@ Pre-requisites:
 10. Navigate to the [Service Accounts](https://console.firebase.google.com/u/0/project/_/settings/serviceaccounts/adminsdk) tab in your project's settings (Project created for Test Databse) page.
 11. Choose the **Node.js** option and generate the private key.
 12. Copy the contents of the generated file to the `serviceAccountKey.json` file.
+
+### Setting up Pipeline
+**1.** Whenever you create a merge request the pipeline runs to check whether the app is building successfully or not.
+
+**2.** You need to set gitlab CI/CD variables in **settings**/**CI/CD** to run the pipeline successfully otherwise it will keep failing. These variables stores the API keys, client Ids and other values.
+
+**3.** The variable names are:
+  - FACEBOOK_APP_ID
+  - FIREBASE_API_KEY
+  - FIREBASE_AUTH_DOMAIN
+  - FIREBASE_DATABASE_URL
+  - FIREBASE_MESSAGING_SENDER_ID
+  - FIREBASE_PROJECT_ID
+  - FIREBASE_STORAGE_BUCKET
+  - GEOCODING_API
+  - GOOGLE_CLIENT_ID
+  - GOOGLE_SERVICES
+  - TWITTER_KEY
+  - TWITTER_SECRET
+
+**4.** You need to store 
+  - *Google Maps API key* in *GEOCODING_API*
+  - *google-services.json* file content in *GOOGLE_SERVICES*. There should be no space in the content. For example
+     If the content is like as shown below
+    
+    ```
+    {
+      "project_info": {
+        "project_number": "project_number",
+        "project_id": "project_id",
+     }
+    ```
+    
+    Store it like
+    
+    ```
+    {"project_info":{"project_number": "project_number","project_id":"project_id"}}
+    ```
+    Don't enclose it in quotes as shown below
+    
+    ```
+    "{"project_info":{"project_number": "project_number","project_id":"project_id"}}"
+    ```
+
+    You just have to remove all the spaces that are there in the content and store it under GOOGLE_SERVICES.
+   This is just an example, you need to store google-services.json file's entire content like that without any space or new lines.
+  - All other variables' names clearly suggest what values need to be stored in them.
+  - Do not enclose any variable value in quotes. For example: FIREBASE_API_KEY is given as "ABCXYZ" store it as ABCXYZ.
+  - There should be no space in any value and the variables' names should be same as mentioned above.
+
+**5.** To check why the pipeline failed go to left sidebar and hover to **CI/CD** then go to **Jobs** link and click on the most recent job's number.

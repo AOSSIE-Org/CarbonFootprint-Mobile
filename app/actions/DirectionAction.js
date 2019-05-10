@@ -164,7 +164,10 @@ export function openSearchModal(key) {
                 data.longitude = place.longitude;
                 if (key === 0) {
                     getRegion(
-                        { latitude: data.latitude, longitude: data.longitude },
+                        {
+                            latitude: data.latitude,
+                            longitude: data.longitude
+                        },
                         null
                     ).then(result => {
                         dispatch(set_region(result));
@@ -182,13 +185,12 @@ export function openSearchModal(key) {
 
 export function getRedMarkerDetails(location, placename) {
     return dispatch => {
-        getRegion(
-            { latitude: location.latitude, longitude: location.longitude },
-            null
-        ).then(result => {
-            dispatch(set_region(result));
-            dispatch(set_source(location, placename));
-        });
+        getRegion({ latitude: location.latitude, longitude: location.longitude }, null).then(
+            result => {
+                dispatch(set_region(result));
+                dispatch(set_source(location, placename));
+            }
+        );
     };
 }
 
@@ -207,12 +209,8 @@ export function getGreenMarkerDetails(location, placename) {
 export function getDirections(source, destination, code) {
     return (dispatch, state) => {
         dispatch(request_direction());
-        let start =
-            source.latitude.toString() + ',' + source.longitude.toString();
-        let end =
-            destination.latitude.toString() +
-            ',' +
-            destination.longitude.toString();
+        let start = source.latitude.toString() + ',' + source.longitude.toString();
+        let end = destination.latitude.toString() + ',' + destination.longitude.toString();
         let mode = '';
         if (code === 1) {
             mode = 'transit';
@@ -240,9 +238,7 @@ export function getDirections(source, destination, code) {
                     dispatch(set_distance(legs.distance));
                     dispatch(set_duration(legs.duration));
 
-                    let points = Polyline.decode(
-                        json.routes[0].overview_polyline.points
-                    );
+                    let points = Polyline.decode(json.routes[0].overview_polyline.points);
                     let coords = points.map((point, index) => {
                         return {
                             latitude: point[0],

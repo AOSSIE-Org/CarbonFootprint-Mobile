@@ -45,28 +45,19 @@ class Stats extends Component {
                 {
                     activityType: 'walking',
                     icon: 'walk',
-                    value:
-                        user && user.data && user.data.walking
-                            ? user.data.walking
-                            : {}
+                    value: user && user.data && user.data.walking ? user.data.walking : {}
                 },
                 {
                     activityType: 'running',
                     icon: 'run',
-                    value:
-                        user && user.data && user.data.running
-                            ? user.data.running
-                            : {}
+                    value: user && user.data && user.data.running ? user.data.running : {}
                 }
             ],
             [
                 {
                     activityType: 'cycling',
                     icon: 'bicycle',
-                    value:
-                        user && user.data && user.data.cycling
-                            ? user.data.cycling
-                            : {}
+                    value: user && user.data && user.data.cycling ? user.data.cycling : {}
                 },
                 {
                     activityType: 'vehicle',
@@ -74,19 +65,15 @@ class Stats extends Component {
                         this.props.storage.data.automobile === 'Car'
                             ? 'car'
                             : this.props.storage.data.automobile === 'Bus'
-                                ? 'bus'
-                                : 'train',
-                    value:
-                        user && user.data && user.data.car ? user.data.car : {}
+                            ? 'bus'
+                            : 'train',
+                    value: user && user.data && user.data.car ? user.data.car : {}
                 }
             ]
         ];
         return (
             <View style={styles.container}>
-                <StatusBar
-                    backgroundColor={color.darkPrimary}
-                    barStyle="light-content"
-                />
+                <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
                 {auth.isFetching ? (
                     <View style={styles.activity}>
                         <ActivityIndicator size="large" color={color.primary} />
@@ -106,9 +93,7 @@ class Stats extends Component {
                                                 user.data &&
                                                 user.data.total &&
                                                 user.data.total.co2Saved
-                                                    ? user.data.total.co2Saved.toFixed(
-                                                          2
-                                                      )
+                                                    ? user.data.total.co2Saved.toFixed(2)
                                                     : 0.0
                                             } kg Co2. Analyse yours too, download the CarbonFootprint-Mobile app now play.google.com`
                                         )
@@ -123,10 +108,7 @@ class Stats extends Component {
                             />
                             <Text style={[styles.largeInfo, styles.whiteText]}>
                                 Co2 saved:{' '}
-                                {user &&
-                                user.data &&
-                                user.data.total &&
-                                user.data.total.co2Saved
+                                {user && user.data && user.data.total && user.data.total.co2Saved
                                     ? user.data.total.co2Saved.toFixed(2)
                                     : 0.0}{' '}
                                 kg
@@ -134,22 +116,17 @@ class Stats extends Component {
                             <Text style={[styles.largeInfo, styles.whiteText]}>
                                 Co2 Emitted:{' '}
                                 {user && user.data
-                                    ? user.data.total.footprint.toFixed(2) +
-                                      ' kg'
+                                    ? user.data.total.footprint.toFixed(2) + ' kg'
                                     : '0 kg'}
                             </Text>
                             <Text style={[styles.smallText, styles.whiteText]}>
                                 Distance:{' '}
                                 {user && user.data
-                                    ? user.data.total.distance.toFixed(2) +
-                                      ' km'
+                                    ? user.data.total.distance.toFixed(2) + ' km'
                                     : '0 km'}
                             </Text>
                             <Text style={[styles.smallText, styles.whiteText]}>
-                                Time:{' '}
-                                {user && user.data
-                                    ? user.data.total.time + ' s'
-                                    : '0 s'}
+                                Time: {user && user.data ? user.data.total.time + ' s' : '0 s'}
                             </Text>
                         </View>
                         <ScrollView contentContainerStyle={styles.content}>
@@ -163,75 +140,46 @@ class Stats extends Component {
                                         {row.map((column, i) => {
                                             let columnStyle = [styles.column];
                                             if (i === 1) {
-                                                columnStyle.push(
-                                                    styles.columnBorder
-                                                );
+                                                columnStyle.push(styles.columnBorder);
                                             }
                                             return (
-                                                <View
-                                                    style={columnStyle}
-                                                    key={i}
-                                                >
+                                                <View style={columnStyle} key={i}>
                                                     {column.icon === 'run' ? (
                                                         <RunningIcon
                                                             name={column.icon}
                                                             size={32}
-                                                            color={
-                                                                color.darkPrimary
-                                                            }
+                                                            color={color.darkPrimary}
                                                         />
                                                     ) : (
                                                         <Icon
-                                                            name={getIcon(
-                                                                column.icon
-                                                            )}
+                                                            name={getIcon(column.icon)}
                                                             size={32}
-                                                            color={
-                                                                color.darkPrimary
-                                                            }
+                                                            color={color.darkPrimary}
                                                         />
                                                     )}
-                                                    <View
-                                                        style={
-                                                            styles.columnInfo
-                                                        }
-                                                    >
+                                                    <View style={styles.columnInfo}>
                                                         <Text
                                                             style={
-                                                                column.icon ==
-                                                                'car'
+                                                                column.icon == 'car'
                                                                     ? styles.emittedCo2
                                                                     : styles.largeInfo
                                                             }
                                                         >
-                                                            {column.value
-                                                                .footprint
+                                                            {column.value.footprint
                                                                 ? column.value.footprint.toFixed(
                                                                       2
                                                                   ) + ' kg'
                                                                 : '0 kg'}
                                                         </Text>
-                                                        <Text
-                                                            style={
-                                                                styles.smallText
-                                                            }
-                                                        >
-                                                            {column.value
-                                                                .distance
-                                                                ? column.value.distance.toFixed(
-                                                                      2
-                                                                  ) + ' km'
+                                                        <Text style={styles.smallText}>
+                                                            {column.value.distance
+                                                                ? column.value.distance.toFixed(2) +
+                                                                  ' km'
                                                                 : '0 km'}
                                                         </Text>
-                                                        <Text
-                                                            style={
-                                                                styles.smallText
-                                                            }
-                                                        >
+                                                        <Text style={styles.smallText}>
                                                             {column.value.time
-                                                                ? column.value
-                                                                      .time +
-                                                                  ' s'
+                                                                ? column.value.time + ' s'
                                                                 : '0 s'}
                                                         </Text>
                                                     </View>
@@ -340,7 +288,7 @@ const styles = StyleSheet.create({
     shareStyle: {
         position: 'absolute',
         right: 10,
-        top:10
+        top: 10
     }
 });
 

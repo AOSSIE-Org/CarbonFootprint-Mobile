@@ -39,17 +39,15 @@ class Forgot extends Component {
                     <ImageHeader text="Forgot Your Password" />
                     <KeyboardAwareScrollView style={styles.inputForm}>
                         <View style={styles.input}>
-                            <Icon
-                                name={getIcon('mail')}
-                                size={18}
-                                color="#666"
-                            />
+                            <Icon name={getIcon('mail')} size={18} color="#666" />
                             <TextInput
                                 placeholder="Enter your email"
                                 style={styles.field}
                                 autoCapitalize="none"
                                 onChangeText={text =>
-                                    this.setState({ email: text })
+                                    this.setState({
+                                        email: text
+                                    })
                                 }
                                 underlineColorAndroid="transparent"
                             />
@@ -58,26 +56,19 @@ class Forgot extends Component {
                             onPress={() =>
                                 this.props.forgot.isFetching
                                     ? {}
-                                    : this.props.forgotPassword(
-                                          this.state.email
-                                      )
+                                    : this.props.forgotPassword(this.state.email)
                             }
                             style={styles.button}
                             underlayColor="#538124"
                             activeOpacity={0.5}
                         >
                             <Text style={styles.text}>
-                                {this.props.forgot.isFetching
-                                    ? 'Resetting....'
-                                    : 'Reset Password'}
+                                {this.props.forgot.isFetching ? 'Resetting....' : 'Reset Password'}
                             </Text>
                         </TouchableHighlight>
-                        {this.props.forgot.isFetching ? null : this.props.forgot
-                            .message ? (
+                        {this.props.forgot.isFetching ? null : this.props.forgot.message ? (
                             <View style={styles.topMargin}>
-                                <Text style={styles.error}>
-                                    {this.props.forgot.message}
-                                </Text>
+                                <Text style={styles.error}>{this.props.forgot.message}</Text>
                             </View>
                         ) : null}
                         {this.props.forgot.isFetching ? (
@@ -142,11 +133,11 @@ const styles = StyleSheet.create({
     topMargin: {
         marginTop: 10
     }
-})
+});
 
 Forgot.propTypes = {
     forgot: PropTypes.object
-}
+};
 
 function mapStateToProps(state) {
     return {

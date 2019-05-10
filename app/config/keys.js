@@ -16,7 +16,6 @@ export const firebaseConfigForTesting = {
     messagingSenderId: null
 };
 
-
 export const googleSignInConfig = {
     clientID: null,
     scopes: ['openid', 'profile', 'email'],
