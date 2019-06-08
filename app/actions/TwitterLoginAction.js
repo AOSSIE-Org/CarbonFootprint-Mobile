@@ -2,7 +2,7 @@
  * Twitter Native Login Action
  */
 
-import TwitterAuth from 'tipsi-twitter';
+// import TwitterAuth from 'tipsi-twitter';
 import * as firebase from 'firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { twitterSignInConfig } from '../config/keys';
@@ -21,27 +21,27 @@ export function twitterLogin() {
     if (twitterSignInConfig.twitter_key === null) {
         return alert(KEYS_NOT_SET);
     }
-    TwitterAuth.init(twitterSignInConfig);
+    // TwitterAuth.init(twitterSignInConfig);
     return dispatch => {
-        TwitterAuth.login()
-            .then(data => {
-                dispatch(loaderToggle());
-                loginCustomFirebase('twitter', data.authToken, data.authTokenSecret)
-                    .then(user => {
-                        dispatch(receiveAuth(user));
-                        dispatch(loaderToggle());
-                        Actions.main({
-                            type: ActionConst.REPLACE
-                        });
-                    })
-                    .catch(error => {
-                        showAlert('Login Issue', error.message, 'OK');
-                        dispatch(loaderToggle());
-                        dispatch(receiveError(error));
-                    });
-            })
-            .catch(error => {
-                console.log('Twitter Login Error: ', error);
-            });
+        // TwitterAuth.login()
+        //     .then(data => {
+        //         dispatch(loaderToggle());
+        //         loginCustomFirebase('twitter', data.authToken, data.authTokenSecret)
+        //             .then(user => {
+        //                 dispatch(receiveAuth(user));
+        //                 dispatch(loaderToggle());
+        //                 Actions.main({
+        //                     type: ActionConst.REPLACE
+        //                 });
+        //             })
+        //             .catch(error => {
+        //                 showAlert('Login Issue', error.message, 'OK');
+        //                 dispatch(loaderToggle());
+        //                 dispatch(receiveError(error));
+        //             });
+        //     })
+        //     .catch(error => {
+        //         console.log('Twitter Login Error: ', error);
+        //     });
     };
 }
