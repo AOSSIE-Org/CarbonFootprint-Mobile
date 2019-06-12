@@ -1,4 +1,4 @@
 # File to specify users that are responsible for all the files in this repository
 # and will act as code owners when new content is added.
 
-CODEOWNERS @madhavgaba @prudhvir3ddy @r0hitgupta
+* @madhavgaba @prudhvir3ddy @r0hitgupta
