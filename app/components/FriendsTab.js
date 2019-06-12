@@ -116,7 +116,7 @@ class FriendsTab extends Component {
                                               }
                                             : null
                                     }
-                                    text={friend.data ? friend.data.total : 'No Activity'}
+                                    text={friend.data && friend.data.total ? friend.data.total.footprint : 'No Activity'}
                                 />
                             </View>
                         );
