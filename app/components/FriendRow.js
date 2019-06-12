@@ -20,14 +20,19 @@ const FriendRow = props => {
         <View style={styles.container}>
             <View style={styles.main}>
                 <View style={styles.info}>
-                    {data.picture ? (
-                        <Image source={{ uri: data.picture }} style={styles.image} />
+                    {data.picture == images.logo ? (
+                        <Image source={images.logo} style={styles.image} />
+                    ) : data.picture ? (
+                        <Image
+                            source={{ uri: 'data:image/png;base64,' + data.picture }}
+                            style={styles.image}
+                        />
                     ) : (
                         <Image source={images.noImage} style={styles.image} />
                     )}
                     <View style={styles.left}>
                         <Text style={styles.largeText}>{data.name}</Text>
-                        <Text style={styles.smallText}>{text}</Text>
+                        <Text style={styles.smallText}>{text} kg</Text>
                     </View>
                 </View>
                 <View style={styles.right}>
