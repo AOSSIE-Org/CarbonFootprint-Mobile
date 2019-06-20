@@ -32,7 +32,9 @@ const FriendRow = props => {
                     )}
                     <View style={styles.left}>
                         <Text style={styles.largeText}>{data.name}</Text>
-                        <Text style={styles.smallText}>{text} kg</Text>
+                        <Text style={styles.smallText}>
+                            {text} {data.data ? ' kg' : null}
+                        </Text>
                     </View>
                 </View>
                 <View style={styles.right}>
@@ -40,11 +42,7 @@ const FriendRow = props => {
                         <TouchableNativeFeedback onPress={props.link}>
                             <Icon name={getIcon(props.iconName[0])} size={30} color="black" />
                         </TouchableNativeFeedback>
-                    ) : (
-                        <View>
-                            <Text>{data.data ? data.data.total.footprint + ' kg' : '0 kg'}</Text>
-                        </View>
-                    )}
+                    ) : null}
                     {props.iconName && props.iconName.length === 2 ? (
                         <TouchableNativeFeedback onPress={props.reject}>
                             <Icon

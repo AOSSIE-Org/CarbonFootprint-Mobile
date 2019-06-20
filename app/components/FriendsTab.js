@@ -16,9 +16,10 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Toast from 'react-native-simple-toast';
 
 import * as LoaderAction from '../actions/LoaderAction';
-import { acceptFriendRequest, deleteFriendRequest } from '../actions/firebase/Friends';
+import { acceptFriendRequest, deleteFriend } from '../actions/firebase/Friends';
 import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FriendRow from './FriendRow';
@@ -36,12 +37,23 @@ class FriendsTab extends Component {
         this.props.getFriendList(this.props.choice);
     }
 
-    rejectFriendRequest = (currentUid, friendUid) => {
+    removeFriend = (currentUid, friendUid, title) => {
         this.props.loaderToggle();
-        deleteFriendRequest(currentUid, friendUid).then(user => {
-            this.props.loaderToggle();
-            this.props.getFriendList(this.props.choice);
-        });
+        Alert.alert(title, `Are you sure you want remove this ${title.toLowerCase()}?`, [
+            {
+                text: 'Yes',
+                onPress: () =>
+                    deleteFriend(currentUid, friendUid).then(user => {
+                        this.props.loaderToggle();
+                        this.props.getFriendList(this.props.choice);
+                        Toast.show(`${title} Removed`);
+                    })
+            },
+            {
+                text: 'No',
+                onPress: null
+            }
+        ]);
     };
 
     render() {
@@ -80,28 +92,16 @@ class FriendsTab extends Component {
                                     last={index === friendList.length - 1}
                                     data={friend}
                                     iconName={
-                                        this.props.choice === '2' ? ['checkmark', 'close'] : null
+                                        this.props.choice === '2'
+                                            ? ['checkmark', 'close']
+                                            : ['close']
                                     }
-                                    reject={() => {
-                                        Alert.alert(
-                                            'Friend Request',
-                                            'Are you sure you want to delete this friend request?',
-                                            [
-                                                {
-                                                    text: 'Yes',
-                                                    onPress: this.rejectFriendRequest.bind(
-                                                        this,
-                                                        this.props.auth.user.uid,
-                                                        friend.uid
-                                                    )
-                                                },
-                                                {
-                                                    text: 'No',
-                                                    onPress: null
-                                                }
-                                            ]
-                                        );
-                                    }}
+                                    reject={this.removeFriend.bind(
+                                        this,
+                                        this.props.auth.user.uid,
+                                        friend.uid,
+                                        'Friend Request'
+                                    )}
                                     link={
                                         this.props.choice === '2'
                                             ? () => {
@@ -114,9 +114,18 @@ class FriendsTab extends Component {
                                                       this.props.getFriendList(this.props.choice);
                                                   });
                                               }
-                                            : null
+                                            : this.removeFriend.bind(
+                                                  this,
+                                                  this.props.auth.user.uid,
+                                                  friend.uid,
+                                                  'Friend'
+                                              )
                                     }
-                                    text={friend.data && friend.data.total ? friend.data.total.footprint : 'No Activity'}
+                                    text={
+                                        friend.data && friend.data.total
+                                            ? friend.data.total.footprint
+                                            : 'No Activity'
+                                    }
                                 />
                             </View>
                         );
