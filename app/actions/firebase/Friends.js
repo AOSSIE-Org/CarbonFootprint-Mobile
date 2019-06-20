@@ -105,12 +105,12 @@ export function acceptFriendRequest(currentUid, friendUid) {
 }
 
 /**
- * Delete Friend Request
+ * Delete Friend Request or Already Added Friend
  * @param  currentUid unique id or user id given to user logged in
  * @param  friendUid  unique id or user id of friend
  * @return {Promise}
  */
-export function deleteFriendRequest(currentUid, friendUid) {
+export function deleteFriend(currentUid, friendUid) {
     return new Promise(function(resolve, reject) {
         firebase
             .database()
@@ -125,7 +125,6 @@ export function deleteFriendRequest(currentUid, friendUid) {
                         getUser(currentUid)
                             .then(user => {
                                 resolve(user);
-                                Toast.show('Friend Request deleted.');
                             })
                             .catch(error => {
                                 reject(error);
