@@ -6,6 +6,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import PropTypes from 'prop-types';
 
 import { color } from '../config/helper';
+import StatusBarBackground from '../components/StatusBarBackground';
 
 import FriendsTab from '../components/FriendsTab';
 import InviteTab from './InviteTab';
@@ -23,6 +24,7 @@ import * as User from '../actions/firebase/User';
 const Friends = props => (
     <View style={styles.container}>
         <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
+        <StatusBarBackground />
         <View style={styles.pad} />
         <ScrollableTabView
             tabBarBackgroundColor={color.primary}

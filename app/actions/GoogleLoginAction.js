@@ -2,7 +2,7 @@
  *	Google Native Login Action
  */
 
-import GoogleSignIn from 'react-native-google-sign-in';
+import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import { loaderToggle } from './LoaderAction';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { googleSignInConfig } from '../config/keys';
@@ -16,31 +16,39 @@ import { KEYS_NOT_SET } from '../config/constants';
  * @return handling google login feature
  */
 export function googleSignIn() {
-    if (googleSignInConfig.clientID === null) {
+    if (googleSignInConfig.webClientId === null) {
         return alert(KEYS_NOT_SET);
     }
     return async dispatch => {
-        await GoogleSignIn.configure(googleSignInConfig).then(() => {
-            GoogleSignIn.signInPromise()
-                .then(data => {
+        GoogleSignin.configure(googleSignInConfig);
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            const tokens = await GoogleSignin.getTokens();
+            dispatch(loaderToggle());
+            loginCustomFirebase('google', tokens.idToken, tokens.accessToken)
+                .then(user => {
+                    dispatch(actions.receiveAuth(user));
                     dispatch(loaderToggle());
-                    loginCustomFirebase('google', data.idToken, data.accessToken)
-                        .then(user => {
-                            dispatch(actions.receiveAuth(user));
-                            dispatch(loaderToggle());
-                            Actions.main({
-                                type: ActionConst.REPLACE
-                            });
-                        })
-                        .catch(error => {
-                            showAlert('Login Issue', error.message, 'OK');
-                            dispatch(loaderToggle());
-                            dispatch(actions.receiveError(error));
-                        });
+                    Actions.main({
+                        type: ActionConst.REPLACE
+                    });
                 })
                 .catch(error => {
-                    console.log(error.message);
+                    showAlert('Login Issue', error.message, 'OK');
+                    dispatch(loaderToggle());
+                    dispatch(actions.receiveError(error));
                 });
-        });
+        } catch (error) {
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+                // user cancelled the login flow
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+                // operation (f.e. sign in) is in progress already
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+                // play services not available or outdated
+            } else {
+                // some other error happened
+            }
+        }
     };
 }

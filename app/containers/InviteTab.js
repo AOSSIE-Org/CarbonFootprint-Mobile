@@ -9,6 +9,7 @@ import {
     TextInput,
     StyleSheet,
     TouchableNativeFeedback,
+    TouchableHighlight,
     FlatList,
     ScrollView
 } from 'react-native';
@@ -75,11 +76,11 @@ class InviteTab extends Component {
                     onChangeText={text => this.setState({ search: text })}
                     placeholder="Search friends by Email or Username"
                 />
-                <TouchableNativeFeedback onPress={this.searchFriends}>
+                <TouchableHighlight onPress={this.searchFriends}>
                     <View style={styles.searchBtn}>
                         <Text style={styles.whiteText}>Search</Text>
                     </View>
-                </TouchableNativeFeedback>
+                </TouchableHighlight>
 
                 {this.state.user ? (
                     <ScrollView style={styles.container}>

@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
+import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 
 /**
  * Home Screens Login buttons
@@ -28,22 +29,9 @@ const LandingButtons = props => {
                     backgroundColor="#dd4b39"
                     borderRadius={1}
                     iconStyle={styles.buttonIcon}
+                    onPress={props.googleSignIn}
                 >
-                    <Text style={styles.buttonText} onPress={() => props.googleSignIn()}>
-                        Continue with Google
-                    </Text>
-                </Icon.Button>
-            </View>
-            <View style={styles.button}>
-                <Icon.Button
-                    name="twitter"
-                    backgroundColor="#4099ff"
-                    borderRadius={1}
-                    iconStyle={styles.buttonIcon}
-                >
-                    <Text style={styles.buttonText} onPress={() => props.twitterLogin()}>
-                        Continue with Twitter
-                    </Text>
+                    <Text style={styles.buttonText}>Continue with Google</Text>
                 </Icon.Button>
             </View>
             <View style={styles.local}>
@@ -114,8 +102,7 @@ const styles = StyleSheet.create({
 
 LandingButtons.propTypes = {
     fbLogin: PropTypes.func.isRequired,
-    googleSignIn: PropTypes.func.isRequired,
-    twitterLogin: PropTypes.func.isRequired
+    googleSignIn: PropTypes.func.isRequired
 };
 
 export default LandingButtons;

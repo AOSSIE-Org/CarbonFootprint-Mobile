@@ -13,6 +13,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
+import StatusBarBackground from '../components/StatusBarBackground';
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
 import Icon from 'react-native-vector-icons/Ionicons';
 import RunningIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -74,6 +75,7 @@ class Stats extends Component {
         return (
             <View style={styles.container}>
                 <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
+                <StatusBarBackground />
                 {auth.isFetching ? (
                     <View style={styles.activity}>
                         <ActivityIndicator size="large" color={color.primary} />

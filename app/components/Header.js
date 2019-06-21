@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         paddingTop: Platform.OS === 'ios' ? 15 : 0,
         alignItems: 'center',
         flexDirection: 'row',
-        position: 'absolute',
+        // position: 'absolute',
         justifyContent: 'center'
     },
     spaceBetween: {

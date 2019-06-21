@@ -2,11 +2,13 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "28.0.2"
+        buildToolsVersion = "28.0.3"
         minSdkVersion = 16
         compileSdkVersion = 28
         targetSdkVersion = 27
         supportLibVersion = "28.0.0"
+        googlePlayServicesAuthVersion = "15.0.1"
+        googlePlayServicesVersion = "15.0.1"
     }
     repositories {
         google()
@@ -14,8 +16,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-      classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'com.google.gms:google-services:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.google.gms:google-services:3.2.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -28,11 +30,9 @@ allprojects {
         }
         // Add fabric repository (added by tipsi-twitter)
         maven { url "https://maven.fabric.io/public" }
-        // Add fabric repository (added by tipsi-twitter)
-        maven { url "https://maven.fabric.io/public" }
         mavenLocal()
-        google()
         jcenter()
+        google()
 
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
@@ -47,7 +47,7 @@ subprojects {
         if (project.hasProperty("android")) {
             android {
                 compileSdkVersion 28
-                buildToolsVersion '28.0.2'
+                buildToolsVersion '28.0.3'
             }
         }
     }

@@ -1,10 +1,8 @@
 /**
- * Copyright (c) 2015-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import "AppDelegate.h"
@@ -12,23 +10,21 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "SplashScreen.h"
+#import <GoogleMaps/GoogleMaps.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <RNGoogleSignin/RNGoogleSignin.h>
+@import GooglePlaces; 
 
-@import GooglePlaces;
-@import GoogleMaps;
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  NSError* configureError;
-  [[GGLContext sharedInstance] configureWithError: &configureError];
-  NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
-  
+  [GMSPlacesClient provideAPIKey:@"YOUR_API_KEY"];
+  [GMSServices provideAPIKey:@"YOUR_API_KEY"];
   NSURL *jsCodeLocation;
-  
-  [GMSPlacesClient provideAPIKey:@"AIzaSyC5pNPr-cnD2fuh_4QMIpLB3FzA7Vm3l2E"];
-  [GMSServices provideAPIKey:@"AIzaSyDx7ltAnVJ-rQv0815RD49WpsZSJT3Kls8"];
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                           didFinishLaunchingWithOptions:launchOptions];
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
@@ -36,55 +32,21 @@
                                                       moduleName:@"CarbonFootprint"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-  
-  [[FBSDKApplicationDelegate sharedInstance] application:application
-                           didFinishLaunchingWithOptions:launchOptions];
-  
+  rootView.backgroundColor = [UIColor blackColor];
+
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
   [SplashScreen show];
   return YES;
 }
-  
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-  
-  if ([[FBSDKApplicationDelegate sharedInstance] application:application
-                                                                openURL:url
-                                                      sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
-                                                  annotation:options[UIApplicationOpenURLOptionsAnnotationKey]]) {
-    return YES;
-  }
-  
-  if ([[GIDSignIn sharedInstance] handleURL:url
-                          sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
-                                 annotation:options[UIApplicationOpenURLOptionsAnnotationKey]]) {
-    return YES;
-  }
-  
-  // Add any custom logic here.
-  return NO;
-}
-  
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-  [FBSDKAppEvents activateApp];
-}
 
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
-  if ([[GIDSignIn sharedInstance] handleURL:url
-                          sourceApplication:sourceApplication
-                                 annotation:annotation]) {
-    return YES;
-  }
-  return YES;
+- (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<NSString *,id> *)options {
+  return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]]
+  || [RNGoogleSignin application:application openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
 }
 
 @end

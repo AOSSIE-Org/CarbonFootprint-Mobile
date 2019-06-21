@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
+import StatusBarBackground from '../components/StatusBarBackground';
 import HistoryIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import UserIcon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
@@ -98,7 +99,9 @@ class More extends Component {
         ];
         return (
             <View style={styles.container}>
+                <StatusBarBackground />
                 <Header icon={false} text="More" />
+
                 <View style={styles.main}>
                     {groups.map((group, index) => {
                         return (
