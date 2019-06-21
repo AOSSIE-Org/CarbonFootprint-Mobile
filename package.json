@@ -30,7 +30,7 @@
         "react-native-fbsdk": "^0.8.0",
         "react-native-geocoding": "^0.3.0",
         "react-native-google-places": "^2.5.0",
-        "react-native-google-sign-in": "^1.0.16",
+        "react-native-google-signin": "^2.0.0",
         "react-native-image-picker": "^0.26.10",
         "react-native-keyboard-aware-scroll-view": "^0.5.0",
         "react-native-maps": "^0.21.0",

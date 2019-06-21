@@ -8,6 +8,8 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import com.facebook.react.ReactApplication;
+import me.listenzz.modal.TranslucentModalReactPackage;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.showlocationservicesdialogbox.LocationServicesDialogBoxPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
@@ -18,7 +20,6 @@ import com.airbnb.android.react.maps.MapsPackage;
 // import com.gettipsi.reactnativetwittersdk.TwitterReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.reactlibrary.googlesignin.RNGoogleSignInPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -54,9 +55,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ImagePickerPackage(),
-            new LocationServicesDialogBoxPackage(),
-            new BackgroundTimerPackage(),
+            new TranslucentModalReactPackage(),
+          new RNGoogleSigninPackage(),
+          new ImagePickerPackage(),
+          new LocationServicesDialogBoxPackage(),
+          new BackgroundTimerPackage(),
           new PickerViewPackage(),
           new RealmReactPackage(),
           new RNGooglePlacesPackage(),
@@ -65,7 +68,6 @@ public class MainApplication extends Application implements ReactApplication {
           new RNActivityRecognitionPackage(),
           new VectorIconsPackage(),
           new SplashScreenReactPackage(),
-          new RNGoogleSignInPackage(),
           new FBSDKPackage(mCallbackManager)
       );
     }

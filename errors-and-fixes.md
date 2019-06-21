@@ -57,42 +57,6 @@ dependencies {
 }
 ```
 
-## Error 4
-
-Application crashed as soon as you open after first time build
-
-### Fix for the error
-
-1.open node_modules/react-native-activity-recognition/android/build.gradle
-and ensure google-play-services version is 12.0.1 if there is any other version
-change to 12.0.1 and save the file
-
-```
-compile 'com.google.android.gms:play-services:12.0.1'
-```
-
-2.open node_modules/react-native-google-places/android/build.gradle
-and ensure DEFAULT_GOOGLE_PLAY_SERVICES_VERSION = "12.0.1" if there is any other version change to 12.0.1 and save the file
-
-```
-def DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = "12.0.1"
-```
-
-3.open node_modules/react-native-google-sign-in/android/build.gradle
-and ensure google-play-services-auth version is 12.0.1 if there is any other version
-change to 12.0.1 and save the file
-
-```
-compile "com.google.android.gms:play-services-auth:12.0.1"
-```
-
-4.open node_modules/react-native-maps/lib/android/build.gradle
-and ensure DEFAULT_GOOGLE_PLAY_SERVICES_VERSION = "12.0.1" if there is any other version change to 12.0.1 and save the file
-
-```
-def DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = "12.0.1"
-```
-
 ## Error 5
 
 Could not find play-services-ads.aar (com.google.android.gms:play-services-ads:12.0.1).
@@ -106,19 +70,19 @@ def _ext = rootProject.ext
 def _googlePlayServicesVersion = _ext.has('googlePlayServicesVersion') ? _ext.googlePlayServicesVersion : '+'
 ```
 
-2.open android/build.gradle 
+2.open android/build.gradle
 
 ```
-buildscript { 
- repositories { 
+buildscript {
+ repositories {
     maven { url "https://maven.google.com" }
     jcenter()
     ...
  ...
- allprojects { 
-   repositories { 
-     mavenLocal() 
-     maven { url "https://maven.google.com" } 
+ allprojects {
+   repositories {
+     mavenLocal()
+     maven { url "https://maven.google.com" }
      jcenter()
      ...
  ...
@@ -139,11 +103,13 @@ export PATH=~/Library/Android/sdk/platform-tools:$PATH
 ## Error 7
 
 A problem occurred evaluating project ':react-native-maps'.
+
 > Could not find method compileOnly() for arguments
 
 ### Fix for the error
 
 Type the following command
+
 ```
 cd ./node_modules/react-native-maps/lib/android/
 ```
@@ -167,20 +133,19 @@ Type the following
 cd ./node_modules/react-native-activity-recognition/android/src/main/java/com/xebia/activityrecognition/
 ```
 
-Open `RNActivityRecognitionPackage.java` file and remove the `@Override` which is above the 
+Open `RNActivityRecognitionPackage.java` file and remove the `@Override` which is above the
 `createJSModules` function
 
-- This same fix can be applied in case some other packages fail. Just need to remove the 
-@Override which sits on top of the `createJSModule` function
-
+-   This same fix can be applied in case some other packages fail. Just need to remove the
+    @Override which sits on top of the `createJSModule` function
 
 ## Error 9
 
 Build error while compiling react-native-image-picker , react-native-vector-icons and realm
 
-### Fix for the error 
+### Fix for the error
 
-1.Open android/build.gradle 
+1.Open android/build.gradle
 
 ```
  repositories {
@@ -234,24 +199,22 @@ buildscript {
 }
 ```
 
-
-
-
 ## Error 10
 
 Possible Error messages:
 
- 1. ```Couldn't follow symbolic link``` 
+1.  `Couldn't follow symbolic link`
 
- 2. ```unable to resolve class javax.xml.bind.DatatypeConverter.```
+2.  `unable to resolve class javax.xml.bind.DatatypeConverter.`
 
- 3. Any reference to node_modules/.bin folder
+3.  Any reference to node_modules/.bin folder
 
- Fix:
+Fix:
 
- delete ```node_modules/.bin``` folder. 
+delete `node_modules/.bin` folder.
 
 ## Error 11
+
 A problem occured configuring project ':tipsi-twitter'.\
 Could not get unknow property 'assemble' for task ':tipsi-twitter:assembleDebug' of type org.gradle.api.DefaultTask.
 
@@ -267,3 +230,4 @@ buildscript {
     classpath 'io.fabric.tools:gradle:1.26.1' //UPDATE THIS
   }
 }
+```

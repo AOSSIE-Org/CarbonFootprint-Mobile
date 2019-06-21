@@ -13,6 +13,7 @@ import { bindActionCreators } from 'redux';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
+import StatusBarBackground from '../components/StatusBarBackground';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 
@@ -118,13 +119,15 @@ class Calculate extends Component {
                     barStyle="light-content"
                     hidden={false}
                 />
-                {
-                    /*this.props.location.isFetching?
+                <StatusBarBackground />
+
+                {this.props.location.isFetching ? (
                     <View style={styles.center}>
-                        <ActivityIndicator size="large" color="#538124"/>
+                        <ActivityIndicator size="large" color="#538124" />
                     </View>
-                    :*/ map
-                }
+                ) : (
+                    map
+                )}
 
                 <View style={styles.button}>
                     <View style={styles.box}>
