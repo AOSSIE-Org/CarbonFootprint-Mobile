@@ -17,9 +17,7 @@ export const firebaseConfigForTesting = {
 };
 
 export const googleSignInConfig = {
-    clientID: null,
-    scopes: ['openid', 'profile', 'email'],
-    shouldFetchBasicProfile: true
+    webClientId: null
 };
 
 export const twitterSignInConfig = {

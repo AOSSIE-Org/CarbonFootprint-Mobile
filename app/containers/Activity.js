@@ -11,6 +11,7 @@ import { bindActionCreators } from 'redux';
 import * as ActivityDetectionAction from '../actions/ActivityDetectionAction';
 import * as ActivityDetailsAction from '../actions/ActivityDetailsAction';
 import ActivityTab from '../components/ActivityTab';
+import StatusBarBackground from '../components/StatusBarBackground';
 import TodayTab from '../components/TodayTab';
 import { Actions } from 'react-native-router-flux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -23,7 +24,8 @@ const Activity = props => {
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
-            <View style={styles.pad} />
+            <StatusBarBackground />
+            {/* <View style={styles.pad} /> */}
             <ScrollableTabView
                 tabBarBackgroundColor={color.primary}
                 tabBarActiveTextColor={color.greyBack}

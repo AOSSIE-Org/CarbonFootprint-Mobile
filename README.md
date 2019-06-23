@@ -2,13 +2,13 @@
 
 This project is for Carbon Footprint Mobile Application
 
-----
+---
 
 # Carbon Footprint Mobile Application
 
 This project is for Carbon Footprint Mobile Application
 
-----
+---
 
 #### Screenshots
 
@@ -26,7 +26,7 @@ This project is for Carbon Footprint Mobile Application
     </tr>
   </table>
 
-----
+---
 
 ## Install Dependencies
 
@@ -37,11 +37,11 @@ You can also follow the [Setup guide for android](#setup-guide-for-android)
 
 #### Windows
 
-* Download the Windows installer from the [Nodes.js® web site](http://nodejs.org/).
-* Run and Follow the prompts in the installer.
-* Download the latest [watchman.zip](https://ci.appveyor.com/api/buildjobs/vkp4mmk1cri9jsel/artifacts/watchman.zip)
-* Extract the zip file and make sure that **watchman.exe** is located in a directory that is in your **PATH**.
-* Restart your computer.
+-   Download the Windows installer from the [Nodes.js® web site](http://nodejs.org/).
+-   Run and Follow the prompts in the installer.
+-   Download the latest [watchman.zip](https://ci.appveyor.com/api/buildjobs/vkp4mmk1cri9jsel/artifacts/watchman.zip)
+-   Extract the zip file and make sure that **watchman.exe** is located in a directory that is in your **PATH**.
+-   Restart your computer.
 
 #### macOS
 
@@ -56,33 +56,34 @@ brew install watchman
 
 ##### Ubuntu
 
-* Install Curl
-  ```
-  sudo apt-get install curl python-software-properties
-  ```
-* Add PPA to your system
-  ```
-  curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-  ```
-* Install Nodejs
-  ```
-  sudo apt-get install nodejs
-  ```
-* Install Watchman
+-   Install Curl
+    ```
+    sudo apt-get install curl python-software-properties
+    ```
+-   Add PPA to your system
+    ```
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    ```
+-   Install Nodejs
+    ```
+    sudo apt-get install nodejs
+    ```
+-   Install Watchman
 
-  ```
-  git clone https://github.com/facebook/watchman.git
-  cd watchman
-  git checkout v4.9.0  # the latest stable release
-  ./autogen.sh
-  ./configure
-  make
-  sudo make install
-  ```
+    ```
+    git clone https://github.com/facebook/watchman.git
+    cd watchman
+    git checkout v4.9.0  # the latest stable release
+    ./autogen.sh
+    ./configure
+    make
+    sudo make install
+    ```
+
 ##### For installation in other Linux Distros
 
-* [Read instructions](https://nodejs.org/en/download/package-manager/) for installing Node.js via package manager.
-* [Read offical docs](https://facebook.github.io/watchman/docs/install.html) for watchman installation.
+-   [Read instructions](https://nodejs.org/en/download/package-manager/) for installing Node.js via package manager.
+-   [Read offical docs](https://facebook.github.io/watchman/docs/install.html) for watchman installation.
 
 ### React Native CLI
 
@@ -92,39 +93,79 @@ Install React Native CLI globally.
 npm install -g react-native-cli
 ```
 
-### NPM Dependencies
+### Setup.
 
-Install package-dependencies using NPM
+1. Install package-dependencies using NPM.
 
 ```
 npm install
 ```
 
-### iOS
+> NOTE: node v8.x is recommended.
 
-#### Xcode
-
-Make sure you have Xcode 8 or higher and the correct command line tool is specified
-
-#### Pods Dependencies
-
-Install pods using cocoa-pods
+2. Version conflicts in `node_modules` are resolved in this step.
 
 ```
-cd <project-dir>/ios
-pod install
+chmod +x ./fixes.sh ./fixes-mac.sh
 ```
 
-#### Rename Info.plist
+If a linux/windows user, run:
 
 ```
-cd <project-dir>/ios
-mv Info.plist.sample Info.plist
+./fixes.sh
 ```
+
+If on a mac, run:
+
+```
+./fixes-mac.sh
+```
+
+3. Rename keys.sample.js located in app/config to keys.js.
+
+4. Create a [facebook app](https://developers.facebook.com/) for authentication using facebook. Only **app id** is required for further steps.
+
+5. Go to [Firebase console](https://console.firebase.google.com) and add a new project. Setup a **realtime database**. Now go under authentication/sign-in method and enable email/password, google and facebook login. Add web, android and ios apps in the firebase console. Google automatically creates a new google developer project linked to firebase. Copy **firebase Config** from firebase console and paste it in place of firebaseConfig object in keys.js. Copy web client id from google developer console associated project and again paste it in keys.js. Enable google maps and related geocoding apis and copy the api key from the same project and paste it in keys.js.
+
+### IOS setup (only for mac users)
+
+1. Make sure you have Xcode 10 or higher. It is available for download from Apple app store. Also, install command line tools after installing Xcode by running:
+
+```
+xcode-select --install
+```
+
+2. Install pods using cocoa-pods
+
+```
+cd ios && pod install
+```
+
+3. Download **GoogleService-Info.plist** from google developer console. Download and paste it in ios folder. Now open **CarbonFootprint.xcworkspace** and link **GoogleService-Info.plist** in the ios project.
+4. Rename Info.sample.plist.
+
+```
+cd ios && mv Info.plist.sample Info.plist
+```
+
+Here, replace _{YOUR_FB_APP_ID}_ with app id recieved from facebook. Also replace _{YOUR_REVERSED_GOOGLE_ID}_ with the reversed client id present in **GoogleService-Info.plist**.
+
+5. Replace _YOUR_API_KEY_ in Appdelegate.m from your api key for google maps.
+
+### Android Setup
+
+1. Download [android studio](https://developer.android.com/studio) and download an emulator with play store services and minimum android Marshmellow (v6.0).
+
+2. In android/local.properties, add the location of the android sdk on your local system.
+
+3. Download **google-services.json** from firebase console and move it to **android/app**.
+
+4. Go to android/app/src/res/values/strings.xml and add your facebook app id and geocoding api key from google.
 
 #### Facebook SDK
 
-Follow Step 2, 3, 4 on https://developers.facebook.com/docs/ios/getting-started/.
+1. Go to [Facebook app](!https://developers.facebook.com/apps/) and register a new app for Carbonfootprint Oauth.
+2. Copy App id from the app setup.
 
 #### Google Sign In + Firebase
 
@@ -154,10 +195,10 @@ Download Android Studio, then follow the installation instructions. Choose Custo
 
 Make sure the boxes next to all of the following are checked:
 
-* Android SDK
-* Android SDK Platform
-* Performance (Intel ® HAXM)
-* Android Virtual Device
+-   Android SDK
+-   Android SDK Platform
+-   Performance (Intel ® HAXM)
+-   Android Virtual Device
 
 Click 'Next' to install all of these components
 
@@ -165,10 +206,10 @@ Click 'Next' to install all of these components
 
 React Native requires Android 6.0 (Marshmallow) SDK by default. Make sure the following items are all checked
 
-* Google APIs
-* Android SDK Platform 23
-* Intel x86 Atom_64 System Image
-* Google APIs Intel x86 Atom_64 System Image
+-   Google APIs
+-   Android SDK Platform 23
+-   Intel x86 Atom_64 System Image
+-   Google APIs Intel x86 Atom_64 System Image
 
 #### Set up the ANDROID_HOME environment variable
 
@@ -225,14 +266,14 @@ react-native run-android
 
 You can also run it directly from within Android Studio or Nuclide
 
-
 **NOTE -** Please add the SHA-1 certificate fingerprints of your debug keystore in project settings in Firebase. To generate SHA-1 certificate fingerprints, see https://developers.google.com/android/guides/client-auth .
 
 **NOTE -** In case of errors faced while installation of the application refer to this [errors-and-fixes](errors-and-fixes.md) file, to resolve the errors.
 
 #### For Tester
-For new tester's flexibility  [link](https://drive.google.com/file/d/1_LATGTOs50WxCygy7vlELYlKalnrfNvr/view?usp=sharing) to latest apk. Download and Install the latest apk in your mobile phone to test the working of app.
-Here is the link to the app's instance running on a remote device [link](https://appetize.io/app/njfc2f37r21zyey2hbjbb7vn70?device=nexus5&scale=75&orientation=portrait&osVersion=7.1) 
+
+For new tester's flexibility [link](https://drive.google.com/file/d/1_LATGTOs50WxCygy7vlELYlKalnrfNvr/view?usp=sharing) to latest apk. Download and Install the latest apk in your mobile phone to test the working of app.
+Here is the link to the app's instance running on a remote device [link](https://appetize.io/app/njfc2f37r21zyey2hbjbb7vn70?device=nexus5&scale=75&orientation=portrait&osVersion=7.1)
 
 #### Setup guide for android
 
@@ -241,10 +282,12 @@ You can follow the video tutorial to setup the Carbonfootprint-Mobile app for an
 [See Android setup guide video](https://www.youtube.com/watch?v=NpKVA5hL3pM)
 
 Pre-requisites:
-- Android Studio
-- Android AVD or a real device 
+
+-   Android Studio
+-   Android AVD or a real device
 
 ### Setup guide for testing
+
 1. First of all create a new firebase app for a test database.
 2. Browse https://console.firebase.google.com.
 3. Generate an empty project.
@@ -259,29 +302,32 @@ Pre-requisites:
 12. Copy the contents of the generated file to the `serviceAccountKey.json` file.
 
 ### Setting up Pipeline
+
 **1.** Whenever you create a merge request the pipeline runs to check whether the app is building successfully or not.
 
 **2.** You need to set gitlab CI/CD variables in **settings**/**CI/CD** to run the pipeline successfully otherwise it will keep failing. These variables stores the API keys, client Ids and other values.
 
 **3.** The variable names are:
-  - FACEBOOK_APP_ID
-  - FIREBASE_API_KEY
-  - FIREBASE_AUTH_DOMAIN
-  - FIREBASE_DATABASE_URL
-  - FIREBASE_MESSAGING_SENDER_ID
-  - FIREBASE_PROJECT_ID
-  - FIREBASE_STORAGE_BUCKET
-  - GEOCODING_API
-  - GOOGLE_CLIENT_ID
-  - GOOGLE_SERVICES
-  - TWITTER_KEY
-  - TWITTER_SECRET
 
-**4.** You need to store 
-  - *Google Maps API key* in *GEOCODING_API*
-  - *google-services.json* file content in *GOOGLE_SERVICES*. There should be no space in the content. For example
-     If the content is like as shown below
-    
+-   FACEBOOK_APP_ID
+-   FIREBASE_API_KEY
+-   FIREBASE_AUTH_DOMAIN
+-   FIREBASE_DATABASE_URL
+-   FIREBASE_MESSAGING_SENDER_ID
+-   FIREBASE_PROJECT_ID
+-   FIREBASE_STORAGE_BUCKET
+-   GEOCODING_API
+-   GOOGLE_CLIENT_ID
+-   GOOGLE_SERVICES
+-   TWITTER_KEY
+-   TWITTER_SECRET
+
+**4.** You need to store
+
+-   _Google Maps API key_ in _GEOCODING_API_
+-   _google-services.json_ file content in _GOOGLE_SERVICES_. There should be no space in the content. For example
+    If the content is like as shown below
+
     ```
     {
       "project_info": {
@@ -289,22 +335,24 @@ Pre-requisites:
         "project_id": "project_id",
      }
     ```
-    
+
     Store it like
-    
+
     ```
     {"project_info":{"project_number": "project_number","project_id":"project_id"}}
     ```
+
     Don't enclose it in quotes as shown below
-    
+
     ```
     "{"project_info":{"project_number": "project_number","project_id":"project_id"}}"
     ```
 
     You just have to remove all the spaces that are there in the content and store it under GOOGLE_SERVICES.
-   This is just an example, you need to store google-services.json file's entire content like that without any space or new lines.
-  - All other variables' names clearly suggest what values need to be stored in them.
-  - Do not enclose any variable value in quotes. For example: FIREBASE_API_KEY is given as "ABCXYZ" store it as ABCXYZ.
-  - There should be no space in any value and the variables' names should be same as mentioned above.
+    This is just an example, you need to store google-services.json file's entire content like that without any space or new lines.
+
+-   All other variables' names clearly suggest what values need to be stored in them.
+-   Do not enclose any variable value in quotes. For example: FIREBASE_API_KEY is given as "ABCXYZ" store it as ABCXYZ.
+-   There should be no space in any value and the variables' names should be same as mentioned above.
 
 **5.** To check why the pipeline failed go to left sidebar and hover to **CI/CD** then go to **Jobs** link and click on the most recent job's number.

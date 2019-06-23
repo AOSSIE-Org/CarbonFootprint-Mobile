@@ -8,6 +8,8 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import com.facebook.react.ReactApplication;
+import me.listenzz.modal.TranslucentModalReactPackage;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.showlocationservicesdialogbox.LocationServicesDialogBoxPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
@@ -15,20 +17,19 @@ import com.beefe.picker.PickerViewPackage;
 import io.realm.react.RealmReactPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.airbnb.android.react.maps.MapsPackage;
-import com.gettipsi.reactnativetwittersdk.TwitterReactPackage;
+// import com.gettipsi.reactnativetwittersdk.TwitterReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.reactlibrary.googlesignin.RNGoogleSignInPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.xebia.activityrecognition.RNActivityRecognitionPackage;
 
-import com.twitter.sdk.android.core.TwitterCore;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
+// import com.twitter.sdk.android.core.TwitterCore;
+// import com.twitter.sdk.android.core.TwitterAuthConfig;
 
-import io.fabric.sdk.android.Fabric;
+// import io.fabric.sdk.android.Fabric;
 
 import java.util.Arrays;
 import java.util.List;
@@ -54,18 +55,19 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ImagePickerPackage(),
-            new LocationServicesDialogBoxPackage(),
-            new BackgroundTimerPackage(),
+            new TranslucentModalReactPackage(),
+          new RNGoogleSigninPackage(),
+          new ImagePickerPackage(),
+          new LocationServicesDialogBoxPackage(),
+          new BackgroundTimerPackage(),
           new PickerViewPackage(),
           new RealmReactPackage(),
           new RNGooglePlacesPackage(),
           new MapsPackage(),
-          new TwitterReactPackage(),
+          // new TwitterReactPackage(),
           new RNActivityRecognitionPackage(),
           new VectorIconsPackage(),
           new SplashScreenReactPackage(),
-          new RNGoogleSignInPackage(),
           new FBSDKPackage(mCallbackManager)
       );
     }
@@ -84,9 +86,9 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-    TwitterAuthConfig authConfig =  new TwitterAuthConfig
-        ("QYaiChXS6T0LeJ5Jt23QxctEh", "wTyZxZ1POhV8Doqydw9oQAUTQZJJvr3q7IO7NA0nRGNV4g4gUY");
-    Fabric.with(this, new TwitterCore(authConfig));
+    // TwitterAuthConfig authConfig =  new TwitterAuthConfig
+        // ("QYaiChXS6T0LeJ5Jt23QxctEh", "wTyZxZ1POhV8Doqydw9oQAUTQZJJvr3q7IO7NA0nRGNV4g4gUY");
+    // Fabric.with(this, new TwitterCore(authConfig));
     FacebookSdk.sdkInitialize(getApplicationContext());
   }
 }

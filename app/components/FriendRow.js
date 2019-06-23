@@ -20,14 +20,21 @@ const FriendRow = props => {
         <View style={styles.container}>
             <View style={styles.main}>
                 <View style={styles.info}>
-                    {data.picture ? (
-                        <Image source={{ uri: data.picture }} style={styles.image} />
+                    {data.picture == images.logo ? (
+                        <Image source={images.logo} style={styles.image} />
+                    ) : data.picture ? (
+                        <Image
+                            source={{ uri: 'data:image/png;base64,' + data.picture }}
+                            style={styles.image}
+                        />
                     ) : (
                         <Image source={images.noImage} style={styles.image} />
                     )}
                     <View style={styles.left}>
                         <Text style={styles.largeText}>{data.name}</Text>
-                        <Text style={styles.smallText}>{text}</Text>
+                        <Text style={styles.smallText}>
+                            {text} {data.data ? ' kg' : null}
+                        </Text>
                     </View>
                 </View>
                 <View style={styles.right}>
@@ -35,11 +42,7 @@ const FriendRow = props => {
                         <TouchableNativeFeedback onPress={props.link}>
                             <Icon name={getIcon(props.iconName[0])} size={30} color="black" />
                         </TouchableNativeFeedback>
-                    ) : (
-                        <View>
-                            <Text>{data.data ? data.data.total.footprint + ' kg' : '0 kg'}</Text>
-                        </View>
-                    )}
+                    ) : null}
                     {props.iconName && props.iconName.length === 2 ? (
                         <TouchableNativeFeedback onPress={props.reject}>
                             <Icon
