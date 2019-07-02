@@ -15,7 +15,7 @@ import StatusBarBackground from '../components/StatusBarBackground';
 import TodayTab from '../components/TodayTab';
 import { Actions } from 'react-native-router-flux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import { color } from '../config/helper';
+import { color, newColors } from '../config/helper';
 import Footer from '../components/Footer';
 
 const Activity = props => {
@@ -23,11 +23,10 @@ const Activity = props => {
     // It sends 'Actions.activity()' to TimelineTab as link (prop) so that TimelineTab can navigate to Activity container (When needed)
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
+            <StatusBar backgroundColor={newColors.secondary} barStyle="dark-content" />
             <StatusBarBackground />
-            {/* <View style={styles.pad} /> */}
             <ScrollableTabView
-                tabBarBackgroundColor={color.primary}
+                tabBarBackgroundColor={newColors.secondary}
                 tabBarActiveTextColor={color.greyBack}
                 tabBarInactiveTextColor={color.grey}
                 tabBarTextStyle={styles.tabText}
@@ -44,18 +43,14 @@ const Activity = props => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: StatusBar.currentHeight
+        backgroundColor: newColors.secondary
     },
     tabText: {
         fontSize: 13
     },
     tabLine: {
-        backgroundColor: color.white,
-        height: 2
-    },
-    pad: {
-        backgroundColor: color.darkPrimary,
-        height: 7
+        backgroundColor: newColors.secondary,
+        height: 0
     }
 });
 

@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, Text, StatusBar } from 'react-native';
-import Header from './Header';
+import ProfileHeader from './ProfileHeader';
+import { newColors } from '../config/helper';
 
 const Terms = () => {
     return (
         <View style={styles.container}>
-            <Header icon={true} iconName="arrow-back" text="Terms and Conditions" />
+            <ProfileHeader iconName="long-arrow-left" text="Terms and Conditions" />
             <View style={styles.main}>
                 <Text style={styles.text}>
                     This mobile application is provided free of cost. We accept no liability for it.
@@ -21,11 +22,15 @@ const Terms = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: StatusBar.currentHeight
+        backgroundColor: newColors.secondary
     },
     main: {
+        flex: 1,
+        backgroundColor: 'white',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
         alignItems: 'center',
-        marginTop: 55, // (45 + 10)
+        paddingTop: 20, // (45 + 10)
         padding: 13
     },
     text: {

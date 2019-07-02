@@ -14,6 +14,8 @@ import {
     TouchableNativeFeedback
 } from 'react-native';
 
+import Swiper from 'react-native-swiper';
+
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -50,7 +52,22 @@ export default class TodayTab extends Component {
     render() {
         return (
             <ScrollView contentContainerStyle={styles.scrollView}>
-                <View style={styles.container}>
+                <View style={styles.headingContainer}>
+                    <Text>
+                        CO<Text>2</Text>
+                    </Text>
+                    <View>
+                        <Text>TOTAL DISTANCE</Text>
+                        <Text>2.3 km</Text>
+                    </View>
+                </View>
+                <View>
+                    {/* <Swiper
+                >
+                    
+                </Swiper> */}
+                </View>
+                {/* <View style={styles.container}>
                     <View style={styles.upperActivityView}>
                         <View style={styles.hrView}>
                             <View style={styles.blackDot} />
@@ -173,7 +190,7 @@ export default class TodayTab extends Component {
                             </View>
                         </View>
                     </View>
-                </View>
+                </View> */}
             </ScrollView>
         );
     }
@@ -185,7 +202,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FFFFFF'
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30
+        // backgroundColor: '#FFFFFF'
     },
     upperActivityView: {
         flex: 3,
@@ -193,7 +212,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     scrollView: {
-        height: Dimensions.get('window').height * 0.9
+        height: Dimensions.get('window').height * 0.9,
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        backgroundColor: '#FFFFFF'
     },
     lowerActivityView: {
         flex: 2,

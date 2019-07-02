@@ -47,14 +47,12 @@ const Header = props => {
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
-        top: 0,
         width: Dimensions.get('window').width,
         backgroundColor: color.primary,
-        height: Platform.OS === 'ios' ? 64 : 50,
-        paddingTop: Platform.OS === 'ios' ? 15 : 0,
+        height: 50,
+        paddingTop: 0,
         alignItems: 'center',
         flexDirection: 'row',
-        // position: 'absolute',
         justifyContent: 'center'
     },
     spaceBetween: {

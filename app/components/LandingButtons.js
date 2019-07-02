@@ -4,60 +4,58 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
+import { newColors } from '../config/helper';
+import LoginForm from './LoginForm';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as AuthAction from '../actions/AuthAction';
 
 /**
  * Home Screens Login buttons
  * @param props properties from parent Class
  */
 const LandingButtons = props => {
+    const oauthList = [
+        {
+            name: 'facebook',
+            onPress: props.fbLogin,
+            style: styles.facebookButton
+        },
+        {
+            name: 'google',
+            onPress: props.googleSignIn,
+            style: styles.googleButton
+        }
+    ];
+
     return (
         <View style={styles.container}>
-            <View style={styles.button}>
-                <Icon.Button
-                    name="facebook"
-                    backgroundColor="#3b5998"
-                    borderRadius={1}
-                    iconStyle={styles.buttonIcon}
-                    onPress={() => props.fbLogin()}
-                >
-                    <Text style={styles.buttonText}>Continue with Facebook</Text>
-                </Icon.Button>
+            <View style={styles.oauthWrapper}>
+                {oauthList.map(obj => {
+                    return (
+                        <View style={styles.button} key={obj.name}>
+                            <Icon.Button
+                                name={obj.name}
+                                backgroundColor="white"
+                                iconStyle={[styles.buttonIcon, obj.style]}
+                                onPress={obj.onPress}
+                            >
+                                <Text style={styles.buttonText}>
+                                    {obj.name.substr(0, 1).toUpperCase()}
+                                    {obj.name.substr(1)}
+                                </Text>
+                            </Icon.Button>
+                        </View>
+                    );
+                })}
             </View>
-            <View style={styles.button}>
-                <Icon.Button
-                    name="google"
-                    backgroundColor="#dd4b39"
-                    borderRadius={1}
-                    iconStyle={styles.buttonIcon}
-                    onPress={props.googleSignIn}
-                >
-                    <Text style={styles.buttonText}>Continue with Google</Text>
-                </Icon.Button>
+
+            <View style={styles.or}>
+                <View style={styles.line} />
+                <Text style={styles.orText}>or sign in with email</Text>
             </View>
-            <View style={styles.local}>
-                <Icon.Button
-                    backgroundColor="#fff"
-                    borderRadius={1}
-                    borderColor="#bbb"
-                    borderWidth={1}
-                    iconStyle={styles.localButton}
-                    onPress={() => {
-                        Actions.login();
-                    }}
-                >
-                    <Text style={styles.login}>Sign In</Text>
-                </Icon.Button>
-                <Icon.Button
-                    backgroundColor="#fff"
-                    borderRadius={1}
-                    borderColor="#bbb"
-                    borderWidth={1}
-                    iconStyle={styles.localButton}
-                    onPress={() => Actions.register()}
-                >
-                    <Text style={styles.login}>Sign Up</Text>
-                </Icon.Button>
-            </View>
+
+            <LoginForm {...props} />
         </View>
     );
 };
@@ -67,36 +65,65 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'flex-end',
         marginLeft: 10,
         marginRight: 10,
         paddingBottom: 20
     },
+    oauthWrapper: {
+        flexDirection: 'row',
+        width: '80%',
+        justifyContent: 'space-between'
+    },
+    or: {
+        alignItems: 'flex-start',
+        textAlign: 'center',
+        alignItems: 'center',
+        position: 'relative',
+        width: '80%',
+        marginTop: 10
+    },
+    orText: {
+        textAlign: 'center',
+        backgroundColor: 'white',
+        paddingRight: 10,
+        paddingLeft: 10,
+        fontFamily: 'Poppins-Regular',
+        color: '#7A7A7A'
+    },
+    line: {
+        position: 'absolute',
+        height: 1,
+        width: '100%',
+        backgroundColor: '#7A7A7A',
+        opacity: 0.2,
+        top: '50%',
+        alignSelf: 'flex-start'
+    },
     button: {
         marginBottom: 10,
-        width: Dimensions.get('window').width * 0.8
+        // paddingTop: 5,
+        // paddingBottom: 5,
+        paddingRight: 10,
+        paddingLeft: 10,
+        borderRadius: 5,
+        width: Dimensions.get('window').width * 0.35,
+        borderColor: 'rgba(215,215,215,1)',
+        borderWidth: 1
     },
     buttonText: {
         textAlign: 'center',
-        color: '#fff',
-        flex: 1
+        color: newColors.black,
+        flex: 1,
+        fontFamily: 'Poppins-Regular'
+    },
+    facebookButton: {
+        color: '#3b5998'
+    },
+    googleButton: {
+        color: '#EA4335'
     },
     buttonIcon: {
-        marginLeft: 10,
-        marginRight: 0
-    },
-    local: {
-        width: Dimensions.get('window').width * 0.8,
-        justifyContent: 'space-between',
-        flexDirection: 'row'
-    },
-    localButton: {
-        marginRight: 0
-    },
-    login: {
-        color: '#006400',
-        textAlign: 'center',
-        width: Dimensions.get('window').width * 0.3
+        marginLeft: 10
     }
 });
 
@@ -105,4 +132,26 @@ LandingButtons.propTypes = {
     googleSignIn: PropTypes.func.isRequired
 };
 
-export default LandingButtons;
+/**
+ * Mapping state to props so that state variables can be used through props in children components
+ * @param state current state
+ * @return state as props
+ */
+function mapStateToProps(state) {
+    return {
+        auth: state.auth
+    };
+}
+/**
+ * Mapping dispatchable actions to props so that actions can be used through props in children components
+ * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
+ * @return Turns an object whose values are action creators, into an object with the same keys,
+ */
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(Object.assign({}, AuthAction), dispatch);
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LandingButtons);

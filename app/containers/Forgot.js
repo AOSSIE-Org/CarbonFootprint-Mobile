@@ -18,10 +18,11 @@ import PropTypes from 'prop-types';
 
 import BackHeader from '../components/BackHeader';
 import LoginForm from '../components/LoginForm';
-import ImageHeader from '../components/ImageHeader';
+
+import { RESET_PASSWORD } from '../config/constants';
 
 import * as AuthAction from '../actions/AuthAction';
-import { color, getIcon } from '../config/helper';
+import { color, getIcon, newColors } from '../config/helper';
 
 class Forgot extends Component {
     constructor() {
@@ -30,16 +31,42 @@ class Forgot extends Component {
             email: ''
         };
     }
+
+    onButtonPress = () => {
+        if (!this.props.forgot.isFetching) {
+            this.props.forgotPassword(this.state.email);
+            if (this.props.forgot.message == RESET_PASSWORD) {
+                Actions.email_sent({ email: this.state.email });
+            }
+        }
+    };
+
     render() {
         return (
             <View style={styles.container}>
                 <StatusBar hidden={true} />
-                <BackHeader text="Register" link={() => Actions.register()} />
+                <BackHeader text="Register" link={() => Actions.register()} icon toIcon="user" />
                 <View style={styles.main}>
-                    <ImageHeader text="Forgot Your Password" />
-                    <KeyboardAwareScrollView style={styles.inputForm}>
+                    <View style={styles.registerWrapper}>
+                        <Text style={styles.registerText}>Reset Password</Text>
+                    </View>
+                    <KeyboardAwareScrollView
+                        style={styles.inputForm}
+                        contentContainerStyle={styles.inputFormContainer}
+                    >
                         <View style={styles.input}>
-                            <Icon name={getIcon('mail')} size={18} color="#666" />
+                            <Text style={styles.label}>EMAIL</Text>
+                            <TextInput
+                                placeholder="johndoe@gmail.com"
+                                style={styles.field}
+                                onChangeText={text => {
+                                    this.setState({ email: text });
+                                }}
+                                placeholderTextColor="rgba(255,255,255,0.5)"
+                                underlineColorAndroid="transparent"
+                            />
+                        </View>
+                        {/* <Icon name={getIcon('mail')} size={18} color="#666" />
                             <TextInput
                                 placeholder="Enter your email"
                                 style={styles.field}
@@ -50,22 +77,25 @@ class Forgot extends Component {
                                     })
                                 }
                                 underlineColorAndroid="transparent"
-                            />
+                            /> */}
+                        <View style={styles.buttonWrapper}>
+                            <TouchableHighlight
+                                onPress={() =>
+                                    this.props.forgot.isFetching
+                                        ? {}
+                                        : this.props.forgotPassword(this.state.email)
+                                }
+                                style={styles.button}
+                                underlayColor="#538124"
+                                activeOpacity={0.5}
+                            >
+                                <Text style={styles.passwordResetText}>
+                                    {this.props.forgot.isFetching
+                                        ? 'Resetting....'
+                                        : 'Reset Password'}
+                                </Text>
+                            </TouchableHighlight>
                         </View>
-                        <TouchableHighlight
-                            onPress={() =>
-                                this.props.forgot.isFetching
-                                    ? {}
-                                    : this.props.forgotPassword(this.state.email)
-                            }
-                            style={styles.button}
-                            underlayColor="#538124"
-                            activeOpacity={0.5}
-                        >
-                            <Text style={styles.text}>
-                                {this.props.forgot.isFetching ? 'Resetting....' : 'Reset Password'}
-                            </Text>
-                        </TouchableHighlight>
                         {this.props.forgot.isFetching ? null : this.props.forgot.message ? (
                             <View style={styles.topMargin}>
                                 <Text style={styles.error}>{this.props.forgot.message}</Text>
@@ -97,6 +127,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'stretch'
     },
+    registerWrapper: {
+        width: '80%',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        marginTop: 20,
+        marginBottom: 50
+    },
+    label: {
+        color: 'white'
+    },
+    registerText: {
+        fontFamily: 'Poppins-SemiBold',
+        fontSize: 20,
+        color: newColors.black
+    },
     field: {
         height: 40,
         color: '#555',
@@ -106,21 +151,44 @@ const styles = StyleSheet.create({
     },
     inputForm: {
         flex: 1,
+
         width: Dimensions.get('window').width * 0.9
     },
     input: {
-        borderBottomWidth: 1,
-        borderColor: '#555',
-        flexDirection: 'row',
-        alignItems: 'center'
+        backgroundColor: newColors.lightPrimary,
+        borderRadius: 5,
+        alignItems: 'flex-start',
+        color: 'white',
+        marginTop: 30,
+        paddingLeft: 10,
+        paddingTop: 15,
+        paddingBottom: 5
+    },
+    field: {
+        height: 40,
+        color: 'white',
+        fontSize: 15,
+        flex: 1,
+        marginLeft: -3
     },
     button: {
-        backgroundColor: '#538124',
-        height: 30,
+        backgroundColor: newColors.secondary,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 21,
-        borderRadius: 2
+        marginTop: 20,
+        borderRadius: 3,
+        paddingTop: 10,
+        paddingBottom: 10,
+        width: '50%'
+    },
+    buttonWrapper: {
+        alignItems: 'center'
+    },
+    passwordResetText: {
+        color: '#fff',
+        fontSize: 20,
+        // letterSpacing: 1,
+        fontFamily: 'Poppins-Regular'
     },
     text: {
         color: '#fff',
