@@ -10,12 +10,15 @@ import {
     StyleSheet,
     TouchableNativeFeedback,
     TouchableHighlight,
+    TouchableOpacity,
+    Dimensions,
     FlatList,
     ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { color } from '../config/helper';
+import { color, newColors } from '../config/helper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
     searchFriendsByEmail,
     searchFriendsByUserName,
@@ -72,15 +75,27 @@ class InviteTab extends Component {
     render() {
         return (
             <View style={styles.view}>
-                <TextInput
-                    onChangeText={text => this.setState({ search: text })}
-                    placeholder="Search friends by Email or Username"
-                />
-                <TouchableHighlight onPress={this.searchFriends}>
-                    <View style={styles.searchBtn}>
-                        <Text style={styles.whiteText}>Search</Text>
+                <View style={styles.searchWrapper}>
+                    <View style={styles.searchContainer}>
+                        <View style={styles.searchBox}>
+                            <Icon name="search" size={16} style={styles.searchIcon} />
+                            <TextInput
+                                value={this.state.search}
+                                onChangeText={text => this.setState({ search: text })}
+                                placeholder="Search friends by Email or Username"
+                            />
+                            <Icon
+                                name="times-circle"
+                                size={16}
+                                style={styles.clearIcon}
+                                onPress={() => this.setState({ search: '' })}
+                            />
+                        </View>
+                        <TouchableOpacity style={styles.searchText} onPress={this.searchFriends}>
+                            <Text>Search</Text>
+                        </TouchableOpacity>
                     </View>
-                </TouchableHighlight>
+                </View>
 
                 {this.state.user ? (
                     <ScrollView style={styles.container}>
@@ -118,7 +133,7 @@ class InviteTab extends Component {
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: color.greyBack
+        // backgroundColor: color.greyBack
     },
     view: {
         flex: 1
@@ -135,6 +150,40 @@ const styles = StyleSheet.create({
     whiteText: {
         fontSize: 15,
         color: 'white'
+    },
+    searchWrapper: {
+        backgroundColor: newColors.secondary,
+        alignItems: 'center',
+        paddingBottom: 10,
+        height: 50
+    },
+    searchBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        // backgroundColor: 'yellow',
+        borderRadius: 30,
+        borderColor: 'rgba(255,255,255,0.3)',
+        borderWidth: 1
+    },
+    searchIcon: {
+        marginLeft: 5
+    },
+    clearIcon: {
+        marginRight: 5
+    },
+    searchContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        // backgroundColor: 'red',
+        // alignSelf: 'flex-start',
+        borderRadius: 30,
+        backgroundColor: 'rgba(0,0,0,0.12)',
+        width: Dimensions.get('window').width * 0.9
+        // justifyContent: 'center'
+    },
+    searchText: {
+        // backgroundColor: 'green',
+        paddingHorizontal: 10
     }
 });
 

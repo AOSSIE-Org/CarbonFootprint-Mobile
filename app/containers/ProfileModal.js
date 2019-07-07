@@ -118,7 +118,7 @@ class ProfileModal extends Component {
                         name="close"
                         size={24}
                         color="white"
-                        onPress={this.props.modalToggle}
+                        onPress={() => this.props.modalToggle('modalVisible')}
                         style={styles.close}
                     />
                     <View style={styles.inputForm}>

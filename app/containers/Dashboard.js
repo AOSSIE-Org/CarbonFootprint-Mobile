@@ -12,15 +12,14 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Actions } from 'react-native-router-flux';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 import StatusBarBackground from '../components/StatusBarBackground';
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
-import Icon from 'react-native-vector-icons/Ionicons';
-import RunningIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import ShareIcon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import * as ProfileAction from '../actions/ProfileAction';
-import { getIcon, color } from '../config/helper';
+import { getIcon, color, newColors } from '../config/helper';
 
 /**
  * Stats Section Container
@@ -72,9 +71,64 @@ class Stats extends Component {
                 }
             ]
         ];
+
+        let scrollTabs = [
+            {
+                name: 'WALK',
+                value: user && user.data && user.data.walking ? user.data.walking : {}
+            },
+            {
+                name: 'RUN',
+                value: user && user.data && user.data.running ? user.data.running : {}
+            },
+            {
+                name: 'BIKE',
+                value: user && user.data && user.data.cycling ? user.data.cycling : {}
+            },
+            {
+                name: 'CAR',
+                value: user && user.data && user.data.car ? user.data.car : {}
+            }
+        ];
+
+        let totalStats = [
+            [
+                {
+                    text: 'CO2 SAVED',
+                    number:
+                        user && user.data && user.data.total && user.data.total.co2Saved
+                            ? user.data.total.co2Saved.toFixed(2)
+                            : 0,
+                    unit: 'kg',
+                    style: {
+                        backgroundColor: 'rgba(0,0,0,0.09)'
+                    }
+                },
+                {
+                    text: 'CO2 EMITTED',
+                    number: user && user.data ? user.data.total.footprint.toFixed(2) : 0,
+                    unit: 'kg'
+                }
+            ],
+            [
+                {
+                    iconName: 'directions-run',
+                    number: user && user.data ? user.data.total.distance.toFixed(2) : 0.0,
+                    unit: 'km',
+                    style: {
+                        marginBottom: 10
+                    }
+                },
+                {
+                    iconName: 'access-time',
+                    number: user && user.data ? user.data.total.time : 0.0,
+                    unit: 'sec'
+                }
+            ]
+        ];
         return (
             <View style={styles.container}>
-                <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
+                <StatusBar backgroundColor={newColors.secondary} />
                 <StatusBarBackground />
                 {auth.isFetching ? (
                     <View style={styles.activity}>
@@ -83,11 +137,12 @@ class Stats extends Component {
                 ) : (
                     <ScrollView contentContainerStyle={styles.main}>
                         <View style={styles.header}>
-                            <View style={styles.shareStyle}>
-                                <ShareIcon
-                                    name="share-2"
-                                    size={25}
-                                    color="white"
+                            <View style={styles.topHeader}>
+                                <Text style={styles.headingText}>Stats</Text>
+                                <Icon
+                                    name="share"
+                                    size={24}
+                                    style={styles.shareIcon}
                                     onPress={() =>
                                         this.ShareMessage(
                                             `I saved ${
@@ -102,96 +157,107 @@ class Stats extends Component {
                                     }
                                 />
                             </View>
-                            <Icon
-                                name={getIcon('analytics')}
-                                size={56}
-                                color={color.white}
-                                style={styles.iconHeader}
-                            />
-                            <Text style={[styles.largeInfo, styles.whiteText]}>
-                                Co2 saved:{' '}
-                                {user && user.data && user.data.total && user.data.total.co2Saved
-                                    ? user.data.total.co2Saved.toFixed(2)
-                                    : 0.0}{' '}
-                                kg
-                            </Text>
-                            <Text style={[styles.largeInfo, styles.whiteText]}>
-                                Co2 Emitted:{' '}
-                                {user && user.data
-                                    ? user.data.total.footprint.toFixed(2) + ' kg'
-                                    : '0 kg'}
-                            </Text>
-                            <Text style={[styles.smallText, styles.whiteText]}>
-                                Distance:{' '}
-                                {user && user.data
-                                    ? user.data.total.distance.toFixed(2) + ' km'
-                                    : '0 km'}
-                            </Text>
-                            <Text style={[styles.smallText, styles.whiteText]}>
-                                Time: {user && user.data ? user.data.total.time + ' s' : '0 s'}
-                            </Text>
+                            <View style={styles.totalStatsWrapper}>
+                                <View style={styles.bigStatsWrapper}>
+                                    {totalStats[0].map(obj => {
+                                        return (
+                                            <View
+                                                style={[
+                                                    styles.bigStatsItemWrapper,
+                                                    obj.style || {}
+                                                ]}
+                                            >
+                                                <Text style={styles.number}>
+                                                    {obj.number}
+                                                    <Text style={styles.numberUnit}>
+                                                        {' ' + obj.unit}
+                                                    </Text>
+                                                </Text>
+                                                <Text style={styles.text}>{obj.text}</Text>
+                                            </View>
+                                        );
+                                    })}
+                                </View>
+                                <View style={styles.smallStatsWrapper}>
+                                    {totalStats[1].map(obj => {
+                                        return (
+                                            <View
+                                                style={[
+                                                    styles.smallStatsItemWrapper,
+                                                    obj.style || {}
+                                                ]}
+                                            >
+                                                <Icon
+                                                    name={obj.iconName}
+                                                    size={20}
+                                                    style={styles.iconSmall}
+                                                />
+                                                <Text style={styles.smallText}>
+                                                    {obj.number + ' ' + obj.unit}
+                                                </Text>
+                                            </View>
+                                        );
+                                    })}
+                                </View>
+                            </View>
                         </View>
-                        <ScrollView contentContainerStyle={styles.content}>
-                            {rows.map((row, index) => {
-                                let rowStyle = [styles.row];
-                                if (rows.length - 1 === index) {
-                                    rowStyle.push(styles.rowBottom);
-                                }
+                        <ScrollableTabView
+                            tabBarBackgroundColor={newColors.secondary}
+                            tabBarActiveTextColor="white"
+                            tabBarInactiveTextColor="white"
+                            style={styles.scrollTabView}
+                            tabBarTextStyle={styles.tabText}
+                            tabBarUnderlineStyle={styles.tabLine}
+                        >
+                            {scrollTabs.map(obj => {
+                                let distance = obj.value.distance
+                                    ? obj.value.distance.toFixed(2)
+                                    : 0.0;
+                                let footprint = obj.value.footprint
+                                    ? obj.value.footprint.toFixed(2)
+                                    : 0.0;
+                                let time = obj.value.time ? obj.value.time : 0.0;
                                 return (
-                                    <View style={rowStyle} key={index}>
-                                        {row.map((column, i) => {
-                                            let columnStyle = [styles.column];
-                                            if (i === 1) {
-                                                columnStyle.push(styles.columnBorder);
-                                            }
-                                            return (
-                                                <View style={columnStyle} key={i}>
-                                                    {column.icon === 'run' ? (
-                                                        <RunningIcon
-                                                            name={column.icon}
-                                                            size={32}
-                                                            color={color.darkPrimary}
-                                                        />
-                                                    ) : (
-                                                        <Icon
-                                                            name={getIcon(column.icon)}
-                                                            size={32}
-                                                            color={color.darkPrimary}
-                                                        />
-                                                    )}
-                                                    <View style={styles.columnInfo}>
-                                                        <Text
-                                                            style={
-                                                                column.icon == 'car'
-                                                                    ? styles.emittedCo2
-                                                                    : styles.largeInfo
-                                                            }
-                                                        >
-                                                            {column.value.footprint
-                                                                ? column.value.footprint.toFixed(
-                                                                      2
-                                                                  ) + ' kg'
-                                                                : '0 kg'}
-                                                        </Text>
-                                                        <Text style={styles.smallText}>
-                                                            {column.value.distance
-                                                                ? column.value.distance.toFixed(2) +
-                                                                  ' km'
-                                                                : '0 km'}
-                                                        </Text>
-                                                        <Text style={styles.smallText}>
-                                                            {column.value.time
-                                                                ? column.value.time + ' s'
-                                                                : '0 s'}
-                                                        </Text>
-                                                    </View>
-                                                </View>
-                                            );
-                                        })}
+                                    <View style={styles.contentItemWrapper} tabLabel={obj.name}>
+                                        <View style={styles.footprintWrapper}>
+                                            {/* <View style={styles.plusWrapper}><Text style={styles.plus}>+</Text></View> */}
+                                            <Icon
+                                                name="add-circle"
+                                                size={28}
+                                                color="rgba(255,255,255,0.5)"
+                                                style={styles.plusIcon}
+                                            />
+                                            <Text style={styles.footprintNumber}>{footprint}</Text>
+                                            <Text style={styles.kgText}>KILOGRAM</Text>
+                                        </View>
+                                        <View style={styles.attributesWrapper}>
+                                            <View style={styles.innerAttr}>
+                                                <Icon
+                                                    name="send"
+                                                    size={24}
+                                                    style={styles.smallIcon}
+                                                />
+                                                <Text style={styles.belowIcon}>
+                                                    {distance + ' km'}
+                                                </Text>
+                                                <Text style={styles.bbelowIcon}>DISTANCE</Text>
+                                            </View>
+                                            <View style={styles.innerAttr}>
+                                                <Icon
+                                                    name="av-timer"
+                                                    size={24}
+                                                    style={styles.smallIcon}
+                                                />
+                                                <Text style={styles.belowIcon}>
+                                                    {time + ' sec'}
+                                                </Text>
+                                                <Text style={styles.bbelowIcon}>TIME</Text>
+                                            </View>
+                                        </View>
                                     </View>
                                 );
                             })}
-                        </ScrollView>
+                        </ScrollableTabView>
                     </ScrollView>
                 )}
             </View>
@@ -203,18 +269,145 @@ class Stats extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: StatusBar.currentHeight,
-        backgroundColor: color.greyBack
+        backgroundColor: newColors.secondary
     },
     main: {
         flex: 1
     },
     header: {
-        flex: 0.4,
+        // flex: 0.4,
+        alignItems: 'center'
+        // justifyContent: 'center',
+    },
+    contentItemWrapper: {
+        // backgroundColor: 'yellow',
+        flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: color.primary,
-        paddingTop: 20
+        justifyContent: 'center'
+        // borderWidth: 0,
+        // borderTopWidth: 1,
+        // borderColor: 'white'
+    },
+    footprintWrapper: {
+        marginTop: -40,
+        marginBottom: 40,
+        alignItems: 'center',
+        position: 'relative'
+    },
+    plusIcon: {
+        position: 'absolute',
+        left: -40,
+        top: 60
+    },
+    // plus:{
+    //     color: 'white'
+    // },
+    innerAttr: {
+        alignItems: 'center'
+    },
+    tabLine: {
+        backgroundColor: 'white'
+    },
+    topHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 10,
+        position: 'relative',
+        width: Dimensions.get('window').width * 0.9
+    },
+    smallIcon: {
+        color: 'rgba(255,255,255,0.5)'
+    },
+    belowIcon: {
+        color: 'white',
+        fontSize: 32,
+        fontFamily: 'Poppins-SemiBold'
+    },
+    bbelowIcon: {
+        color: 'rgba(255,255,255,1)',
+        fontSize: 14,
+        marginTop: -5,
+        fontFamily: 'Poppins-SemiBold'
+    },
+    scrollTabView: {
+        marginTop: 20,
+        borderColor: 'rgba(255,255,255,0.3)',
+        borderWidth: 0,
+        borderTopWidth: 1
+    },
+    smallStatsItemWrapper: {
+        flexDirection: 'row',
+        backgroundColor: 'rgba(0,0,0,0.09)',
+        borderTopLeftRadius: 30,
+        borderBottomLeftRadius: 30,
+        paddingVertical: 7,
+        paddingLeft: 20
+    },
+    bigStatsWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        // backgroundColor: 'yellow',
+        flex: 0.8,
+        marginLeft: Dimensions.get('window').width * 0.1
+    },
+    footprintNumber: {
+        fontFamily: 'Poppins-SemiBold',
+        fontSize: 100,
+        color: 'white'
+        // fontStyle: 'italic'
+    },
+    kgText: {
+        fontFamily: 'Poppins-Black',
+        fontSize: 16,
+        marginTop: -50,
+        color: 'white'
+        // fontStyle: 'italic'
+    },
+    bigStatsItemWrapper: {
+        alignItems: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5
+        // color: 'white'
+        // backgroundColor
+    },
+    number: {
+        fontFamily: 'Poppins-Light',
+        fontSize: 30
+    },
+    numberUnit: {
+        fontSize: 14
+    },
+    text: {
+        fontFamily: 'Poppins-SemiBold',
+        fontSize: 12
+    },
+    smallText: {
+        paddingHorizontal: 20,
+        fontFamily: 'Poppins-Bold',
+        fontSize: 14
+    },
+    smallStatsWrapper: {
+        // alignItems: 'center'
+    },
+
+    totalStatsWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: Dimensions.get('window').width,
+        marginTop: 10
+    },
+    headingText: {
+        fontFamily: 'Poppins-ExtraBold',
+        fontSize: 20
+    },
+    attributesWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: Dimensions.get('window').width * 0.8
     },
     iconHeader: {
         marginBottom: 5
@@ -228,13 +421,6 @@ const styles = StyleSheet.create({
         color: color.black,
         marginTop: 8,
         marginBottom: 4
-    },
-    smallText: {
-        fontSize: 11,
-        letterSpacing: 1,
-        color: color.black,
-        marginTop: 4,
-        textAlign: 'center'
     },
     row: {
         borderColor: '#ddd',

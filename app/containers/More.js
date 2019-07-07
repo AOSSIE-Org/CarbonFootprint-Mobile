@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import StatusBarBackground from '../components/StatusBarBackground';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -25,6 +26,7 @@ import ProfileModal from '../containers/ProfileModal';
 import * as AuthAction from '../actions/AuthAction';
 
 import { color, newColors } from '../config/helper';
+import NotificationsModal from './NotificationsModal';
 
 /**
  * More Screen container
@@ -33,7 +35,8 @@ import { color, newColors } from '../config/helper';
 class More extends Component {
     state = {
         picture: this.props.user.picture ? this.props.user.picture : images.logo,
-        modalVisible: false
+        modalVisible: false,
+        notificationsModalVisible: false
     };
 
     /**
@@ -85,9 +88,9 @@ class More extends Component {
         );
     };
 
-    modalToggle = () => {
+    modalToggle = key => {
         this.setState(prevState => ({
-            modalVisible: !prevState.modalVisible
+            [key]: !prevState[key]
         }));
     };
 
@@ -134,9 +137,25 @@ class More extends Component {
         ];
         return (
             <View style={styles.container}>
+                <NotificationsModal
+                    visible={this.state.notificationsModalVisible}
+                    modalToggle={this.modalToggle}
+                />
                 <StatusBar backgroundColor={newColors.secondary} barStyle="dark-content" />
                 <StatusBarBackground />
-                <ProfileHeader text="Profile" />
+                <View style={styles.header}>
+                    <ProfileHeader text="Profile" />
+                    <Icon
+                        name="bell"
+                        size={20}
+                        style={{
+                            paddingRight: 20
+                        }}
+                        onPress={() => {
+                            this.setState({ notificationsModalVisible: true });
+                        }}
+                    />
+                </View>
 
                 <View style={styles.mainWrapper}>
                     <ProfileModal
@@ -259,6 +278,13 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 30,
         width: Dimensions.get('window').width,
         flex: 1
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        // borderColor: 'red',
+        // borderWidth: 1,
+        justifyContent: 'space-between'
     },
     profileWrapper: {
         // backgroundColor: 'red'

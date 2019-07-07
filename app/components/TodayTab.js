@@ -11,10 +11,13 @@ import {
     ScrollView,
     Dimensions,
     Platform,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    ImageBackground
 } from 'react-native';
 
-import Swiper from 'react-native-swiper';
+// import Swiper from 'react-native-swiper';
+import Carousel from 'react-native-snap-carousel';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -22,8 +25,9 @@ import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
 import images from '../config/images';
-import { getIcon, color } from '../config/helper';
+import { getIcon, color, newColors } from '../config/helper';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
+import ActivityTabBar from './ActivityTabBar';
 
 /**
  * Today Tab Component activity from day
@@ -49,23 +53,117 @@ export default class TodayTab extends Component {
         };
     }
 
-    render() {
+    _renderItem({ item, index }) {
         return (
-            <ScrollView contentContainerStyle={styles.scrollView}>
+            <View style={styles.card}>
+                <Image source={require('../../assets/images/carousel_1.png')} />
+                <View style={styles.cardTextWrapper}>
+                    <Text style={styles.cardText}>SAVED</Text>
+                    <Text style={styles.cardText2}>{item.text}</Text>
+                </View>
+            </View>
+        );
+    }
+
+    render() {
+        let swiper1 = [
+            {
+                style: {
+                    backgroundColor: '#f322f2'
+                },
+                text: this.state.co2Saved
+            },
+            {
+                style: {
+                    backgroundColor: '#434343'
+                },
+                text: 'mid'
+            },
+            {
+                style: {
+                    backgroundColor: '#542232'
+                },
+                text: 'end'
+            }
+        ];
+
+        var tabsAlt = [
+            {
+                icon: 'directions-walk',
+                text: 'WALK',
+                co2saved: this.state.co2WalkSaved,
+                co2emitted: 0,
+                distance: this.state.distWalk
+            },
+            {
+                icon: 'directions-run',
+                text: 'RUN',
+                co2saved: this.state.co2RunSaved,
+                co2emitted: 0,
+                distance: this.state.distRun
+            },
+            {
+                icon: 'motorcycle',
+                text: 'CYCLE',
+                co2saved: this.state.co2CycleSaved,
+                co2emitted: 0,
+                distance: this.state.distCycle
+            },
+            {
+                icon: 'directions-car',
+                text: 'CAR',
+                co2saved: 0,
+                co2emitted: this.state.co2VehicleEmitted,
+                distance: this.state.distVehicle
+            }
+        ];
+        return (
+            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <View style={styles.headingContainer}>
-                    <Text>
-                        CO<Text>2</Text>
-                    </Text>
+                    <View style={styles.co2wrapper}>
+                        <Text style={styles.co}>CO</Text>
+                        <Text style={styles.two}>2</Text>
+                    </View>
                     <View>
                         <Text>TOTAL DISTANCE</Text>
-                        <Text>2.3 km</Text>
+                        <Text style={styles.totalDistance}>2.3 km</Text>
                     </View>
                 </View>
-                <View>
-                    {/* <Swiper
-                >
-                    
-                </Swiper> */}
+                <View style={styles.cardsWrapper}>
+                    <Carousel
+                        ref={c => {
+                            this._carousel = c;
+                        }}
+                        data={swiper1}
+                        renderItem={this._renderItem}
+                        sliderWidth={Dimensions.get('window').width}
+                        itemWidth={Dimensions.get('window').width * 0.7}
+                    />
+                </View>
+                <View style={styles.tabViewContainer}>
+                    <ScrollableTabView
+                        renderTabBar={() => <ActivityTabBar tabsAlt={tabsAlt} />}
+                        style={styles.miniScrollView}
+                    >
+                        {tabsAlt.map(obj => {
+                            return (
+                                <View style={styles.tabContent}>
+                                    <View style={styles.onethirdbox}>
+                                        <Text style={styles.lightbig}>{obj.distance}</Text>
+                                        <Text style={styles.darksmall}>DISTANCE</Text>
+                                    </View>
+                                    <View style={styles.onethirdbox}>
+                                        <Text style={styles.lightbig}>{obj.co2saved}</Text>
+                                        <Text style={styles.darksmall}>SAVED</Text>
+                                    </View>
+                                    <View style={styles.onethirdbox}>
+                                        <Text style={styles.lightbig}>{obj.co2emitted}</Text>
+                                        <Text style={styles.darksmall}>EMITTED</Text>
+                                    </View>
+                                </View>
+                            );
+                        })}
+                    </ScrollableTabView>
                 </View>
                 {/* <View style={styles.container}>
                     <View style={styles.upperActivityView}>
@@ -198,25 +296,26 @@ export default class TodayTab extends Component {
 
 /*StyleSheet*/
 const styles = StyleSheet.create({
-    container: {
+    scrollViewContainer: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
         borderTopLeftRadius: 30,
-        borderTopRightRadius: 30
-        // backgroundColor: '#FFFFFF'
+        borderTopRightRadius: 30,
+        backgroundColor: 'white'
+    },
+    headingContainer: {
+        paddingTop: 20,
+        width: Dimensions.get('window').width * 0.8,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     upperActivityView: {
         flex: 3,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    scrollView: {
-        height: Dimensions.get('window').height * 0.9,
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        backgroundColor: '#FFFFFF'
-    },
+
     lowerActivityView: {
         flex: 2,
         flexDirection: 'row',
@@ -240,54 +339,86 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         paddingBottom: 5
     },
-    smallGreenText: {
-        fontSize: 12,
-        color: 'green',
-        paddingLeft: 5,
-        paddingBottom: 5
-    },
-    subText: {
-        fontSize: 9,
-        paddingBottom: 4
-    },
-    hrView: {
+    co2wrapper: {
         flexDirection: 'row',
-        alignItems: 'flex-end'
+        alignContent: 'flex-start'
     },
-    largeActivity_icon: {
-        height: 250,
-        borderRadius: 125,
-        width: 250,
-        backgroundColor: '#f5f5f5',
-        borderWidth: 2,
-        borderColor: '#000000',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 10
+    co: {
+        fontSize: 36,
+        fontFamily: 'Poppins',
+        color: newColors.black
+        // backgroundColor: 'red'
     },
-    activity_icon: {
-        height: 50,
-        borderRadius: 25,
-        width: 50,
-        backgroundColor: color.primary,
-        borderWidth: 1,
-        borderColor: '#000000',
+    two: {
+        fontFamily: 'Poppin',
+        color: newColors.black,
+        fontSize: 18
+    },
+    totalDistance: {
+        textAlign: 'right',
+        color: newColors.black,
+        fontFamily: 'Muli-Bold',
+        fontSize: 16
+    },
+    cardsWrapper: {
+        // backgroundColor: 'green',
+        marginTop: 20,
+        height: 200,
+        width: Dimensions.get('window').width,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    greenDot: {
-        height: 10,
-        borderRadius: 5,
-        width: 10,
-        backgroundColor: 'green',
-        marginLeft: 30,
-        marginBottom: 8
+    swiper1: {
+        width: Dimensions.get('window').width * 0.7,
+        // height: 200,
+        backgroundColor: 'yellow',
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        overflow: 'visible'
     },
-    blackDot: {
-        height: 10,
-        borderRadius: 5,
-        width: 10,
-        backgroundColor: '#616161',
-        marginBottom: 8
+    card: {
+        // backgroundColor: 'red',
+        height: 400
+    },
+    tabViewContainer: {
+        backgroundColor: 'white',
+        flex: 1,
+        width: Dimensions.get('window').width
+    },
+    tabContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        width: Dimensions.get('window').width * 0.8,
+        marginHorizontal: Dimensions.get('window').width * 0.1,
+        marginTop: 20
+    },
+    onethirdbox: {
+        alignItems: 'center'
+    },
+    lightbig: {
+        fontFamily: 'Poppins-Light',
+        fontSize: 42
+    },
+    darksmall: {
+        fontFamily: 'Poppins-Light',
+        fontSize: 16,
+        marginTop: -5
+    },
+    cardTextWrapper: {
+        position: 'absolute',
+        top: 20,
+        left: 20
+    },
+    cardText: {
+        color: 'white',
+        fontFamily: 'Muli',
+        fontSize: 20
+    },
+    cardText2: {
+        marginTop: 10,
+        color: 'white',
+        fontFamily: 'Poppins-Light',
+        fontSize: 84
     }
 });

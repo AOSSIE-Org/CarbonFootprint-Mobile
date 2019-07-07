@@ -40,7 +40,7 @@ const ProfileHeader = props => {
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
-        width: Dimensions.get('window').width,
+        // width: Dimensions.get('window').width,
         backgroundColor: newColors.secondary,
         height: 50,
         alignItems: 'center',
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: newColors.black,
         textAlign: 'center',
-        marginRight: 10,
+        paddingRight: 10,
         fontFamily: 'Poppins-ExtraBold'
     }
 });

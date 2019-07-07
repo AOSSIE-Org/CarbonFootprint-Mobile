@@ -17,6 +17,7 @@ import { Actions } from 'react-native-router-flux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { color, newColors } from '../config/helper';
 import Footer from '../components/Footer';
+import CustomTabBar from '../components/FriendsTabBar';
 
 const Activity = props => {
     // Main function to set whole view of container, Contains various components as children
@@ -26,6 +27,7 @@ const Activity = props => {
             <StatusBar backgroundColor={newColors.secondary} barStyle="dark-content" />
             <StatusBarBackground />
             <ScrollableTabView
+                renderTabBar={() => <CustomTabBar />}
                 tabBarBackgroundColor={newColors.secondary}
                 tabBarActiveTextColor={color.greyBack}
                 tabBarInactiveTextColor={color.grey}
