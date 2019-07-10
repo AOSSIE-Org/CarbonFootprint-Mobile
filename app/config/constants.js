@@ -17,3 +17,5 @@ export const aossieDescription =
     'We are an Australian not-for-profit umbrella organization for open-source projects. We believe the open-source philosophy provides  a resource-efficient channel to transfer knowledge and achieve innovation and education.';
 export const appDescription =
     "Carbon Footprint is an open-source project developed by AOSSIE (the Australian Open Source Software Innovation and Education association). This mobile application calculates amount of emitted co2 based on user's activity and traveled distance.";
+
+export const urlRegex = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi; //Regex expression to validate URLs

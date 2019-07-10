@@ -46,6 +46,8 @@ target 'CarbonFootprint' do
     pod 'FacebookSDK', '~> 4.38.0'
 
     pod 'GoogleSignIn', '~> 4.4.0'
+    pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
+
   end
   
   post_install do |installer|

@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 import { setUser, getUser, updateUser } from './User';
+import { urlToBase64 } from '../../config/helper';
 
 /**
  * firebase function to register user
@@ -92,33 +93,28 @@ export function loginCustomFirebase(type, token, secret) {
             .then(user => {
                 user = user.user;
                 getUser(user.uid)
-                    .then(() => {
-                        let temp = {
-                            name: user.displayName,
-                            email: user.email || null,
-                            picture: user.photoURL || null,
-                            provider: provider
-                        };
-
-                        updateUser(user.uid, temp)
-                            .then(() => resolve())
-                            .catch(error => reject(error));
-                        resolve(user);
+                    .then(user => {
+                        console.log(user);
+                        urlToBase64(user).then(user => {
+                            resolve(user);
+                        });
                     })
                     .catch(error => {
-                        let temp = {
+                        let userData = {
                             name: user.displayName,
                             email: user.email || null,
                             picture: user.photoURL || null,
                             provider: provider
                         };
-                        setUser(user.uid, temp)
-                            .then(() => {
-                                getUser(user.uid)
-                                    .then(user => resolve(user))
-                                    .catch(error => reject(error));
-                            })
-                            .catch(error => reject(error));
+                        urlToBase64(userData).then(userData => {
+                            setUser(user.uid, userData)
+                                .then(() => {
+                                    getUser(user.uid)
+                                        .then(user => resolve(user))
+                                        .catch(error => reject(error));
+                                })
+                                .catch(error => reject(error));
+                        });
                     });
             })
             .catch(error => {
