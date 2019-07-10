@@ -8,7 +8,7 @@ const images = {
     twitter: require('../images/twitter.png'),
     webiste: require('../images/website.png'),
     login_logo: require('../../assets/images/login_logo.png'),
-    mail: require('../../assets/images/email.png'),
+    mail: require('../../assets/images/mail.png'),
     splash_screen_logo: require('../../assets/images/splash_screen_logo.png'),
     carousel_1: require('../../assets/images/carousel_1.png')
 };
