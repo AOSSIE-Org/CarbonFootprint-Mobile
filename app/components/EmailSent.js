@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Linking, Dimensions } from 'react-native';
 import { newColors } from '../config/helper';
 import { Actions } from 'react-native-router-flux';
+import images from '../config/images';
 
 function PressHandler(email) {}
 
@@ -9,7 +10,7 @@ export default function EmailSent(props) {
     return (
         <View style={styles.wrapper}>
             <View style={styles.firstView}>
-                <Image source={require('../../assets/images/mail.png')} style={styles.image} />
+                <Image source={images.mail} style={styles.image} />
                 <View>
                     <Text style={styles.title}>Check your Email</Text>
                     <Text style={styles.desc}>

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { newColors } from '../config/helper';
+import images from '../config/images';
 
 /**
  * header With Image Component
@@ -10,7 +11,7 @@ import { newColors } from '../config/helper';
 const ImageHeader = props => {
     return (
         <View style={styles.container}>
-            <Image source={require('../../assets/images/login_logo.png')} style={styles.image} />
+            <Image source={images.login_logo} style={styles.image} />
             <Text style={styles.text} autoCapitalize="characters">
                 {props.text}
             </Text>

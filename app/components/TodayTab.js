@@ -56,7 +56,7 @@ export default class TodayTab extends Component {
     _renderItem({ item, index }) {
         return (
             <View style={styles.card}>
-                <Image source={require('../../assets/images/carousel_1.png')} />
+                <Image source={images.carousel_1} />
                 <View style={styles.cardTextWrapper}>
                     <Text style={styles.cardText}>SAVED</Text>
                     <Text style={styles.cardText2}>{item.text}</Text>

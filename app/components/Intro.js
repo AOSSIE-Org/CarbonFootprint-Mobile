@@ -15,6 +15,7 @@ import { newColors } from '../config/helper';
 import SplashScreenTab from './SplashScreenTab';
 import StatusBarBackground from './StatusBarBackground';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import images from '../config/images';
 
 export default class Intro extends Component {
     constructor(props) {
@@ -68,10 +69,7 @@ export default class Intro extends Component {
                 <StatusBar barStyle="light-content" />
                 <StatusBarBackground style={{ backgroundColor: newColors.primary }} />
                 <View style={styles.iconWrapper}>
-                    <Image
-                        source={require('../../assets/images/splash_screen_logo.png')}
-                        style={styles.icon}
-                    />
+                    <Image source={images.splash_screen_logo} style={styles.icon} />
                 </View>
                 <Swiper
                     onIndexChanged={index => {
@@ -102,18 +100,7 @@ export default class Intro extends Component {
 }
 
 function activeDot() {
-    return (
-        <View
-            style={{
-                backgroundColor: 'white',
-                width: 40,
-                height: 7,
-                borderRadius: 5,
-                marginRight: 4,
-                marginLeft: 4
-            }}
-        />
-    );
+    return <View style={styles.activeDotStyle} />;
 }
 
 const styles = StyleSheet.create({
@@ -121,6 +108,14 @@ const styles = StyleSheet.create({
         flex: 1,
 
         backgroundColor: newColors.primary
+    },
+    activeDotStyle: {
+        backgroundColor: 'white',
+        width: 40,
+        height: 7,
+        borderRadius: 5,
+        marginRight: 4,
+        marginLeft: 4
     },
     iconWrapper: {
         width: '100%',

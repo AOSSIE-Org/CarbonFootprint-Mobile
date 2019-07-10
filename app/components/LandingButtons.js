@@ -41,8 +41,8 @@ const LandingButtons = props => {
                                 onPress={obj.onPress}
                             >
                                 <Text style={styles.buttonText}>
-                                    {obj.name.substr(0, 1).toUpperCase()}
-                                    {obj.name.substr(1)}
+                                    {obj.name && obj.name.substr(0, 1).toUpperCase()}
+                                    {obj.name && obj.name.substr(1)}
                                 </Text>
                             </Icon.Button>
                         </View>

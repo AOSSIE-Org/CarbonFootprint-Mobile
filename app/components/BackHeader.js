@@ -4,6 +4,7 @@ import { View, StyleSheet, Text, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { newColors } from '../config/helper';
+import images from '../config/images';
 
 /**
  * backbutton in header
@@ -21,9 +22,7 @@ const BackHeader = props => {
                 color={newColors.black}
                 onPress={() => Actions.home()}
             />
-            {props.icon ? (
-                <Image source={require('../../assets/images/login_logo.png')} style={styles.logo} />
-            ) : null}
+            {props.icon ? <Image source={images.login_logo} style={styles.logo} /> : null}
             {props.text ? (
                 <Icon.Button
                     name={props.toIcon}
