@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import Picker from 'react-native-picker';
+import StatusBarBackground from '../components/StatusBarBackground';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { bindActionCreators } from 'redux';
@@ -96,6 +97,9 @@ class Settings extends Component {
     };
 
     render() {
+        const style = {
+            backgroundColor: newColors.secondary
+        };
         var list = [
             {
                 option: 'Preferred Automobile',
@@ -116,6 +120,7 @@ class Settings extends Component {
 
         return (
             <View style={styles.container}>
+                <StatusBarBackground style={style} />
                 <ProfileHeader iconName="long-arrow-left" text="Settings" />
                 {this.props.storage.isFetching ? (
                     <View style={styles.center}>

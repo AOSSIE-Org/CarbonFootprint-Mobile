@@ -23,11 +23,14 @@ import FriendsTabBar from '../components/FriendsTabBar';
  */
 
 const Friends = props => {
+    const style = {
+        backgroundColor: newColors.secondary
+    };
     let friends = props.friends.list ? props.friends.list.length : 0;
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={newColors.secondary} barStyle="light-content" />
-            <StatusBarBackground />
+            <StatusBarBackground style={style} />
             <ScrollableTabView
                 renderTabBar={() => <FriendsTabBar />}
                 tabBarBackgroundColor={color.primary}

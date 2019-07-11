@@ -95,6 +95,10 @@ class More extends Component {
     };
 
     render() {
+        const style = {
+            backgroundColor: newColors.secondary
+        };
+
         let settingsList = [
             {
                 icon: 'settings',
@@ -142,7 +146,7 @@ class More extends Component {
                     modalToggle={this.modalToggle}
                 />
                 <StatusBar backgroundColor={newColors.secondary} barStyle="dark-content" />
-                <StatusBarBackground />
+                <StatusBarBackground style={style} />
                 <View style={styles.header}>
                     <ProfileHeader text="Profile" />
                     <Icon
@@ -183,13 +187,15 @@ class More extends Component {
                                             }}
                                         />
                                     )}
-                                    <MIcon
-                                        name="camera"
-                                        size={15}
-                                        onPress={this._cameraImage}
-                                        style={styles.cameraIcon}
-                                        color="white"
-                                    />
+                                    <View style={styles.cameraIconWrapper}>
+                                        <MIcon
+                                            name="camera"
+                                            size={15}
+                                            onPress={this._cameraImage}
+                                            style={styles.cameraIcon}
+                                            color="white"
+                                        />
+                                    </View>
                                 </View>
                                 <View style={styles.nameWrapper}>
                                     <Text style={styles.nameText}>Himanshu Chhabra</Text>
@@ -199,10 +205,10 @@ class More extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <View style={styles.EditWrapper}>
+                            <View style={styles.editWrapper}>
                                 <MIcon
                                     name="edit"
-                                    size={24}
+                                    size={16}
                                     color="white"
                                     onPress={() => this.setState({ modalVisible: true })}
                                     style={styles.editIcon}
@@ -357,13 +363,13 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-Bold',
         paddingVertical: 10
     },
-    cameraIcon: {
+    cameraIconWrapper: {
         position: 'absolute',
         bottom: 0,
         right: -5,
-        backgroundColor: newColors.black,
         padding: 5,
-        borderRadius: 40
+        borderRadius: 50,
+        backgroundColor: 'black'
     },
     horizontalScrollWrapper: {
         marginTop: 10,
@@ -400,7 +406,7 @@ const styles = StyleSheet.create({
         shadowColor: color.shadowGrey,
         height: 50
     },
-    editIcon: {
+    editWrapper: {
         padding: 5,
         backgroundColor: 'black',
         borderRadius: 50

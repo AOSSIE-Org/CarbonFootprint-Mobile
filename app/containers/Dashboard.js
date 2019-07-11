@@ -8,7 +8,8 @@ import {
     StatusBar,
     Dimensions,
     ActivityIndicator,
-    Share
+    Share,
+    Platform
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -38,6 +39,9 @@ class Stats extends Component {
             .catch(err => console.log(err));
     }
     render() {
+        const style = {
+            backgroundColor: newColors.secondary
+        };
         const auth = this.props.auth;
         const user = auth.user;
         const rows = [
@@ -129,7 +133,7 @@ class Stats extends Component {
         return (
             <View style={styles.container}>
                 <StatusBar backgroundColor={newColors.secondary} />
-                <StatusBarBackground />
+                <StatusBarBackground style={style} />
                 {auth.isFetching ? (
                     <View style={styles.activity}>
                         <ActivityIndicator size="large" color={color.primary} />
@@ -361,7 +365,7 @@ const styles = StyleSheet.create({
     kgText: {
         fontFamily: 'Poppins-Black',
         fontSize: 16,
-        marginTop: -50,
+        marginTop: Platform.OS == 'android' ? -50 : -20,
         color: 'white'
         // fontStyle: 'italic'
     },

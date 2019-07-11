@@ -20,12 +20,15 @@ import Footer from '../components/Footer';
 import CustomTabBar from '../components/FriendsTabBar';
 
 const Activity = props => {
+    const style = {
+        backgroundColor: newColors.secondary
+    };
     // Main function to set whole view of container, Contains various components as children
     // It sends 'Actions.activity()' to TimelineTab as link (prop) so that TimelineTab can navigate to Activity container (When needed)
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={newColors.secondary} barStyle="dark-content" />
-            <StatusBarBackground />
+            <StatusBarBackground style={style} />
             <ScrollableTabView
                 renderTabBar={() => <CustomTabBar />}
                 tabBarBackgroundColor={newColors.secondary}

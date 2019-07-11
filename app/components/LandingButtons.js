@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     },
     oauthWrapper: {
         flexDirection: 'row',
-        width: '80%',
+        width: '90%',
         justifyContent: 'space-between'
     },
     or: {
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         paddingLeft: 10,
         borderRadius: 5,
-        width: Dimensions.get('window').width * 0.35,
+        width: Dimensions.get('window').width * 0.4,
         borderColor: 'rgba(215,215,215,1)',
         borderWidth: 1
     },

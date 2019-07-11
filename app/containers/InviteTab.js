@@ -13,7 +13,8 @@ import {
     TouchableOpacity,
     Dimensions,
     FlatList,
-    ScrollView
+    ScrollView,
+    Platform
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -83,6 +84,7 @@ class InviteTab extends Component {
                                 value={this.state.search}
                                 onChangeText={text => this.setState({ search: text })}
                                 placeholder="Search friends by Email or Username"
+                                style={styles.inputBox}
                             />
                             <Icon
                                 name="times-circle"
@@ -91,7 +93,10 @@ class InviteTab extends Component {
                                 onPress={() => this.setState({ search: '' })}
                             />
                         </View>
-                        <TouchableOpacity style={styles.searchText} onPress={this.searchFriends}>
+                        <TouchableOpacity
+                            style={styles.searchTextContainer}
+                            onPress={this.searchFriends}
+                        >
                             <Text>Search</Text>
                         </TouchableOpacity>
                     </View>
@@ -161,15 +166,21 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         // backgroundColor: 'yellow',
+        paddingVertical: Platform.OS == 'android' ? 0 : 10,
         borderRadius: 30,
+        width: '70%',
         borderColor: 'rgba(255,255,255,0.3)',
         borderWidth: 1
     },
+    inputBox: {
+        // backgroundColor: 'red',
+        flex: 1
+    },
     searchIcon: {
-        marginLeft: 5
+        marginHorizontal: 5
     },
     clearIcon: {
-        marginRight: 5
+        marginHorizontal: 5
     },
     searchContainer: {
         flexDirection: 'row',
@@ -181,9 +192,11 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width * 0.9
         // justifyContent: 'center'
     },
-    searchText: {
+    searchTextContainer: {
         // backgroundColor: 'green',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        flex: 1,
+        alignItems: 'center'
     }
 });
 

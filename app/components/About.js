@@ -13,12 +13,16 @@ import {
     TouchableOpacity
 } from 'react-native';
 import ProfileHeader from './ProfileHeader';
+import StatusBarBackground from '../components/StatusBarBackground';
 import { aossieTitle, aossieDescription, appDescription } from '../config/constants';
 import Header from './Header';
 import images from '../config/images';
 import { newColors } from '../config/helper';
 const { width, height } = Dimensions.get('window');
 const About = () => {
+    const style = {
+        backgroundColor: newColors.secondary
+    };
     var socialAttr = [
         {
             image: images.gitlab,
@@ -41,6 +45,7 @@ const About = () => {
 
     return (
         <View style={styles.container}>
+            <StatusBarBackground style={style} />
             <ProfileHeader iconName="long-arrow-left" text="About Us" />
             <ScrollView style={styles.scrollWrapper}>
                 <View style={styles.main}>

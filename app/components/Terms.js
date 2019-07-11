@@ -2,10 +2,15 @@ import React from 'react';
 import { View, StyleSheet, Text, StatusBar } from 'react-native';
 import ProfileHeader from './ProfileHeader';
 import { newColors } from '../config/helper';
+import StatusBarBackground from '../components/StatusBarBackground';
 
 const Terms = () => {
+    const style = {
+        backgroundColor: newColors.secondary
+    };
     return (
         <View style={styles.container}>
+            <StatusBarBackground style={style} />
             <ProfileHeader iconName="long-arrow-left" text="Terms and Conditions" />
             <View style={styles.main}>
                 <Text style={styles.text}>

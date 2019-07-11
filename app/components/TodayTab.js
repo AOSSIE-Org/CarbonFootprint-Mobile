@@ -165,130 +165,6 @@ export default class TodayTab extends Component {
                         })}
                     </ScrollableTabView>
                 </View>
-                {/* <View style={styles.container}>
-                    <View style={styles.upperActivityView}>
-                        <View style={styles.hrView}>
-                            <View style={styles.blackDot} />
-                            <Text style={styles.smallText}>Emitted CO</Text>
-                            <Text style={styles.subText}>2</Text>
-                            <View style={styles.greenDot} />
-                            <Text style={styles.smallGreenText}>Saved CO</Text>
-                            <Text style={styles.subText}>2</Text>
-                        </View>
-                        <View style={styles.largeActivity_icon}>
-                            <Text style={styles.mediumText}>TODAY</Text>
-                            <View style={styles.hrView}>
-                                <Text style={styles.mediumText}>{this.state.dist.toFixed(2)}</Text>
-                                <Text style={styles.smallText}>km</Text>
-                            </View>
-                            <Image source={images.co2Icon} style={styles.co2Icon} />
-                            <View style={styles.hrView}>
-                                <Text style={styles.mediumText}>
-                                    {this.state.co2Emitted.toFixed(2)}
-                                </Text>
-                                <Text style={styles.smallText}>kg</Text>
-                            </View>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallGreenText}>
-                                    {this.state.co2Saved.toFixed(2)}
-                                </Text>
-                                <Text style={styles.smallGreenText}>kg</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.lowerActivityView}>
-                        <View style={styles.lowerActivityItemView}>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallText}>
-                                    {this.state.distWalk.toFixed(2)}
-                                </Text>
-                                <Text style={styles.smallText}>km</Text>
-                            </View>
-                            <View style={styles.activity_icon}>
-                                <Icon name={getIcon('walk')} size={35} color="white" />
-                            </View>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallText}>0.00</Text>
-                                <Text style={styles.smallText}>kg</Text>
-                            </View>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallGreenText}>
-                                    {this.state.co2WalkSaved.toFixed(2)}
-                                </Text>
-                                <Text style={styles.smallGreenText}>kg</Text>
-                            </View>
-                        </View>
-                        <View style={styles.lowerActivityItemView}>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallText}>
-                                    {this.state.distRun.toFixed(2)}
-                                </Text>
-                                <Text style={styles.smallText}>km</Text>
-                            </View>
-                            <View style={styles.activity_icon}>
-                                <Icon1 name="run" size={35} color="white" />
-                            </View>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallText}>0.00</Text>
-                                <Text style={styles.smallText}>kg</Text>
-                            </View>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallGreenText}>
-                                    {this.state.co2RunSaved.toFixed(2)}
-                                </Text>
-                                <Text style={styles.smallGreenText}>kg</Text>
-                            </View>
-                        </View>
-                        <View style={styles.lowerActivityItemView}>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallText}>
-                                    {this.state.distCycle.toFixed(2)}
-                                </Text>
-                                <Text style={styles.smallText}>km</Text>
-                            </View>
-                            <View style={styles.activity_icon}>
-                                <Icon name={getIcon('bicycle')} size={35} color="white" />
-                            </View>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallText}>0.00</Text>
-                                <Text style={styles.smallText}>kg</Text>
-                            </View>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallGreenText}>
-                                    {this.state.co2CycleSaved.toFixed(2)}
-                                </Text>
-                                <Text style={styles.smallGreenText}>kg</Text>
-                            </View>
-                        </View>
-                        <View style={styles.lowerActivityItemView}>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallText}>
-                                    {this.state.distVehicle.toFixed(2)}
-                                </Text>
-                                <Text style={styles.smallText}>km</Text>
-                            </View>
-                            <View style={styles.activity_icon}>
-                                {this.props.storage.data.automobile === 'Car' ? (
-                                    <Icon name={getIcon('car')} size={35} color="white" />
-                                ) : this.props.storage.data.automobile === 'Bus' ? (
-                                    <Icon name={getIcon('bus')} size={35} color="white" />
-                                ) : (
-                                    <Icon name={getIcon('train')} size={35} color="white" />
-                                )}
-                            </View>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallText}>
-                                    {this.state.co2VehicleEmitted.toFixed(2)}
-                                </Text>
-                                <Text style={styles.smallText}>kg</Text>
-                            </View>
-                            <View style={styles.hrView}>
-                                <Text style={styles.smallGreenText}>0.00</Text>
-                                <Text style={styles.smallGreenText}>kg</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View> */}
             </ScrollView>
         );
     }
@@ -350,7 +226,7 @@ const styles = StyleSheet.create({
         // backgroundColor: 'red'
     },
     two: {
-        fontFamily: 'Poppin',
+        fontFamily: 'Poppins',
         color: newColors.black,
         fontSize: 18
     },
@@ -383,6 +259,7 @@ const styles = StyleSheet.create({
     tabViewContainer: {
         backgroundColor: 'white',
         flex: 1,
+        marginTop: 20,
         width: Dimensions.get('window').width
     },
     tabContent: {

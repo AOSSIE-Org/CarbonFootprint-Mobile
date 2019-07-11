@@ -15,6 +15,7 @@ import { bindActionCreators } from 'redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
+import StatusBarBackground from '../components/StatusBarBackground';
 
 import BackHeader from '../components/BackHeader';
 import LoginForm from '../components/LoginForm';
@@ -42,9 +43,13 @@ class Forgot extends Component {
     };
 
     render() {
+        let style = {
+            backgroundColor: '#fff'
+        };
         return (
             <View style={styles.container}>
                 <StatusBar hidden={true} />
+                <StatusBarBackground style={style} />
                 <BackHeader text="Register" link={() => Actions.register()} icon toIcon="user" />
                 <View style={styles.main}>
                     <View style={styles.registerWrapper}>

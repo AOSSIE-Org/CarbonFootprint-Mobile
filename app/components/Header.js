@@ -23,7 +23,7 @@ const Header = props => {
         }
         return (
             <View style={topContainerStyle}>
-                <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
+                {/* <StatusBar backgroundColor={newColors.secondary} barStyle="light-content" /> */}
                 <Icon.Button
                     name={getIcon(props.iconName)}
                     backgroundColor={color.primary}

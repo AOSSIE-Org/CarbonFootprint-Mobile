@@ -48,7 +48,10 @@ class LoginForm extends Component {
             },
             {
                 name: 'password',
-                placeholder: 'Enter your password'
+                placeholder: 'Enter your password',
+                props: {
+                    secureTextEntry: true
+                }
             }
         ];
 
@@ -64,6 +67,7 @@ class LoginForm extends Component {
                                     autoCapitalize="none"
                                     onChangeText={text => this.handleInput(el.name, text)}
                                     underlineColorAndroid="transparent"
+                                    {...el.props}
                                 />
                             </View>
                         );
@@ -166,10 +170,9 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-Regular'
     },
     loginText: {
-        color: '#fff',
+        color: 'white',
         fontFamily: 'Poppins-SemiBold',
         fontSize: 16,
-        borderRadius: 2,
         letterSpacing: 1
     },
     error: {

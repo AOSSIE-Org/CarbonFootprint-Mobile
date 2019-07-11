@@ -46,6 +46,8 @@ target 'CarbonFootprint' do
     pod 'FacebookSDK', '~> 4.38.0'
 
     pod 'GoogleSignIn', '~> 4.4.0'
+    pod 'Picker', :path => '../node_modules/react-native-picker'
+
   end
   
   post_install do |installer|
