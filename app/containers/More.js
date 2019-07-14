@@ -222,7 +222,7 @@ class More extends Component {
                             </Text>
                         </View>
 
-                        <ScrollView
+                        {/* <ScrollView
                             scrollEventThrottle={16}
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
@@ -236,7 +236,7 @@ class More extends Component {
                                     </View>
                                 );
                             })}
-                        </ScrollView>
+                        </ScrollView> */}
                     </View>
 
                     <View style={styles.settingsWrapper}>
@@ -416,7 +416,7 @@ const styles = StyleSheet.create({
     },
     generalText: {
         width: Dimensions.get('window').width,
-        backgroundColor: 'rgba(215,215,215,0.4)',
+        // backgroundColor: 'rgba(215,215,215,0.4)',
         color: '#9D9D9D',
         paddingVertical: 10,
         paddingLeft: 10,
