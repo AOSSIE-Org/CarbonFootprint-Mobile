@@ -5,6 +5,8 @@ import { Alert } from 'react-native';
 import store from '../config/store';
 import { RATE_PETROL, RATE_DIESEL, RATE_CNG, RATE_ELECTRIC } from '../config/constants';
 import LocationServicesDialogBox from 'react-native-android-location-services-dialog-box';
+import RNFetchBlob from 'react-native-fetch-blob';
+import { urlRegex } from './constants';
 
 /**
  *
@@ -187,6 +189,32 @@ export function showAlert(header, message, buttonLabel) {
         ],
         { cancelable: false }
     );
+}
+
+/*
+ * updates userData object with base64 encoded picture string
+ */
+export function urlToBase64(userData) {
+    var isURLValid = urlRegex.test(userData.picture);
+    return new Promise((resolve, reject) => {
+        const fs = RNFetchBlob.fs;
+        let imagePath = null;
+        if (isURLValid) {
+            RNFetchBlob.config({
+                fileCache: true
+            })
+                .fetch('GET', `${userData.picture}?height=500`) // for higher quality image
+                .then(resp => {
+                    imagePath = resp.path();
+                    return resp.readFile('base64');
+                })
+                .then(base64Data => {
+                    userData.picture = base64Data;
+                    fs.unlink(imagePath);
+                    resolve(userData);
+                });
+        } else resolve(userData);
+    });
 }
 
 /*colors*/

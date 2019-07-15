@@ -125,11 +125,11 @@ android {
     }
     signingConfigs {
         release {
-            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
-                storeFile file(MYAPP_RELEASE_STORE_FILE)
-                storePassword MYAPP_RELEASE_STORE_PASSWORD
-                keyAlias MYAPP_RELEASE_KEY_ALIAS
-                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
             }
         } 
     }
@@ -143,6 +143,7 @@ android {
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.release // Generates Signed APK
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -163,6 +164,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-fetch-blob')
     implementation project(':react-native-modal-translucent')
     implementation project(':react-native-google-signin')
     implementation project(':react-native-image-picker')
