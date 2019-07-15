@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { newColors } from '../config/helper';
 
 const ModTextInput = props => {
-    var label = props.text ? props.text.toUpperCase() : props.stateKey.toUpperCase();
+    let label = props.text ? props.text.toUpperCase() : props.stateKey.toUpperCase();
     return (
         <View style={[styles.input, props.style || {}]}>
             <Text style={styles.label}>{label}</Text>

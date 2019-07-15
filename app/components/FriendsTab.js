@@ -94,7 +94,6 @@ class FriendsTab extends Component {
                 });
             }
             */
-        console.log(friendList);
         return (
             <ScrollView contentContainerStyle={styles.friends}>
                 {friendList.map((friend, index) => {

@@ -246,8 +246,8 @@ export default class ActivityTab extends Component {
     }
 
     render() {
-        var timeObj = this.updateTime(this.props.activity.duration);
-        var icon = getIconName(this.props.activity.type);
+        let timeObj = this.updateTime(this.props.activity.duration);
+        let icon = getIconName(this.props.activity.type);
 
         return (
             <ScrollView contentContainerStyle={styles.scrollView}>

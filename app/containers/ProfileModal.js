@@ -82,7 +82,7 @@ class ProfileModal extends Component {
     };
 
     render() {
-        var inputs = [
+        let inputs = [
             {
                 key: 'name',
                 placeholder: 'John Doe',
@@ -149,7 +149,7 @@ class ProfileModal extends Component {
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     modal: {
         justifyContent: 'center',
         alignItems: 'center',

@@ -58,7 +58,7 @@ export default class TodayTab extends Component {
             <View style={styles.card}>
                 <Image source={images.carousel_1} />
                 <View style={styles.cardTextWrapper}>
-                    <Text style={styles.cardText}>SAVED</Text>
+                    <Text style={styles.cardText}>{item.title.toUpperCase()}</Text>
                     <Text style={styles.cardText2}>{item.text}</Text>
                 </View>
             </View>
@@ -68,26 +68,20 @@ export default class TodayTab extends Component {
     render() {
         let swiper1 = [
             {
-                style: {
-                    backgroundColor: '#f322f2'
-                },
+                title: 'saved',
                 text: this.state.co2Saved
             },
             {
-                style: {
-                    backgroundColor: '#434343'
-                },
-                text: 'mid'
+                title: 'emitted',
+                text: this.state.co2Emitted
             },
             {
-                style: {
-                    backgroundColor: '#542232'
-                },
-                text: 'end'
+                title: 'distance',
+                text: this.state.dist
             }
         ];
 
-        var tabsAlt = [
+        let tabsAlt = [
             {
                 icon: 'directions-walk',
                 text: 'WALK',

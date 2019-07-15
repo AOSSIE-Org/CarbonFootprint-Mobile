@@ -125,7 +125,7 @@ class NotificationsModal extends Component {
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     modal: {
         margin: 0,
         marginTop: Dimensions.get('window').height * 0.5,

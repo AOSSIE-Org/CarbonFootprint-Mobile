@@ -41,7 +41,7 @@ class LoginForm extends Component {
     };
 
     render() {
-        var signupFields = [
+        let signupFields = [
             {
                 name: 'email',
                 placeholder: 'johndoe@gmail.com'
@@ -58,16 +58,16 @@ class LoginForm extends Component {
         return (
             <View style={styles.container}>
                 <KeyboardAwareScrollView style={styles.inputForm}>
-                    {signupFields.map(el => {
+                    {signupFields.map(obj => {
                         return (
-                            <View style={styles.input} key={el.name}>
+                            <View style={styles.input} key={obj.name}>
                                 <TextInput
-                                    placeholder={el.placeholder}
+                                    placeholder={obj.placeholder}
                                     style={styles.field}
                                     autoCapitalize="none"
-                                    onChangeText={text => this.handleInput(el.name, text)}
+                                    onChangeText={text => this.handleInput(obj.name, text)}
                                     underlineColorAndroid="transparent"
-                                    {...el.props}
+                                    {...obj.props}
                                 />
                             </View>
                         );

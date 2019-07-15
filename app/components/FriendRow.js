@@ -41,9 +41,7 @@ const FriendRow = props => {
                     <Icon
                         name="check-circle"
                         size={24}
-                        style={{
-                            paddingLeft: 16
-                        }}
+                        style={styles.acceptIcon}
                         onPress={props.reject}
                     />
                 ) : null}
@@ -64,6 +62,9 @@ const styles = StyleSheet.create({
     emailText: {
         color: '#646464',
         fontSize: 12
+    },
+    acceptIcon: {
+        paddingLeft: 16
     },
     friendsRowWrapper: {
         flexDirection: 'row',

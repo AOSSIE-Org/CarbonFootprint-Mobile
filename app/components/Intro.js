@@ -47,20 +47,20 @@ export default class Intro extends Component {
                 desc:
                     'Release of co2 in environment is increasing everyday. This app will calculate and track your release.',
                 style: styles.slide1,
-                source: require('../../assets/images/splash_image_1.png')
+                source: images.splash_screen_1
             },
             {
                 text: 'Activity Recognition',
                 desc:
                     "Detects user's activity and calculate travelled distance and amount of emitted co2 (at runtime).",
                 style: styles.slide2,
-                source: require('../../assets/images/splash_image_2.png')
+                source: images.splash_screen_2
             },
             {
                 text: 'Push Notifications',
                 desc: 'Push notification service to inform user about his activity,',
                 style: styles.slide3,
-                source: require('../../assets/images/splash_image_3.png')
+                source: images.splash_screen_3
             }
         ];
 

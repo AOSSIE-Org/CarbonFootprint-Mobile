@@ -6,12 +6,12 @@ class FriendsTabBar extends React.Component {
     render() {
         return (
             <View style={[styles.tabs, this.props.style || {}]}>
-                {this.props.tabs.map((tab, i) => {
-                    var overrideStyles = i == this.props.activeTab ? styles.activeStyle : {};
+                {this.props.tabs.map((tab, index) => {
+                    let overrideStyles = index == this.props.activeTab ? styles.activeStyle : {};
                     return (
                         <TouchableOpacity
                             key={tab}
-                            onPress={() => this.props.goToPage(i)}
+                            onPress={() => this.props.goToPage(index)}
                             style={[styles.tab, overrideStyles]}
                         >
                             <Text style={styles.tabText}>{tab}</Text>

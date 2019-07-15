@@ -18,7 +18,7 @@ import MIcon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-var ImagePicker = require('react-native-image-picker');
+let ImagePicker = require('react-native-image-picker');
 import images from '../config/images';
 import ProfileHeader from '../components/ProfileHeader';
 import ProfileModal from '../containers/ProfileModal';
@@ -44,7 +44,7 @@ class More extends Component {
      * @return updates the incident image.
      */
     _cameraImage = () => {
-        var options = {
+        let options = {
             title: 'Select Option',
             storageOptions: {
                 skipBackup: true,
@@ -122,7 +122,7 @@ class More extends Component {
             }
         ];
 
-        var links = [
+        let links = [
             {
                 name: 'friends',
                 number: '1.2k',
@@ -221,22 +221,6 @@ class More extends Component {
                                 and yes.
                             </Text>
                         </View>
-
-                        {/* <ScrollView
-                            scrollEventThrottle={16}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            style={styles.horizontalScrollWrapper}
-                        >
-                            {links.map(element => {
-                                return (
-                                    <View style={styles.linkWrapper}>
-                                        <Text style={styles.linkNumber}>{element.number}</Text>
-                                        <Text style={styles.linkText}>{element.text}</Text>
-                                    </View>
-                                );
-                            })}
-                        </ScrollView> */}
                     </View>
 
                     <View style={styles.settingsWrapper}>
@@ -288,13 +272,9 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         alignItems: 'center',
-        // borderColor: 'red',
-        // borderWidth: 1,
         justifyContent: 'space-between'
     },
-    profileWrapper: {
-        // backgroundColor: 'red'
-    },
+    profileWrapper: {},
     profileGroup: {
         flexDirection: 'row',
         paddingVertical: 10,
@@ -416,7 +396,6 @@ const styles = StyleSheet.create({
     },
     generalText: {
         width: Dimensions.get('window').width,
-        // backgroundColor: 'rgba(215,215,215,0.4)',
         color: '#9D9D9D',
         paddingVertical: 10,
         paddingLeft: 10,

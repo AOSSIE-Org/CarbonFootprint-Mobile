@@ -100,7 +100,7 @@ class Settings extends Component {
         const style = {
             backgroundColor: newColors.secondary
         };
-        var list = [
+        let list = [
             {
                 option: 'Preferred Automobile',
                 state: 'automobile',
@@ -129,7 +129,7 @@ class Settings extends Component {
                 ) : (
                     <View style={styles.main}>
                         {list.map((element, i) => {
-                            var res = Array.isArray(element.state)
+                            let res = Array.isArray(element.state)
                                 ? this.reduceState(element.state)
                                 : this.state[element.state];
 
@@ -199,7 +199,7 @@ const CANCEL_INDEX = 0;
 /* For Inputing Mileage */
 let values = [];
 let units = ['km/litre', 'miles/gallon'];
-for (var i = 0; i <= 40; i += 0.1) {
+for (let i = 0; i <= 40; i += 0.1) {
     values.push(i.toFixed(1));
 }
 

@@ -3,8 +3,8 @@ import { View, StyleSheet, Dimensions, Text, Platform, StatusBar } from 'react-n
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
 import { getIcon, color, newColors } from '../config/helper';
-import StatusBarBackground from './StatusBarBackground';
 
 /**
  * Header Component
@@ -27,20 +27,11 @@ const ProfileHeader = props => {
             <Text style={styles.text}>{props.text}</Text>
         </View>
     );
-    //     );
-    // } else {
-    //     return (
-    //         <View style={topContainerStyle}>
-    //             <Text style={styles.text}>{props.text}</Text>
-    //         </View>
-    //     );
-    // }
 };
 
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
-        // width: Dimensions.get('window').width,
         backgroundColor: newColors.secondary,
         height: 50,
         alignItems: 'center',

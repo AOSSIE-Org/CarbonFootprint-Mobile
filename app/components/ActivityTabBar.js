@@ -8,11 +8,11 @@ class ActivityTabBar extends React.Component {
         return (
             <View style={[styles.tabs, this.props.style || {}]}>
                 {this.props.tabsAlt.map((tab, index) => {
-                    var overrideStyles = index == this.props.activeTab ? styles.activeStyle : {};
+                    let overrideStyles = index == this.props.activeTab ? styles.activeStyle : {};
                     return (
                         <TouchableOpacity
                             key={tab.text}
-                            onPress={() => this.props.goToPage(i)}
+                            onPress={() => this.props.goToPage(index)}
                             style={[styles.tab, overrideStyles]}
                         >
                             <Icon name={tab.icon} size={20} />

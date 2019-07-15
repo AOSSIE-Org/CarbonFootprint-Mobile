@@ -37,16 +37,16 @@ class RegisterForm extends Component {
     }
 
     handleInput(element, text) {
-        var key = element.key || element.text;
+        let key = element.key || element.text;
         this.setState({
             [key]: text
         });
     }
 
     render() {
-        var { error, name, password, confirm_password, email } = this.state;
+        let { error, name, password, confirm_password, email } = this.state;
 
-        var form = [
+        let form = [
             {
                 text: 'name',
                 placeholder: 'John Doe'
@@ -79,7 +79,7 @@ class RegisterForm extends Component {
                 <KeyboardAwareScrollView style={styles.inputForm}>
                     <View style={styles.formWrapper}>
                         {form.map(element => {
-                            var overrideStyles = element.key ? styles.override : {};
+                            let overrideStyles = element.key ? styles.override : {};
                             return (
                                 <View style={[styles.input, overrideStyles]} key={element.text}>
                                     <Text style={styles.label}>{element.text.toUpperCase()}</Text>

@@ -4,10 +4,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
-import { newColors } from '../config/helper';
-import LoginForm from './LoginForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+import { newColors } from '../config/helper';
+import LoginForm from './LoginForm';
 import * as AuthAction from '../actions/AuthAction';
 
 /**

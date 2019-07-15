@@ -56,9 +56,6 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 5
     },
-    // button:{
-    //     borderRadius: 30
-    // },
     logo: {
         width: 40,
         height: 40
