@@ -6,10 +6,6 @@ import { openInbox } from 'react-native-email-link';
 import { newColors } from '../config/helper';
 import images from '../config/images';
 
-function PressHandler(email) {
-    openInbox();
-}
-
 export default function EmailSent(props) {
     return (
         <View style={styles.wrapper}>
@@ -22,7 +18,7 @@ export default function EmailSent(props) {
                         <Text style={styles.emailText}>({props.email})</Text>
                     </Text>
                 </View>
-                <TouchableOpacity onPress={() => PressHandler()} style={styles.emailButton}>
+                <TouchableOpacity onPress={() => openInbox()} style={styles.emailButton}>
                     <Text style={styles.emailButtonText}>Open Email App</Text>
                 </TouchableOpacity>
             </View>
