@@ -36,7 +36,7 @@ class Forgot extends Component {
     onButtonPress = () => {
         if (!this.props.forgot.isFetching) {
             this.props.forgotPassword(this.state.email);
-            if (this.props.forgot.message == RESET_PASSWORD) {
+            if (this.props.forgot.message === RESET_PASSWORD) {
                 Actions.email_sent({ email: this.state.email });
             }
         }
@@ -85,11 +85,7 @@ class Forgot extends Component {
                             /> */}
                         <View style={styles.buttonWrapper}>
                             <TouchableHighlight
-                                onPress={() =>
-                                    this.props.forgot.isFetching
-                                        ? {}
-                                        : this.props.forgotPassword(this.state.email)
-                                }
+                                onPress={this.onButtonPress}
                                 style={styles.button}
                                 underlayColor="#538124"
                                 activeOpacity={0.5}

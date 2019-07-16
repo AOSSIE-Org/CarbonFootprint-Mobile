@@ -1,10 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Linking, Dimensions } from 'react-native';
-import { newColors } from '../config/helper';
 import { Actions } from 'react-native-router-flux';
+import { openInbox } from 'react-native-email-link';
+
+import { newColors } from '../config/helper';
 import images from '../config/images';
 
-function PressHandler(email) {}
+function PressHandler(email) {
+    openInbox();
+}
 
 export default function EmailSent(props) {
     return (
@@ -18,10 +22,7 @@ export default function EmailSent(props) {
                         <Text style={styles.emailText}>({props.email})</Text>
                     </Text>
                 </View>
-                <TouchableOpacity
-                    onPress={() => PressHandler(props.email)}
-                    style={styles.emailButton}
-                >
+                <TouchableOpacity onPress={() => PressHandler()} style={styles.emailButton}>
                     <Text style={styles.emailButtonText}>Open Email App</Text>
                 </TouchableOpacity>
             </View>

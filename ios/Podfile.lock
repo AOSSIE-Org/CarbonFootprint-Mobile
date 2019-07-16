@@ -76,6 +76,8 @@ PODS:
     - React
   - React (0.58.6):
     - React/Core (= 0.58.6)
+  - react-native-fetch-blob (0.10.6):
+    - React/Core
   - react-native-google-maps (0.21.0):
     - Google-Maps-iOS-Utils (= 2.1.0)
     - GoogleMaps (= 2.5.0)
@@ -145,6 +147,7 @@ DEPENDENCIES:
   - GooglePlaces
   - GoogleSignIn (~> 4.4.0)
   - Picker (from `../node_modules/react-native-picker`)
+  - react-native-fetch-blob (from `../node_modules/react-native-fetch-blob`)
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - React/Core (from `../node_modules/react-native`)
@@ -190,6 +193,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-picker"
   React:
     :path: "../node_modules/react-native"
+  react-native-fetch-blob:
+    :path: "../node_modules/react-native-fetch-blob"
   react-native-google-maps:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
@@ -217,10 +222,11 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   Picker: 4f1722c94059567cabd80e53d0ef72ca290d2b93
   React: 130b87b2d5e2baac646954282cab87be986d98fc
+  react-native-fetch-blob: 2bef9be702de8726f4d7bf58d2345579aaaee60d
   react-native-google-maps: 68a831730110823d3dadfea0e133f0f4426cd213
   react-native-maps: fb06a43ce6884256097eec1dd69d23957b71df88
   yoga: 32d7ef1081951e9a35a4c72a7be797598b138a48
 
-PODFILE CHECKSUM: 6a99dc0ccbbd26f25803b40a466a7ff0c86b4d44
+PODFILE CHECKSUM: 2b075003ed6ec0fa03d3b64b55b0e4c0ff38689a
 
 COCOAPODS: 1.6.2
