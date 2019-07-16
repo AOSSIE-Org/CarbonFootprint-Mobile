@@ -59,13 +59,13 @@ const About = () => {
                     <View style={styles.divider} />
                     <Text style={styles.title}>Follow us and contribute to our project!</Text>
                     <View style={styles.social}>
-                        {socialAttr.map((el, i) => {
+                        {socialAttr.map((obj, i) => {
                             return (
-                                <TouchableOpacity key={i} onPress={el.onPress}>
+                                <TouchableOpacity key={i} onPress={obj.onPress}>
                                     <Image
                                         style={styles.socialItem}
                                         resizeMethod="resize"
-                                        source={el.image}
+                                        source={obj.image}
                                     />
                                 </TouchableOpacity>
                             );

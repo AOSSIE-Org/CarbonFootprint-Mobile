@@ -122,17 +122,13 @@ class ProfileModal extends Component {
                         style={styles.close}
                     />
                     <View style={styles.inputForm}>
-                        {inputs.map((el, i) => {
+                        {inputs.map((obj, i) => {
                             return (
                                 <ModTextInput
-                                    value={this.state[el.key]}
+                                    value={this.state[obj.key]}
                                     handleInput={this.handleInput}
-                                    stateKey={el.key}
-                                    {...el}
-
-                                    // key = {el.key}
-                                    // text ={(el.text)?el.text:null}
-                                    // placeholder = {el.placeholder}
+                                    stateKey={obj.key}
+                                    {...obj}
                                 />
                             );
                         })}
