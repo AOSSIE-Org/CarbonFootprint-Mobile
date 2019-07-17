@@ -18,6 +18,7 @@ import Friends from '../containers/Friends';
 import Settings from '../containers/Settings';
 import Forgot from '../containers/Forgot';
 import UserProfile from '../containers/Profile';
+import EmailSent from '../components/EmailSent';
 
 import Footer from '../components/Footer';
 
@@ -34,9 +35,9 @@ const Navigator = () => (
                 <Scene key="master" component={Master} panHandlers={null} hideNavBar />
                 <Scene key="landing" hideNavBar>
                     <Scene key="home" component={Home} panHandlers={null} initial />
-                    <Scene key="login" component={Login} panHandlers={null} />
                     <Scene key="register" component={Register} panHandlers={null} />
                     <Scene key="forgot" component={Forgot} panHandlers={null} />
+                    <Scene key="email_sent" component={EmailSent} panHandlers={null} />
                 </Scene>
                 <Scene key="main" navBar={Footer} panHandlers={null}>
                     <Scene key="timeline" component={TimelineTab} panHandlers={null} />

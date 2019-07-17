@@ -6,7 +6,7 @@ import React from 'react';
 import { View, StyleSheet, Image, Text, Dimensions, TouchableNativeFeedback } from 'react-native';
 import PropTypes from 'prop-types';
 
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { color, getIcon } from '../config/helper';
 import images from '../config/images';
 
@@ -17,45 +17,34 @@ import images from '../config/images';
 const FriendRow = props => {
     let { data, text } = props;
     return (
-        <View style={styles.container}>
-            <View style={styles.main}>
-                <View style={styles.info}>
-                    {data.picture == images.logo ? (
-                        <Image source={images.logo} style={styles.image} />
-                    ) : data.picture ? (
-                        <Image
-                            source={{ uri: 'data:image/png;base64,' + data.picture }}
-                            style={styles.image}
-                        />
-                    ) : (
-                        <Image source={images.noImage} style={styles.image} />
-                    )}
-                    <View style={styles.left}>
-                        <Text style={styles.largeText}>{data.name}</Text>
-                        <Text style={styles.smallText}>
-                            {text} {data.data ? ' kg' : null}
-                        </Text>
-                    </View>
+        <View style={styles.friendsRowWrapper}>
+            <View style={styles.friendsrowLeft}>
+                <Image source={images.logo} style={styles.avatar} />
+                <View style={styles.textWrapper}>
+                    <Text style={styles.nameText}>{data.name}</Text>
+                    <Text style={styles.emailText}>
+                        {text} {data.data ? ' kg' : null}
+                    </Text>
                 </View>
-                <View style={styles.right}>
-                    {props.iconName ? (
-                        <TouchableNativeFeedback onPress={props.link}>
-                            <Icon name={getIcon(props.iconName[0])} size={30} color="black" />
-                        </TouchableNativeFeedback>
-                    ) : null}
-                    {props.iconName && props.iconName.length === 2 ? (
-                        <TouchableNativeFeedback onPress={props.reject}>
-                            <Icon
-                                name={getIcon(props.iconName[1])}
-                                size={30}
-                                color="black"
-                                style={{
-                                    paddingLeft: 16
-                                }}
-                            />
-                        </TouchableNativeFeedback>
-                    ) : null}
-                </View>
+            </View>
+            <View style={styles.iconsWrapper}>
+                {props.iconName ? (
+                    <Icon
+                        name="minus-circle"
+                        size={24}
+                        onPress={props.link}
+                        color="black"
+                        backgroundColor="white"
+                    />
+                ) : null}
+                {props.iconName && props.iconName.length === 2 ? (
+                    <Icon
+                        name="check-circle"
+                        size={24}
+                        style={styles.acceptIcon}
+                        onPress={props.reject}
+                    />
+                ) : null}
             </View>
         </View>
     );
@@ -63,47 +52,39 @@ const FriendRow = props => {
 
 /*StyleSheet*/
 const styles = StyleSheet.create({
-    container: {
-        padding: 8,
-        borderWidth: 1,
-        borderRadius: 1,
-        borderColor: color.borderGrey,
-        shadowColor: color.shadowGrey,
-        backgroundColor: color.white,
-        width: Dimensions.get('window').width
+    textWrapper: {
+        marginLeft: 15
     },
-    main: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
+    nameText: {
+        fontFamily: 'Poppins',
+        fontSize: 16
     },
-    info: {
+    emailText: {
+        color: '#646464',
+        fontSize: 12
+    },
+    acceptIcon: {
+        paddingLeft: 16
+    },
+    friendsRowWrapper: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        marginTop: 15,
+        // backgroundColor: 'red',
+        width: Dimensions.get('window').width * 0.9
     },
-    left: {
-        marginLeft: 8
+    avatar: {
+        height: 40,
+        width: 40,
+        borderRadius: 30
     },
-    right: {
-        paddingRight: 8,
+    friendsrowLeft: {
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-end'
+        alignItems: 'center'
     },
-    image: {
-        width: 48,
-        height: 48,
-        borderRadius: 24,
-        backgroundColor: color.grey
-    },
-    largeText: {
-        color: color.black,
-        fontSize: 14
-    },
-    smallText: {
-        color: color.lightBlack,
-        fontSize: 12,
-        marginTop: 2
+    iconsWrapper: {
+        flexDirection: 'row'
     }
 });
 

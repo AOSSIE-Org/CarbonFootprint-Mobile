@@ -9,7 +9,9 @@ import {
     StyleSheet,
     Text,
     ScrollView,
+    Image,
     ActivityIndicator,
+    Dimensions,
     TouchableNativeFeedback,
     Alert
 } from 'react-native';
@@ -21,7 +23,7 @@ import Toast from 'react-native-simple-toast';
 import * as LoaderAction from '../actions/LoaderAction';
 import { acceptFriendRequest, deleteFriend } from '../actions/firebase/Friends';
 import { color, getIcon } from '../config/helper';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import FriendRow from './FriendRow';
 import WarningTextAndIcon from './WarningTextAndIcon';
 
@@ -59,11 +61,21 @@ class FriendsTab extends Component {
     render() {
         let friends = this.props.friends;
         let friendList = friends.list;
+
+        if (this.props.loader.isLoading) {
+            return (
+                <View style={styles.loading}>
+                    <ActivityIndicator color="black" animating={true} size="large" />
+                </View>
+            );
+        }
+
         if (friendList === null || Object.keys(friendList).length <= 0) {
             return <WarningTextAndIcon iconName="sad" text="It's kind of lonely here." />;
-        } else {
-            // Gamification: Sorting friends list based on emitted co2
-            /*
+        }
+        // } else {
+        // Gamification: Sorting friends list based on emitted co2
+        /*
             if(this.props.choice === "1") {
                 this.props.getUser(this.props.auth.user.uid).then((usr) => {
                     console.log("----------------------------------------------------------------------------------");
@@ -82,70 +94,102 @@ class FriendsTab extends Component {
                 });
             }
             */
-            console.log(friendList);
-            return (
-                <ScrollView contentContainerStyle={styles.friends}>
-                    {friendList.map((friend, index) => {
-                        return (
-                            <View key={index}>
-                                <FriendRow
-                                    last={index === friendList.length - 1}
-                                    data={friend}
-                                    iconName={
-                                        this.props.choice === '2'
-                                            ? ['checkmark', 'close']
-                                            : ['close']
-                                    }
-                                    reject={this.removeFriend.bind(
-                                        this,
-                                        this.props.auth.user.uid,
-                                        friend.uid,
-                                        'Friend Request'
-                                    )}
-                                    link={
-                                        this.props.choice === '2'
-                                            ? () => {
-                                                  this.props.loaderToggle();
-                                                  acceptFriendRequest(
-                                                      this.props.auth.user.uid,
-                                                      friend.uid
-                                                  ).then(user => {
-                                                      this.props.loaderToggle();
-                                                      this.props.getFriendList(this.props.choice);
-                                                  });
-                                              }
-                                            : this.removeFriend.bind(
-                                                  this,
+        return (
+            <ScrollView contentContainerStyle={styles.friends}>
+                {friendList.map((friend, index) => {
+                    return (
+                        <View key={index}>
+                            <FriendRow
+                                last={index === friendList.length - 1}
+                                data={friend}
+                                iconName={
+                                    this.props.choice === '2'
+                                        ? ['check-circle', 'minus-circle']
+                                        : ['minus-circle']
+                                }
+                                reject={this.removeFriend.bind(
+                                    this,
+                                    this.props.auth.user.uid,
+                                    friend.uid,
+                                    'Friend Request'
+                                )}
+                                link={
+                                    this.props.choice === '2'
+                                        ? () => {
+                                              this.props.loaderToggle();
+                                              acceptFriendRequest(
                                                   this.props.auth.user.uid,
-                                                  friend.uid,
-                                                  'Friend'
-                                              )
-                                    }
-                                    text={
-                                        friend.data && friend.data.total
-                                            ? friend.data.total.footprint
-                                            : 'No Activity'
-                                    }
-                                />
-                            </View>
-                        );
-                    })}
-                </ScrollView>
-            );
-        }
+                                                  friend.uid
+                                              ).then(user => {
+                                                  this.props.loaderToggle();
+                                                  this.props.getFriendList(this.props.choice);
+                                              });
+                                          }
+                                        : this.removeFriend.bind(
+                                              this,
+                                              this.props.auth.user.uid,
+                                              friend.uid,
+                                              'Friend'
+                                          )
+                                }
+                                text={
+                                    friend.data && friend.data.total
+                                        ? friend.data.total.footprint
+                                        : 'No Activity'
+                                }
+                            />
+                        </View>
+                    );
+                })}
+            </ScrollView>
+        );
     }
 }
 
 //StyleSheet
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: color.greyBack,
-        flex: 1
-    },
-    friends: {
-        backgroundColor: color.greyBack,
+        // backgroundColor: color.greyBack,
         alignItems: 'center',
         flex: 1
+    },
+    avatar: {
+        height: 40,
+        width: 40,
+        borderRadius: 30
+    },
+    friendsrowLeft: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    friends: {
+        // backgroundColor: color.greyBack,
+        alignItems: 'center',
+        flex: 1
+    },
+    loading: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    textWrapper: {
+        marginLeft: 15
+    },
+    nameText: {
+        fontFamily: 'Poppins',
+        fontSize: 16
+    },
+    emailText: {
+        color: '#646464',
+        fontSize: 12
+    },
+    friendsRowWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 15,
+        // backgroundColor: 'red',
+        width: Dimensions.get('window').width * 0.9
     }
 });
 
