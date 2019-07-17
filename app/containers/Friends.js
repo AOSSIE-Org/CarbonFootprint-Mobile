@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import PropTypes from 'prop-types';
 
-import { color, newColors } from '../config/helper';
+import { color } from '../config/helper';
 import StatusBarBackground from '../components/StatusBarBackground';
 
 import FriendsTab from '../components/FriendsTab';
@@ -16,65 +16,65 @@ import * as FirebaseAction from '../actions/firebase/Friends';
 import * as FriendsAction from '../actions/FriendsAction';
 import * as LoaderAction from '../actions/LoaderAction';
 import * as User from '../actions/firebase/User';
-import FriendsTabBar from '../components/FriendsTabBar';
 
 /**
  * Friends Section Container
  */
 
-const Friends = props => {
-    const style = {
-        backgroundColor: newColors.secondary
-    };
-    let friends = props.friends.list ? props.friends.list.length : 0;
-    return (
-        <View style={styles.container}>
-            <StatusBar backgroundColor={newColors.secondary} barStyle="light-content" />
-            <StatusBarBackground style={style} />
-            <ScrollableTabView
-                renderTabBar={() => <FriendsTabBar />}
-                tabBarBackgroundColor={color.primary}
-                tabBarActiveTextColor={color.greyBack}
-                tabBarInactiveTextColor={color.grey}
-                tabBarTextStyle={styles.tabText}
-                tabBarUnderlineStyle={{
-                    backgroundColor: 'red',
-                    height: 4
-                }}
-                style={styles.scrollableWrapper}
-                onChangeTab={obj => {
-                    switch (obj.i) {
-                        // List of friend requests
-                        case 1:
-                            props.getFriendList('2');
-                            break;
-                        case 2:
-                            break;
-                        // List of friends
-                        default:
-                            props.getFriendList('1');
-                            break;
-                    }
-                }}
-            >
-                <FriendsTab tabLabel="friends" {...props} choice="1" />
-                {/* <FriendsTab tabLabel="Requests" {...props} choice="2" /> */}
-                <InviteTab tabLabel="Invite" {...props} />
-            </ScrollableTabView>
-        </View>
-    );
-};
-
+const Friends = props => (
+    <View style={styles.container}>
+        <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
+        <StatusBarBackground />
+        <View style={styles.pad} />
+        <ScrollableTabView
+            tabBarBackgroundColor={color.primary}
+            tabBarActiveTextColor={color.greyBack}
+            tabBarInactiveTextColor={color.grey}
+            tabBarTextStyle={styles.tabText}
+            tabBarUnderlineStyle={styles.tabLine}
+            style={styles.tabStyle}
+            onChangeTab={obj => {
+                switch (obj.i) {
+                    // List of friend requests
+                    case 1:
+                        props.getFriendList('2');
+                        break;
+                    case 2:
+                        break;
+                    // List of friends
+                    default:
+                        props.getFriendList('1');
+                        break;
+                }
+            }}
+        >
+            <FriendsTab tabLabel="Friends" {...props} choice="1" />
+            <FriendsTab tabLabel="Requests" {...props} choice="2" />
+            <InviteTab tabLabel="Invite" {...props} />
+        </ScrollableTabView>
+    </View>
+);
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        marginTop: StatusBar.currentHeight
+    },
+    underline: {
+        height: 2,
+        backgroundColor: color.greyBack
     },
     tabText: {
         fontSize: 13
     },
-    scrollableWrapper: {
-        flex: 1
+    tabLine: {
+        backgroundColor: color.white,
+        height: 2
+    },
+    /* Need a good fix for this */
+    pad: {
+        backgroundColor: color.primary,
+        height: 15
     }
 });
 /**

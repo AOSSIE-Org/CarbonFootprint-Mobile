@@ -11,16 +11,14 @@ import {
 } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import Picker from 'react-native-picker';
-import StatusBarBackground from '../components/StatusBarBackground';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 
 import * as StorageAction from '../actions/StorageAction';
-import ProfileHeader from '../components/ProfileHeader';
-import { color, newColors } from '../config/helper';
+import Header from '../components/Header';
+import { color, getIcon } from '../config/helper';
 
 /**
  * Settings Screen Container
@@ -90,90 +88,57 @@ class Settings extends Component {
         this.setState({ isPickerOn: true });
     }
 
-    reduceState = arr => {
-        return arr.reduce((total, el) => {
-            return total + ' ' + this.state[el];
-        }, '');
-    };
-
     render() {
-        const style = {
-            backgroundColor: newColors.secondary
-        };
-        let list = [
-            {
-                option: 'Preferred Automobile',
-                state: 'automobile',
-                onPress: () => this.AutomobileSheet.show()
-            },
-            {
-                option: 'Fuel Type',
-                state: 'type',
-                onPress: () => this.TypeSheet.show()
-            },
-            {
-                option: 'Approximate Mileage',
-                state: ['value', 'unit'],
-                onPress: () => this.showPicker()
-            }
-        ];
-
         return (
             <View style={styles.container}>
-                <StatusBarBackground style={style} />
-                <ProfileHeader iconName="long-arrow-left" text="Settings" />
+                <Header icon={true} iconName="arrow-back" text="Settings" />
                 {this.props.storage.isFetching ? (
                     <View style={styles.center}>
                         <ActivityIndicator size="large" color={color.primary} />
                     </View>
                 ) : (
                     <View style={styles.main}>
-                        {list.map((element, i) => {
-                            let res = Array.isArray(element.state)
-                                ? this.reduceState(element.state)
-                                : this.state[element.state];
-
-                            return (
-                                <TouchableHighlight
-                                    key={i}
-                                    onPress={element.onPress}
-                                    activeOpacity={0.5}
-                                    underlayColor="#eee"
-                                    style={styles.touchableButton}
-                                >
-                                    <View style={styles.button}>
-                                        <View style={styles.textWrapper}>
-                                            <Text style={styles.text}>{element.option}</Text>
-                                            <Text style={styles.small}>{res}</Text>
-                                        </View>
-
-                                        <Icon
-                                            name="angle-down"
-                                            style={styles.icon}
-                                            color="rgba(122,122,122,1)"
-                                            size={20}
-                                        />
-                                    </View>
-                                </TouchableHighlight>
-                            );
-                        })}
+                        <TouchableHighlight
+                            onPress={() => this.AutomobileSheet.show()}
+                            activeOpacity={0.5}
+                            underlayColor="#eee"
+                        >
+                            <View style={styles.button}>
+                                <Text style={styles.text}>Preferred Automobile</Text>
+                                <Text style={styles.small}>{this.state.automobile}</Text>
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                            onPress={() => this.TypeSheet.show()}
+                            activeOpacity={0.5}
+                            underlayColor="#eee"
+                        >
+                            <View style={styles.button}>
+                                <Text style={styles.text}>Fuel Type</Text>
+                                <Text style={styles.small}>{this.state.type}</Text>
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                            onPress={() => this.showPicker()}
+                            activeOpacity={0.5}
+                            underlayColor="#eee"
+                        >
+                            <View style={styles.button}>
+                                <Text style={styles.text}>Approximate Mileage</Text>
+                                <Text style={styles.small}>
+                                    {this.state.value + ' ' + this.state.unit}
+                                </Text>
+                            </View>
+                        </TouchableHighlight>
                     </View>
                 )}
+
                 <ActionSheet
                     ref={o => (this.AutomobileSheet = o)}
                     title={automobileTitle}
                     options={automobileOptions}
                     cancelButtonIndex={CANCEL_INDEX}
                     onPress={i => this.handlePress(automobileOptions, i, 'automobile')}
-                    styles={{
-                        body: {
-                            borderRadius: 30
-                        },
-                        titleBox: {
-                            borderTopLeftRadius: 30,
-                            borderTopRightRadius: 30
-                        }
-                    }}
                 />
                 <ActionSheet
                     ref={o => (this.TypeSheet = o)}
@@ -199,7 +164,7 @@ const CANCEL_INDEX = 0;
 /* For Inputing Mileage */
 let values = [];
 let units = ['km/litre', 'miles/gallon'];
-for (let i = 0; i <= 40; i += 0.1) {
+for (var i = 0; i <= 40; i += 0.1) {
     values.push(i.toFixed(1));
 }
 
@@ -207,50 +172,33 @@ for (let i = 0; i <= 40; i += 0.1) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: newColors.secondary
+        backgroundColor: color.greyBack,
+        marginTop: StatusBar.currentHeight
     },
     main: {
-        paddingTop: 20,
-        width: Dimensions.get('window').width,
-        backgroundColor: 'white',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        alignItems: 'center',
-        flex: 1
-    },
-    touchableButton: {
-        paddingVertical: 10,
-        borderColor: 'rgba(215,215,215,0.3)',
-        borderBottomWidth: 1,
-        borderTopWidth: 0,
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
-        paddingLeft: 10,
-        paddingRight: 10
-    },
-    button: {
-        paddingLeft: 10,
-        paddingRight: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        marginTop: 75,
         width: Dimensions.get('window').width
     },
+    button: {
+        paddingLeft: 13,
+        backgroundColor: color.white,
+        borderWidth: 1,
+        borderColor: color.borderGrey,
+        shadowColor: color.shadowGrey,
+        height: 50,
+        width: Dimensions.get('window').width,
+        justifyContent: 'center'
+    },
     text: {
-        fontSize: 16,
-        fontFamily: 'Poppins',
-        color: color.black
+        fontSize: 14,
+        color: color.black,
+        letterSpacing: 1
     },
     small: {
-        fontSize: 14,
-        fontFamily: 'Poppins',
+        fontSize: 12,
         color: color.lightBlack,
         letterSpacing: 1,
         paddingTop: 4
-    },
-
-    textWrapper: {
-        marginLeft: 10
     },
     center: {
         top: 0,

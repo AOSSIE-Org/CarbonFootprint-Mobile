@@ -164,7 +164,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-email-link')
     implementation project(':react-native-fetch-blob')
     implementation project(':react-native-modal-translucent')
     implementation project(':react-native-google-signin')

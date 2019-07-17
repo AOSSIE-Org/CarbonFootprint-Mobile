@@ -23,7 +23,7 @@ const Header = props => {
         }
         return (
             <View style={topContainerStyle}>
-                {/* <StatusBar backgroundColor={newColors.secondary} barStyle="light-content" /> */}
+                <StatusBar backgroundColor={color.darkPrimary} barStyle="light-content" />
                 <Icon.Button
                     name={getIcon(props.iconName)}
                     backgroundColor={color.primary}
@@ -47,12 +47,14 @@ const Header = props => {
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
+        top: 0,
         width: Dimensions.get('window').width,
         backgroundColor: color.primary,
-        height: 50,
-        paddingTop: 0,
+        height: Platform.OS === 'ios' ? 64 : 50,
+        paddingTop: Platform.OS === 'ios' ? 15 : 0,
         alignItems: 'center',
         flexDirection: 'row',
+        // position: 'absolute',
         justifyContent: 'center'
     },
     spaceBetween: {

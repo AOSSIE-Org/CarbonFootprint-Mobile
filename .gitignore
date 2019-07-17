@@ -22,10 +22,6 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
-# assets
-assets/fonts/
-android/app/source/main/assets/fonts
-
 # ios
 ios/Pods
 

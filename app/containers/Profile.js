@@ -10,7 +10,8 @@ import {
     StyleSheet,
     TouchableNativeFeedback,
     Platform,
-    ActivityIndicator
+    ActivityIndicator,
+    StatusBar
 } from 'react-native';
 import * as firebase from 'firebase';
 import { bindActionCreators } from 'redux';
@@ -25,8 +26,7 @@ import { getUser } from '../actions/firebase/User';
 import Icon from 'react-native-vector-icons/EvilIcons';
 var ImagePicker = require('react-native-image-picker');
 import images from '../config/images';
-import { color, newColors } from '../config/helper';
-import StatusBarBackground from '../components/StatusBarBackground';
+import { color } from '../config/helper';
 
 const { height, width } = Dimensions.get('window');
 
@@ -118,14 +118,10 @@ class UserProfile extends Component {
 
     render() {
         let CustomButton = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
-        let style = {
-            backgroundColor: newColors.secondary
-        };
 
         return (
             <View style={styles.container}>
                 <Header iconName="arrow-back" icon={true} text="Profile" />
-                {/* <StatusBarBackground style={style}/> */}
                 <View>
                     <View style={styles.avatarContainer}>
                         {this.state.picture == images.logo ? (
@@ -228,7 +224,8 @@ UserProfile.propTypes = {
 //Styling for the profile editing screen.
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        marginTop: StatusBar.currentHeight
     },
     textInput: {
         flex: 2,
