@@ -144,10 +144,9 @@ export default class ActivityTab extends Component {
         let value = true;
         if (Platform.OS === 'android' && Platform.Version >= 23) {
             value = await getPermission();
-            checkGPS();
         }
-
-        if ((value && Platform.OS === 'android') || Platform.OS === 'ios') {
+        checkGPS();
+        if (value) {
             this.getCurrentLocation = navigator.geolocation.getCurrentPosition(
                 position => {
                     const currLatLngs = {
@@ -167,7 +166,7 @@ export default class ActivityTab extends Component {
                     console.log(position);
                 },
                 error => {
-                    // console.log('valelelel',error.message);
+                    //console.log(error.message);
                 }
             );
             /**
@@ -246,8 +245,8 @@ export default class ActivityTab extends Component {
     }
 
     render() {
-        let timeObj = this.updateTime(this.props.activity.duration);
-        let icon = getIconName(this.props.activity.type);
+        var timeObj = this.updateTime(this.props.activity.duration);
+        var icon = getIconName(this.props.activity.type);
 
         return (
             <ScrollView contentContainerStyle={styles.scrollView}>

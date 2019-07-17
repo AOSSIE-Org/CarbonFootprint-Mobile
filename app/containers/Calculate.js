@@ -128,32 +128,31 @@ class Calculate extends Component {
                 ) : (
                     map
                 )}
-                <View style={styles.buttonWrapper}>
-                    <View style={styles.button}>
-                        <View style={styles.box}>
-                            <Icon.Button
-                                name={getIcon('pin')}
-                                backgroundColor={color.lightPrimary}
-                                borderRadius={2}
-                                size={16}
-                                iconStyle={styles.icon}
-                                onPress={() => this.props.openSearchModal(0)}
-                            >
-                                <Text style={styles.text}>{direction.sourceName}</Text>
-                            </Icon.Button>
-                        </View>
-                        <View>
-                            <Icon.Button
-                                name={getIcon('flag')}
-                                backgroundColor={color.lightPrimary}
-                                borderRadius={2}
-                                size={16}
-                                iconStyle={styles.icon}
-                                onPress={() => this.props.openSearchModal(1)}
-                            >
-                                <Text style={styles.text}>{direction.destinationName}</Text>
-                            </Icon.Button>
-                        </View>
+
+                <View style={styles.button}>
+                    <View style={styles.box}>
+                        <Icon.Button
+                            name={getIcon('pin')}
+                            backgroundColor={color.lightPrimary}
+                            borderRadius={2}
+                            size={16}
+                            iconStyle={styles.icon}
+                            onPress={() => this.props.openSearchModal(0)}
+                        >
+                            <Text style={styles.text}>{direction.sourceName}</Text>
+                        </Icon.Button>
+                    </View>
+                    <View>
+                        <Icon.Button
+                            name={getIcon('flag')}
+                            backgroundColor={color.lightPrimary}
+                            borderRadius={2}
+                            size={16}
+                            iconStyle={styles.icon}
+                            onPress={() => this.props.openSearchModal(1)}
+                        >
+                            <Text style={styles.text}>{direction.destinationName}</Text>
+                        </Icon.Button>
                     </View>
                 </View>
                 {source.latitude && destination.latitude ? (
@@ -180,8 +179,8 @@ class Calculate extends Component {
 //StyleSheet
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('window').height
-        // marginTop: StatusBar.currentHeight
+        height: Dimensions.get('window').height,
+        marginTop: StatusBar.currentHeight
     },
     map: {
         top: 0,
@@ -208,11 +207,6 @@ const styles = StyleSheet.create({
         color: color.white,
         fontSize: 14,
         letterSpacing: 1
-    },
-    buttonWrapper: {
-        flex: 0.9,
-        // backgroundColor: 'red',
-        justifyContent: 'flex-end'
     },
     center: {
         top: 0,

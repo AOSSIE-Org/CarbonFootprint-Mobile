@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import { newColors } from '../config/helper';
 import images from '../config/images';
 
 /**
@@ -11,7 +10,7 @@ import images from '../config/images';
 const ImageHeader = props => {
     return (
         <View style={styles.container}>
-            <Image source={images.login_logo} style={styles.image} />
+            <Image source={images.logo} style={styles.image} />
             <Text style={styles.text} autoCapitalize="characters">
                 {props.text}
             </Text>
@@ -27,13 +26,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     image: {
-        width: 40,
-        height: 40
+        width: 80,
+        height: 80
     },
     text: {
-        fontSize: 20,
-        fontFamily: 'Poppins-SemiBold',
-        color: newColors.primary
+        fontSize: 14,
+        letterSpacing: 2
     }
 });
 

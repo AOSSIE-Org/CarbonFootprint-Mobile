@@ -6,7 +6,6 @@ import { Actions } from 'react-native-router-flux';
 
 import BackHeader from '../components/BackHeader';
 import RegisterForm from '../components/RegisterForm';
-import StatusBarBackground from '../components/StatusBarBackground';
 
 import * as AuthAction from '../actions/AuthAction';
 
@@ -16,8 +15,7 @@ import * as AuthAction from '../actions/AuthAction';
 const Register = props => (
     <View style={styles.container}>
         <StatusBar hidden={true} />
-        <StatusBarBackground style={{ backgroundColor: 'white' }} />
-        <BackHeader text="Login" link={() => Actions.home()} icon toIcon="sign-in" />
+        <BackHeader text="Login" link={() => Actions.login()} />
         <RegisterForm {...props} />
     </View>
 );

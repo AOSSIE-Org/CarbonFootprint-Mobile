@@ -9,10 +9,12 @@ import {
     ActivityIndicator
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 
-import { getIcon, newColors } from '../config/helper';
+import { getIcon } from '../config/helper';
+import ImageHeader from './ImageHeader';
 
 /**
  * LoginForm component
@@ -34,48 +36,40 @@ class LoginForm extends Component {
         });
     }
 
-    handleInput = (key, text) => {
-        this.setState({
-            [key]: text
-        });
-    };
-
     render() {
-        let signupFields = [
-            {
-                name: 'email',
-                placeholder: 'johndoe@gmail.com'
-            },
-            {
-                name: 'password',
-                placeholder: 'Enter your password',
-                props: {
-                    secureTextEntry: true
-                }
-            }
-        ];
-
         return (
             <View style={styles.container}>
+                <ImageHeader text="" />
                 <KeyboardAwareScrollView style={styles.inputForm}>
-                    {signupFields.map(obj => {
-                        return (
-                            <View style={styles.input} key={obj.name}>
-                                <TextInput
-                                    placeholder={obj.placeholder}
-                                    style={styles.field}
-                                    autoCapitalize="none"
-                                    onChangeText={text => this.handleInput(obj.name, text)}
-                                    underlineColorAndroid="transparent"
-                                    {...obj.props}
-                                />
-                            </View>
-                        );
-                    })}
-                    <Text style={styles.forgotText} onPress={() => Actions.forgot()}>
-                        Forgot Password?
-                    </Text>
-
+                    <View style={styles.input}>
+                        <Icon name={getIcon('mail')} size={18} color="#666" />
+                        <TextInput
+                            placeholder="Email"
+                            style={styles.field}
+                            autoCapitalize="none"
+                            onChangeText={text =>
+                                this.setState({
+                                    email: text
+                                })
+                            }
+                            underlineColorAndroid="transparent"
+                        />
+                    </View>
+                    <View style={[styles.input, styles.inputTop]}>
+                        <Icon name={getIcon('lock')} size={18} color="#666" />
+                        <TextInput
+                            placeholder="Password"
+                            style={styles.field}
+                            secureTextEntry={true}
+                            onChangeText={text =>
+                                this.setState({
+                                    password: text
+                                })
+                            }
+                            autoCapitalize="none"
+                            underlineColorAndroid="transparent"
+                        />
+                    </View>
                     {this.props.auth.isFetching ? null : this.state.error ? (
                         <View style={styles.topMargin}>
                             <Text style={styles.error}>{this.state.error}</Text>
@@ -88,9 +82,10 @@ class LoginForm extends Component {
                                 : this.props.login(this.state.email, this.state.password)
                         }
                         style={styles.button}
+                        underlayColor="#538124"
                         activeOpacity={0.5}
                     >
-                        <Text style={styles.loginText}>
+                        <Text style={styles.text}>
                             {this.props.auth.isFetching ? 'Logging....' : 'Login'}
                         </Text>
                     </TouchableHighlight>
@@ -103,17 +98,6 @@ class LoginForm extends Component {
                         </View>
                     ) : null}
                 </KeyboardAwareScrollView>
-                <View style={styles.bottomContainer}>
-                    <Text style={styles.bottomText}>Don't have an account?</Text>
-                    <View style={styles.reg}>
-                        <Text
-                            onPress={() => Actions.register()}
-                            style={[styles.registerText, styles.bottomText]}
-                        >
-                            Register Now
-                        </Text>
-                    </View>
-                </View>
             </View>
         );
     }
@@ -123,8 +107,6 @@ class LoginForm extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 30,
-        // backgroundColor: 'red',
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'stretch'
@@ -134,11 +116,8 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width * 0.9
     },
     input: {
-        backgroundColor: 'rgba(191,191,191,0.2)',
-        paddingTop: 5,
-        paddingBottom: 5,
-        borderRadius: 5,
-        marginBottom: 10,
+        borderBottomWidth: 1,
+        borderColor: '#555',
         flexDirection: 'row',
         alignItems: 'center'
     },
@@ -147,31 +126,21 @@ const styles = StyleSheet.create({
     },
     field: {
         height: 40,
-        color: 'rgba(157,157,157,1)',
+        color: '#555',
         fontSize: 15,
         flex: 1,
-        fontFamily: 'Muli-Regular',
-        marginLeft: 8,
-        color: newColors.black
+        marginLeft: 8
     },
     button: {
-        backgroundColor: newColors.secondary,
+        backgroundColor: '#538124',
         height: 30,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 21,
-        paddingTop: 25,
-        paddingBottom: 25,
         borderRadius: 2
     },
-    forgotText: {
-        textAlign: 'right',
-        color: newColors.secondary,
-        fontFamily: 'Poppins-Regular'
-    },
-    loginText: {
-        color: 'white',
-        fontFamily: 'Poppins-SemiBold',
+    text: {
+        color: '#fff',
         fontSize: 16,
         letterSpacing: 1
     },
@@ -180,26 +149,6 @@ const styles = StyleSheet.create({
     },
     topMargin: {
         marginTop: 10
-    },
-    registerText: {
-        color: 'white'
-    },
-    reg: {
-        backgroundColor: newColors.secondary,
-        borderRadius: 20,
-        paddingTop: 3,
-        paddingBottom: 3,
-        paddingLeft: 7,
-        paddingRight: 7,
-        marginLeft: 3
-    },
-    bottomContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    bottomText: {
-        fontFamily: 'Poppins-Regular'
     }
 });
 

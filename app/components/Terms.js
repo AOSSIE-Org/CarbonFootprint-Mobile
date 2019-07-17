@@ -1,17 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text, StatusBar } from 'react-native';
-import ProfileHeader from './ProfileHeader';
-import { newColors } from '../config/helper';
-import StatusBarBackground from '../components/StatusBarBackground';
+import Header from './Header';
 
 const Terms = () => {
-    const style = {
-        backgroundColor: newColors.secondary
-    };
     return (
         <View style={styles.container}>
-            <StatusBarBackground style={style} />
-            <ProfileHeader iconName="long-arrow-left" text="Terms and Conditions" />
+            <Header icon={true} iconName="arrow-back" text="Terms and Conditions" />
             <View style={styles.main}>
                 <Text style={styles.text}>
                     This mobile application is provided free of cost. We accept no liability for it.
@@ -27,15 +21,11 @@ const Terms = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: newColors.secondary
+        marginTop: StatusBar.currentHeight
     },
     main: {
-        flex: 1,
-        backgroundColor: 'white',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
         alignItems: 'center',
-        paddingTop: 20, // (45 + 10)
+        marginTop: 55, // (45 + 10)
         padding: 13
     },
     text: {

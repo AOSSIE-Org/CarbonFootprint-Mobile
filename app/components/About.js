@@ -12,64 +12,73 @@ import {
     ScrollView,
     TouchableOpacity
 } from 'react-native';
-import ProfileHeader from './ProfileHeader';
-import StatusBarBackground from '../components/StatusBarBackground';
+import { Actions } from 'react-native-router-flux';
 import { aossieTitle, aossieDescription, appDescription } from '../config/constants';
 import Header from './Header';
 import images from '../config/images';
-import { newColors } from '../config/helper';
 const { width, height } = Dimensions.get('window');
 const About = () => {
-    const style = {
-        backgroundColor: newColors.secondary
-    };
-    var socialAttr = [
-        {
-            image: images.gitlab,
-            onPress: () => Linking.openURL('https://gitlab.com/aossie/CarbonFootprint-Mobile')
-        },
-        {
-            image: images.gsoc,
-            onPress: () =>
-                Linking.openURL('https://groups.google.com/forum/#!forum/aossie-gsoc-2017')
-        },
-        {
-            image: images.twitter,
-            onPress: () => Linking.openURL('https://twitter.com/aossie_org')
-        },
-        {
-            image: images.webiste,
-            onPress: () => Linking.openURL('https://aossie.gitlab.io/')
-        }
-    ];
-
     return (
         <View style={styles.container}>
-            <StatusBarBackground style={style} />
-            <ProfileHeader iconName="long-arrow-left" text="About Us" />
-            <ScrollView style={styles.scrollWrapper}>
+            <ScrollView>
+                <Header icon={true} iconName="arrow-back" text="About Us" />
                 <View style={styles.main}>
                     <Image source={images.aossie} style={styles.image} />
                     <Text style={styles.title}>{aossieTitle}</Text>
                     <Text style={styles.description}>{aossieDescription}</Text>
                     <View style={styles.divider} />
                     <Image source={images.logo} style={styles.image} />
-                    <Text style={styles.title}>CarbonFootprint</Text>
-                    <Text style={styles.description}>{appDescription}</Text>
+                    <Text style={styles.large}>Carbon Footprint</Text>
+                    <View style={styles.text}>
+                        <View>
+                            <Text style={styles.small}>{appDescription}</Text>
+                        </View>
+                    </View>
                     <View style={styles.divider} />
                     <Text style={styles.title}>Follow us and contribute to our project!</Text>
                     <View style={styles.social}>
-                        {socialAttr.map((obj, i) => {
-                            return (
-                                <TouchableOpacity key={i} onPress={obj.onPress}>
-                                    <Image
-                                        style={styles.socialItem}
-                                        resizeMethod="resize"
-                                        source={obj.image}
-                                    />
-                                </TouchableOpacity>
-                            );
-                        })}
+                        <TouchableOpacity
+                            onPress={() =>
+                                Linking.openURL('https://gitlab.com/aossie/CarbonFootprint-Mobile')
+                            }
+                        >
+                            <Image
+                                style={styles.socialItem}
+                                resizeMethod="resize"
+                                source={images.gitlab}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() =>
+                                Linking.openURL(
+                                    'https://groups.google.com/forum/#!forum/aossie-gsoc-2017'
+                                )
+                            }
+                        >
+                            <Image
+                                style={styles.socialItem}
+                                resizeMethod="resize"
+                                source={images.gsoc}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => Linking.openURL('https://twitter.com/aossie_org')}
+                        >
+                            <Image
+                                style={styles.socialItem}
+                                resizeMethod="resize"
+                                source={images.twitter}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => Linking.openURL('https://aossie.gitlab.io/')}
+                        >
+                            <Image
+                                style={styles.socialItem}
+                                resizeMethod="resize"
+                                source={images.webiste}
+                            />
+                        </TouchableOpacity>
                     </View>
                 </View>
             </ScrollView>
@@ -94,16 +103,11 @@ const About = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: newColors.secondary
-    },
-    scrollWrapper: {
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        backgroundColor: 'white'
+        marginTop: StatusBar.currentHeight
     },
     main: {
         alignItems: 'center',
-        marginTop: 20, // (45 + 20)
+        marginTop: 65, // (45 + 20)
         padding: 13
     },
     image: {
@@ -129,8 +133,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         margin: 8,
-        fontFamily: 'Poppins-SemiBold',
-        color: newColors.black,
         marginBottom: height / 38,
         textAlign: 'center'
     },
@@ -138,26 +140,23 @@ const styles = StyleSheet.create({
         marginHorizontal: width / 16,
         marginBottom: height / 38,
         fontSize: 15,
-        fontFamily: 'Muli',
         textAlign: 'center'
     },
     divider: {
         borderBottomWidth: 1,
-        borderBottomColor: 'rgba(215,215,215,0.5)',
-        width: 350,
-        marginTop: 20,
-        marginBottom: 20
+        borderBottomColor: 'green',
+        width: 350
     },
     socialItem: {
-        height: 30,
-        width: 30
+        height: 80,
+        width: 80
     },
     social: {
         flex: 1,
-        width: Dimensions.get('window').width,
         flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginBottom: 20
+        justifyContent: 'center',
+        padding: height / 40,
+        paddingTop: 0
     }
 });
 
