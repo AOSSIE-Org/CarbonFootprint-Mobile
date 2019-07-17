@@ -15,9 +15,15 @@
             "pre-commit": "NODE_ENV=production lint-staged"
         }
     },
+    "rnpm": {
+        "assets": [
+            "./assets/fonts/"
+        ]
+    },
     "dependencies": {
         "@babel/core": "^7.4.4",
         "@mapbox/polyline": "^1.0.0",
+        "babel-polyfill": "^6.26.0",
         "eslint-staged-files": "1.0.0",
         "firebase": "^5.0.3",
         "haversine": "^1.1.0",
@@ -27,6 +33,7 @@
         "react-native-activity-recognition": "^3.2.0",
         "react-native-android-location-services-dialog-box": "^2.4.4",
         "react-native-background-timer": "^2.0.1",
+        "react-native-email-link": "^1.4.0",
         "react-native-fbsdk": "^0.8.0",
         "react-native-fetch-blob": "^0.10.8",
         "react-native-geocoding": "^0.3.0",
@@ -35,6 +42,7 @@
         "react-native-image-picker": "^0.26.10",
         "react-native-keyboard-aware-scroll-view": "^0.5.0",
         "react-native-maps": "^0.21.0",
+        "react-native-modal": "^11.1.0",
         "react-native-modal-translucent": "^2.0.0",
         "react-native-offline": "^3.14.1",
         "react-native-picker": "^4.3.6",
@@ -42,6 +50,7 @@
         "react-native-scrollable-tab-view": "^0.8.0",
         "react-native-simple-auth": "^2.3.0",
         "react-native-simple-toast": "0.0.8",
+        "react-native-snap-carousel": "^3.8.0",
         "react-native-splash-screen": "^3.0.6",
         "react-native-swiper": "^1.5.13",
         "react-native-timeline-listview": "^0.2.3",

@@ -232,3 +232,18 @@ export const color = {
     grey: '#eee',
     lightBlack: '#777'
 };
+
+export const newColors = {
+    primary: '#0C0F18',
+    lightPrimary: '#1B264F',
+    darkPrimary: '#2e8286',
+    secondary: '#2191FB',
+    error: '#cc0000',
+    black: '#161616',
+    white: '#fff',
+    greyBack: '#f7f7f7',
+    shadowGrey: '#ddd',
+    borderGrey: '#ddd',
+    grey: '#eee',
+    lightBlack: '#777'
+};

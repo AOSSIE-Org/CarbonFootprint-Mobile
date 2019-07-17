@@ -11,6 +11,11 @@ import {
 import Swiper from 'react-native-swiper';
 import { Actions } from 'react-native-router-flux';
 import SplashScreen from 'react-native-splash-screen';
+import { newColors } from '../config/helper';
+import SplashScreenTab from './SplashScreenTab';
+import StatusBarBackground from './StatusBarBackground';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import images from '../config/images';
 
 export default class Intro extends Component {
     constructor(props) {
@@ -36,167 +41,93 @@ export default class Intro extends Component {
     };
 
     render() {
-        let skipButton = null;
-        if (this.state.index != 5) {
-            skipButton = (
-                <TouchableOpacity style={styles.absoluteSkipButton} onPress={this.onPress}>
-                    <Text>skip</Text>
-                </TouchableOpacity>
-            );
-        }
+        let slides = [
+            {
+                text: 'Track Emission',
+                desc:
+                    'Release of co2 in environment is increasing everyday. This app will calculate and track your release.',
+                style: styles.slide1,
+                source: images.splash_screen_1
+            },
+            {
+                text: 'Activity Recognition',
+                desc:
+                    "Detects user's activity and calculate travelled distance and amount of emitted co2 (at runtime).",
+                style: styles.slide2,
+                source: images.splash_screen_2
+            },
+            {
+                text: 'Push Notifications',
+                desc: 'Push notification service to inform user about his activity,',
+                style: styles.slide3,
+                source: images.splash_screen_3
+            }
+        ];
 
-        const statusBarColor = ['#20837C', '#132584', '#CD0045', '#8E2200', '#3E0560', '#044208'];
         return (
             <View style={styles.container}>
+                <StatusBar barStyle="light-content" />
+                <StatusBarBackground style={{ backgroundColor: newColors.primary }} />
+                <View style={styles.iconWrapper}>
+                    <Image source={images.splash_screen_logo} style={styles.icon} />
+                </View>
                 <Swiper
                     onIndexChanged={index => {
-                        StatusBar.setBackgroundColor(statusBarColor[index]);
                         this.setState({ index });
                     }}
                     style={styles.wrapper}
                     loop={false}
-                    showsButtons={true}
-                    buttonWrapperStyle={{
-                        backgroundColor: 'transparent',
-                        flexDirection: 'row',
-                        position: 'absolute',
-                        marginRight: 20,
-                        alignItems: 'flex-end'
+                    activeDot={activeDot()}
+                    dotColor="white"
+                    paginationStyle={{
+                        marginBottom: -30
                     }}
-                    nextButton={<Text style={styles.nextButton}>Next</Text>}
-                    prevButton={<Text style={styles.buttonText} />}
                 >
-                    <View style={styles.slide1}>
-                        <StatusBar
-                            barStyle="light-content"
-                            hidden={false}
-                            backgroundColor="#20837C"
-                            translucent={true}
-                        />
-                        <View style={styles.mainView}>
-                            <Image source={require('../images/logo.png')} style={styles.image} />
-                        </View>
-                        <View style={styles.whiteView}>
-                            <Text style={styles.titleText}>CarbonFootprint - Mobile</Text>
-                            <Text style={styles.descText}>
-                                CarbonFootprint Mobile is Mobile application that raises
-                                environmental awareness by tracking user activity and calculating
-                                carbon footprints.
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.slide2}>
-                        <View style={styles.mainView}>
-                            <Image source={require('../images/co2.png')} style={styles.image} />
-                        </View>
-                        <View style={styles.whiteView}>
-                            <Text style={styles.titleText}>Emission of co2</Text>
-                            <Text style={styles.descText}>
-                                Release of co2 in environment is increasing everyday this app will
-                                calculate your release of co2
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.slide3}>
-                        <View style={styles.mainView}>
-                            <Image
-                                source={require('../images/activity.png')}
-                                style={styles.image}
-                            />
-                        </View>
-                        <View style={styles.whiteView}>
-                            <Text style={styles.titleText}>Activity Recognition</Text>
-                            <Text style={styles.descText}>
-                                Detects user's activity and calculate travelled distance and amount
-                                of emitted co2 (at runtime)
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.slide4}>
-                        <View style={styles.mainView}>
-                            <Image source={require('../images/notif.png')} style={styles.image} />
-                        </View>
-                        <View style={styles.whiteView}>
-                            <Text style={styles.titleText}>Live Notification</Text>
-                            <Text style={styles.descText}>
-                                push notification service to inform user about his activity
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.slide5}>
-                        <View style={styles.mainView}>
-                            <Image source={require('../images/route.png')} style={styles.image} />
-                        </View>
-                        <View style={styles.whiteView}>
-                            <Text style={styles.titleText}>Google Maps Service</Text>
-                            <Text style={styles.descText}>
-                                Travel from one point to another point and find your CO2 release
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.slide6}>
-                        <View style={styles.mainView}>
-                            <Image source={require('../images/green.png')} style={styles.image} />
-                        </View>
-                        <View style={styles.whiteView}>
-                            <Text style={styles.titleText}>Carbon Footprints</Text>
-                            <Text style={styles.descText}>
-                                Goal is to make everyone aware of CO2 usage
-                            </Text>
-                        </View>
-                        <TouchableOpacity style={styles.doneButton} onPress={this.onPress}>
-                            <Text>Done</Text>
-                        </TouchableOpacity>
-                    </View>
+                    {slides.map(element => {
+                        return <SplashScreenTab key={element.text} tab={{ ...element }} />;
+                    })}
                 </Swiper>
-                {skipButton}
+                {/* {skipButton} */}
+                <View style={styles.bottomView}>
+                    <TouchableOpacity style={styles.startJourneyButton} onPress={this.onPress}>
+                        <Text style={styles.startText}>Start your journey</Text>
+                        <Icon name="caret-right" size={20} color={newColors.primary} />
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
 }
 
+function activeDot() {
+    return <View style={styles.activeDotStyle} />;
+}
+
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+
+        backgroundColor: newColors.primary
+    },
+    activeDotStyle: {
+        backgroundColor: 'white',
+        width: 40,
+        height: 7,
+        borderRadius: 5,
+        marginRight: 4,
+        marginLeft: 4
+    },
+    iconWrapper: {
+        width: '100%',
+        justifyContent: 'flex-start'
+    },
+    icon: {
+        marginTop: 30,
+        marginLeft: 30,
+        width: 40,
+        height: 40
     },
     wrapper: {},
-    slide1: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#59b2ab'
-    },
-    slide2: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#3F51B5'
-    },
-    slide3: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#EC407A'
-    },
-    slide4: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#E64A19'
-    },
-    slide5: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#6A1B9A'
-    },
-    slide6: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#2E7D32'
-    },
-
     doneButton: {
         position: 'absolute',
         bottom: 25,
@@ -207,38 +138,29 @@ const styles = StyleSheet.create({
         bottom: 20,
         left: 10
     },
-    descText: {
-        fontSize: 15,
-        marginTop: 10,
-        marginLeft: 10
-    },
-    mainView: {
-        flex: 0.7,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    image: {
-        width: 120,
-        height: 120
-    },
-    whiteView: {
-        backgroundColor: '#ffffff',
-        width: '100%',
-        flex: 0.3,
-        alignItems: 'center'
-    },
-    titleText: {
-        fontWeight: 'bold',
-        fontSize: 20,
-        marginTop: 10
-    },
     nextButton: {
         marginRight: 10,
         marginBottom: 15
     },
-    absoluteSkipButton: {
-        position: 'absolute',
-        bottom: 20,
-        left: 10
+    bottomView: {
+        flex: 0.15,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    startJourneyButton: {
+        width: '70%',
+        height: '60%',
+        backgroundColor: 'white',
+        borderRadius: 30,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        maxHeight: 50
+    },
+    startText: {
+        // backgroundColor: 'red'
+        fontFamily: 'Poppins-SemiBold',
+        color: newColors.primary,
+        marginRight: 10
     }
 });

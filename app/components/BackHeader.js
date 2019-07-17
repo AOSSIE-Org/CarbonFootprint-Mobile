@@ -1,9 +1,10 @@
 import React from 'react';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { View, StyleSheet, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { View, StyleSheet, Text, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { getIcon } from '../config/helper';
+import { newColors } from '../config/helper';
+import images from '../config/images';
 
 /**
  * backbutton in header
@@ -13,18 +14,25 @@ const BackHeader = props => {
     return (
         <View style={styles.container}>
             <Icon.Button
-                name={getIcon('arrow-back')}
-                backgroundColor="#fff"
+                // name={getIcon('arrow-back')}
+                name="long-arrow-left"
                 iconStyle={styles.icon}
+                backgroundColor="white"
+                size={30}
+                color={newColors.black}
                 onPress={() => Actions.home()}
             />
+            {props.icon ? <Image source={images.login_logo} style={styles.logo} /> : null}
             {props.text ? (
                 <Icon.Button
-                    backgroundColor="#fff"
+                    name={props.toIcon}
                     onPress={props.link}
-                    iconStyle={styles.iconText}
+                    color="white"
+                    style={styles.button}
+                    borderRadius={30}
+                    backgroundColor={newColors.lightPrimary}
                 >
-                    <Text style={styles.text}>{props.text}</Text>
+                    <Text style={styles.buttonText}>{props.text}</Text>
                 </Icon.Button>
             ) : null}
         </View>
@@ -35,21 +43,22 @@ const BackHeader = props => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: 5,
+        paddingTop: 10,
         paddingRight: 10,
         paddingLeft: 10
     },
-    icon: {
-        color: '#666'
+    buttonText: {
+        fontSize: 16,
+        color: 'white',
+        fontFamily: 'Muli-Regular',
+        paddingLeft: 5,
+        paddingRight: 5
     },
-    text: {
-        fontSize: 14,
-        color: '#666'
-    },
-    iconText: {
-        marginRight: 0
+    logo: {
+        width: 40,
+        height: 40
     }
 });
 

@@ -8,6 +8,7 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import com.facebook.react.ReactApplication;
+import com.facebook.react.modules.email.EmailPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import me.listenzz.modal.TranslucentModalReactPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
@@ -56,6 +57,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new EmailPackage(),
             new RNFetchBlobPackage(),
             new TranslucentModalReactPackage(),
           new RNGoogleSigninPackage(),
