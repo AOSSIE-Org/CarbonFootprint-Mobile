@@ -198,11 +198,11 @@ class More extends Component {
                                     </View>
                                 </View>
                                 <View style={styles.nameWrapper}>
-                                    <Text style={styles.nameText}>Himanshu Chhabra</Text>
-                                    <View style={styles.locationWrapper}>
+                                    <Text style={styles.nameText}>{this.props.user.name}</Text>
+                                    {/* <View style={styles.locationWrapper}>
                                         <MIcon name="room" color="black" size={20} />
                                         <Text style={styles.locationText}>New Delhi, India</Text>
-                                    </View>
+                                    </View> */}
                                 </View>
                             </View>
                             <View style={styles.editWrapper}>
@@ -215,12 +215,12 @@ class More extends Component {
                                 />
                             </View>
                         </View>
-                        <View style={styles.descWrapper}>
+                        {/* <View style={styles.descWrapper}>
                             <Text style={styles.descText}>
                                 A learner who want to create stuff now.Also, Interested in sports
                                 and yes.
                             </Text>
-                        </View>
+                        </View> */}
                     </View>
 
                     <View style={styles.settingsWrapper}>
@@ -400,6 +400,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingLeft: 10,
         fontSize: 18,
+        backgroundColor: 'rgba(215,215,215,0.5)',
         fontFamily: 'Muli-Bold'
     },
     itemWrapper: {

@@ -365,7 +365,8 @@ const styles = StyleSheet.create({
     kgText: {
         fontFamily: 'Poppins-Black',
         fontSize: 16,
-        marginTop: Platform.OS == 'android' ? -50 : -20,
+        // marginTop: Platform.OS == 'android' ? -50 : -20,
+        // lineHeight: 16,
         color: 'white'
         // fontStyle: 'italic'
     },
