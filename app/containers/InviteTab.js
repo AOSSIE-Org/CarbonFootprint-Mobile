@@ -92,7 +92,10 @@ class InviteTab extends Component {
                                         iconName={['person-add']}
                                         link={() => {
                                             this.props.loaderToggle();
-                                            sendFriendRequest(this.props.auth.user.uid, item.uid)
+                                            sendFriendRequest(
+                                                this.props.auth.user.email,
+                                                item.email
+                                            )
                                                 .then(() => {
                                                     this.props.loaderToggle();
                                                 })

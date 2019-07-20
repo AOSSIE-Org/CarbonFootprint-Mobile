@@ -10,6 +10,7 @@ import * as actions from './AuthAction';
 import { showAlert } from '../config/helper';
 import { loginCustomFirebase } from './firebase/Auth';
 import { KEYS_NOT_SET } from '../config/constants';
+import { checkValidityForSignIn, redirectSignIn } from './firebase/Helper';
 
 /**
  * google signin functionality to app
@@ -22,10 +23,11 @@ export function googleSignIn() {
     return async dispatch => {
         GoogleSignin.configure(googleSignInConfig);
         try {
+            dispatch(loaderToggle());
             await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
             const tokens = await GoogleSignin.getTokens();
-            dispatch(loaderToggle());
+            await checkValidityForSignIn(userInfo.user.email, 'google.com');
             loginCustomFirebase('google', tokens.idToken, tokens.accessToken)
                 .then(user => {
                     dispatch(actions.receiveAuth(user));
@@ -35,12 +37,14 @@ export function googleSignIn() {
                     });
                 })
                 .catch(error => {
-                    showAlert('Login Issue', error.message, 'OK');
                     dispatch(loaderToggle());
-                    dispatch(actions.receiveError(error));
                 });
         } catch (error) {
-            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+            dispatch(loaderToggle());
+            if (error.code === 'REDIRECT_SIGN_IN') {
+                // email id is already registered with another account of a different auth provider
+                dispatch(redirectSignIn(error.userInfo.provider));
+            } else if (error.code === statusCodes.SIGN_IN_CANCELLED) {
                 // user cancelled the login flow
             } else if (error.code === statusCodes.IN_PROGRESS) {
                 // operation (f.e. sign in) is in progress already

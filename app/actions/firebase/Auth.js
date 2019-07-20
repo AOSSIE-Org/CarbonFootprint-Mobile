@@ -21,9 +21,9 @@ export function registerFirebase(name, email, password) {
                     picture: null,
                     provider: 'email'
                 };
-                setUser(firebase.auth().currentUser.uid, temp)
+                setUser(firebase.auth().currentUser.email, temp)
                     .then(() => {
-                        getUser(firebase.auth().currentUser.uid)
+                        getUser(firebase.auth().currentUser.email)
                             .then(user => {
                                 resolve(user);
                             })
@@ -48,7 +48,7 @@ export function loginEmailFirebase(email, password) {
             .then(user => {
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
-                        getUser(user.uid)
+                        getUser(user.email)
                             .then(user => resolve(user))
                             .catch(error => reject());
                     } else {
@@ -92,9 +92,8 @@ export function loginCustomFirebase(type, token, secret) {
             .signInAndRetrieveDataWithCredential(credential)
             .then(user => {
                 user = user.user;
-                getUser(user.uid)
+                getUser(user.email)
                     .then(user => {
-                        console.log(user);
                         urlToBase64(user).then(user => {
                             resolve(user);
                         });
@@ -107,9 +106,9 @@ export function loginCustomFirebase(type, token, secret) {
                             provider: provider
                         };
                         urlToBase64(userData).then(userData => {
-                            setUser(user.uid, userData)
+                            setUser(userData.email, userData)
                                 .then(() => {
-                                    getUser(user.uid)
+                                    getUser(userData.email)
                                         .then(user => resolve(user))
                                         .catch(error => reject(error));
                                 })
