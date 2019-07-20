@@ -10,8 +10,8 @@ import { requestAuth, receiveAuth, receiveError } from './AuthAction';
 export function getProfile() {
     return (dispatch, getState) => {
         dispatch(requestAuth());
-        const uid = getState().auth.user.uid;
-        getUser(uid)
+        const email = getState().auth.user.email;
+        getUser(email)
             .then(user => {
                 dispatch(receiveAuth(user));
             })

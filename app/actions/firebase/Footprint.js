@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 import { getUser } from './User';
+import { formatEmail } from '../../config/helper';
 
 /*
     Do all the calculations locally. Query Firebase only to set (not to update).
@@ -46,14 +47,14 @@ import { getUser } from './User';
  * @param  currentUid UID of the loggedin user(unique in db)
  * @return {Promise}
  */
-export function setFootprint(data, currentUid) {
+export function setFootprint(data, currentEmail) {
     return new Promise(function(resolve, reject) {
         firebase
             .database()
-            .ref('users/' + currentUid + '/data')
+            .ref('users/' + formatEmail(currentEmail) + '/data')
             .set(data)
             .then(() => {
-                getUser(currentUid)
+                getUser(currentEmail)
                     .then(user => {
                         //alert("Data sent in Firebase. UID: " + currentUid);
                         resolve(user);

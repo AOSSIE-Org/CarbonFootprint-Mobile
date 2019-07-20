@@ -217,6 +217,15 @@ export function urlToBase64(userData) {
     });
 }
 
+/*
+ * Format email(replacing '.' to ','), so that it can be used as a primary key.
+ * Firebase doesn't allow '.'(dot) to be used in the key text
+ */
+
+export function formatEmail(userEmail) {
+    return userEmail.replace(/\./g, ',');
+}
+
 /*colors*/
 export const color = {
     primary: '#2f8e92',
