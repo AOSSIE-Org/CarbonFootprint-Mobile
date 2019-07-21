@@ -129,7 +129,12 @@ class InviteTab extends Component {
                     </ScrollView>
                 ) : this.state.userFetched ? (
                     <WarningTextAndIcon iconName="sad" text="No User Found." />
-                ) : null}
+                ) : (
+                    <WarningTextAndIcon
+                        iconName="leaf"
+                        text="Find your friends and save the environment."
+                    />
+                )}
             </View>
         );
     }
