@@ -210,9 +210,10 @@ const styles = StyleSheet.create({
         letterSpacing: 1
     },
     buttonWrapper: {
-        flex: 0.9,
+        flex: 1,
         // backgroundColor: 'red',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        marginBottom: 45
     },
     center: {
         top: 0,

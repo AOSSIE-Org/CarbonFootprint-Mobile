@@ -222,7 +222,10 @@ class Stats extends Component {
                                     : 0.0;
                                 let time = obj.value.time ? obj.value.time : 0.0;
                                 return (
-                                    <View style={styles.contentItemWrapper} tabLabel={obj.name}>
+                                    <ScrollView
+                                        style={styles.contentItemWrapper}
+                                        tabLabel={obj.name}
+                                    >
                                         <View style={styles.footprintWrapper}>
                                             {/* <View style={styles.plusWrapper}><Text style={styles.plus}>+</Text></View> */}
                                             <Icon
@@ -258,7 +261,7 @@ class Stats extends Component {
                                                 <Text style={styles.bbelowIcon}>TIME</Text>
                                             </View>
                                         </View>
-                                    </View>
+                                    </ScrollView>
                                 );
                             })}
                         </ScrollableTabView>
