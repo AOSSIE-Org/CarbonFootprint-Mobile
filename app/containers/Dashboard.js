@@ -163,13 +163,14 @@ class Stats extends Component {
                             </View>
                             <View style={styles.totalStatsWrapper}>
                                 <View style={styles.bigStatsWrapper}>
-                                    {totalStats[0].map(obj => {
+                                    {totalStats[0].map((obj, index) => {
                                         return (
                                             <View
                                                 style={[
                                                     styles.bigStatsItemWrapper,
                                                     obj.style || {}
                                                 ]}
+                                                key={index}
                                             >
                                                 <Text style={styles.number}>
                                                     {obj.number}
@@ -183,13 +184,14 @@ class Stats extends Component {
                                     })}
                                 </View>
                                 <View style={styles.smallStatsWrapper}>
-                                    {totalStats[1].map(obj => {
+                                    {totalStats[1].map((obj, index) => {
                                         return (
                                             <View
                                                 style={[
                                                     styles.smallStatsItemWrapper,
                                                     obj.style || {}
                                                 ]}
+                                                key={index}
                                             >
                                                 <Icon
                                                     name={obj.iconName}

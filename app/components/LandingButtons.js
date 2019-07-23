@@ -32,9 +32,9 @@ const LandingButtons = props => {
     return (
         <View style={styles.container}>
             <View style={styles.oauthWrapper}>
-                {oauthList.map(obj => {
+                {oauthList.map((obj, index) => {
                     return (
-                        <View style={styles.button} key={obj.name}>
+                        <View style={styles.button} key={index}>
                             <Icon.Button
                                 name={obj.name}
                                 backgroundColor="white"
