@@ -5,6 +5,10 @@ import { firebaseConfig } from '../config/keys';
 import { initFirebase } from './firebase/Init';
 import { registerFirebase, loginEmailFirebase, forgotPasswordFirebase } from './firebase/Auth';
 import { RESET_PASSWORD } from '../config/constants';
+import { formatEmail } from '../config/helper';
+import { checkValidityForSignIn, redirectSignIn } from './firebase/Helper';
+import { loaderToggle } from './LoaderAction';
+import loader from '../reducers/loader';
 
 export const REQUEST_AUTH = 'REQUEST_AUTH';
 export const RECEIVE_AUTH = 'RECEIVE_AUTH';
@@ -76,14 +80,29 @@ export function receiveForgot(message) {
  */
 export function login(email, password) {
     return (dispatch, getState) => {
-        dispatch(requestAuth());
-        loginEmailFirebase(email, password)
-            .then(user => {
-                dispatch(receiveAuth(user));
-                Actions.main({ type: ActionConst.REPLACE });
+        dispatch(loaderToggle());
+        checkValidityForSignIn(email, 'email')
+            .then(result => {
+                dispatch(requestAuth());
+                loginEmailFirebase(email, password)
+                    .then(user => {
+                        dispatch(loaderToggle());
+                        dispatch(receiveAuth(user));
+                        Actions.main({ type: ActionConst.REPLACE });
+                    })
+                    .catch(error => {
+                        dispatch(loaderToggle());
+                        dispatch(receiveError(error));
+                    });
             })
             .catch(error => {
-                dispatch(receiveError(error));
+                dispatch(loaderToggle());
+                if (error.code === 'REDIRECT_SIGN_IN') {
+                    // email id is already registered with another account of a different auth provider
+                    dispatch(redirectSignIn(error.userInfo.provider));
+                } else {
+                    dispatch(receiveError(error));
+                }
             });
     };
 }
@@ -97,14 +116,29 @@ export function login(email, password) {
  */
 export function register(name, email, password) {
     return (dispatch, getState) => {
-        dispatch(requestAuth());
-        registerFirebase(name, email, password)
-            .then(user => {
-                dispatch(receiveAuth(user));
-                Actions.main({ type: ActionConst.REPLACE });
+        dispatch(loaderToggle());
+        checkValidityForSignIn(email, 'email')
+            .then(result => {
+                dispatch(requestAuth());
+                registerFirebase(name, email, password)
+                    .then(user => {
+                        dispatch(loaderToggle());
+                        dispatch(receiveAuth(user));
+                        Actions.main({ type: ActionConst.REPLACE });
+                    })
+                    .catch(error => {
+                        dispatch(loaderToggle());
+                        dispatch(receiveError(error));
+                    });
             })
             .catch(error => {
-                dispatch(receiveError(error));
+                dispatch(loaderToggle());
+                if (error.code === 'REDIRECT_SIGN_IN') {
+                    // email id is already registered with another account of a different auth provider
+                    dispatch(redirectSignIn(error.userInfo.provider));
+                } else {
+                    dispatch(receiveError(error));
+                }
             });
     };
 }
@@ -148,10 +182,10 @@ export function forgotPassword(email) {
 export function updateUserFirebase(user) {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            const uid = firebase.auth().currentUser.uid;
+            const email = firebase.auth().currentUser.email;
             firebase
                 .database()
-                .ref('users/' + uid)
+                .ref('users/' + formatEmail(email))
                 .update(user);
             dispatch(receiveAuth(user));
             resolve();

@@ -57,12 +57,18 @@ class RegisterForm extends Component {
             },
             {
                 text: 'password',
-                placeholder: 'Create a new password'
+                placeholder: 'Create a new password',
+                props: {
+                    secureTextEntry: true
+                }
             },
             {
                 text: 'confirm password',
                 key: 'confirm_password',
-                placeholder: 'Confirm your password'
+                placeholder: 'Confirm your password',
+                props: {
+                    secureTextEntry: true
+                }
             }
         ];
 
@@ -89,6 +95,7 @@ class RegisterForm extends Component {
                                         onChangeText={text => this.handleInput(element, text)}
                                         placeholderTextColor="rgba(255,255,255,0.5)"
                                         underlineColorAndroid="transparent"
+                                        {...element.props}
                                     />
                                 </View>
                             );
@@ -193,8 +200,8 @@ const styles = StyleSheet.create({
         height: 40,
         color: 'white',
         fontSize: 15,
-        flex: 1,
-        marginLeft: -3
+        flex: 1
+        // marginLeft: -3
     },
     override: {
         borderBottomWidth: 0

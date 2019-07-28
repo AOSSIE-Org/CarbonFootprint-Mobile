@@ -47,7 +47,7 @@ function receiveError(error) {
  */
 export function getFriendList(choice) {
     return (dispatch, getState) => {
-        getUser(getState().auth.user.uid).then(user => {
+        getUser(getState().auth.user.email).then(user => {
             dispatch(requestFriends());
             dispatch(loaderToggle());
             var friends = {};
@@ -62,6 +62,7 @@ export function getFriendList(choice) {
                 dispatch(receiveFriends({}));
                 dispatch(loaderToggle());
             } else {
+                console.log(friends, 'Friends List ', choice);
                 getMultiple(Object.keys(friends)).then(friends => {
                     dispatch(receiveFriends(friends));
                     dispatch(loaderToggle());

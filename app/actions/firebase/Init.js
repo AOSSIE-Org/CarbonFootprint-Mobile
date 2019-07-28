@@ -13,8 +13,10 @@ export function initFirebase() {
         }
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                getUser(user.uid)
-                    .then(user => resolve(user))
+                getUser(user.email)
+                    .then(user => {
+                        resolve(user);
+                    })
                     .catch(error => reject());
             } else {
                 reject();

@@ -22,8 +22,8 @@ import Toast from 'react-native-simple-toast';
 
 import * as LoaderAction from '../actions/LoaderAction';
 import { acceptFriendRequest, deleteFriend } from '../actions/firebase/Friends';
-import { color, getIcon } from '../config/helper';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { color, getIcon, formatEmail } from '../config/helper';
 import FriendRow from './FriendRow';
 import WarningTextAndIcon from './WarningTextAndIcon';
 
@@ -39,13 +39,13 @@ class FriendsTab extends Component {
         this.props.getFriendList(this.props.choice);
     }
 
-    removeFriend = (currentUid, friendUid, title) => {
+    removeFriend = (currentEmail, friendEmail, title) => {
         this.props.loaderToggle();
         Alert.alert(title, `Are you sure you want remove this ${title.toLowerCase()}?`, [
             {
                 text: 'Yes',
                 onPress: () =>
-                    deleteFriend(currentUid, friendUid).then(user => {
+                    deleteFriend(formatEmail(currentEmail), formatEmail(friendEmail)).then(user => {
                         this.props.loaderToggle();
                         this.props.getFriendList(this.props.choice);
                         Toast.show(`${title} Removed`);
@@ -77,7 +77,7 @@ class FriendsTab extends Component {
         // Gamification: Sorting friends list based on emitted co2
         /*
             if(this.props.choice === "1") {
-                this.props.getUser(this.props.auth.user.uid).then((usr) => {
+                this.props.getUser(this.props.auth.user.email).then((usr) => {
                     console.log("----------------------------------------------------------------------------------");
                     console.log(usr);
                     friendList.push(usr);

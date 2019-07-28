@@ -49,11 +49,11 @@ class UserProfile extends Component {
 
     /**
      * verify updatation of user details in the database
-     * @param  uid  user id or unique id of logged in user
+     * @param  email email of logged in user
      * @return if current state user profile matches with the entry in the database
      */
-    verifyProfileUpdate(uid) {
-        getUser(uid).then(user => {
+    verifyProfileUpdate(email) {
+        getUser(email).then(user => {
             if (
                 user.name === this.state.name &&
                 user.phone_no == this.state.phone_no &&
@@ -61,7 +61,7 @@ class UserProfile extends Component {
             ) {
                 Toast.show('Profile Updated');
                 this.setState({ updateClicked: false });
-            } else verifyProfileUpdate(uid);
+            } else verifyProfileUpdate(email);
         });
     }
 
@@ -79,8 +79,8 @@ class UserProfile extends Component {
             const userProfle = Object.assign({}, this.state);
             delete userProfle.updateClicked;
             this.props.updateUserFirebase(userProfle).then(() => {
-                const uid = firebase.auth().currentUser.uid;
-                this.verifyProfileUpdate(uid);
+                const email = firebase.auth().currentUser.email;
+                this.verifyProfileUpdate(email);
             });
         }
     }

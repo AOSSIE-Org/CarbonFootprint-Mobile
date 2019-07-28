@@ -1,41 +1,37 @@
 import * as firebase from 'firebase';
+import { formatEmail } from '../../config/helper';
 
 /**
  *update user details in database
- * @param  uid  user id or unique id of logged in user
+ * @param  email email of logged in user
  * @param  data co2 emitted by user from all sources
  * @return {Promise}
  */
-export function setUser(uid, data) {
+export function setUser(email, data) {
     return new Promise((resolve, reject) => {
         firebase
             .database()
-            .ref('users/' + uid)
-            .set({
-                ...data
-            })
+            .ref('users/' + formatEmail(email))
+            .set(data)
             .then(() => resolve())
             .catch(error => reject(error));
     });
 }
 
 /**
- * getting user details from uid
- * @param  uid user id or unique id of logged in user
+ * getting user details from email
+ * @param  email email of logged in user
  * @return {Promise}
  */
-export function getUser(uid) {
+export function getUser(email) {
     return new Promise((resolve, reject) => {
         firebase
             .database()
-            .ref('users/' + uid)
+            .ref('users/' + formatEmail(email))
             .once('value')
             .then(function(snapshot) {
                 if (snapshot.exists()) {
-                    resolve({
-                        ...snapshot.val(),
-                        uid: uid
-                    });
+                    resolve(snapshot.val());
                 } else {
                     reject();
                 }
@@ -46,8 +42,8 @@ export function getUser(uid) {
     });
 }
 /**
- * updating user details with uid
- * @param  uid user id or unique id of logged in user
+ * updating user details with email
+ * @param  email email of logged in user
  * @param data updated user details
  * @return {Promise}
  */

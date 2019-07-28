@@ -148,7 +148,7 @@ export default class ActivityHistoryStorage {
                 distance: dataObj.distRun
             }
         };
-        setFootprint(data, store.getState().auth.user.uid);
+        setFootprint(data, store.getState().auth.user.email);
     }
 
     /**

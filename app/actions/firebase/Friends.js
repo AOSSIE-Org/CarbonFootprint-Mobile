@@ -1,24 +1,27 @@
 import * as firebase from 'firebase';
 import { getUser } from './User';
 import Toast from 'react-native-simple-toast';
+import { formatEmail } from '../../config/helper';
 
 /**
  * 0 - Request accepted (Friends)
  * 1 - Request sent by you but not accepted
  * 2 - Request received but not accepted ]
- * @param   currentUid unique id or user id given to user logged in
- * @param   friendUid  unique id or user id of friend
+ * @param   currentEmail unique id or user id given to user logged in
+ * @param   friendEmail  unique id or user id of friend
  * @return {promise}
  */
-export function sendFriendRequest(currentUid, friendUid) {
+export function sendFriendRequest(currentEmail, friendEmail) {
     return new Promise(function(resolve, reject) {
-        if (currentUid === friendUid) {
+        if (currentEmail === friendEmail) {
             Toast.show('You can not send friend request to yourself');
             reject('You can not send friend request to yourself');
         } else {
+            currentEmail = formatEmail(currentEmail);
+            friendEmail = formatEmail(friendEmail);
             const databaseRef = firebase
                 .database()
-                .ref('users/' + currentUid + '/friends/' + friendUid);
+                .ref('users/' + currentEmail + '/friends/' + friendEmail);
             databaseRef.once('value').then(function(snapshot) {
                 const currentState = snapshot.val();
                 if (currentState == 0) {
@@ -36,10 +39,10 @@ export function sendFriendRequest(currentUid, friendUid) {
                         .then(() => {
                             firebase
                                 .database()
-                                .ref('users/' + friendUid + '/friends/' + currentUid)
+                                .ref('users/' + friendEmail + '/friends/' + currentEmail)
                                 .set(2)
                                 .then(() => {
-                                    getUser(currentUid)
+                                    getUser(currentEmail)
                                         .then(user => {
                                             resolve(user);
                                             Toast.show('Friend request sent');
@@ -66,23 +69,25 @@ export function sendFriendRequest(currentUid, friendUid) {
 
 /**
  *
- * @param  currentUid unique id or user id given to user logged in
- * @param  friendUid  unique id or user id of friend
+ * @param  currentEmail unique id or user id given to user logged in
+ * @param  friendEmail  unique id or user id of friend
  * @return {Promise}
  */
-export function acceptFriendRequest(currentUid, friendUid) {
+export function acceptFriendRequest(currentEmail, friendEmail) {
+    currentEmail = formatEmail(currentEmail);
+    friendEmail = formatEmail(friendEmail);
     return new Promise(function(resolve, reject) {
         firebase
             .database()
-            .ref('users/' + currentUid + '/friends/' + friendUid)
+            .ref('users/' + currentEmail + '/friends/' + friendEmail)
             .set(0)
             .then(() => {
                 firebase
                     .database()
-                    .ref('users/' + friendUid + '/friends/' + currentUid)
+                    .ref('users/' + friendEmail + '/friends/' + currentEmail)
                     .set(0)
                     .then(() => {
-                        getUser(currentUid)
+                        getUser(currentEmail)
                             .then(user => {
                                 resolve(user);
                                 Toast.show('Friend request accepted');
@@ -106,23 +111,25 @@ export function acceptFriendRequest(currentUid, friendUid) {
 
 /**
  * Delete Friend Request or Already Added Friend
- * @param  currentUid unique id or user id given to user logged in
- * @param  friendUid  unique id or user id of friend
+ * @param  currentEmail unique id or user id given to user logged in
+ * @param  friendEmail  unique id or user id of friend
  * @return {Promise}
  */
-export function deleteFriend(currentUid, friendUid) {
+export function deleteFriend(currentEmail, friendEmail) {
+    currentEmail = formatEmail(currentEmail);
+    friendEmail = formatEmail(friendEmail);
     return new Promise(function(resolve, reject) {
         firebase
             .database()
-            .ref('users/' + currentUid + '/friends/' + friendUid)
+            .ref('users/' + currentEmail + '/friends/' + friendEmail)
             .remove()
             .then(() => {
                 firebase
                     .database()
-                    .ref('users/' + friendUid + '/friends/' + currentUid)
+                    .ref('users/' + friendEmail + '/friends/' + currentEmail)
                     .remove()
                     .then(() => {
-                        getUser(currentUid)
+                        getUser(currentEmail)
                             .then(user => {
                                 resolve(user);
                             })
@@ -152,7 +159,6 @@ export function searchFriendsByEmail(value) {
                     snapshot.forEach(function(data) {
                         let user = [
                             {
-                                uid: data.key,
                                 name: data.val().name,
                                 picture: data.val().picture,
                                 email: data.val().email
@@ -182,7 +188,6 @@ export function searchFriendsByUserName(value) {
                     snapshot.forEach(function(data) {
                         // this will have all the users.
                         users.push({
-                            uid: data.key,
                             name: data.val().name,
                             picture: data.val().picture,
                             email: data.val().email
