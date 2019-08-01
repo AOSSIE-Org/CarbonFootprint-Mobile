@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Dimensions } from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { returnHeightOfStatusBar } from '../components/StatusBarBackground';
 
 import * as DirectionAction from '../actions/DirectionAction';
 import { getRegion, getDirections } from '../actions/DirectionAction';
@@ -13,7 +14,7 @@ class StaticMap extends Component {
         super(props);
 
         this.state = {
-            statusBarHeight: 60,
+            statusBarHeight: 18,
             zoom: 15,
             source: this.props.source,
             destination: this.props.destination
@@ -110,7 +111,7 @@ class StaticMap extends Component {
     render() {
         let props = this.props;
         return (
-            <View style={[styles.mapContainer, { marginTop: this.state.statusBarHeight }]}>
+            <View style={[styles.mapContainer]}>
                 <MapView
                     provider={PROVIDER_GOOGLE}
                     showsUserLocation={true}
@@ -141,7 +142,7 @@ class StaticMap extends Component {
 const styles = StyleSheet.create({
     mapContainer: {
         position: 'absolute',
-        top: 0,
+        top: returnHeightOfStatusBar(),
         right: 0,
         left: 0,
         bottom: 0

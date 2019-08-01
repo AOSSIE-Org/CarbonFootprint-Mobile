@@ -225,7 +225,7 @@ class Stats extends Component {
                                 let time = obj.value.time ? obj.value.time : 0.0;
                                 return (
                                     <ScrollView
-                                        style={styles.contentItemWrapper}
+                                        contentContainerStyle={styles.contentItemWrapper}
                                         tabLabel={obj.name}
                                     >
                                         <View style={styles.footprintWrapper}>

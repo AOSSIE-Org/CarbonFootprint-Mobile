@@ -181,14 +181,6 @@ class Calculate extends Component {
 const styles = StyleSheet.create({
     container: {
         height: Dimensions.get('window').height
-        // marginTop: StatusBar.currentHeight
-    },
-    map: {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        position: 'absolute'
     },
     button: {
         backgroundColor: color.primary,

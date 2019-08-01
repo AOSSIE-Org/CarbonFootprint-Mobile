@@ -17,14 +17,14 @@ function isIPhoneXrSize(dim) {
     return dim.height == 896 || dim.width == 896;
 }
 
-function returnHeightOfStatusBar() {
+export const returnHeightOfStatusBar = () => {
     let dim = Dimensions.get('window');
     if (Platform.OS === 'ios') {
         if (isIPhoneXSize(dim) || isIPhoneXrSize(dim)) return 30;
         else return 18;
     }
     return 0;
-}
+};
 
 const styles = StyleSheet.create({
     statusBarBackground: {
