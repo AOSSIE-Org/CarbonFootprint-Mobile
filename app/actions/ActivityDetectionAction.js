@@ -99,7 +99,7 @@ export function startActivityDetection() {
         ActivityHistoryStorage.createDB();
         // Interval (in ms) for Activity detection updates
         const detectionIntervalMillis = 100;
-        ActivityRecognition.start(detectionIntervalMillis);
+        if (Platform.OS === 'android') ActivityRecognition.start(detectionIntervalMillis);
         // Subscribe to updates
         this.unsubscribe = ActivityRecognition.subscribe(detectedActivities => {
             //console.log("Activity is being detected ...");

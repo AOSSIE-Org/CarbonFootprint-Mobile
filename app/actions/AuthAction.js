@@ -189,6 +189,9 @@ export function updateUserFirebase(user) {
                 .update(user);
             dispatch(receiveAuth(user));
             resolve();
+        }).catch(err => {
+            console.warn('Error catched');
+            console.warn(err.message);
         });
     };
 }

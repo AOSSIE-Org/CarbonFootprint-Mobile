@@ -70,8 +70,14 @@ PODS:
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.1)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.2.1)"
   - GTMSessionFetcher/Core (1.2.2)
+  - Picker (4.3.7):
+    - Picker/Core (= 4.3.7)
+  - Picker/Core (4.3.7):
+    - React
   - React (0.58.6):
     - React/Core (= 0.58.6)
+  - react-native-fetch-blob (0.10.6):
+    - React/Core
   - react-native-google-maps (0.21.0):
     - Google-Maps-iOS-Utils (= 2.1.0)
     - GoogleMaps (= 2.5.0)
@@ -140,6 +146,8 @@ DEPENDENCIES:
   - GooglePlacePicker
   - GooglePlaces
   - GoogleSignIn (~> 4.4.0)
+  - Picker (from `../node_modules/react-native-picker`)
+  - react-native-fetch-blob (from `../node_modules/react-native-fetch-blob`)
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - React/Core (from `../node_modules/react-native`)
@@ -181,8 +189,12 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  Picker:
+    :path: "../node_modules/react-native-picker"
   React:
     :path: "../node_modules/react-native"
+  react-native-fetch-blob:
+    :path: "../node_modules/react-native-fetch-blob"
   react-native-google-maps:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
@@ -208,11 +220,13 @@ SPEC CHECKSUMS:
   GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
   GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  Picker: 4f1722c94059567cabd80e53d0ef72ca290d2b93
   React: 130b87b2d5e2baac646954282cab87be986d98fc
+  react-native-fetch-blob: 2bef9be702de8726f4d7bf58d2345579aaaee60d
   react-native-google-maps: 68a831730110823d3dadfea0e133f0f4426cd213
   react-native-maps: fb06a43ce6884256097eec1dd69d23957b71df88
   yoga: 32d7ef1081951e9a35a4c72a7be797598b138a48
 
-PODFILE CHECKSUM: 24384540a75c4b5a2bb397e686b5f4f8492fbde7
+PODFILE CHECKSUM: 2b075003ed6ec0fa03d3b64b55b0e4c0ff38689a
 
 COCOAPODS: 1.6.2

@@ -26,7 +26,7 @@ class Home extends Component {
             <View style={styles.container}>
                 <Loader loading={this.props.loader.isLoading} />
                 <StatusBar hidden={true} />
-                <ImageHeader text="Carbon Footprint" />
+                <ImageHeader text="Carbonfootprint" />
                 <LandingButtons {...this.props} />
             </View>
         );
