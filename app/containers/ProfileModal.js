@@ -19,7 +19,7 @@ import { getUser } from '../actions/firebase/User';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { updateUserFirebase } from '../actions/AuthAction';
+import * as AuthAction from '../actions/AuthAction';
 import { newColors } from '../config/helper';
 import images from '../config/images';
 import Toast from 'react-native-simple-toast';
@@ -44,8 +44,8 @@ class ProfileModal extends Component {
      * @param  uid  user id or unique id of logged in user
      * @return if current state user profile matches with the entry in the database
      */
-    verifyProfileUpdate = uid => {
-        getUser(uid).then(user => {
+    verifyProfileUpdate = email => {
+        getUser(email).then(user => {
             if (
                 user.name === this.state.name &&
                 user.phone_no == this.state.phone_no &&
@@ -53,7 +53,7 @@ class ProfileModal extends Component {
             ) {
                 Toast.show('Profile Updated');
                 // this.setState({ updateClicked: false });
-            } else verifyProfileUpdate(uid);
+            } else verifyProfileUpdate(email);
         });
     };
 
@@ -72,7 +72,7 @@ class ProfileModal extends Component {
             this.props
                 .updateUserFirebase(userProfile)
                 .then(() => {
-                    const uid = firebase.auth().currentUser.uid;
+                    const email = firebase.auth().currentUser.email;
                     this.verifyProfileUpdate(uid);
                 })
                 .catch(err => {
@@ -201,7 +201,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ updateUserFirebase }, dispatch);
+    return bindActionCreators(Object.assign({}, AuthAction), dispatch);
 };
 
 export default connect(
