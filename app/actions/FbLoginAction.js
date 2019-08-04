@@ -8,7 +8,6 @@ import FBSDK, {
     GraphRequest,
     GraphRequestManager
 } from 'react-native-fbsdk';
-import * as firebase from 'firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { receiveAuth, receiveError } from './AuthAction';
 import { loaderToggle } from './LoaderAction';

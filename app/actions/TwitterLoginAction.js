@@ -3,7 +3,6 @@
  */
 
 // import TwitterAuth from 'tipsi-twitter';
-import * as firebase from 'firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { twitterSignInConfig } from '../config/keys';
 import { receiveAuth, receiveError } from './AuthAction';

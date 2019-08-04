@@ -1,5 +1,3 @@
-import * as firebase from 'firebase';
-
 import { getUser } from './firebase/User';
 import { requestAuth, receiveAuth, receiveError } from './AuthAction';
 

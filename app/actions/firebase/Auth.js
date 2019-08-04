@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import firebase from 'react-native-firebase';
 import { setUser, getUser, updateUser } from './User';
 import { urlToBase64 } from '../../config/helper';
 
@@ -48,6 +48,7 @@ export function loginEmailFirebase(email, password) {
             .then(user => {
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
+                        user = user.toJSON();
                         getUser(user.email)
                             .then(user => resolve(user))
                             .catch(error => reject());
@@ -89,9 +90,9 @@ export function loginCustomFirebase(type, token, secret) {
         }
         firebase
             .auth()
-            .signInAndRetrieveDataWithCredential(credential)
+            .signInWithCredential(credential)
             .then(user => {
-                user = user.user;
+                user = user.user.toJSON();
                 getUser(user.email)
                     .then(user => {
                         urlToBase64(user).then(user => {

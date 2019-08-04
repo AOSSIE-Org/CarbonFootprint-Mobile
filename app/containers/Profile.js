@@ -12,7 +12,8 @@ import {
     Platform,
     ActivityIndicator
 } from 'react-native';
-import * as firebase from 'firebase';
+import firebase from 'react-native-firebase';
+
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';

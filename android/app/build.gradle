@@ -164,6 +164,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-firebase')
     implementation project(':react-native-email-link')
     implementation project(':react-native-fetch-blob')
     implementation project(':react-native-modal-translucent')
@@ -193,6 +194,12 @@ dependencies {
     implementation ("com.google.android.gms:play-services-auth:15.0.1")
     implementation ('com.google.android.gms:play-services-base:15.0.1')
     implementation ('com.google.android.gms:play-services-maps:15.0.1')
+
+    implementation "com.google.android.gms:play-services-base:16.1.0"
+    implementation "com.google.firebase:firebase-core:16.0.9"
+    implementation "com.google.firebase:firebase-auth:17.0.0"
+    implementation "com.google.firebase:firebase-database:17.0.0"
+
 }
 
 

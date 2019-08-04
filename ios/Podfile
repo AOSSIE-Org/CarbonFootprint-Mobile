@@ -48,6 +48,8 @@ target 'CarbonFootprint' do
     pod 'GoogleSignIn', '~> 4.4.0'
     pod 'Picker', :path => '../node_modules/react-native-picker'
     pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
+    pod 'Firebase/Core', '~> 6.3.0'
+    pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
 
   end
   

@@ -1,4 +1,5 @@
-import * as firebase from 'firebase';
+import firebase from 'react-native-firebase';
+
 import { getUser } from './User';
 import { formatEmail } from '../../config/helper';
 

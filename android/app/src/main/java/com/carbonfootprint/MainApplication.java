@@ -3,11 +3,16 @@ package com.carbonfootprint;
 import android.app.Application;
 
 import com.facebook.CallbackManager;
+import com.google.firebase.database.FirebaseDatabase;
 import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import io.invertase.firebase.instanceid.RNFirebaseInstanceIdPackage;
+import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import com.facebook.react.modules.email.EmailPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import me.listenzz.modal.TranslucentModalReactPackage;
@@ -57,9 +62,13 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFirebasePackage(),
+            new RNFirebaseAuthPackage(),
             new EmailPackage(),
             new RNFetchBlobPackage(),
             new TranslucentModalReactPackage(),
+            new RNFirebaseInstanceIdPackage(),
+            new RNFirebaseDatabasePackage(),
           new RNGoogleSigninPackage(),
           new ImagePickerPackage(),
           new LocationServicesDialogBoxPackage(),
@@ -89,6 +98,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     SoLoader.init(this, /* native exopackage */ false);
     // TwitterAuthConfig authConfig =  new TwitterAuthConfig
         // ("QYaiChXS6T0LeJ5Jt23QxctEh", "wTyZxZ1POhV8Doqydw9oQAUTQZJJvr3q7IO7NA0nRGNV4g4gUY");

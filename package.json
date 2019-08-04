@@ -35,6 +35,7 @@
         "react-native-background-timer": "^2.0.1",
         "react-native-email-link": "^1.4.0",
         "react-native-fbsdk": "^0.8.0",
+        "react-native-firebase": "^5.5.3",
         "react-native-fetch-blob": "^0.10.8",
         "react-native-geocoding": "^0.3.0",
         "react-native-google-places": "^2.5.0",

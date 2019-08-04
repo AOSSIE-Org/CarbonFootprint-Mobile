@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import firebase from 'react-native-firebase';
 import { getUser } from './User';
 import Toast from 'react-native-simple-toast';
 import { formatEmail } from '../../config/helper';
@@ -6,7 +6,7 @@ import { formatEmail } from '../../config/helper';
 /**
  * 0 - Request accepted (Friends)
  * 1 - Request sent by you but not accepted
- * 2 - Request received but not accepted ]
+ * 2 - Request received but not accepted
  * @param   currentEmail unique id or user id given to user logged in
  * @param   friendEmail  unique id or user id of friend
  * @return {promise}
