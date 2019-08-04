@@ -1,8 +1,18 @@
-import * as firebase from 'firebase';
+import firebase from 'react-native-firebase';
 import * as admin from 'firebase-admin';
 import * as User from '../../app/actions/firebase/User';
-import { registerFirebase, loginEmailFirebase, loginCustomFirebase, forgotPasswordFirebase } from '../../app/actions/firebase/Auth';
-import { sendFriendRequest, acceptFriendRequest, searchFriendsByEmail, searchFriendsByUserName } from '../../app/actions/firebase/Friends';
+import {
+    registerFirebase,
+    loginEmailFirebase,
+    loginCustomFirebase,
+    forgotPasswordFirebase
+} from '../../app/actions/firebase/Auth';
+import {
+    sendFriendRequest,
+    acceptFriendRequest,
+    searchFriendsByEmail,
+    searchFriendsByUserName
+} from '../../app/actions/firebase/Friends';
 import { setFootprint } from '../../app/actions/firebase/Footprint';
 import { getMultiple } from '../../app/actions/firebase/Helper';
 import { initAdmin, initFirebase, wipeDatabase } from '../setup/setupFirebase';
@@ -16,7 +26,7 @@ let user1, user2, user3, testUser, testFriend;
     Removes all the authenticated users
     Removes all the users in the database
 */
-beforeAll(async() => {
+beforeAll(async () => {
     initFirebase();
     initAdmin();
     wipeDatabase();
@@ -39,7 +49,7 @@ afterAll(() => {
 
 describe('tests the setUser, getUser, updateUser functions', () => {
     let user;
-    beforeAll(async() => {
+    beforeAll(async () => {
         user = await firebase
             .auth()
             .createUserWithEmailAndPassword('userfunctions@test.com', 'testPass')
@@ -55,10 +65,10 @@ describe('tests the setUser, getUser, updateUser functions', () => {
             });
     });
 
-    it('tests the setUser function', async() => {
+    it('tests the setUser function', async () => {
         firebase.auth().onAuthStateChanged(async function(data) {
             if (data) {
-                // If user is logged in 
+                // If user is logged in
                 await expect(User.setUser(data.uid, data)).resolves.toBe(undefined);
             } else {
                 /*
@@ -66,11 +76,11 @@ describe('tests the setUser, getUser, updateUser functions', () => {
                     is called then getUser function is tested
                 */
                 await firebase
-                .auth()
-                .signInWithEmailAndPassword(user.email, 'testPass')
-                .then((user) => {
-                    return expect(User.setUser(user.uid, user)).resolves.toBe(undefined);
-                })
+                    .auth()
+                    .signInWithEmailAndPassword(user.email, 'testPass')
+                    .then(user => {
+                        return expect(User.setUser(user.uid, user)).resolves.toBe(undefined);
+                    });
             }
         });
     });
@@ -78,7 +88,7 @@ describe('tests the setUser, getUser, updateUser functions', () => {
     it('tests the getUser function', () => {
         firebase.auth().onAuthStateChanged(async function(data) {
             if (data) {
-                // If user is logged in 
+                // If user is logged in
                 await expect(User.getUser(data.uid)).resolves.toEqual(data);
             } else {
                 /*
@@ -86,37 +96,39 @@ describe('tests the setUser, getUser, updateUser functions', () => {
                     is called then getUser function is tested
                 */
                 await firebase
-                .auth()
-                .signInWithEmailAndPassword(user.email, 'testPass')
-                .then((user) => {
-                    return expect(getUser(user.uid)).resolves.toEqual(user);
-                })
+                    .auth()
+                    .signInWithEmailAndPassword(user.email, 'testPass')
+                    .then(user => {
+                        return expect(getUser(user.uid)).resolves.toEqual(user);
+                    });
             }
         });
     });
 
-    it('tests the updateUser function for the the above tested user', async() => {
+    it('tests the updateUser function for the the above tested user', async () => {
         let testUser = {
             name: 'userfunctionschanged',
             provider: 'email',
             email: 'userfunctions@test.com',
-            provider: 'email',
-        }
+            provider: 'email'
+        };
         firebase.auth().onAuthStateChanged(async function(data) {
             if (data) {
                 // If user is logged in
-                await expect(User.updateUser(data.uid, {...testUser})).resolves.toBe(undefined);
+                await expect(User.updateUser(data.uid, { ...testUser })).resolves.toBe(undefined);
             } else {
                 /*
                     If user is not logged in first signIn function
                     is called then update function is tested
                 */
                 await firebase
-                .auth()
-                .signInWithEmailAndPassword(user.email, 'testPass')
-                .then((user) => {
-                    return expect(updateUser(user.uid, {...testUser})).resolves.toBe(undefined);
-                });
+                    .auth()
+                    .signInWithEmailAndPassword(user.email, 'testPass')
+                    .then(user => {
+                        return expect(updateUser(user.uid, { ...testUser })).resolves.toBe(
+                            undefined
+                        );
+                    });
             }
         });
     });
@@ -127,10 +139,9 @@ describe('tests the setUser, getUser, updateUser functions', () => {
     by creating a user in the test database
 */
 
-
 describe('creates user', () => {
     let users = {
-        create: async({ name, email, password }) => {
+        create: async ({ name, email, password }) => {
             await registerFirebase(name, email, password);
         }
     };
@@ -141,7 +152,7 @@ describe('creates user', () => {
             email: 'testuser@test.com',
             password: 'testPass'
         };
-        return users.create(user).then((user) => console.assert(user, 'test user was created'));
+        return users.create(user).then(user => console.assert(user, 'test user was created'));
     });
 });
 
@@ -150,10 +161,15 @@ describe('creates user', () => {
 */
 
 describe('tests the loginEmailFirebase function', () => {
-    it("should call loginEmailFirebase function", async () => {
-        firebase.auth().signInWithEmailAndPassword = jest.fn((email, password) => Promise.resolve(user1));
+    it('should call loginEmailFirebase function', async () => {
+        firebase.auth().signInWithEmailAndPassword = jest.fn((email, password) =>
+            Promise.resolve(user1)
+        );
         await loginEmailFirebase('user1@test.com', 'testPass');
-        expect(firebase.auth().signInWithEmailAndPassword).toHaveBeenCalledWith('user1@test.com', 'testPass');
+        expect(firebase.auth().signInWithEmailAndPassword).toHaveBeenCalledWith(
+            'user1@test.com',
+            'testPass'
+        );
     });
 });
 
@@ -170,7 +186,7 @@ describe('tests the loginEmailFirebase function', () => {
 */
 describe('tests the loginCustomFirebase function with provider google', () => {
     let user;
-    beforeAll(async() => {
+    beforeAll(async () => {
         user = {
             uid: user1.uid,
             displayName: user1.name,
@@ -179,18 +195,18 @@ describe('tests the loginCustomFirebase function with provider google', () => {
             provider: 'google.com'
         };
         firebase.auth.GoogleAuthProvider.credential = jest.fn();
-        firebase
-            .auth()
-            .signInAndRetrieveDataWithCredential = jest.fn(() => {
-                return new Promise((resolve) => {
-                    resolve({user});
-                });
+        firebase.auth().signInAndRetrieveDataWithCredential = jest.fn(() => {
+            return new Promise(resolve => {
+                resolve({ user });
             });
+        });
     });
 
-    it("tests the loginCustomFirebase when the user is already present", async() => {
+    it('tests the loginCustomFirebase when the user is already present', async () => {
         expect.assertions();
-        await expect(loginCustomFirebase('google', 'tokenString', 'secretString')).resolves.toEqual(user);
+        await expect(loginCustomFirebase('google', 'tokenString', 'secretString')).resolves.toEqual(
+            user
+        );
         /*
             If the user is still logged in after the update
             the user data needs to be updated where the
@@ -205,32 +221,37 @@ describe('tests the loginCustomFirebase function with provider google', () => {
         expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
     });
 
-    it('tests the loginCustomFirebase when the user is not present', async() => {
+    it('tests the loginCustomFirebase when the user is not present', async () => {
         User.updateUser = jest.fn(() => Promise.resolve(user));
         /*
             Deleting user from database to check the flow of
             the function when the user is not already present
         */
-        await firebase.database().ref('users/' + user.uid).remove();
-        await expect(loginCustomFirebase('google', 'tokenString', 'secretString')).resolves.toEqual({
-            uid: user.uid,
-            name: user.displayName,
-            email: user.email || null,
-            provider: user.provider
-        });
+        await firebase
+            .database()
+            .ref('users/' + user.uid)
+            .remove();
+        await expect(loginCustomFirebase('google', 'tokenString', 'secretString')).resolves.toEqual(
+            {
+                uid: user.uid,
+                name: user.displayName,
+                email: user.email || null,
+                provider: user.provider
+            }
+        );
         expect(firebase.auth.GoogleAuthProvider.credential).toHaveBeenCalledTimes(1);
         expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
         expect(User.updateUser).toHaveBeenCalledTimes(0);
     });
 });
-    
+
 /* 
     Tests the loginCustom firebase
     function for type facebook
 */
 describe('tests the loginCustomFirebase function with provider facebook', () => {
     let user;
-    beforeAll(async() => {
+    beforeAll(async () => {
         user = {
             uid: user2.uid,
             displayName: user2.name,
@@ -239,18 +260,18 @@ describe('tests the loginCustomFirebase function with provider facebook', () => 
             provider: 'facebook.com'
         };
         firebase.auth.FacebookAuthProvider.credential = jest.fn();
-        firebase
-            .auth()
-            .signInAndRetrieveDataWithCredential = jest.fn(() => {
-                return new Promise((resolve) => {
-                    resolve({user});
-                });
+        firebase.auth().signInAndRetrieveDataWithCredential = jest.fn(() => {
+            return new Promise(resolve => {
+                resolve({ user });
             });
+        });
     });
 
-    it("tests the loginCustomFirebase when the user is already present", async() => {
+    it('tests the loginCustomFirebase when the user is already present', async () => {
         expect.assertions();
-        await expect(loginCustomFirebase('facebook', 'tokenString', 'secretString')).resolves.toEqual(user);
+        await expect(
+            loginCustomFirebase('facebook', 'tokenString', 'secretString')
+        ).resolves.toEqual(user);
         /*
             If the user is still logged in after the update
             the user data needs to be updated where the
@@ -265,14 +286,19 @@ describe('tests the loginCustomFirebase function with provider facebook', () => 
         expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
     });
 
-    it('tests the loginCustomFirebase when the user is not present', async() => {
+    it('tests the loginCustomFirebase when the user is not present', async () => {
         User.updateUser = jest.fn(() => Promise.resolve(user));
         /*
             Deleting user from database to check the flow of
             the function when the user is not already present
         */
-        await firebase.database().ref('users/' + user.uid).remove();
-        await expect(loginCustomFirebase('facebook', 'tokenString', 'secretString')).resolves.toEqual({
+        await firebase
+            .database()
+            .ref('users/' + user.uid)
+            .remove();
+        await expect(
+            loginCustomFirebase('facebook', 'tokenString', 'secretString')
+        ).resolves.toEqual({
             uid: user.uid,
             name: user.displayName,
             email: user.email || null,
@@ -284,13 +310,13 @@ describe('tests the loginCustomFirebase function with provider facebook', () => 
     });
 });
 
-// /* 
+// /*
 //     Tests the loginCustom firebase
 //     function for type twitter
 // */
 describe('tests the loginCustomFirebase function with provider twitter', () => {
     let user;
-    beforeAll(async() => {
+    beforeAll(async () => {
         user = {
             uid: user3.uid,
             displayName: user3.name,
@@ -299,17 +325,17 @@ describe('tests the loginCustomFirebase function with provider twitter', () => {
             provider: 'twitter.com'
         };
         firebase.auth.TwitterAuthProvider.credential = jest.fn();
-        firebase
-            .auth()
-            .signInAndRetrieveDataWithCredential = jest.fn(() => {
-                return new Promise((resolve) => {
-                    resolve({user});
-                });
+        firebase.auth().signInAndRetrieveDataWithCredential = jest.fn(() => {
+            return new Promise(resolve => {
+                resolve({ user });
             });
+        });
     });
 
-    it("tests the loginCustomFirebase when the user is already present", async() => {
-        await expect(loginCustomFirebase('twitter', 'tokenString', 'secretString')).resolves.toEqual(user);
+    it('tests the loginCustomFirebase when the user is already present', async () => {
+        await expect(
+            loginCustomFirebase('twitter', 'tokenString', 'secretString')
+        ).resolves.toEqual(user);
         /*
             If the user is still logged in after the update
             the user data needs to be updated where the
@@ -324,14 +350,19 @@ describe('tests the loginCustomFirebase function with provider twitter', () => {
         expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
     });
 
-    it('tests the loginCustomFirebase when the user is not present', async() => {
+    it('tests the loginCustomFirebase when the user is not present', async () => {
         User.updateUser = jest.fn(() => Promise.resolve(user));
         /*
             Deleting user from database to check the flow of
             the function when the user is not already present
         */
-        await firebase.database().ref('users/' + user.uid).remove();
-        await expect(loginCustomFirebase('twitter', 'tokenString', 'secretString')).resolves.toEqual({
+        await firebase
+            .database()
+            .ref('users/' + user.uid)
+            .remove();
+        await expect(
+            loginCustomFirebase('twitter', 'tokenString', 'secretString')
+        ).resolves.toEqual({
             uid: user.uid,
             name: user.displayName,
             email: user.email || null,
@@ -348,8 +379,7 @@ describe('tests the loginCustomFirebase function with provider twitter', () => {
     by creating a new user in the test database
 */
 describe('tests forgetPasswordFirebase function', () => {
-
-    it('tests whether the forgetPasswordFirebase resolves to be undefined', async() => {
+    it('tests whether the forgetPasswordFirebase resolves to be undefined', async () => {
         expect.assertions(1);
         await expect(forgotPasswordFirebase('user@test.com')).resolves.toBe(undefined);
     });
@@ -366,38 +396,44 @@ describe('tests the flow of sendFriendRequest function', () => {
             uid: testUser.uid,
             email: testUser.email,
             friends: {
-                [testFriend.uid]: 1,
+                [testFriend.uid]: 1
             },
             name: testUser.name,
             provider: testUser.provider
         };
     });
     // When the user sends friend request to himself
-    it('checks the function for arguments having same value', async() => {
+    it('checks the function for arguments having same value', async () => {
         alert = jest.fn();
         expect.assertions(1);
-        await expect(sendFriendRequest(testUser.uid, testUser.uid)).rejects.toBe('You can not send friend request to yourself');
+        await expect(sendFriendRequest(testUser.uid, testUser.uid)).rejects.toBe(
+            'You can not send friend request to yourself'
+        );
     });
 
     // When the user sends friend request to another user who is not his friend
-    it('checks the function for arguments having different value', async() => {
+    it('checks the function for arguments having different value', async () => {
         alert = jest.fn();
         expect.assertions(1);
         await expect(sendFriendRequest(testUser.uid, testFriend.uid)).resolves.toEqual(updatedUser);
     });
 
     // When the user has already sent friend request to another user
-    it('checks the function when the user has already sent a friend request', async() => {
+    it('checks the function when the user has already sent a friend request', async () => {
         alert = jest.fn();
         expect.assertions(1);
-        await expect(sendFriendRequest(testUser.uid, testFriend.uid)).rejects.toBe('You have already sent a friend request to this user.');
+        await expect(sendFriendRequest(testUser.uid, testFriend.uid)).rejects.toBe(
+            'You have already sent a friend request to this user.'
+        );
     });
 
     // When the user has already been send friend request by another user
-    it('checks the function when the friend has already sent a request to user', async() => {
+    it('checks the function when the friend has already sent a request to user', async () => {
         alert = jest.fn();
         expect.assertions(1);
-        await expect(sendFriendRequest(testFriend.uid, testUser.uid)).rejects.toBe('This user has already sent you a request.');
+        await expect(sendFriendRequest(testFriend.uid, testUser.uid)).rejects.toBe(
+            'This user has already sent you a request.'
+        );
     });
 });
 
@@ -412,15 +448,17 @@ describe('tests the flow of acceptFriendRequest function', () => {
             uid: testFriend.uid,
             email: testFriend.email,
             friends: {
-                [testUser.uid]: 0,
+                [testUser.uid]: 0
             },
             name: testFriend.name,
             provider: testFriend.provider
         };
     });
-    it('checks if the function resolves to equal the updatedUser object with frienId value 0', async() => {
+    it('checks if the function resolves to equal the updatedUser object with frienId value 0', async () => {
         expect.assertions(1);
-        await expect(acceptFriendRequest(testFriend.uid, testUser.uid)).resolves.toEqual(updatedUser);
+        await expect(acceptFriendRequest(testFriend.uid, testUser.uid)).resolves.toEqual(
+            updatedUser
+        );
     });
 });
 
@@ -430,18 +468,20 @@ describe('tests the flow of acceptFriendRequest function', () => {
 describe('tests the flow of searchFriendsByEmail and searchFriendsByUserName', () => {
     let users = [];
     beforeAll(() => {
-        users = [{
-            uid: testUser.uid,
-            name: testUser.name,
-            email: testUser.email,
-            picture: undefined
-        }];
-    })
-    it('checks if the function searchFriendsByEmail resolves to equal the searched user', async() => {
+        users = [
+            {
+                uid: testUser.uid,
+                name: testUser.name,
+                email: testUser.email,
+                picture: undefined
+            }
+        ];
+    });
+    it('checks if the function searchFriendsByEmail resolves to equal the searched user', async () => {
         expect.assertions(1);
         await expect(searchFriendsByEmail('user@test.com')).resolves.toEqual(users);
     });
-    it('checks if the function searchFriendsByUserName resolves to equal the searched user', async() => {
+    it('checks if the function searchFriendsByUserName resolves to equal the searched user', async () => {
         expect.assertions(1);
         await expect(searchFriendsByUserName('user')).resolves.toEqual(users);
     });
@@ -453,10 +493,12 @@ describe('tests the flow of searchFriendsByEmail and searchFriendsByUserName', (
 */
 describe('tests the flow of setFootprint function', () => {
     let user;
-    beforeAll(async() => {
-        user =  await registerFirebase('footprint', 'footprint@test.com', 'testPass').then(data => data);
+    beforeAll(async () => {
+        user = await registerFirebase('footprint', 'footprint@test.com', 'testPass').then(
+            data => data
+        );
     });
-    it('checks whether the function resolves to equal user object with footprint value updated', async() => {
+    it('checks whether the function resolves to equal user object with footprint value updated', async () => {
         user.data = 100;
         await expect(setFootprint(100, user.uid)).resolves.toEqual(user);
     });
@@ -468,17 +510,13 @@ describe('tests the flow of setFootprint function', () => {
 */
 describe('tests the flow of getMultiple function', () => {
     let test1, test2, test3;
-    beforeAll(async() => {
-        test1 =  await registerFirebase('test1', 'test1@test.com', 'testPass').then(user => user);
-        test2 =  await registerFirebase('test2', 'test2@test.com', 'testPass').then(user => user);
-        test3 =  await registerFirebase('test3', 'test3@test.com', 'testPass').then(user => user);
+    beforeAll(async () => {
+        test1 = await registerFirebase('test1', 'test1@test.com', 'testPass').then(user => user);
+        test2 = await registerFirebase('test2', 'test2@test.com', 'testPass').then(user => user);
+        test3 = await registerFirebase('test3', 'test3@test.com', 'testPass').then(user => user);
     });
-    it('checks whether the function resolved to an array of users', async() => {
-        await expect(getMultiple([
-            test1.uid,
-            test2.uid,
-            test3.uid
-        ])).resolves.toEqual([
+    it('checks whether the function resolved to an array of users', async () => {
+        await expect(getMultiple([test1.uid, test2.uid, test3.uid])).resolves.toEqual([
             test1,
             test2,
             test3

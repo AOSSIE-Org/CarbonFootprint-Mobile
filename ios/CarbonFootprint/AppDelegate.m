@@ -13,6 +13,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <RNGoogleSignin/RNGoogleSignin.h>
+#import <Firebase.h>
 @import GooglePlaces; 
 
 
@@ -20,6 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [FIRApp configure];
   [GMSPlacesClient provideAPIKey:@"YOUR_API_KEY"];
   [GMSServices provideAPIKey:@"YOUR_API_KEY"];
   NSURL *jsCodeLocation;

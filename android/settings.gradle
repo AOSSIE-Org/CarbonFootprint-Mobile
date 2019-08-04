@@ -1,4 +1,6 @@
 rootProject.name = 'CarbonFootprint'
+include ':react-native-firebase'
+project(':react-native-firebase').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-firebase/android')
 include ':react-native-email-link'
 project(':react-native-email-link').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-email-link/android')
 include ':react-native-fetch-blob'

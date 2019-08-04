@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import firebase from 'react-native-firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { setStorage } from './StorageAction';
 import { firebaseConfig } from '../config/keys';

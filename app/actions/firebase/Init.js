@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import firebase from 'react-native-firebase';
 import { firebaseConfig } from '../../config/keys';
 
 import { getUser } from './User';
@@ -11,12 +11,13 @@ export function initFirebase() {
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
+        const serverTime = firebase.database().getServerTime();
+        console.log(serverTime, 'ServerTime');
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
+                user = user.toJSON();
                 getUser(user.email)
-                    .then(user => {
-                        resolve(user);
-                    })
+                    .then(user => resolve(user))
                     .catch(error => reject());
             } else {
                 reject();
