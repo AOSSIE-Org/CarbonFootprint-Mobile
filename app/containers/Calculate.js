@@ -180,7 +180,9 @@ class Calculate extends Component {
 //StyleSheet
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('window').height
+        height: Dimensions.get('window').height - 45,
+        position: 'relative',
+        justifyContent: 'flex-start'
     },
     button: {
         backgroundColor: color.primary,
@@ -201,12 +203,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         letterSpacing: 1
     },
-    buttonWrapper: {
-        flex: 1,
-        // backgroundColor: 'red',
-        justifyContent: 'flex-end',
-        marginBottom: 45
-    },
+    buttonWrapper: {},
     center: {
         top: 0,
         left: 0,
