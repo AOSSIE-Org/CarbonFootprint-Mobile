@@ -4,12 +4,6 @@ This project is for Carbon Footprint Mobile Application
 
 ---
 
-# Carbon Footprint Mobile Application
-
-This project is for Carbon Footprint Mobile Application
-
----
-
 #### Screenshots
 
 <table>
