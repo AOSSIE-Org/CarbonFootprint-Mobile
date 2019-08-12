@@ -30,10 +30,11 @@ export function getUser(email) {
             .ref('users/' + formatEmail(email))
             .once('value')
             .then(function(snapshot) {
+                // console.warn('snap', snapshot, snapshot.exists());
                 if (snapshot.exists()) {
                     resolve(snapshot.val());
                 } else {
-                    reject();
+                    reject('Snapshot does not exist');
                 }
             })
             .catch(error => {

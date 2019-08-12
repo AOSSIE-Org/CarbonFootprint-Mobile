@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -80,6 +79,7 @@
 		D04250FC967D413C8D6081F9 /* Muli-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91B58632280B4D3B9B5318BE /* Muli-ExtraLight.ttf */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
+		1A4F46A763AA4C948FB89EA8 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE587B35A214621933FDC88 /* libRNFirebase.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -505,6 +505,8 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F08008F2EB1348D8A723202A /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		FF1964D2687C47FFB7ABAF04 /* RNBackgroundTimer.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBackgroundTimer.xcodeproj; path = "../node_modules/react-native-background-timer/ios/RNBackgroundTimer.xcodeproj"; sourceTree = "<group>"; };
+		32465DA2E59B42448F9615D7 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; name = "RNFirebase.xcodeproj"; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		6DE587B35A214621933FDC88 /* libRNFirebase.a */ = {isa = PBXFileReference; name = "libRNFirebase.a"; path = "libRNFirebase.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -545,6 +547,7 @@
 				B8A290460F4D4A12B4C4B302 /* libRNBackgroundTimer.a in Frameworks */,
 				92A472ADFEAD538A3D55F1FC /* libPods-CarbonFootprint.a in Frameworks */,
 				9B069B3501794C8FA782E35E /* libRNGooglePlaces.a in Frameworks */,
+				1A4F46A763AA4C948FB89EA8 /* libRNFirebase.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,6 +774,7 @@
 				E83E479BACDA4CBC979C6632 /* RNActivityRecognition.xcodeproj */,
 				FF1964D2687C47FFB7ABAF04 /* RNBackgroundTimer.xcodeproj */,
 				3E9C9CF69AA54F228C6D3F6D /* RNGooglePlaces.xcodeproj */,
+				32465DA2E59B42448F9615D7 /* RNFirebase.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1700,12 +1704,14 @@
 					"$(SRCROOT)/../node_modules/react-native-activity-recognition/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = CarbonFootprintTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1734,12 +1740,14 @@
 					"$(SRCROOT)/../node_modules/react-native-activity-recognition/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = CarbonFootprintTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1770,6 +1778,7 @@
 					"$(SRCROOT)/../node_modules/react-native-activity-recognition/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = CarbonFootprint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1798,6 +1807,7 @@
 					"$(SRCROOT)/../node_modules/react-native-activity-recognition/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = CarbonFootprint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1832,11 +1842,13 @@
 					"$(SRCROOT)/../node_modules/react-native-activity-recognition/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = "CarbonFootprint-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1874,11 +1886,13 @@
 					"$(SRCROOT)/../node_modules/react-native-activity-recognition/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = "CarbonFootprint-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1915,11 +1929,13 @@
 					"$(SRCROOT)/../node_modules/react-native-activity-recognition/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = "CarbonFootprint-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1956,11 +1972,13 @@
 					"$(SRCROOT)/../node_modules/react-native-activity-recognition/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-places/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = "CarbonFootprint-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
