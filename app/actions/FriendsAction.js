@@ -48,26 +48,27 @@ function receiveError(error) {
 export function getFriendList(choice) {
     return (dispatch, getState) => {
         dispatch(loaderToggle());
-        getUser(getState().auth.user.email).then(user => {
-            dispatch(requestFriends());
-            var friends = {};
-            const obj = user.friends;
-            for (var key in obj) {
-                if (obj.hasOwnProperty(key)) {
-                    if (choice === '1' && obj[key] === 0) friends[key] = true;
-                    if (choice === '2' && obj[key] === 2) friends[key] = false;
+        getUser(getState().auth.user.email)
+            .then(user => {
+                dispatch(requestFriends());
+                var friends = {};
+                const obj = user.friends;
+                for (var key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        if (choice === '1' && obj[key] === 0) friends[key] = true;
+                        if (choice === '2' && obj[key] === 2) friends[key] = false;
+                    }
                 }
-            }
-            if (friends === undefined) {
-                dispatch(receiveFriends({}));
-                dispatch(loaderToggle());
-            } else {
-                console.log(friends, 'Friends List ', choice);
-                getMultiple(Object.keys(friends)).then(friends => {
-                    dispatch(receiveFriends(friends));
+                if (friends === undefined) {
+                    dispatch(receiveFriends({}));
                     dispatch(loaderToggle());
-                });
-            }
-        });
+                } else {
+                    getMultiple(Object.keys(friends)).then(friends => {
+                        dispatch(receiveFriends(friends));
+                        dispatch(loaderToggle());
+                    });
+                }
+            })
+            .catch(err => console.warn(err));
     };
 }

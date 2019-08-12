@@ -50,7 +50,8 @@ target 'CarbonFootprint' do
     pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
     pod 'Firebase/Core', '~> 6.3.0'
     pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
-
+    pod 'Firebase/Database', '~> 6.3.0'
+    pod 'Firebase/Auth', '~> 6.3.0'
   end
   
   post_install do |installer|
