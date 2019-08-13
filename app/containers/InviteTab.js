@@ -42,6 +42,7 @@ class InviteTab extends Component {
             userFetched: false
         };
         this.searchFriends = this.searchFriends.bind(this);
+        console.log('hello');
     }
 
     /**
