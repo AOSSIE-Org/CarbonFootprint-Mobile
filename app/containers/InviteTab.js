@@ -17,6 +17,7 @@ import {
     Platform
 } from 'react-native';
 import { connect } from 'react-redux';
+import firebase from 'react-native-firebase';
 import { bindActionCreators } from 'redux';
 import { color, newColors } from '../config/helper';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -38,41 +39,75 @@ class InviteTab extends Component {
         super(props);
         this.state = {
             search: '',
-            user: null,
+            users: [],
             userFetched: false
         };
-        this.searchFriends = this.searchFriends.bind(this);
-        console.log('hello');
     }
 
-    /**
-     * Function to search friends by their email id or username
-     * @return updating state
-     */
-    searchFriends() {
-        this.props.loaderToggle();
-        this.setState({ user: null, userFetched: true });
-        reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //REGEX to check if user entered email
-        if (!reg.test(this.state.search)) {
-            searchFriendsByUserName(this.state.search)
-                .then(users => {
-                    this.setState({ user: users });
-                    this.props.loaderToggle();
+    debounce = (func, wait, immediate) => {
+        var timeout;
+
+        return function() {
+            var context = this,
+                args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            //Don't wait. Just call now.
+            if (callNow) func.apply(context, args);
+        };
+    };
+
+    filterUsers = searchText => {
+        return new Promise((res, rej) => {
+            searchText = searchText.toLowerCase();
+            firebase
+                .database()
+                .ref('users/')
+                .once('value')
+                .then(snapshot => {
+                    let users = [];
+                    snapshot.forEach(val => {
+                        // this will have all the users.
+                        let data = val.val();
+                        if (
+                            data.name &&
+                            data.email &&
+                            (data.name.toLowerCase().indexOf(searchText) != -1 ||
+                                data.email.toLowerCase().indexOf(searchText) != -1)
+                        )
+                            users.push({
+                                name: data.name,
+                                picture: data.picture,
+                                email: data.email
+                            });
+                    });
+                    this.setState({ users: users, userFetched: true });
+                    res(users);
                 })
-                .catch(error => {
-                    this.props.loaderToggle();
+                .catch(err => rej(err));
+        });
+    };
+
+    handleInputChange = async text => {
+        this.setState({ search: text }, async () => {
+            try {
+                await this.filterUsersDebounced(text);
+            } catch (err) {
+                this.setState({
+                    users: [],
+                    userFetched: true
                 });
-        } else {
-            searchFriendsByEmail(this.state.search)
-                .then(user => {
-                    this.setState({ user: user });
-                    this.props.loaderToggle();
-                })
-                .catch(error => {
-                    this.props.loaderToggle();
-                });
-        }
-    }
+            }
+        });
+    };
+
+    filterUsersDebounced = this.debounce(this.filterUsers, 500, false);
 
     render() {
         return (
@@ -83,9 +118,10 @@ class InviteTab extends Component {
                             <Icon name="search" size={16} style={styles.searchIcon} />
                             <TextInput
                                 value={this.state.search}
-                                onChangeText={text => this.setState({ search: text })}
+                                onChangeText={this.handleInputChange}
                                 placeholder="Search friends by Email or Username"
                                 style={styles.inputBox}
+                                autoCapitalize="none"
                             />
                             <Icon
                                 name="times-circle"
@@ -103,14 +139,15 @@ class InviteTab extends Component {
                     </View>
                 </View>
 
-                {this.state.user ? (
+                {this.state.users.length > 0 ? (
                     <ScrollView style={styles.container}>
                         <View style={styles.view}>
                             <FlatList
-                                data={this.state.user}
+                                contentContainerStyle={styles.flatlist}
+                                data={this.state.users}
                                 renderItem={({ item }) => (
                                     <FriendRow
-                                        iconName={['person-add']}
+                                        iconName={['plus-circle']}
                                         link={() => {
                                             this.props.loaderToggle();
                                             sendFriendRequest(
@@ -132,12 +169,16 @@ class InviteTab extends Component {
                         </View>
                     </ScrollView>
                 ) : this.state.userFetched ? (
-                    <WarningTextAndIcon iconName="sad" text="No User Found." />
+                    <View style={styles.warningWrapper}>
+                        <WarningTextAndIcon iconName="sad" text="No User Found." />
+                    </View>
                 ) : (
-                    <WarningTextAndIcon
-                        iconName="leaf"
-                        text="Find your friends and save the environment."
-                    />
+                    <View style={styles.warningWrapper}>
+                        <WarningTextAndIcon
+                            iconName="leaf"
+                            text="Find your friends and save the environment."
+                        />
+                    </View>
                 )}
             </View>
         );
@@ -146,11 +187,12 @@ class InviteTab extends Component {
 
 /*StyleSheet*/
 const styles = StyleSheet.create({
-    container: {
-        // backgroundColor: color.greyBack
-    },
+    container: {},
     view: {
         flex: 1
+    },
+    flatlist: {
+        alignItems: 'center'
     },
     searchBtn: {
         height: 35,
@@ -160,6 +202,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: color.primary,
         marginBottom: 10
+    },
+    warningWrapper: {
+        position: 'relative',
+        flex: 1
     },
     whiteText: {
         fontSize: 15,
@@ -202,7 +248,7 @@ const styles = StyleSheet.create({
         // justifyContent: 'center'
     },
     searchTextContainer: {
-        // backgroundColor: 'green',
+        // backgroundColor: 'red',
         paddingHorizontal: 10,
         flex: 1,
         alignItems: 'center'
