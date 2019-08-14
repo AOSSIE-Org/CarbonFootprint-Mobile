@@ -30,7 +30,7 @@ const FriendRow = props => {
             <View style={styles.iconsWrapper}>
                 {props.iconName ? (
                     <Icon
-                        name="minus-circle"
+                        name={props.iconName[0]}
                         size={24}
                         onPress={props.link}
                         color="black"
