@@ -37,7 +37,7 @@ export default class TodayTab extends Component {
     constructor(props) {
         super(props);
         ActivityHistoryStorage.createDB();
-        var data = ActivityHistoryStorage.getTotalData(new Date().toDateString());
+        let data = ActivityHistoryStorage.getTotalData(new Date().toDateString());
         this.state = {
             co2Emitted: data.co2Emitted,
             co2Saved: data.co2Saved,
