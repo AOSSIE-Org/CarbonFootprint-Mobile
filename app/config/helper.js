@@ -243,10 +243,14 @@ export const color = {
 };
 
 export const newColors = {
-    primary: '#0C0F18',
-    lightPrimary: '#1B264F',
+    // primary: '#0C0F18',
+    // lightPrimary: '#1B264F',
+    // darkPrimary: '#2e8286',
+    // secondary: '#2191FB',
+    primary: '#2f8e92',
+    lightPrimary: '#30999e',
     darkPrimary: '#2e8286',
-    secondary: '#2191FB',
+    secondary: '#30999e',
     error: '#cc0000',
     black: '#161616',
     white: '#fff',

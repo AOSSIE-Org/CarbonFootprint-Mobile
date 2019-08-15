@@ -39,7 +39,7 @@ const FriendRow = props => {
                 ) : null}
                 {props.iconName && props.iconName.length === 2 ? (
                     <Icon
-                        name="check-circle"
+                        name={props.iconName[1]}
                         size={24}
                         style={styles.acceptIcon}
                         onPress={props.reject}

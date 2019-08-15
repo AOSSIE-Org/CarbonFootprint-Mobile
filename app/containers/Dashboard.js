@@ -196,7 +196,7 @@ class Stats extends Component {
                                                 <Icon
                                                     name={obj.iconName}
                                                     size={20}
-                                                    style={styles.iconSmall}
+                                                    style={styles.smallStatsIcon}
                                                 />
                                                 <Text style={styles.smallText}>
                                                     {obj.number + ' ' + obj.unit}
@@ -244,7 +244,7 @@ class Stats extends Component {
                                                 <Icon
                                                     name="send"
                                                     size={24}
-                                                    style={styles.smallIcon}
+                                                    style={styles.iconSmall}
                                                 />
                                                 <Text style={styles.belowIcon}>
                                                     {distance + ' km'}
@@ -255,7 +255,7 @@ class Stats extends Component {
                                                 <Icon
                                                     name="av-timer"
                                                     size={24}
-                                                    style={styles.smallIcon}
+                                                    style={styles.iconSmall}
                                                 />
                                                 <Text style={styles.belowIcon}>
                                                     {time + ' sec'}
@@ -292,7 +292,8 @@ const styles = StyleSheet.create({
         // backgroundColor: 'yellow',
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: 'white'
         // borderWidth: 0,
         // borderTopWidth: 1,
         // borderColor: 'white'
@@ -306,7 +307,8 @@ const styles = StyleSheet.create({
     plusIcon: {
         position: 'absolute',
         left: -40,
-        top: 60
+        top: 60,
+        color: newColors.primary
     },
     // plus:{
     //     color: 'white'
@@ -325,16 +327,13 @@ const styles = StyleSheet.create({
         position: 'relative',
         width: Dimensions.get('window').width * 0.9
     },
-    smallIcon: {
-        color: 'rgba(255,255,255,0.5)'
-    },
     belowIcon: {
-        color: 'white',
+        color: newColors.primary,
         fontSize: 32,
         fontFamily: 'Poppins-SemiBold'
     },
     bbelowIcon: {
-        color: 'rgba(255,255,255,1)',
+        color: newColors.primary,
         fontSize: 14,
         marginTop: -5,
         fontFamily: 'Poppins-SemiBold'
@@ -364,7 +363,7 @@ const styles = StyleSheet.create({
     footprintNumber: {
         fontFamily: 'Poppins-SemiBold',
         fontSize: 100,
-        color: 'white'
+        color: newColors.primary
         // fontStyle: 'italic'
     },
     kgText: {
@@ -372,7 +371,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         // marginTop: Platform.OS == 'android' ? -50 : -20,
         // lineHeight: 16,
-        color: 'white'
+        color: newColors.primary
         // fontStyle: 'italic'
     },
     bigStatsItemWrapper: {
@@ -385,19 +384,22 @@ const styles = StyleSheet.create({
     },
     number: {
         fontFamily: 'Poppins-Light',
-        fontSize: 30
+        fontSize: 30,
+        color: 'white'
     },
     numberUnit: {
         fontSize: 14
     },
     text: {
         fontFamily: 'Poppins-SemiBold',
-        fontSize: 12
+        fontSize: 12,
+        color: newColors.white
     },
     smallText: {
         paddingHorizontal: 20,
         fontFamily: 'Poppins-Bold',
-        fontSize: 14
+        fontSize: 14,
+        color: newColors.white
     },
     smallStatsWrapper: {
         // alignItems: 'center'
@@ -412,7 +414,8 @@ const styles = StyleSheet.create({
     },
     headingText: {
         fontFamily: 'Poppins-ExtraBold',
-        fontSize: 20
+        fontSize: 20,
+        color: newColors.white
     },
     attributesWrapper: {
         flexDirection: 'row',
@@ -487,6 +490,15 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 10,
         top: 10
+    },
+    iconSmall: {
+        color: newColors.primary
+    },
+    shareIcon: {
+        color: newColors.white
+    },
+    smallStatsIcon: {
+        color: newColors.white
     }
 });
 

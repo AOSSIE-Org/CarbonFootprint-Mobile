@@ -16,7 +16,6 @@ import * as FirebaseAction from '../actions/firebase/Friends';
 import * as FriendsAction from '../actions/FriendsAction';
 import * as LoaderAction from '../actions/LoaderAction';
 import * as User from '../actions/firebase/User';
-import FriendsTabBar from '../components/FriendsTabBar';
 
 /**
  * Friends Section Container
@@ -32,15 +31,8 @@ const Friends = props => {
             <StatusBar backgroundColor={newColors.secondary} barStyle="light-content" />
             <StatusBarBackground style={style} />
             <ScrollableTabView
-                renderTabBar={() => <FriendsTabBar />}
-                tabBarBackgroundColor={color.primary}
-                tabBarActiveTextColor={color.greyBack}
-                tabBarInactiveTextColor={color.grey}
-                tabBarTextStyle={styles.tabText}
-                tabBarUnderlineStyle={{
-                    backgroundColor: 'red',
-                    height: 4
-                }}
+                tabBarActiveTextColor={newColors.secondary}
+                tabBarUnderlineStyle={styles.underlineStyle}
                 style={styles.scrollableWrapper}
                 onChangeTab={obj => {
                     switch (obj.i) {
@@ -57,7 +49,7 @@ const Friends = props => {
                     }
                 }}
             >
-                <FriendsTab tabLabel="friends" {...props} choice="1" />
+                <FriendsTab tabLabel="Friends" {...props} choice="1" />
                 {/* <FriendsTab tabLabel="Requests" {...props} choice="2" /> */}
                 <InviteTab tabLabel="Invite" {...props} />
             </ScrollableTabView>
@@ -75,6 +67,13 @@ const styles = StyleSheet.create({
     },
     scrollableWrapper: {
         flex: 1
+    },
+    underlineStyle: {
+        height: 3,
+        backgroundColor: newColors.secondary,
+        borderRadius: 3,
+        width: '50%',
+        alignItems: 'center'
     }
 });
 /**

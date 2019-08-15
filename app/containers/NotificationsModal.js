@@ -11,7 +11,8 @@ import {
     TouchableNativeFeedback,
     Platform,
     ActivityIndicator,
-    StatusBar
+    StatusBar,
+    Alert
 } from 'react-native';
 import Modal from 'react-native-modal';
 import * as firebase from 'firebase';
@@ -20,6 +21,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as LoaderAction from '../actions/LoaderAction';
 import { updateUserFirebase } from '../actions/AuthAction';
+import { acceptFriendRequest, deleteFriend } from '../actions/firebase/Friends';
 import * as FriendsAction from '../actions/FriendsAction';
 import { newColors } from '../config/helper';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -35,13 +37,13 @@ class NotificationsModal extends Component {
         this.props.modalToggle('notificationsModalVisible');
     };
 
-    removeFriend = (currentUid, friendUid, title) => {
+    removeFriend = (currentEmail, friendEmail, title) => {
         this.props.loaderToggle();
         Alert.alert(title, `Are you sure you want remove this ${title.toLowerCase()}?`, [
             {
                 text: 'Yes',
                 onPress: () =>
-                    deleteFriend(currentUid, friendUid).then(user => {
+                    deleteFriend(currentEmail, friendEmail).then(user => {
                         this.props.loaderToggle();
                         this.props.getFriendList(this.props.choice);
                         Toast.show(`${title} Removed`);
@@ -80,7 +82,7 @@ class NotificationsModal extends Component {
                 // transparent={true}
                 onRequestClose={() => console.warn('Closing')}
             >
-                <Text style={styles.title}>friend requests</Text>
+                <Text style={styles.title}>Friend Requests</Text>
                 <Icon
                     name="times-circle"
                     size={24}
@@ -97,15 +99,15 @@ class NotificationsModal extends Component {
                                     iconName={['check-circle', 'minus-circle']}
                                     reject={this.removeFriend.bind(
                                         this,
-                                        this.props.auth.user.uid,
-                                        friend.uid,
+                                        this.props.auth.user.email,
+                                        friend.email,
                                         'Friend Request'
                                     )}
                                     link={() => {
                                         this.props.loaderToggle();
                                         acceptFriendRequest(
-                                            this.props.auth.user.uid,
-                                            friend.uid
+                                            this.props.auth.user.email,
+                                            friend.email
                                         ).then(user => {
                                             this.props.loaderToggle();
                                             this.props.getFriendList(this.props.choice);
