@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 20,
-        color: newColors.black,
+        color: newColors.white,
         textAlign: 'center',
         paddingRight: 10,
         fontFamily: 'Poppins-ExtraBold'

@@ -130,12 +130,6 @@ class InviteTab extends Component {
                                 onPress={() => this.setState({ search: '' })}
                             />
                         </View>
-                        <TouchableOpacity
-                            style={styles.searchTextContainer}
-                            onPress={this.searchFriends}
-                        >
-                            <Text>Search</Text>
-                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -212,24 +206,25 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     searchWrapper: {
-        backgroundColor: newColors.secondary,
+        backgroundColor: 'white',
         alignItems: 'center',
         paddingBottom: 10,
-        height: 50
+        paddingTop: 10,
+        height: 70
     },
     searchBox: {
         flexDirection: 'row',
         alignItems: 'center',
-        // backgroundColor: 'yellow',
-        paddingVertical: Platform.OS == 'android' ? 0 : 10,
         borderRadius: 30,
-        width: '70%',
-        borderColor: 'rgba(255,255,255,0.3)',
-        borderWidth: 1
+        // width: '98%',
+        borderColor: 'transparent',
+        borderWidth: 1,
+        backgroundColor: newColors.secondary
     },
     inputBox: {
         // backgroundColor: 'red',
-        flex: 1
+        flex: 1,
+        alignItems: 'center'
     },
     searchIcon: {
         marginHorizontal: 5
@@ -240,18 +235,10 @@ const styles = StyleSheet.create({
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        // backgroundColor: 'red',
-        // alignSelf: 'flex-start',
         borderRadius: 30,
         backgroundColor: 'rgba(0,0,0,0.12)',
-        width: Dimensions.get('window').width * 0.9
-        // justifyContent: 'center'
-    },
-    searchTextContainer: {
-        // backgroundColor: 'red',
-        paddingHorizontal: 10,
-        flex: 1,
-        alignItems: 'center'
+        width: Dimensions.get('window').width * 0.9,
+        marginBottom: 10
     }
 });
 

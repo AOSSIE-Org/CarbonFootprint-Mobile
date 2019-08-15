@@ -102,22 +102,22 @@ class More extends Component {
         let settingsList = [
             {
                 icon: 'settings',
-                text: 'settings',
+                text: 'Settings',
                 link: () => Actions.settings()
             },
             {
                 icon: 'history',
-                text: 'history',
+                text: 'History',
                 link: () => Actions.timeline()
             },
             {
                 icon: 'info',
-                text: 'about carbonfootprint',
+                text: 'About CarbonFootprint',
                 link: () => Actions.about()
             },
             {
                 icon: 'note',
-                text: 'terms and conditions',
+                text: 'Terms And Conditions',
                 link: () => Actions.terms()
             }
         ];
@@ -153,7 +153,8 @@ class More extends Component {
                         name="bell"
                         size={20}
                         style={{
-                            paddingRight: 20
+                            paddingRight: 20,
+                            color: newColors.white
                         }}
                         onPress={() => {
                             this.setState({ notificationsModalVisible: true });
@@ -225,29 +226,32 @@ class More extends Component {
 
                     <View style={styles.settingsWrapper}>
                         <ScrollView>
-                            <Text style={styles.generalText}>General</Text>
+                            {/* <Text style={styles.generalText}>General</Text> */}
                             {settingsList.map((element, i) => {
                                 return (
-                                    <TouchableHighlight
-                                        onPress={element.link}
-                                        activeOpacity={0.5}
-                                        underlayColor="#eee"
-                                        key={i}
-                                    >
-                                        <View style={styles.itemWrapper}>
-                                            <Text style={styles.itemText}>{element.text}</Text>
-                                            <MIcon
-                                                name={element.icon}
-                                                size={24}
-                                                // backgroundColor='#9D9D9D'
-                                                color={newColors.black}
-                                            />
-                                        </View>
-                                    </TouchableHighlight>
+                                    <View>
+                                        <TouchableHighlight
+                                            onPress={element.link}
+                                            activeOpacity={0.5}
+                                            underlayColor="#eee"
+                                            key={i}
+                                        >
+                                            <View style={styles.itemWrapper}>
+                                                <Text style={styles.itemText}>{element.text}</Text>
+                                                <MIcon
+                                                    name={element.icon}
+                                                    size={24}
+                                                    // backgroundColor='#9D9D9D'
+                                                    color={newColors.black}
+                                                />
+                                            </View>
+                                        </TouchableHighlight>
+                                        <View style={styles.lineStyle} />
+                                    </View>
                                 );
                             })}
                             <TouchableHighlight style={styles.signWrapper} onPress={this.logout}>
-                                <Text style={styles.signText}>sign out</Text>
+                                <Text style={styles.signText}>Sign Out</Text>
                             </TouchableHighlight>
                         </ScrollView>
                     </View>
@@ -305,7 +309,8 @@ const styles = StyleSheet.create({
         resizeMode: 'cover'
     },
     nameWrapper: {
-        marginLeft: 10
+        marginLeft: 10,
+        justifyContent: 'center'
     },
     nameText: {
         fontFamily: 'Poppins',
@@ -329,8 +334,9 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins'
     },
     signWrapper: {
+        marginVertical: 10,
         marginHorizontal: 10,
-        backgroundColor: 'red',
+        backgroundColor: '#bd4b4b',
         flexDirection: 'row',
         // justifyContent: 'center',
         alignItems: 'center',
@@ -407,7 +413,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingVertical: 20,
+        paddingVertical: 10,
         paddingHorizontal: 20
     },
     itemText: {
@@ -419,6 +425,11 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: color.black,
         letterSpacing: 1
+    },
+    lineStyle: {
+        borderWidth: 0.5,
+        borderColor: newColors.secondary,
+        margin: 10
     }
 });
 

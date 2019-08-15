@@ -94,14 +94,6 @@ class LoginForm extends Component {
                             {this.props.auth.isFetching ? 'Logging....' : 'Login'}
                         </Text>
                     </TouchableHighlight>
-                    {this.props.auth.isFetching ? (
-                        <View style={styles.topMargin}>
-                            <ActivityIndicator
-                                animating={this.props.auth.isFetching}
-                                color="#4D72B8"
-                            />
-                        </View>
-                    ) : null}
                 </KeyboardAwareScrollView>
                 <View style={styles.bottomContainer}>
                     <Text style={styles.bottomText}>Don't have an account?</Text>
