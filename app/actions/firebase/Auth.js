@@ -51,7 +51,7 @@ export function loginEmailFirebase(email, password) {
                         user = user.toJSON();
                         getUser(user.email)
                             .then(user => resolve(user))
-                            .catch(error => reject());
+                            .catch(error => reject(error));
                     } else {
                         reject();
                     }

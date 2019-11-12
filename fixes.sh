@@ -12,3 +12,4 @@ sed -i 's/...props,/...props/' ./node_modules/react-native-scrollable-tab-view/S
 
 sed -i '53s/}/default: return "null"; }/' ./node_modules/realm/src/jsc/jsc_value.hpp
 
+sed -i "s/tasks.register('forwardDebugPort', Exec) {/task forwardDebugPort(type: Exec) {/" ./node_modules/realm/android/build.gradle
