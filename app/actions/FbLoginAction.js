@@ -81,6 +81,8 @@ export function fbLogin() {
             },
             function(error) {
                 console.log('FB Login failed with error: ' + error);
+                if (error == 'Error: User logged in as different Facebook user.')
+                    LoginManager.logOut();
             }
         );
     };
