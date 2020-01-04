@@ -36,7 +36,6 @@ build:
     script:
         - npm install
         - mv app/config/keys.sample.js app/config/keys.js
-        - sed -i '10s/.*/sdk.dir=$ANDROID_HOME/' ./android/local.properties
         - 'envsubst < ./android/local.properties > ./android/temp.properties && mv ./android/temp.properties ./android/local.properties'
         - 'touch ./android/app/google-services.json && echo $GOOGLE_SERVICES > ./android/app/google-services.json'
         - "sed -i '14d' ./node_modules/react-native-activity-recognition/android/src/main/java/com/xebia/activityrecognition/RNActivityRecognitionPackage.java"

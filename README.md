@@ -150,11 +150,9 @@ Here, replace _{YOUR_FB_APP_ID}_ with app id recieved from facebook. Also replac
 
 1. Download [android studio](https://developer.android.com/studio) and download an emulator with play store services and minimum android Marshmellow (v6.0).
 
-2. In android/local.properties, add the location of the android sdk on your local system.
+2. Download **google-services.json** from firebase console and move it to **android/app**.
 
-3. Download **google-services.json** from firebase console and move it to **android/app**.
-
-4. Go to android/app/src/res/values/strings.xml and add your facebook app id and geocoding api key from google.
+3. Go to android/app/src/res/values/strings.xml and add your facebook app id and geocoding api key from google.
 
 #### Facebook SDK
 
@@ -242,14 +240,6 @@ Follow these steps to get your firebase API key
 Create your AVD using "AVD Manager" in Android Studio. Choose "Android 6.0 - API Level 23" under Device, and "Intel Atom (x86_64)" under CPU/ABI.
 
 If using a physical Android device, plug in using USB cable and enable USB debugging.
-
-#### Update your Android SDK location
-
-edit android/local.properties file
-
-```
-sdk.dir=<your android sdk location>
-```
 
 #### Running the App
 
