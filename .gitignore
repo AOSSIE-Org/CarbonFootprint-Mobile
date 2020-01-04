@@ -62,6 +62,7 @@ buck-out/
 # Bundle artifact
 *.jsbundle
 
+keys.js
 google-services.json
 strings.xml
 GoogleService-Info.plist
