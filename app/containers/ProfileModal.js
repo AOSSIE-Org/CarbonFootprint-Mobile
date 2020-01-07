@@ -78,6 +78,7 @@ class ProfileModal extends Component {
                 .catch(err => {
                     console.warn(err);
                 });
+             this.props.modalToggle('modalVisible');   
         }
     };
 
