@@ -1,72 +1,71 @@
-image: openjdk:8-jdk
-
-variables:
-    ANDROID_COMPILE_SDK: '28'
-    ANDROID_BUILD_TOOLS: '28.0.3'
-    ANDROID_SDK_TOOLS: '3859397'
-
-before_script:
-    #Update the max file count
-    - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
-
-    # Fetch the specified SDK tools version to build with
-    - wget --quiet --output-document=/tmp/sdk-tools-linux.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip
-    - unzip /tmp/sdk-tools-linux.zip -d .android
-
-    # Install platform tools and Android SDK for the compile target
-    - echo y | .android/tools/bin/sdkmanager "platform-tools" "platforms;android-${ANDROID_COMPILE_SDK}"
-
-    # Set up environment variables
-    - export ANDROID_HOME=$PWD/.android
-    - export PATH=$PATH:$PWD/.android/platform-tools
-
-    - curl -sL https://deb.nodesource.com/setup_8.x | bash
-    # - apt-get update
-    - apt-get install -y nodejs
-    - apt-get install -y gettext-base
-    - npm install -g react-native-cli
-    - chmod +x android/gradlew
-
 stages:
-    - build
+- dependencies
+- pre-scripts
+# - test
+- build_apk
 
-build:
-    stage: build
+image: node:8.17.0
+
+
+install_dependencies:
+    stage: dependencies
+    
+    script:
+    - npm install
+    
+    artifacts:
+        paths:
+        - node_modules/
+
+        
+run_pre-scripts :
+    stage: pre-scripts
+    
+    dependencies:
+    - install_dependencies
+    
+    script:
+    - apt-get update
+    - apt-get install -y gettext-base
+    
+    - mv app/config/keys.sample.js app/config/keys.js
+        
+    - 'touch ./android/app/google-services.json && echo $GOOGLE_SERVICES > ./android/app/google-services.json'
+    
+    - chmod +x ./scripts/fixes.sh
+    - ./scripts/fixes.sh
+    
+    - chmod +x ./scripts/set_keys.sh
+    - ./scripts/set_keys.sh
+    
+    - rm -rf android/app/build
+    
+    artifacts:
+        paths:
+        - android/
+        - app/
+        - node_modules/
+        
+# unit_test:
+#     stage: test
+    
+#     dependencies:
+#     - run_pre-scripts
+    
+#     script:
+#     - npm test 
+
+build_job:
+    stage: build_apk
+    image: reactnativecommunity/react-native-android
+    
+    dependencies:
+    - run_pre-scripts
 
     script:
-        - npm install
-        - mv app/config/keys.sample.js app/config/keys.js
-        - 'envsubst < ./android/local.properties > ./android/temp.properties && mv ./android/temp.properties ./android/local.properties'
-        - 'touch ./android/app/google-services.json && echo $GOOGLE_SERVICES > ./android/app/google-services.json'
-        - "sed -i '14d' ./node_modules/react-native-activity-recognition/android/src/main/java/com/xebia/activityrecognition/RNActivityRecognitionPackage.java"
-        - "sed -i '25d' ./node_modules/tipsi-twitter/android/src/main/java/com/gettipsi/reactnativetwittersdk/TwitterReactPackage.java"
-        - "sed -i 's/com.google.android.gms:play-services:+/com.google.android.gms:play-services-gcm:15.0.1/' ./node_modules/react-native-activity-recognition/android/build.gradle"
-        - 'sed -i "40s/}/compile ''com.google.android.gms:play-services-location:15.0.1''}/" ./node_modules/react-native-activity-recognition/android/build.gradle'
-        - 'sed -i ''s/DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = "11.6.2"/DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = "15.0.1"/'' ./node_modules/react-native-google-places/android/build.gradle'
-        - 'sed -i ''s/DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = "10.2.4"/DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = "15.0.1"/'' ./node_modules/react-native-maps/lib/android/build.gradle'
-        - "sed -i 's/io.fabric.tools:gradle:1.+/io.fabric.tools:gradle:1.26.1/' ./node_modules/tipsi-twitter/android/build.gradle"
-        - "sed -i 's/...props,/...props/' ./node_modules/react-native-experimental-navigation/NavigationCard.js"
-        - "sed -i 's/...props,/...props/' ./node_modules/react-native-scrollable-tab-view/SceneComponent.js"
-        - 'sed -i ''53s/}/default: return "null"; }/'' ./node_modules/realm/src/jsc/jsc_value.hpp'
-        - 'sed -i "s/tasks.register(''forwardDebugPort'', Exec) {/task forwardDebugPort(type: Exec) {/" ./node_modules/realm/android/build.gradle'
-        # - ./fixes.sh
-        - 'envsubst < ./android/app/src/main/res/values/strings.xml > ./android/app/src/main/res/values/temp.xml && mv ./android/app/src/main/res/values/temp.xml ./android/app/src/main/res/values/strings.xml'
-        - 'sed -i ''s/apiKey: null/apiKey: "$FIREBASE_API_KEY"/'' ./app/config/keys.js'
-        - 'sed -i ''s/authDomain: null/authDomain: "$FIREBASE_AUTH_DOMAIN"/'' ./app/config/keys.js'
-        - 'sed -i ''s/databaseURL: null/databaseURL: "$FIREBASE_DATABASE_URL"/'' ./app/config/keys.js'
-        - 'sed -i ''s/projectId: null/projectId: "$FIREBASE_PROJECT_ID"/'' ./app/config/keys.js'
-        - 'sed -i ''s/storageBucket: null/storageBucket: "$FIREBASE_STORAGE_BUCKET"/'' ./app/config/keys.js'
-        - 'sed -i ''s/messagingSenderId: null/messagingSenderId: "$FIREBASE_MESSAGING_SENDER_ID"/'' ./app/config/keys.js'
-        - 'sed -i ''s/webClientId: null/webClientId: "$GOOGLE_CLIENT_ID"/'' ./app/config/keys.js'
-        - 'sed -i ''s/twitter_key: null/twitter_key: "$TWITTER_KEY"/'' ./app/config/keys.js'
-        - 'sed -i ''s/twitter_secret: null/twitter_secret: "$TWITTER_SECRET"/'' ./app/config/keys.js'
-        - 'sed -i ''s/googleRoadsAPIKey = null/googleRoadsAPIKey = "$GEOCODING_API"/'' ./app/config/keys.js'
-        - 'sed -i ''s/geocodingAPIKey = null/geocodingAPIKey = "$GEOCODING_API"/'' ./app/config/keys.js'
-        - 'envsubst < ./app/config/keys.js > ./app/config/temp.js && mv ./app/config/temp.js ./app/config/keys.js'
-        - rm -rf android/app/build
-        - cd android && ./gradlew assembleDebug --stacktrace
-        - mv ./app/build/outputs/apk/debug/app-debug.apk ../app-debug.apk
+    - cd android && ./gradlew assembleDebug --stacktrace
+    - mv ./app/build/outputs/apk/debug/app-debug.apk ../app-debug.apk
 
     artifacts:
         paths:
-            - app-debug.apk
+        - app-debug.apk
