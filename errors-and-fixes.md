@@ -213,21 +213,4 @@ Fix:
 
 delete `node_modules/.bin` folder.
 
-## Error 11
-
-A problem occured configuring project ':tipsi-twitter'.\
-Could not get unknow property 'assemble' for task ':tipsi-twitter:assembleDebug' of type org.gradle.api.DefaultTask.
-
-### Fix for the error
-
-```
-buildscript {
-  repositories {
-    mavenCentral()
-    maven { url 'https://maven.fabric.io/public' }
-  }
-  dependencies {
-    classpath 'io.fabric.tools:gradle:1.26.1' //UPDATE THIS
-  }
-}
 ```

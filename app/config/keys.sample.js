@@ -20,10 +20,5 @@ export const googleSignInConfig = {
     webClientId: null
 };
 
-export const twitterSignInConfig = {
-    twitter_key: null,
-    twitter_secret: null
-};
-
 export const googleRoadsAPIKey = null;
 export const geocodingAPIKey = null;

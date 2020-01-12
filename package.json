@@ -61,8 +61,7 @@
         "realm": "^2.4.0",
         "redux": "^4.0.0",
         "redux-logger": "^3.0.6",
-        "redux-thunk": "^2.2.0",
-        "tipsi-twitter": "^1.0.0"
+        "redux-thunk": "^2.2.0"
     },
     "devDependencies": {
         "babel-core": "^7.0.0-bridge.0",

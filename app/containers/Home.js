@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 
 import * as FbLoginAction from '../actions/FbLoginAction';
 import * as GoogleLoginAction from '../actions/GoogleLoginAction';
-// import * as TwitterLoginAction from '../actions/TwitterLoginAction';
 import * as LoaderAction from '../actions/LoaderAction';
 
 import ImageHeader from '../components/ImageHeader';
