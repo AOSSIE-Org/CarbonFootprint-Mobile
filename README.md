@@ -303,8 +303,6 @@ Pre-requisites:
 -   GEOCODING_API
 -   GOOGLE_CLIENT_ID
 -   GOOGLE_SERVICES
--   TWITTER_KEY
--   TWITTER_SECRET
 
 **4.** You need to store
 

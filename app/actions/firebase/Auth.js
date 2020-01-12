@@ -78,14 +78,10 @@ export function loginCustomFirebase(type, token, secret) {
                 credential = firebase.auth.FacebookAuthProvider.credential(token);
                 provider = 'facebook.com';
                 break;
-            case 'google':
+            default :
+                //default is google
                 credential = firebase.auth.GoogleAuthProvider.credential(token, secret);
                 provider = 'google.com';
-                break;
-            default:
-                // Default is Twitter
-                credential = firebase.auth.TwitterAuthProvider.credential(token, secret);
-                provider = 'twitter.com';
                 break;
         }
         firebase

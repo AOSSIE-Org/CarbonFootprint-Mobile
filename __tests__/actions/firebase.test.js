@@ -176,7 +176,7 @@ describe('tests the loginEmailFirebase function', () => {
 /*
     Tests the loginCustom firebase function
     by testing it with different arguments
-    (google, facebook, twitter)
+    (google, facebook)
     Uses three sample users user1, user2, user3
 */
 
@@ -305,70 +305,6 @@ describe('tests the loginCustomFirebase function with provider facebook', () => 
             provider: user.provider
         });
         expect(firebase.auth.FacebookAuthProvider.credential).toHaveBeenCalledTimes(1);
-        expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
-        expect(User.updateUser).toHaveBeenCalledTimes(0);
-    });
-});
-
-// /*
-//     Tests the loginCustom firebase
-//     function for type twitter
-// */
-describe('tests the loginCustomFirebase function with provider twitter', () => {
-    let user;
-    beforeAll(async () => {
-        user = {
-            uid: user3.uid,
-            displayName: user3.name,
-            email: 'user3changed@test.com',
-            photoURL: null,
-            provider: 'twitter.com'
-        };
-        firebase.auth.TwitterAuthProvider.credential = jest.fn();
-        firebase.auth().signInAndRetrieveDataWithCredential = jest.fn(() => {
-            return new Promise(resolve => {
-                resolve({ user });
-            });
-        });
-    });
-
-    it('tests the loginCustomFirebase when the user is already present', async () => {
-        await expect(
-            loginCustomFirebase('twitter', 'tokenString', 'secretString')
-        ).resolves.toEqual(user);
-        /*
-            If the user is still logged in after the update
-            the user data needs to be updated where the
-            authenticated users data is stored
-        */
-        firebase.auth().onAuthStateChanged(async function(data) {
-            if (data) {
-                await admin.auth().updateUser(user.uid, { ...user });
-            }
-        });
-        expect(firebase.auth.TwitterAuthProvider.credential).toHaveBeenCalledTimes(1);
-        expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
-    });
-
-    it('tests the loginCustomFirebase when the user is not present', async () => {
-        User.updateUser = jest.fn(() => Promise.resolve(user));
-        /*
-            Deleting user from database to check the flow of
-            the function when the user is not already present
-        */
-        await firebase
-            .database()
-            .ref('users/' + user.uid)
-            .remove();
-        await expect(
-            loginCustomFirebase('twitter', 'tokenString', 'secretString')
-        ).resolves.toEqual({
-            uid: user.uid,
-            name: user.displayName,
-            email: user.email || null,
-            provider: user.provider
-        });
-        expect(firebase.auth.TwitterAuthProvider.credential).toHaveBeenCalledTimes(1);
         expect(firebase.auth().signInAndRetrieveDataWithCredential).toHaveBeenCalledTimes(1);
         expect(User.updateUser).toHaveBeenCalledTimes(0);
     });

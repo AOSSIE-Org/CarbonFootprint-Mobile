@@ -24,7 +24,6 @@ import com.beefe.picker.PickerViewPackage;
 import io.realm.react.RealmReactPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.airbnb.android.react.maps.MapsPackage;
-// import com.gettipsi.reactnativetwittersdk.TwitterReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.react.ReactNativeHost;
@@ -32,11 +31,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.xebia.activityrecognition.RNActivityRecognitionPackage;
-
-// import com.twitter.sdk.android.core.TwitterCore;
-// import com.twitter.sdk.android.core.TwitterAuthConfig;
-
-// import io.fabric.sdk.android.Fabric;
 
 import java.util.Arrays;
 import java.util.List;
@@ -77,7 +71,6 @@ public class MainApplication extends Application implements ReactApplication {
           new RealmReactPackage(),
           new RNGooglePlacesPackage(),
           new MapsPackage(),
-          // new TwitterReactPackage(),
           new RNActivityRecognitionPackage(),
           new VectorIconsPackage(),
           new SplashScreenReactPackage(),
@@ -100,9 +93,6 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     SoLoader.init(this, /* native exopackage */ false);
-    // TwitterAuthConfig authConfig =  new TwitterAuthConfig
-        // ("QYaiChXS6T0LeJ5Jt23QxctEh", "wTyZxZ1POhV8Doqydw9oQAUTQZJJvr3q7IO7NA0nRGNV4g4gUY");
-    // Fabric.with(this, new TwitterCore(authConfig));
     FacebookSdk.sdkInitialize(getApplicationContext());
   }
 }
