@@ -62,7 +62,7 @@ class ProfileModal extends Component {
      * @return updated user firebase
      */
     handleUpdate = () => {
-        if (this.state.name === '') {
+        if (this.state.name.trim() === '') {
             Toast.show('You cannot leave name blank');
         } else if (this.state.phone_no && this.state.phone_no.length !== 10) {
             Toast.show('Please enter valid 10 digit number');

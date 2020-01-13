@@ -199,7 +199,7 @@ class More extends Component {
                                     </View>
                                 </View>
                                 <View style={styles.nameWrapper}>
-                                    <Text style={styles.nameText}>{this.props.user.name}</Text>
+                                    <Text style={styles.nameText}>{this.props.user.name.trim()}</Text>
                                     {/* <View style={styles.locationWrapper}>
                                         <MIcon name="room" color="black" size={20} />
                                         <Text style={styles.locationText}>New Delhi, India</Text>
