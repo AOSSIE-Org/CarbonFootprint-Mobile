@@ -24,6 +24,7 @@ import { newColors } from '../config/helper';
 import images from '../config/images';
 import Toast from 'react-native-simple-toast';
 import ModTextInput from '../components/ModTextInput';
+import { STRING_EMPTY } from '../config/constants';
 
 class ProfileModal extends Component {
     state = {
@@ -62,7 +63,7 @@ class ProfileModal extends Component {
      * @return updated user firebase
      */
     handleUpdate = () => {
-        if (this.state.name.trim() === '') {
+        if (this.state.name.trim() === STRING_EMPTY) {
             Toast.show('You cannot leave name blank');
         } else if (this.state.phone_no && this.state.phone_no.length !== 10) {
             Toast.show('Please enter valid 10 digit number');
