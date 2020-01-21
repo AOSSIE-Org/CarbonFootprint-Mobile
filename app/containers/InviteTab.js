@@ -29,6 +29,7 @@ import {
 import FriendRow from '../components/FriendRow';
 import WarningTextAndIcon from '../components/WarningTextAndIcon';
 import * as LoaderAction from '../actions/LoaderAction';
+import { STRING_EMPTY } from '../config/constants'
 
 /**
  * Invite Component to invite Your Friends
@@ -65,8 +66,10 @@ class InviteTab extends Component {
 
     filterUsers = searchText => {
         return new Promise((res, rej) => {
-            searchText = searchText.toLowerCase();
-            firebase
+            if(this.state.search != STRING_EMPTY)
+            {
+                searchText = searchText.toLowerCase();
+               firebase
                 .database()
                 .ref('users/')
                 .once('value')
@@ -78,8 +81,9 @@ class InviteTab extends Component {
                         if (
                             data.name &&
                             data.email &&
-                            (data.name.toLowerCase().indexOf(searchText) != -1 ||
-                                data.email.toLowerCase().indexOf(searchText) != -1)
+                            (data.name.toLowerCase().includes(searchText) ||
+                                data.email.toLowerCase().includes(searchText) ) ||
+                                (data.email != this.props.auth.user.email)
                         )
                             users.push({
                                 name: data.name,
@@ -91,10 +95,15 @@ class InviteTab extends Component {
                     res(users);
                 })
                 .catch(err => rej(err));
+            }
+            else {
+                this.setState({ userFetched: false })
+            }
         });
     };
 
     handleInputChange = async text => {
+        
         this.setState({ search: text }, async () => {
             try {
                 await this.filterUsersDebounced(text);
@@ -106,6 +115,13 @@ class InviteTab extends Component {
             }
         });
     };
+
+    handleClear = () => {
+        this.setState({
+            userFetched: false,
+            search: ''
+        })
+    }
 
     filterUsersDebounced = this.debounce(this.filterUsers, 500, false);
 
@@ -127,7 +143,7 @@ class InviteTab extends Component {
                                 name="times-circle"
                                 size={16}
                                 style={styles.clearIcon}
-                                onPress={() => this.setState({ search: '' })}
+                                onPress={this.handleClear}
                             />
                         </View>
                     </View>

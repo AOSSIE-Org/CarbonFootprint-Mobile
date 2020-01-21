@@ -6,6 +6,7 @@ export const RATE_PETROL = 2.328;
 export const RATE_DIESEL = 2.614;
 export const RATE_CNG = 1.725;
 export const RATE_ELECTRIC = 0.527;
+export const STRING_EMPTY = '';
 
 export const RESET_PASSWORD = 'Password reset link has been sent to your email';
 export const KEYS_NOT_SET = 'keys are not set, hence this functionality is disabled';
