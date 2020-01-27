@@ -31,23 +31,26 @@ build_job :
     - mv app/config/keys.sample.js app/config/keys.js
         
     - 'touch ./android/app/google-services.json && echo $GOOGLE_SERVICES > ./android/app/google-services.json'
+    - 'touch ./android/app/keystore.jks && echo $KEYSTORE | base64 --decode > ./android/app/keystore.jks'
     
     - chmod +x ./scripts/fixes.sh
     - ./scripts/fixes.sh
     
     - chmod +x ./scripts/set_keys.sh
     - ./scripts/set_keys.sh
+
+    - sh generate-gradle-properties.sh > ./android/gradle.properties
     
     - rm -rf android/app/build
     
-    - cd android && ./gradlew assembleDebug --stacktrace
-    - mv ./app/build/outputs/apk/debug/app-debug.apk ../app-debug.apk
+    - cd android && ./gradlew assembleRelease --stacktrace --no-daemon
+    - mv ./app/build/outputs/apk/release/app-release.apk ../app-release.apk
     
-    - 'cd .. && touch req.json && echo {\"url\":\"$CI_JOB_URL/artifacts/raw/app-debug.apk\",\"platform\": \"android\" } > req.json'
+    - 'cd .. && touch req.json && echo {\"url\":\"$CI_JOB_URL/artifacts/raw/app-release.apk\",\"platform\": \"android\" } > req.json'
     
     artifacts:
         paths:
-        - app-debug.apk
+        - app-release.apk
         - req.json
         
 # unit_test:
