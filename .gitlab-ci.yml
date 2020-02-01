@@ -6,6 +6,7 @@ stages:
 
 
 install_dependencies:
+    interruptible: true
     stage: dependencies
     image: node:8.17.0
 
@@ -18,6 +19,7 @@ install_dependencies:
 
         
 build_job :
+    interruptible: true
     stage: build_apk
     image: reactnativecommunity/react-native-android
     
@@ -64,6 +66,7 @@ build_job :
     
 
 deploy_appetize_job:
+    interruptible: true
     stage: deploy_appetize
     
     dependencies:
