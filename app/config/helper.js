@@ -258,5 +258,6 @@ export const newColors = {
     shadowGrey: '#ddd',
     borderGrey: '#ddd',
     grey: '#eee',
-    lightBlack: '#777'
+    lightBlack: '#777',
+    disableGrey: '#D7D7D7'
 };

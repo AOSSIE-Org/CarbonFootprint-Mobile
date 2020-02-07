@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 
 import { getIcon, newColors } from '../config/helper.js';
+import { STRING_EMPTY } from '../config/constants.js';
 
 /**
  * user Registration Component
@@ -26,7 +27,9 @@ class RegisterForm extends Component {
             password: '',
             name: '',
             confirm_password: '',
-            error: ''
+            error: '',
+            buttonDisabled: true,
+            buttonEnableColor: newColors.disableGrey
         };
     }
 
@@ -41,10 +44,32 @@ class RegisterForm extends Component {
         this.setState({
             [key]: text
         });
+        
+        if (this.shouldDisable(text)) {
+          this.setState({
+                buttonDisabled: false,
+                buttonEnableColor: newColors.secondary
+            })
+        }
+        else {
+            this.setState({
+                buttonDisabled: true,
+                buttonEnableColor: newColors.disableGrey
+            })
+        }
+    }
+
+    shouldDisable = (text) => {
+        let { name, password, confirm_password, email } = this.state;
+
+        if ( name.trim() !== STRING_EMPTY && password.trim() !== STRING_EMPTY
+            && confirm_password.trim() !== STRING_EMPTY && email.trim() !== STRING_EMPTY
+            && text !== STRING_EMPTY ) {
+            return true;
+        }
     }
 
     render() {
-        let { error, name, password, confirm_password, email } = this.state;
 
         let form = [
             {
@@ -71,11 +96,6 @@ class RegisterForm extends Component {
                 }
             }
         ];
-
-        const enableButtonStyle =
-            !error && (name && password && confirm_password && email)
-                ? styles.enableButtonStyle
-                : null;
 
         return (
             <View style={styles.container}>
@@ -108,6 +128,7 @@ class RegisterForm extends Component {
                     ) : null}
                     <View style={styles.buttonWrapper}>
                         <TouchableHighlight
+                            disabled={this.state.buttonDisabled}
                             onPress={() =>
                                 this.props.auth.isFetching
                                     ? {}
@@ -117,7 +138,7 @@ class RegisterForm extends Component {
                                           this.state.password
                                       )
                             }
-                            style={[styles.button, enableButtonStyle]}
+                            style={[{ backgroundColor: this.state.buttonEnableColor }, styles.button]}
                             activeOpacity={0.5}
                         >
                             <Text style={styles.registerButtonText}>
@@ -181,9 +202,6 @@ const styles = StyleSheet.create({
         color: 'white'
         // fontFamily: 'Poppins-Regular'
     },
-    enableButtonStyle: {
-        backgroundColor: newColors.secondary
-    },
     input: {
         borderBottomWidth: 1,
         borderColor: 'rgba(255,255,255,0.2)',
@@ -207,7 +225,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0
     },
     button: {
-        backgroundColor: '#D7D7D7',
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 20,
