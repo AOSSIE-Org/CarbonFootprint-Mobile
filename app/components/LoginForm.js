@@ -13,6 +13,7 @@ import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 
 import { getIcon, newColors } from '../config/helper';
+import { STRING_EMPTY } from '../config/constants';
 
 /**
  * LoginForm component
@@ -24,7 +25,9 @@ class LoginForm extends Component {
         this.state = {
             email: '',
             password: '',
-            error: ''
+            error: '',
+            disableButton: true,
+            enableButtonColor: newColors.disableGrey
         };
     }
 
@@ -38,7 +41,28 @@ class LoginForm extends Component {
         this.setState({
             [key]: text
         });
+        
+        if (this.shouldDisable(text)) {
+          this.setState({
+                disableButton: false,
+                enableButtonColor: newColors.secondary
+            })
+        }
+        else {
+            this.setState({
+                disableButton: true,
+                enableButtonColor: newColors.disableGrey
+            })
+        }
     };
+
+    shouldDisable = (text) => {
+        let { email, password } = this.state;
+
+        if ( email.trim() !== STRING_EMPTY && password.trim() !== STRING_EMPTY && text !== STRING_EMPTY ) {
+            return true;
+        }
+    }
 
     render() {
         let signupFields = [
@@ -82,12 +106,13 @@ class LoginForm extends Component {
                         </View>
                     ) : null}
                     <TouchableHighlight
+                        disabled={this.state.disableButton}
                         onPress={() =>
                             this.props.auth.isFetching
                                 ? {}
                                 : this.props.login(this.state.email, this.state.password)
                         }
-                        style={styles.button}
+                        style={[{ backgroundColor: this.state.enableButtonColor }, styles.button]}
                         activeOpacity={0.5}
                     >
                         <Text style={styles.loginText}>
@@ -147,7 +172,6 @@ const styles = StyleSheet.create({
         color: newColors.black
     },
     button: {
-        backgroundColor: newColors.secondary,
         height: 30,
         alignItems: 'center',
         justifyContent: 'center',
