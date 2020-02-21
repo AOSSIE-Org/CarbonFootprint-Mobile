@@ -26,7 +26,7 @@ class RegisterForm extends Component {
             email: '',
             password: '',
             name: '',
-            confirm_password: '',
+            confirmPassword: '',
             error: '',
             buttonDisabled: true,
             buttonEnableColor: newColors.disableGrey
@@ -44,33 +44,35 @@ class RegisterForm extends Component {
         this.setState({
             [key]: text
         });
-        
+
         if (this.shouldDisable(text)) {
-          this.setState({
+            this.setState({
                 buttonDisabled: false,
                 buttonEnableColor: newColors.secondary
-            })
-        }
-        else {
+            });
+        } else {
             this.setState({
                 buttonDisabled: true,
                 buttonEnableColor: newColors.disableGrey
-            })
+            });
         }
     }
 
-    shouldDisable = (text) => {
-        let { name, password, confirm_password, email } = this.state;
+    shouldDisable = text => {
+        let { name, password, confirmPassword, email } = this.state;
 
-        if ( name.trim() !== STRING_EMPTY && password.trim() !== STRING_EMPTY
-            && confirm_password.trim() !== STRING_EMPTY && email.trim() !== STRING_EMPTY
-            && text !== STRING_EMPTY ) {
+        if (
+            name.trim() !== STRING_EMPTY &&
+            password.trim() !== STRING_EMPTY &&
+            confirmPassword.trim() !== STRING_EMPTY &&
+            email.trim() !== STRING_EMPTY &&
+            text !== STRING_EMPTY
+        ) {
             return true;
         }
-    }
+    };
 
     render() {
-
         let form = [
             {
                 text: 'name',
@@ -89,7 +91,7 @@ class RegisterForm extends Component {
             },
             {
                 text: 'confirm password',
-                key: 'confirm_password',
+                key: 'confirmPassword',
                 placeholder: 'Confirm your password',
                 props: {
                     secureTextEntry: true
@@ -132,13 +134,20 @@ class RegisterForm extends Component {
                             onPress={() =>
                                 this.props.auth.isFetching
                                     ? {}
-                                    : this.props.register(
+                                    : this.state.confirmPassword === this.state.password
+                                    ? this.props.register(
                                           this.state.name,
                                           this.state.email,
                                           this.state.password
                                       )
+                                    : this.setState({
+                                          error: 'Password and confirm password don\'t match.'
+                                      })
                             }
-                            style={[{ backgroundColor: this.state.buttonEnableColor }, styles.button]}
+                            style={[
+                                { backgroundColor: this.state.buttonEnableColor },
+                                styles.button
+                            ]}
                             activeOpacity={0.5}
                         >
                             <Text style={styles.registerButtonText}>
