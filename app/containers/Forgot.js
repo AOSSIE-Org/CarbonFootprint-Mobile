@@ -20,7 +20,7 @@ import StatusBarBackground from '../components/StatusBarBackground';
 import BackHeader from '../components/BackHeader';
 import LoginForm from '../components/LoginForm';
 
-import { RESET_PASSWORD } from '../config/constants';
+import { RESET_PASSWORD, STRING_EMPTY } from '../config/constants';
 
 import * as AuthAction from '../actions/AuthAction';
 import { color, getIcon, newColors } from '../config/helper';
@@ -29,8 +29,38 @@ class Forgot extends Component {
     constructor() {
         super();
         this.state = {
-            email: ''
+            email: '',
+            disableButton: true,
+            enableButtonColor: newColors.disableGrey
         };
+    }
+
+    handleInput = (text) => {
+        this.setState({
+            email: text
+        }, () => {
+            if (this.shouldEnable(text))
+            {
+                this.setState({
+                    disableButton: false,
+                    enableButtonColor: newColors.secondary
+                })
+            } else {
+                this.setState({
+                    disableButton: true,
+                    enableButtonColor: newColors.disableGrey
+                })
+            }
+        });
+    }
+
+    shouldEnable = (text) => {
+        const { email } = this.state;
+
+        if (email.trim() !== STRING_EMPTY && text !== STRING_EMPTY) {
+            return true;
+        } 
+        return false;
     }
 
     onButtonPress = () => {
@@ -64,9 +94,7 @@ class Forgot extends Component {
                             <TextInput
                                 placeholder="johndoe@gmail.com"
                                 style={styles.field}
-                                onChangeText={text => {
-                                    this.setState({ email: text });
-                                }}
+                                onChangeText={ text => this.handleInput(text) }
                                 placeholderTextColor="rgba(255,255,255,0.5)"
                                 underlineColorAndroid="transparent"
                             />
@@ -85,8 +113,9 @@ class Forgot extends Component {
                             /> */}
                         <View style={styles.buttonWrapper}>
                             <TouchableHighlight
+                                disabled={this.state.disableButton}
                                 onPress={this.onButtonPress}
-                                style={styles.button}
+                                style={[{ backgroundColor: this.state.enableButtonColor }, styles.button]}
                                 underlayColor="#538124"
                                 activeOpacity={0.5}
                             >
@@ -173,7 +202,6 @@ const styles = StyleSheet.create({
         marginLeft: -3
     },
     button: {
-        backgroundColor: newColors.secondary,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 20,
