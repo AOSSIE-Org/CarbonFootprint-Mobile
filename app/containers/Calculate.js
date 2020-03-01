@@ -6,7 +6,9 @@ import {
     Dimensions,
     StatusBar,
     Platform,
-    ActivityIndicator
+    ActivityIndicator,
+    BackHandler,
+    ToastAndroid
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -43,7 +45,8 @@ class Calculate extends Component {
                 latitude: null,
                 longitude: null
             },
-            tab: 0
+            tab: 0,
+            backClickCount: 0
         };
     }
 
@@ -53,6 +56,10 @@ class Calculate extends Component {
         }
         // AsyncStorage to Redux since this is the first screen
         this.props.getStorage();
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     }
 
     componentWillReceiveProps(props) {
@@ -74,6 +81,22 @@ class Calculate extends Component {
                 }
             }
         }
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
+    handleBackPress = () => {
+        if(this.state.backClickCount > 0) {
+            BackHandler.exitApp();
+        } else {
+            this.setState({ backClickCount: 1 }, () => 
+                ToastAndroid.show('Press again to exit', ToastAndroid.SHORT)
+            );
+            setTimeout(() => this.setState({ backClickCount: 0 }), 1000);
+        }
+        return true;
     }
 
     /**

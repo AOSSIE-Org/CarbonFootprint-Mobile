@@ -5,8 +5,10 @@ import {
     Dimensions,
     Text,
     TextInput,
+    BackHandler,
     TouchableHighlight,
-    ActivityIndicator
+    ActivityIndicator,
+    ToastAndroid
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Actions } from 'react-native-router-flux';
@@ -26,6 +28,7 @@ class LoginForm extends Component {
             email: '',
             password: '',
             error: '',
+            backClickCount: 0,
             disableButton: true,
             enableButtonColor: newColors.disableGrey
         };
@@ -35,6 +38,26 @@ class LoginForm extends Component {
         this.setState({
             error: props.auth.error
         });
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
+    handleBackPress = () => {
+        if(this.state.backClickCount > 0) {
+            BackHandler.exitApp();
+        } else {
+            this.setState({ backClickCount: 1 }, () => 
+                ToastAndroid.show('Press again to exit', ToastAndroid.SHORT)
+            );
+            setTimeout(() => this.setState({ backClickCount: 0 }), 1000);
+        }
+        return true;
     }
 
     handleInput = (key, text) => {
@@ -47,8 +70,7 @@ class LoginForm extends Component {
                 disableButton: false,
                 enableButtonColor: newColors.secondary
             })
-        }
-        else {
+        } else {
             this.setState({
                 disableButton: true,
                 enableButtonColor: newColors.disableGrey
@@ -56,12 +78,23 @@ class LoginForm extends Component {
         }
     };
 
-    shouldDisable = (text) => {
-        let { email, password } = this.state;
+    forgotPassword = () => {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+        Actions.forgot();
+    }
 
-        if ( email.trim() !== STRING_EMPTY && password.trim() !== STRING_EMPTY && text !== STRING_EMPTY ) {
+    registerNow = () => {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+        Actions.register();
+    }
+
+    shouldDisable = (text) => {
+        const { email, password } = this.state;
+
+        if (email.trim() !== STRING_EMPTY && password.trim() !== STRING_EMPTY && text !== STRING_EMPTY) {
             return true;
         }
+        return false;
     }
 
     render() {
@@ -96,7 +129,7 @@ class LoginForm extends Component {
                             </View>
                         );
                     })}
-                    <Text style={styles.forgotText} onPress={() => Actions.forgot()}>
+                    <Text style={styles.forgotText} onPress={this.forgotPassword}>
                         Forgot Password?
                     </Text>
 
@@ -124,7 +157,7 @@ class LoginForm extends Component {
                     <Text style={styles.bottomText}>Don't have an account?</Text>
                     <View style={styles.reg}>
                         <Text
-                            onPress={() => Actions.register()}
+                            onPress={this.registerNow}
                             style={[styles.registerText, styles.bottomText]}
                         >
                             Register Now
