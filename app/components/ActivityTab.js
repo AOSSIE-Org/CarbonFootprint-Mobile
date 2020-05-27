@@ -35,6 +35,7 @@ import {
 import { getPermission } from '../actions/LocationAction';
 import haversine from 'haversine';
 import { googleRoadsAPIKey } from '../config/keys';
+import Geolocation from '@react-native-community/geolocation';
 
 export default class ActivityTab extends Component {
     constructor(props) {
@@ -148,7 +149,7 @@ export default class ActivityTab extends Component {
         }
 
         if ((value && Platform.OS === 'android') || Platform.OS === 'ios') {
-            this.getCurrentLocation = navigator.geolocation.getCurrentPosition(
+            this.getCurrentLocation = Geolocation.getCurrentPosition(
                 position => {
                     const currLatLngs = {
                         latitude: position.coords.latitude,
@@ -173,7 +174,7 @@ export default class ActivityTab extends Component {
             /**
              * Getting location updates (Only when location changes
              */
-            this.watchID = navigator.geolocation.watchPosition(
+            this.watchID = Geolocation.watchPosition(
                 position => {
                     const { routeCoordinates } = this.state;
                     const newLatLngs = {
@@ -242,7 +243,7 @@ export default class ActivityTab extends Component {
     componentWillUnmount() {
         this.props.closeActivityDetection();
         // Stop getting location updates
-        navigator.geolocation.clearWatch(this.watchID);
+        Geolocation.clearWatch(this.watchID);
     }
 
     render() {

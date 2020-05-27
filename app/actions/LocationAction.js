@@ -7,6 +7,7 @@ export const RECEIVE_LOCATION = 'RECEIVE_LOCATION';
 
 import { Platform } from 'react-native';
 import { GEOLOCATION_PERMISSION, GRANT_PERMISSION } from '../config/constants';
+import Geolocation from '@react-native-community/geolocation';
 
 /**
  * action creator to request location
@@ -72,7 +73,7 @@ export function getLocation() {
             checkGPS();
         }
         if (value) {
-            navigator.geolocation.getCurrentPosition(
+            Geolocation.getCurrentPosition(
                 position => {
                     let lat = position.coords.latitude;
                     let lng = position.coords.longitude;

@@ -88,16 +88,16 @@ class Calculate extends Component {
     }
 
     handleBackPress = () => {
-        if(this.state.backClickCount > 0) {
+        if (this.state.backClickCount > 0) {
             BackHandler.exitApp();
         } else {
-            this.setState({ backClickCount: 1 }, () => 
+            this.setState({ backClickCount: 1 }, () =>
                 ToastAndroid.show('Press again to exit', ToastAndroid.SHORT)
             );
             setTimeout(() => this.setState({ backClickCount: 0 }), 1000);
         }
         return true;
-    }
+    };
 
     /**
      * call back function when changed vechile type

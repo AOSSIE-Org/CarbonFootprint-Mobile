@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { View, Text, NetInfo, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 
 const { width } = Dimensions.get('window');
 

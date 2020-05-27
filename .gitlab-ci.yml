@@ -12,6 +12,7 @@ install_dependencies:
 
     script:
     - npm install
+    - npx jetify
     
     artifacts:
         paths:
@@ -44,6 +45,7 @@ build_job :
     - sh generate-gradle-properties.sh > ./android/gradle.properties
     
     - rm -rf android/app/build
+    - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
     
     - cd android && ./gradlew assembleRelease --stacktrace --no-daemon
     - mv ./app/build/outputs/apk/release/app-release.apk ../app-release.apk

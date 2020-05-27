@@ -18,7 +18,7 @@ import MIcon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-let ImagePicker = require('react-native-image-picker');
+import ImagePicker from 'react-native-image-picker';
 import images from '../config/images';
 import ProfileHeader from '../components/ProfileHeader';
 import ProfileModal from '../containers/ProfileModal';
@@ -199,7 +199,9 @@ class More extends Component {
                                     </View>
                                 </View>
                                 <View style={styles.nameWrapper}>
-                                    <Text style={styles.nameText}>{this.props.user.name.trim()}</Text>
+                                    <Text style={styles.nameText}>
+                                        {this.props.user.name.trim()}
+                                    </Text>
                                     {/* <View style={styles.locationWrapper}>
                                         <MIcon name="room" color="black" size={20} />
                                         <Text style={styles.locationText}>New Delhi, India</Text>
