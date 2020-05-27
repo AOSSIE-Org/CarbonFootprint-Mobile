@@ -1,5 +1,6 @@
 import React, { Component, cloneElement } from 'react';
-import { View, StyleSheet, NetInfo, Alert } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 import SplashScreen from 'react-native-splash-screen';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

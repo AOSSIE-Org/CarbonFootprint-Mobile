@@ -14,7 +14,7 @@ import {
     StatusBar
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Timeline from 'react-native-timeline-listview';
+import Timeline from 'react-native-timeline-flatlist';
 import { Actions } from 'react-native-router-flux';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
 import { getIcon, getIconName, color } from '../config/helper';
@@ -59,7 +59,7 @@ export default class TimelineTab extends Component {
     }
 
     /**
-	 * Function to set view of ListView item
+	 * Function to set view of Flatlist item
 	   This function will be sent to Timeline component as prop and will be rendered by it.
 	 * @param   rowData   
 	 * @param   sectionID 
