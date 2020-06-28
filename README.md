@@ -95,24 +95,24 @@ npm install -g react-native-cli
 npm install
 ```
 
-> NOTE: node v8.x is recommended.
+> NOTE: node v10.x is recommended.
 
 2. Version conflicts in `node_modules` are resolved in this step.
 
 ```
-chmod +x ./fixes.sh ./fixes-mac.sh
+chmod +x scripts/fixes.sh scripts/fixes-mac.sh
 ```
 
 If a linux/windows user, run:
 
 ```
-./fixes.sh
+./scripts/fixes.sh
 ```
 
 If on a mac, run:
 
 ```
-./fixes-mac.sh
+./scripts/fixes-mac.sh
 ```
 
 3. Rename keys.sample.js located in app/config to keys.js.
@@ -123,7 +123,7 @@ If on a mac, run:
 
 ### IOS setup (only for mac users)
 
-1. Make sure you have Xcode 10 or higher. It is available for download from Apple app store. Also, install command line tools after installing Xcode by running:
+1. Make sure you have Xcode 11 or higher. It is available for download from Apple app store. Also, install command line tools after installing Xcode by running:
 
 ```
 xcode-select --install
@@ -136,6 +136,7 @@ cd ios && pod install
 ```
 
 3. Download **GoogleService-Info.plist** from google developer console. Download and paste it in ios folder. Now open **CarbonFootprint.xcworkspace** and link **GoogleService-Info.plist** in the ios project.
+
 4. Rename Info.sample.plist.
 
 ```
