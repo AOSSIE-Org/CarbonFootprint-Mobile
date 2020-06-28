@@ -211,6 +211,46 @@ Possible Error messages:
 
 Fix:
 
+```
 delete `node_modules/.bin` folder.
 
 ```
+
+## Error 11
+
+'React/RCTDefines' file not found. RCTBridgeModule
+
+### Fix for the Error
+
+Open node_modules/react-native/React/Base/RCTBridgeModule.h and replace `#import <React\/RCTDefines.h>` with
+
+```
+
+#if __has_include("RCTDefines.h")
+	#import "RCTDefines.h"
+#else
+	#import <React\/RCTDefines.h>
+#endif
+
+```
+
+## Error 12
+
+'React/RCTEventEmitter' file not found in RNActivityRecognition.
+
+### Fix for the Error
+
+1. Open RNActivityRecognition project file using Xcode.
+2. Go to Build Settings and search for `Header Search Path`.
+3. Add `$(SRCROOT)/../../../ios/Pods/Headers/Public/React-Core` to both Debug and Release.
+4. Rearrange it below `$(inherit)` and set it to recursive mode.
+
+## Error 13
+
+No known class method for selector 'objectForJSONString:error:' in FBSDKLoginKit.
+
+### Fix for the Error
+
+Replace `FBSDKBasicUtility` with `FBSDKInternalUtility` using Xcode.
+
+

@@ -24,7 +24,7 @@ target 'CarbonFootprint' do
    pod 'React-RCTSettings', :path => "#{rn_path}/Libraries/Settings"
    pod 'React-RCTText', :path => "#{rn_path}/Libraries/Text"
    pod 'React-RCTVibration', :path => "#{rn_path}/Libraries/Vibration"
-    pod 'React-Core/RCTWebSocket', :path => "#{rn_path}/"
+   pod 'React-Core/RCTWebSocket', :path => "#{rn_path}/"
    pod 'React-cxxreact', :path => "#{rn_path}/ReactCommon/cxxreact"
    pod 'React-jsi', :path => "#{rn_path}/ReactCommon/jsi"
    pod 'React-jsiexecutor', :path => "#{rn_path}/ReactCommon/jsiexecutor"
@@ -51,10 +51,10 @@ target 'CarbonFootprint' do
     pod 'GooglePlacePicker'
     pod 'Google-Maps-iOS-Utils' # Uncomment this line if you want to support GoogleMaps on iOS
     #pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
-    pod 'FBSDKCoreKit', '~> 4.40.0'
-    pod 'FBSDKLoginKit', '~> 4.40.0'
-    pod 'FBSDKShareKit', '~> 4.40.0'
-    pod 'FacebookSDK', '~> 4.38.0'
+    pod 'FBSDKCoreKit', :modular_headers => true
+    pod 'FBSDKLoginKit', :modular_headers => true
+    pod 'FBSDKShareKit'
+    pod 'FacebookSDK'
 
     pod 'GoogleSignIn', '~> 4.4.0'
     pod 'Picker', :path => '../node_modules/react-native-picker'

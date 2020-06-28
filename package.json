@@ -44,7 +44,7 @@
         "react-native-firebase": "^5.6.0",
         "react-native-geocoding": "^0.3.0",
         "react-native-google-places": "^2.5.0",
-        "react-native-google-signin": "^2.0.0",
+        "react-native-google-signin": "2.0.0",
         "react-native-image-picker": "^1.1.0",
         "react-native-keyboard-aware-scroll-view": "^0.9.0",
         "react-native-maps": "^0.21.0",
