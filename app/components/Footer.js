@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Dimensions, StyleSheet, TouchableHighlight, Platform } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import { getIcon, color } from '../config/helper.js';
@@ -28,25 +28,25 @@ const Footer = props => {
             name: 'Calculate'
         },
         {
-            action: () => Actions.activity(),
+            action: () => Actions.activity({ type: ActionConst.REPLACE }),
             icon: 'pulse',
             color: footerColor.activity,
             name: 'Activity'
         },
         {
-            action: () => Actions.friends(),
+            action: () => Actions.friends({ type: ActionConst.REPLACE }),
             icon: 'people',
             color: footerColor.friends,
             name: 'Friends'
         },
         {
-            action: () => Actions.dashboard(),
+            action: () => Actions.dashboard({ type: ActionConst.REPLACE }),
             icon: 'stats',
             color: footerColor.dashboard,
             name: 'Dashboard'
         },
         {
-            action: () => Actions.more(),
+            action: () => Actions.more({ type: ActionConst.REPLACE }),
             icon: 'more',
             color: footerColor.more,
             name: 'More'
@@ -125,4 +125,4 @@ Footer.propTypes = {
     name: PropTypes.string
 };
 
-export default Footer;
+export default React.memo(Footer);

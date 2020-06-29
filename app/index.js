@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 
 import store from './config/store';
 import Navigator from './config/routes';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 class CarbonFootprint extends Component {
     render() {

@@ -2,58 +2,43 @@
  * To show summary stats for today
  */
 
-import React, { Component } from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    ScrollView,
-    Dimensions,
-    Platform,
-    TouchableNativeFeedback,
-    ImageBackground
-} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native';
 
 // import Swiper from 'react-native-swiper';
 import Carousel from 'react-native-snap-carousel';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
-// For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
-import Icon from 'react-native-vector-icons/Ionicons';
-import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
-import PropTypes from 'prop-types';
-
 import images from '../config/images';
-import { getIcon, color, newColors } from '../config/helper';
+import { newColors } from '../config/helper';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
 import ActivityTabBar from './ActivityTabBar';
 
-/**
- * Today Tab Component activity from day
- * @extends Component
- */
-export default class TodayTab extends Component {
-    constructor(props) {
-        super(props);
-        ActivityHistoryStorage.createDB();
-        let data = ActivityHistoryStorage.getTotalData(new Date().toDateString());
-        this.state = {
-            co2Emitted: data.co2Emitted,
-            co2Saved: data.co2Saved,
-            co2WalkSaved: data.co2WalkSaved,
-            co2RunSaved: data.co2RunSaved,
-            co2CycleSaved: data.co2CycleSaved,
-            co2VehicleEmitted: data.co2VehicleEmitted,
-            dist: data.dist,
-            distWalk: data.distWalk,
-            distRun: data.distRun,
-            distCycle: data.distCycle,
-            distVehicle: data.distVehicle
-        };
-    }
+const TodayTab = props => {
+    ActivityHistoryStorage.createDB();
+    let data = ActivityHistoryStorage.getTotalData(new Date().toDateString());
 
-    _renderItem({ item, index }) {
+    const [co2Emitted, setCo2Emitted] = useState(data.co2Emitted);
+    const [dist, setDist] = useState(data.dist);
+    const [co2Saved, setCo2Saved] = useState(data.co2saved);
+    const [walk, setWalk] = useState({
+        co2WalkSaved: data.co2WalkSaved,
+        distWalk: data.distWalk
+    });
+    const [run, setRun] = useState({
+        co2RunSaved: data.co2RunSaved,
+        distRun: data.distRun
+    });
+    const [cycle, setCycle] = useState({
+        co2CycleSaved: data.co2CycleSaved,
+        distCycle: data.distCycle
+    });
+    const [vehicle, setVehicle] = useState({
+        co2VehicleEmitted: data.co2VehicleEmitted,
+        distVehicle: data.distVehicle
+    });
+
+    const _renderItem = ({ item, index }) => {
         return (
             <View style={styles.card}>
                 <Image source={images.carousel_1} />
@@ -63,106 +48,101 @@ export default class TodayTab extends Component {
                 </View>
             </View>
         );
-    }
+    };
 
-    render() {
-        let swiper1 = [
-            {
-                title: 'saved',
-                text: this.state.co2Saved
-            },
-            {
-                title: 'emitted',
-                text: this.state.co2Emitted
-            },
-            {
-                title: 'distance',
-                text: this.state.dist
-            }
-        ];
+    const _renderTabBar = () => {
+        return <ActivityTabBar tabsAlt={tabsAlt} />;
+    };
 
-        let tabsAlt = [
-            {
-                icon: 'directions-walk',
-                text: 'WALK',
-                co2saved: this.state.co2WalkSaved,
-                co2emitted: 0,
-                distance: this.state.distWalk
-            },
-            {
-                icon: 'directions-run',
-                text: 'RUN',
-                co2saved: this.state.co2RunSaved,
-                co2emitted: 0,
-                distance: this.state.distRun
-            },
-            {
-                icon: 'motorcycle',
-                text: 'CYCLE',
-                co2saved: this.state.co2CycleSaved,
-                co2emitted: 0,
-                distance: this.state.distCycle
-            },
-            {
-                icon: 'directions-car',
-                text: 'CAR',
-                co2saved: 0,
-                co2emitted: this.state.co2VehicleEmitted,
-                distance: this.state.distVehicle
-            }
-        ];
-        return (
-            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-                <View style={styles.headingContainer}>
-                    <View style={styles.co2wrapper}>
-                        <Text style={styles.co}>CO</Text>
-                        <Text style={styles.two}>2</Text>
-                    </View>
-                    <View>
-                        <Text>TOTAL DISTANCE</Text>
-                        <Text style={styles.totalDistance}>2.3 km</Text>
-                    </View>
+    let swiper1 = [
+        {
+            title: 'saved',
+            text: co2Saved
+        },
+        {
+            title: 'emitted',
+            text: co2Emitted
+        },
+        {
+            title: 'distance',
+            text: dist
+        }
+    ];
+    let tabsAlt = [
+        {
+            icon: 'directions-walk',
+            text: 'WALK',
+            co2saved: walk.co2WalkSaved,
+            co2emitted: 0,
+            distance: walk.distWalk
+        },
+        {
+            icon: 'directions-run',
+            text: 'RUN',
+            co2saved: run.co2RunSaved,
+            co2emitted: 0,
+            distance: run.distRun
+        },
+        {
+            icon: 'motorcycle',
+            text: 'CYCLE',
+            co2saved: cycle.co2CycleSaved,
+            co2emitted: 0,
+            distance: cycle.distCycle
+        },
+        {
+            icon: 'directions-car',
+            text: 'CAR',
+            co2saved: 0,
+            co2emitted: vehicle.co2VehicleEmitted,
+            distance: vehicle.distVehicle
+        }
+    ];
+    return (
+        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+            <View style={styles.headingContainer}>
+                <View style={styles.co2wrapper}>
+                    <Text style={styles.co}>CO</Text>
+                    <Text style={styles.two}>2</Text>
                 </View>
-                <View style={styles.cardsWrapper}>
-                    <Carousel
-                        ref={c => {
-                            this._carousel = c;
-                        }}
-                        data={swiper1}
-                        renderItem={this._renderItem}
-                        sliderWidth={Dimensions.get('window').width}
-                        itemWidth={Dimensions.get('window').width * 0.7}
-                    />
+                <View>
+                    <Text>TOTAL DISTANCE</Text>
+                    <Text style={styles.totalDistance}>2.3 km</Text>
                 </View>
-                <View style={styles.tabViewContainer}>
-                    <ScrollableTabView
-                        renderTabBar={() => <ActivityTabBar tabsAlt={tabsAlt} />}
-                        style={styles.miniScrollView}
-                    >
-                        {tabsAlt.map(obj => {
-                            return (
-                                <View style={styles.tabContent}>
-                                    <View style={styles.onethirdbox}>
-                                        <Text style={styles.lightbig}>{obj.distance}</Text>
-                                        <Text style={styles.darksmall}>DISTANCE</Text>
-                                    </View>
-                                    <View style={styles.onethirdbox}>
-                                        <Text style={styles.lightbig}>{obj.co2saved}</Text>
-                                        <Text style={styles.darksmall}>SAVED</Text>
-                                    </View>
-                                    <View style={styles.onethirdbox}>
-                                        <Text style={styles.lightbig}>{obj.co2emitted}</Text>
-                                        <Text style={styles.darksmall}>EMITTED</Text>
-                                    </View>
+            </View>
+            <View style={styles.cardsWrapper}>
+                <Carousel
+                    data={swiper1}
+                    renderItem={_renderItem}
+                    sliderWidth={Dimensions.get('window').width}
+                    itemWidth={Dimensions.get('window').width * 0.7}
+                />
+            </View>
+            <View style={styles.tabViewContainer}>
+                <ScrollableTabView renderTabBar={_renderTabBar} style={styles.miniScrollView}>
+                    {tabsAlt.map(obj => {
+                        return (
+                            <View style={styles.tabContent}>
+                                <View style={styles.onethirdbox}>
+                                    <Text style={styles.lightbig}>{obj.distance}</Text>
+                                    <Text style={styles.darksmall}>DISTANCE</Text>
                                 </View>
-                            );
-                        })}
-                    </ScrollableTabView>
-                </View>
-            </ScrollView>
-        );
-    }
-}
+                                <View style={styles.onethirdbox}>
+                                    <Text style={styles.lightbig}>{obj.co2saved}</Text>
+                                    <Text style={styles.darksmall}>SAVED</Text>
+                                </View>
+                                <View style={styles.onethirdbox}>
+                                    <Text style={styles.lightbig}>{obj.co2emitted}</Text>
+                                    <Text style={styles.darksmall}>EMITTED</Text>
+                                </View>
+                            </View>
+                        );
+                    })}
+                </ScrollableTabView>
+            </View>
+        </ScrollView>
+    );
+};
 
 /*StyleSheet*/
 const styles = StyleSheet.create({
@@ -293,3 +273,5 @@ const styles = StyleSheet.create({
         fontSize: 84
     }
 });
+
+export default React.memo(TodayTab);

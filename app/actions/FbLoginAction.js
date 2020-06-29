@@ -1,13 +1,7 @@
 /*
  *	Facebook Native Login Action
  */
-import FBSDK, {
-    LoginManager,
-    LoginButton,
-    AccessToken,
-    GraphRequest,
-    GraphRequestManager
-} from 'react-native-fbsdk';
+import { LoginManager, AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { receiveAuth, receiveError } from './AuthAction';
 import { loaderToggle } from './LoaderAction';

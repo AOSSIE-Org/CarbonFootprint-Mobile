@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, StatusBar } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import ProfileHeader from './ProfileHeader';
 import { newColors } from '../config/helper';
 import StatusBarBackground from '../components/StatusBarBackground';
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Terms;
+export default React.memo(Terms);

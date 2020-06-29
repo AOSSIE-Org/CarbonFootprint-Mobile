@@ -7,7 +7,6 @@ import { loaderToggle } from './LoaderAction';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { googleSignInConfig } from '../config/keys';
 import * as actions from './AuthAction';
-import { showAlert } from '../config/helper';
 import { loginCustomFirebase } from './firebase/Auth';
 import { KEYS_NOT_SET } from '../config/constants';
 import { checkValidityForSignIn, redirectSignIn } from './firebase/Helper';

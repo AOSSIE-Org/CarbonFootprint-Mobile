@@ -41,4 +41,4 @@ ImageHeader.propTypes = {
     text: PropTypes.string
 };
 
-export default ImageHeader;
+export default React.memo(ImageHeader);

@@ -1,11 +1,10 @@
 import React from 'react';
-import { Scene, Router, Modal, Stack } from 'react-native-router-flux';
+import { Scene, Router, Modal } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
 import Intro from '../components/Intro';
 import Master from '../containers/Master';
 import Home from '../containers/Home';
-import Login from '../containers/Login';
 import Register from '../containers/Register';
 import Calculate from '../containers/Calculate';
 import Activity from '../containers/Activity';
@@ -17,8 +16,6 @@ import Dashboard from '../containers/Dashboard';
 import Friends from '../containers/Friends';
 import Settings from '../containers/Settings';
 import Forgot from '../containers/Forgot';
-import UserProfile from '../containers/Profile';
-import EmailSent from '../components/EmailSent';
 
 import Footer from '../components/Footer';
 
@@ -37,7 +34,6 @@ const Navigator = () => (
                     <Scene key="home" component={Home} panHandlers={null} initial />
                     <Scene key="register" component={Register} panHandlers={null} />
                     <Scene key="forgot" component={Forgot} panHandlers={null} />
-                    <Scene key="email_sent" component={EmailSent} panHandlers={null} />
                 </Scene>
                 <Scene key="main" navBar={Footer} panHandlers={null}>
                     <Scene key="timeline" component={TimelineTab} panHandlers={null} />
@@ -47,7 +43,6 @@ const Navigator = () => (
                     <Scene key="about" component={About} panHandlers={null} hideNavBar />
                     <Scene key="terms" component={Terms} panHandlers={null} hideNavBar />
                     <Scene key="settings" component={Settings} panHandlers={null} hideNavBar />
-                    <Scene key="profile" component={UserProfile} panHandlers={null} />
                     <Scene key="dashboard" component={Dashboard} panHandlers={null} />
                     <Scene key="friends" component={Friends} panHandlers={null} />
                 </Scene>

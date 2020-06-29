@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     StatusBar,
     Text,
@@ -9,7 +9,7 @@ import {
     StyleSheet
 } from 'react-native';
 import Swiper from 'react-native-swiper';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import SplashScreen from 'react-native-splash-screen';
 import { newColors } from '../config/helper';
 import SplashScreenTab from './SplashScreenTab';
@@ -17,87 +17,82 @@ import StatusBarBackground from './StatusBarBackground';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import images from '../config/images';
 
-export default class Intro extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            index: 0
-        };
-        this.checkIsIntroShown();
-    }
-    checkIsIntroShown = () => {
+const Intro = props => {
+    const [index, setIndex] = useState(0);
+    useEffect(() => {
+        checkIsIntroShown();
+    }, [checkIsIntroShown]);
+
+    const checkIsIntroShown = useCallback(() => {
         AsyncStorage.getItem('isIntroShown', (err, result) => {
             if (result !== null) {
-                Actions.master();
+                Actions.master({ type: ActionConst.RESET });
             } else {
                 SplashScreen.hide();
             }
         });
-    };
+    }, []);
 
-    onPress = () => {
+    const onPress = () => {
         AsyncStorage.setItem('isIntroShown', 'forIntro');
-        Actions.master();
+        Actions.master({ type: ActionConst.RESET });
     };
+    let slides = [
+        {
+            text: 'Track Emission',
+            desc:
+                'Release of co2 in environment is increasing everyday. This app will calculate and track your release.',
+            style: styles.slide1,
+            source: images.splash_screen_1
+        },
+        {
+            text: 'Activity Recognition',
+            desc:
+                "Detects user's activity and calculate travelled distance and amount of emitted co2 (at runtime).",
+            style: styles.slide2,
+            source: images.splash_screen_2
+        },
+        {
+            text: 'Push Notifications',
+            desc: 'Push notification service to inform user about his activity,',
+            style: styles.slide3,
+            source: images.splash_screen_3
+        }
+    ];
 
-    render() {
-        let slides = [
-            {
-                text: 'Track Emission',
-                desc:
-                    'Release of co2 in environment is increasing everyday. This app will calculate and track your release.',
-                style: styles.slide1,
-                source: images.splash_screen_1
-            },
-            {
-                text: 'Activity Recognition',
-                desc:
-                    "Detects user's activity and calculate travelled distance and amount of emitted co2 (at runtime).",
-                style: styles.slide2,
-                source: images.splash_screen_2
-            },
-            {
-                text: 'Push Notifications',
-                desc: 'Push notification service to inform user about his activity,',
-                style: styles.slide3,
-                source: images.splash_screen_3
-            }
-        ];
-
-        return (
-            <View style={styles.container}>
-                <StatusBar barStyle="light-content" />
-                <StatusBarBackground style={{ backgroundColor: newColors.primary }} />
-                <View style={styles.iconWrapper}>
-                    <Image source={images.splash_screen_logo} style={styles.icon} />
-                </View>
-                <Swiper
-                    onIndexChanged={index => {
-                        this.setState({ index });
-                    }}
-                    style={styles.wrapper}
-                    loop={false}
-                    activeDot={activeDot()}
-                    dotColor="white"
-                    paginationStyle={{
-                        marginBottom: -30
-                    }}
-                >
-                    {slides.map(element => {
-                        return <SplashScreenTab key={element.text} tab={{ ...element }} />;
-                    })}
-                </Swiper>
-                {/* {skipButton} */}
-                <View style={styles.bottomView}>
-                    <TouchableOpacity style={styles.startJourneyButton} onPress={this.onPress}>
-                        <Text style={styles.startText}>Start your journey</Text>
-                        <Icon name="caret-right" size={20} color={newColors.primary} />
-                    </TouchableOpacity>
-                </View>
+    return (
+        <View style={styles.container}>
+            <StatusBar barStyle="light-content" />
+            <StatusBarBackground style={{ backgroundColor: newColors.primary }} />
+            <View style={styles.iconWrapper}>
+                <Image source={images.splash_screen_logo} style={styles.icon} />
             </View>
-        );
-    }
-}
+            <Swiper
+                onIndexChanged={ind => {
+                    setIndex(ind);
+                }}
+                style={styles.wrapper}
+                loop={false}
+                activeDot={activeDot()}
+                dotColor="white"
+                paginationStyle={{
+                    marginBottom: -30
+                }}
+            >
+                {slides.map(element => {
+                    return <SplashScreenTab key={element.text} tab={{ ...element }} />;
+                })}
+            </Swiper>
+            {/* {skipButton} */}
+            <View style={styles.bottomView}>
+                <TouchableOpacity style={styles.startJourneyButton} onPress={onPress}>
+                    <Text style={styles.startText}>Start your journey</Text>
+                    <Icon name="caret-right" size={20} color={newColors.primary} />
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+};
 
 function activeDot() {
     return <View style={styles.activeDotStyle} />;
@@ -164,3 +159,5 @@ const styles = StyleSheet.create({
         marginRight: 10
     }
 });
+
+export default Intro;

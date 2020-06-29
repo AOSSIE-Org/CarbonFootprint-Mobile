@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     StyleSheet,
@@ -9,142 +9,131 @@ import {
     TouchableHighlight,
     ActivityIndicator
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Actions, ActionConst } from 'react-native-router-flux';
+import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Icon from 'react-native-vector-icons/Ionicons';
-import PropTypes from 'prop-types';
 import StatusBarBackground from '../components/StatusBarBackground';
 
 import BackHeader from '../components/BackHeader';
-import LoginForm from '../components/LoginForm';
 
-import { RESET_PASSWORD, STRING_EMPTY } from '../config/constants';
+import { STRING_EMPTY } from '../config/constants';
 
-import * as AuthAction from '../actions/AuthAction';
-import { color, getIcon, newColors } from '../config/helper';
+import { forgotPassword } from '../config/actionDispatcher';
+import { newColors } from '../config/helper';
+import { receiveForgot } from '../actions/AuthAction';
 
-class Forgot extends Component {
-    constructor() {
-        super();
-        this.state = {
-            email: '',
-            disableButton: true,
-            enableButtonColor: newColors.disableGrey
-        };
-    }
+const Forgot = props => {
+    const [email, setEmail] = useState('');
+    const [button, setButton] = useState({
+        disableButton: true,
+        enableButtonColor: newColors.disableGrey
+    });
+    const forgot = useSelector(state => state.forgot);
+    const dispatch = useDispatch();
 
-    handleInput = (text) => {
-        this.setState({
-            email: text
-        }, () => {
-            if (this.shouldEnable(text))
-            {
-                this.setState({
-                    disableButton: false,
-                    enableButtonColor: newColors.secondary
-                })
-            } else {
-                this.setState({
-                    disableButton: true,
-                    enableButtonColor: newColors.disableGrey
-                })
-            }
-        });
-    }
+    useState(() => {
+        dispatch(receiveForgot(''));
+    }, [dispatch]);
 
-    shouldEnable = (text) => {
-        const { email } = this.state;
-
-        if (email.trim() !== STRING_EMPTY && text !== STRING_EMPTY) {
-            return true;
-        } 
-        return false;
-    }
-
-    onButtonPress = () => {
-        if (!this.props.forgot.isFetching) {
-            this.props.forgotPassword(this.state.email);
-            if (this.props.forgot.message === RESET_PASSWORD) {
-                Actions.email_sent({ email: this.state.email });
-            }
+    const handleInput = text => {
+        setEmail(text);
+        if (shouldEnable(text)) {
+            setButton({
+                disableButton: false,
+                enableButtonColor: newColors.secondary
+            });
+        } else {
+            setButton({
+                disableButton: true,
+                enableButtonColor: newColors.disableGrey
+            });
         }
     };
 
-    render() {
-        let style = {
-            backgroundColor: '#fff'
-        };
-        return (
-            <View style={styles.container}>
-                <StatusBar hidden={true} />
-                <StatusBarBackground style={style} />
-                <BackHeader text="Register" link={() => Actions.register()} icon toIcon="user" />
-                <View style={styles.main}>
-                    <View style={styles.registerWrapper}>
-                        <Text style={styles.registerText}>Reset Password</Text>
-                    </View>
-                    <KeyboardAwareScrollView
-                        style={styles.inputForm}
-                        contentContainerStyle={styles.inputFormContainer}
-                    >
-                        <View style={styles.input}>
-                            <Text style={styles.label}>EMAIL</Text>
-                            <TextInput
-                                placeholder="johndoe@gmail.com"
-                                style={styles.field}
-                                onChangeText={ text => this.handleInput(text) }
-                                placeholderTextColor="rgba(255,255,255,0.5)"
-                                underlineColorAndroid="transparent"
-                            />
-                        </View>
-                        {/* <Icon name={getIcon('mail')} size={18} color="#666" />
-                            <TextInput
-                                placeholder="Enter your email"
-                                style={styles.field}
-                                autoCapitalize="none"
-                                onChangeText={text =>
-                                    this.setState({
-                                        email: text
-                                    })
-                                }
-                                underlineColorAndroid="transparent"
-                            /> */}
-                        <View style={styles.buttonWrapper}>
-                            <TouchableHighlight
-                                disabled={this.state.disableButton}
-                                onPress={this.onButtonPress}
-                                style={[{ backgroundColor: this.state.enableButtonColor }, styles.button]}
-                                underlayColor="#538124"
-                                activeOpacity={0.5}
-                            >
-                                <Text style={styles.passwordResetText}>
-                                    {this.props.forgot.isFetching
-                                        ? 'Resetting....'
-                                        : 'Reset Password'}
-                                </Text>
-                            </TouchableHighlight>
-                        </View>
-                        {this.props.forgot.isFetching ? null : this.props.forgot.message ? (
-                            <View style={styles.topMargin}>
-                                <Text style={styles.error}>{this.props.forgot.message}</Text>
-                            </View>
-                        ) : null}
-                        {this.props.forgot.isFetching ? (
-                            <View style={styles.topMargin}>
-                                <ActivityIndicator
-                                    animating={this.props.forgot.isFetching}
-                                    color="#4D72B8"
-                                />
-                            </View>
-                        ) : null}
-                    </KeyboardAwareScrollView>
+    const shouldEnable = text => {
+        if (email.trim() !== STRING_EMPTY && text !== STRING_EMPTY) {
+            return true;
+        }
+        return false;
+    };
+
+    const onButtonPress = () => {
+        if (!forgot.isFetching) {
+            dispatch(forgotPassword(email));
+        }
+    };
+
+    let style = {
+        backgroundColor: '#fff'
+    };
+    return (
+        <View style={styles.container}>
+            <StatusBar hidden={true} />
+            <StatusBarBackground style={style} />
+            <BackHeader
+                text="Register"
+                link={() => Actions.register({ type: ActionConst.REPLACE })}
+                icon
+                toIcon="user"
+            />
+            <View style={styles.main}>
+                <View style={styles.registerWrapper}>
+                    <Text style={styles.registerText}>Reset Password</Text>
                 </View>
+                <KeyboardAwareScrollView
+                    style={styles.inputForm}
+                    contentContainerStyle={styles.inputFormContainer}
+                >
+                    <View style={styles.input}>
+                        <Text style={styles.label}>EMAIL</Text>
+                        <TextInput
+                            placeholder="johndoe@gmail.com"
+                            style={styles.field}
+                            onChangeText={text => handleInput(text)}
+                            placeholderTextColor="rgba(255,255,255,0.5)"
+                            underlineColorAndroid="transparent"
+                        />
+                    </View>
+                    {/* <Icon name={getIcon('mail')} size={18} color="#666" />
+                        <TextInput
+                            placeholder="Enter your email"
+                            style={styles.field}
+                            autoCapitalize="none"
+                            onChangeText={text =>
+                                this.setState({
+                                    email: text
+                                })
+                            }
+                            underlineColorAndroid="transparent"
+                        /> */}
+                    <View style={styles.buttonWrapper}>
+                        <TouchableHighlight
+                            disabled={button.disableButton}
+                            onPress={onButtonPress}
+                            style={[{ backgroundColor: button.enableButtonColor }, styles.button]}
+                            underlayColor="#538124"
+                            activeOpacity={0.5}
+                        >
+                            <Text style={styles.passwordResetText}>
+                                {forgot.isFetching ? 'Resetting....' : 'Reset Password'}
+                            </Text>
+                        </TouchableHighlight>
+                    </View>
+                    {forgot.isFetching ? null : forgot.message ? (
+                        <View style={styles.topMargin}>
+                            <Text style={styles.error}>{forgot.message}</Text>
+                        </View>
+                    ) : null}
+                    {forgot.isFetching ? (
+                        <View style={styles.topMargin}>
+                            <ActivityIndicator animating={forgot.isFetching} color="#4D72B8" />
+                        </View>
+                    ) : null}
+                </KeyboardAwareScrollView>
             </View>
-        );
-    }
-}
+        </View>
+    );
+};
 
 /*StyleSheet*/
 const styles = StyleSheet.create({
@@ -232,25 +221,4 @@ const styles = StyleSheet.create({
     }
 });
 
-Forgot.propTypes = {
-    forgot: PropTypes.object
-};
-
-function mapStateToProps(state) {
-    return {
-        forgot: state.forgot
-    };
-}
-/**
- * Mapping dispatchable actions to props so that actions can be used through props in children components
- * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
- * @return Turns an object whose values are action creators, into an object with the same keys,
- */
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, AuthAction), dispatch);
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Forgot);
+export default Forgot;

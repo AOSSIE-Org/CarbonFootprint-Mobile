@@ -1,14 +1,11 @@
 import firebase from 'react-native-firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { setStorage } from './StorageAction';
-import { firebaseConfig } from '../config/keys';
 import { initFirebase } from './firebase/Init';
 import { registerFirebase, loginEmailFirebase, forgotPasswordFirebase } from './firebase/Auth';
 import { RESET_PASSWORD } from '../config/constants';
 import { formatEmail } from '../config/helper';
 import { checkValidityForSignIn, redirectSignIn } from './firebase/Helper';
 import { loaderToggle } from './LoaderAction';
-import loader from '../reducers/loader';
 
 export const REQUEST_AUTH = 'REQUEST_AUTH';
 export const RECEIVE_AUTH = 'RECEIVE_AUTH';

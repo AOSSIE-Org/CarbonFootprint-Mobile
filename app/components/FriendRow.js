@@ -3,11 +3,10 @@
  */
 
 import React from 'react';
-import { View, StyleSheet, Image, Text, Dimensions, TouchableNativeFeedback } from 'react-native';
+import { View, StyleSheet, Image, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { color, getIcon } from '../config/helper';
 import images from '../config/images';
 
 /**

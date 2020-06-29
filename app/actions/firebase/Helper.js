@@ -78,7 +78,7 @@ export function redirectSignIn(provider) {
                     text: `Continue with ${provider}`,
                     onPress:
                         provider == 'email'
-                            ? () => Actions.login()
+                            ? () => Actions.login({ type: ActionConst.RESET })
                             : provider == 'google'
                             ? () => dispatch(googleSignIn())
                             : () => dispatch(fbLogin())

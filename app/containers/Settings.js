@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
     View,
     StyleSheet,
@@ -6,186 +6,177 @@ import {
     Dimensions,
     Text,
     ActivityIndicator,
-    BackHandler,
-    StatusBar
+    BackHandler
 } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import Picker from 'react-native-picker';
 import StatusBarBackground from '../components/StatusBarBackground';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
-import PropTypes from 'prop-types';
 
-import * as StorageAction from '../actions/StorageAction';
 import ProfileHeader from '../components/ProfileHeader';
 import { color, newColors } from '../config/helper';
+import { setStorage } from '../config/actionDispatcher';
 
-/**
- * Settings Screen Container
- * @extends Component
- */
-class Settings extends Component {
-    constructor(props) {
-        super(props);
-        let data = this.props.storage.data;
-        this.state = {
-            ...data,
-            isPickerOn: false
-        };
-    }
+const Settings = props => {
+    const storage = useSelector(state => state.storage);
+    const [data, setData] = useState(storage.data);
+    const [isPickerOn, setIsPickerOn] = useState(false);
+    const dispatch = useDispatch();
+    const AutomobileSheet = useRef();
+    const TypeSheet = useRef();
 
-    handlePress(array, value, key) {
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => backPress());
+        return () => BackHandler.removeEventListener('hardwareBackPress', () => backPress());
+    }, []);
+
+    const handlePress = (array, value, key) => {
         if (value != 0) {
-            let data = this.state;
-            data[key] = array[value];
-            this.setState({
-                ...data
-            });
-            this.props.setStorage(data);
+            if (key === 'automobile') {
+                setData({
+                    ...data,
+                    automobile: array[value]
+                });
+            } else if (key === 'type') {
+                setData({
+                    ...data,
+                    type: array[value]
+                });
+            }
+            dispatch(setStorage(data));
         }
-    }
+    };
 
-    backPress() {
-        let isPickerOn = this.state.isPickerOn;
+    const backPress = useCallback(() => {
         if (isPickerOn) {
             Picker.hide();
-            this.setState({ isPickerOn: false });
+            setIsPickerOn(false);
         } else {
             Actions.pop();
         }
         return true;
-    }
+    }, [isPickerOn]);
 
-    componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', () => this.backPress());
-    }
-
-    componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', () => this.backPress());
-    }
-
-    showPicker() {
-        let isPickerOn = this.state.isPickerOn;
+    const showPicker = () => {
         Picker.init({
             pickerData: [values, units],
-            selectedValue: [this.state.value, this.state.unit],
+            selectedValue: [data.value, data.unit],
             pickerConfirmBtnText: 'Select',
             pickerCancelBtnText: 'Cancel',
             pickerTitleText: 'Mileage',
-            onPickerConfirm: data => {
-                this.setState({
-                    value: data[0],
-                    unit: data[1]
+            onPickerConfirm: newData => {
+                setData({
+                    ...data,
+                    value: newData[0],
+                    unit: newData[1]
                 });
-                this.props.setStorage({
-                    ...this.state,
-                    value: data[0],
-                    unit: data[1]
-                });
+                dispatch(
+                    setStorage({
+                        ...data,
+                        value: newData[0],
+                        unit: newData[1]
+                    })
+                );
             }
         });
         Picker.show();
-        this.setState({ isPickerOn: true });
-    }
+        setIsPickerOn(true);
+    };
 
-    reduceState = arr => {
+    const reduceState = arr => {
         return arr.reduce((total, el) => {
-            return total + ' ' + this.state[el];
+            return total + ' ' + data[el];
         }, '');
     };
 
-    render() {
-        const style = {
-            backgroundColor: newColors.secondary
-        };
-        let list = [
-            {
-                option: 'Preferred Automobile',
-                state: 'automobile',
-                onPress: () => this.AutomobileSheet.show()
-            },
-            {
-                option: 'Fuel Type',
-                state: 'type',
-                onPress: () => this.TypeSheet.show()
-            },
-            {
-                option: 'Approximate Mileage',
-                state: ['value', 'unit'],
-                onPress: () => this.showPicker()
-            }
-        ];
+    const style = {
+        backgroundColor: newColors.secondary
+    };
+    let list = [
+        {
+            option: 'Preferred Automobile',
+            state: 'automobile',
+            onPress: () => AutomobileSheet.current.show()
+        },
+        {
+            option: 'Fuel Type',
+            state: 'type',
+            onPress: () => TypeSheet.current.show()
+        },
+        {
+            option: 'Approximate Mileage',
+            state: ['value', 'unit'],
+            onPress: () => showPicker()
+        }
+    ];
 
-        return (
-            <View style={styles.container}>
-                <StatusBarBackground style={style} />
-                <ProfileHeader iconName="long-arrow-left" text="Settings" />
-                {this.props.storage.isFetching ? (
-                    <View style={styles.center}>
-                        <ActivityIndicator size="large" color={color.primary} />
-                    </View>
-                ) : (
-                    <View style={styles.main}>
-                        {list.map((element, i) => {
-                            let res = Array.isArray(element.state)
-                                ? this.reduceState(element.state)
-                                : this.state[element.state];
-
-                            return (
-                                <TouchableHighlight
-                                    key={i}
-                                    onPress={element.onPress}
-                                    activeOpacity={0.5}
-                                    underlayColor="#eee"
-                                    style={styles.touchableButton}
-                                >
-                                    <View style={styles.button}>
-                                        <View style={styles.textWrapper}>
-                                            <Text style={styles.text}>{element.option}</Text>
-                                            <Text style={styles.small}>{res}</Text>
-                                        </View>
-
-                                        <Icon
-                                            name="angle-down"
-                                            style={styles.icon}
-                                            color="rgba(122,122,122,1)"
-                                            size={20}
-                                        />
+    return (
+        <View style={styles.container}>
+            <StatusBarBackground style={style} />
+            <ProfileHeader iconName="long-arrow-left" text="Settings" />
+            {storage.isFetching ? (
+                <View style={styles.center}>
+                    <ActivityIndicator size="large" color={color.primary} />
+                </View>
+            ) : (
+                <View style={styles.main}>
+                    {list.map((element, i) => {
+                        let res = Array.isArray(element.state)
+                            ? reduceState(element.state)
+                            : data[element.state];
+                        return (
+                            <TouchableHighlight
+                                key={i}
+                                onPress={element.onPress}
+                                activeOpacity={0.5}
+                                underlayColor="#eee"
+                                style={styles.touchableButton}
+                            >
+                                <View style={styles.button}>
+                                    <View style={styles.textWrapper}>
+                                        <Text style={styles.text}>{element.option}</Text>
+                                        <Text style={styles.small}>{res}</Text>
                                     </View>
-                                </TouchableHighlight>
-                            );
-                        })}
-                    </View>
-                )}
-                <ActionSheet
-                    ref={o => (this.AutomobileSheet = o)}
-                    title={automobileTitle}
-                    options={automobileOptions}
-                    cancelButtonIndex={CANCEL_INDEX}
-                    onPress={i => this.handlePress(automobileOptions, i, 'automobile')}
-                    styles={{
-                        body: {
-                            borderRadius: 30
-                        },
-                        titleBox: {
-                            borderTopLeftRadius: 30,
-                            borderTopRightRadius: 30
-                        }
-                    }}
-                />
-                <ActionSheet
-                    ref={o => (this.TypeSheet = o)}
-                    title={typeTitle}
-                    options={typeOptions}
-                    cancelButtonIndex={CANCEL_INDEX}
-                    onPress={i => this.handlePress(typeOptions, i, 'type')}
-                />
-            </View>
-        );
-    }
-}
+                                    <Icon
+                                        name="angle-down"
+                                        style={styles.icon}
+                                        color="rgba(122,122,122,1)"
+                                        size={20}
+                                    />
+                                </View>
+                            </TouchableHighlight>
+                        );
+                    })}
+                </View>
+            )}
+            <ActionSheet
+                ref={AutomobileSheet}
+                title={automobileTitle}
+                options={automobileOptions}
+                cancelButtonIndex={CANCEL_INDEX}
+                onPress={i => handlePress(automobileOptions, i, 'automobile')}
+                styles={{
+                    body: {
+                        borderRadius: 30
+                    },
+                    titleBox: {
+                        borderTopLeftRadius: 30,
+                        borderTopRightRadius: 30
+                    }
+                }}
+            />
+            <ActionSheet
+                ref={TypeSheet}
+                title={typeTitle}
+                options={typeOptions}
+                cancelButtonIndex={CANCEL_INDEX}
+                onPress={i => handlePress(typeOptions, i, 'type')}
+            />
+        </View>
+    );
+};
 
 /* For Selecting Automobile */
 const automobileTitle = 'Which Automobile do you prefer?';
@@ -262,31 +253,5 @@ const styles = StyleSheet.create({
         position: 'absolute'
     }
 });
-/**
- * Mapping state to props so that state variables can be used through props in children components
- * @param state current state
- * @return state as props
- */
-function mapStateToProps(state) {
-    return {
-        storage: state.storage
-    };
-}
-/**
- * Mapping dispatchable actions to props so that actions can be used through props in children components
- * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
- * @return Turns an object whose values are action creators, into an object with the same keys,
- */
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, StorageAction), dispatch);
-}
 
-Settings.propTypes = {
-    setStorage: PropTypes.func.isRequired,
-    storage: PropTypes.object
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Settings);
+export default Settings;

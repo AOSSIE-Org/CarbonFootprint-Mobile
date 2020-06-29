@@ -1,5 +1,5 @@
 import React from 'react';
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -20,7 +20,7 @@ const BackHeader = props => {
                 backgroundColor="white"
                 size={30}
                 color={newColors.black}
-                onPress={() => Actions.home()}
+                onPress={() => Actions.pop()}
             />
             {props.icon ? <Image source={images.login_logo} style={styles.logo} /> : null}
             {props.text ? (
@@ -62,4 +62,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default BackHeader;
+export default React.memo(BackHeader);

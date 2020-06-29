@@ -1,278 +1,250 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import {
     View,
     StyleSheet,
     ScrollView,
     Text,
-    Image,
     StatusBar,
     Dimensions,
     ActivityIndicator,
-    Share,
-    Platform
+    Share
 } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import StatusBarBackground from '../components/StatusBarBackground';
 // For 'RUNNING' activity - MaterialCommunityIcons, Others - Ionicons
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import IonIcon from 'react-native-vector-icons/Ionicons';
-import PropTypes from 'prop-types';
-import * as ProfileAction from '../actions/ProfileAction';
-import { getIcon, color, newColors } from '../config/helper';
+import { color, newColors } from '../config/helper';
+import { getProfile } from '../config/actionDispatcher';
 
-/**
- * Stats Section Container
- * @extends Component
- */
-class Stats extends Component {
-    componentWillMount() {
-        this.props.getProfile();
-    }
+const Stats = props => {
+    const auth = useSelector(state => state.auth);
+    const storage = useSelector(state => state.storage);
+    const dispatch = useDispatch();
+    const user = auth.user;
 
-    ShareMessage(msg) {
+    useEffect(() => {
+        dispatch(getProfile());
+    }, []);
+
+    const ShareMessage = msg => {
         Share.share({
             message: msg
         })
             .then(res => console.log(res))
             .catch(err => console.log(err));
-    }
-    render() {
-        const style = {
-            backgroundColor: newColors.secondary
-        };
-        const auth = this.props.auth;
-        const user = auth.user;
-        const rows = [
-            [
-                {
-                    activityType: 'walking',
-                    icon: 'walk',
-                    value: user && user.data && user.data.walking ? user.data.walking : {}
-                },
-                {
-                    activityType: 'running',
-                    icon: 'run',
-                    value: user && user.data && user.data.running ? user.data.running : {}
-                }
-            ],
-            [
-                {
-                    activityType: 'cycling',
-                    icon: 'bicycle',
-                    value: user && user.data && user.data.cycling ? user.data.cycling : {}
-                },
-                {
-                    activityType: 'vehicle',
-                    icon:
-                        this.props.storage.data.automobile === 'Car'
-                            ? 'car'
-                            : this.props.storage.data.automobile === 'Bus'
-                            ? 'bus'
-                            : 'train',
-                    value: user && user.data && user.data.car ? user.data.car : {}
-                }
-            ]
-        ];
+    };
 
-        let scrollTabs = [
+    const share = () => {
+        ShareMessage(
+            `I saved ${
+                user && user.data && user.data.total && user.data.total.co2Saved
+                    ? user.data.total.co2Saved.toFixed(2)
+                    : 0.0
+            } kg Co2. Analyse yours too, download the CarbonFootprint-Mobile app now play.google.com`
+        );
+    };
+
+    const style = {
+        backgroundColor: newColors.secondary
+    };
+    const rows = [
+        [
             {
-                name: 'WALK',
+                activityType: 'walking',
+                icon: 'walk',
                 value: user && user.data && user.data.walking ? user.data.walking : {}
             },
             {
-                name: 'RUN',
+                activityType: 'running',
+                icon: 'run',
                 value: user && user.data && user.data.running ? user.data.running : {}
-            },
+            }
+        ],
+        [
             {
-                name: 'BIKE',
+                activityType: 'cycling',
+                icon: 'bicycle',
                 value: user && user.data && user.data.cycling ? user.data.cycling : {}
             },
             {
-                name: 'CAR',
+                activityType: 'vehicle',
+                icon:
+                    storage.data.automobile === 'Car'
+                        ? 'car'
+                        : storage.data.automobile === 'Bus'
+                        ? 'bus'
+                        : 'train',
                 value: user && user.data && user.data.car ? user.data.car : {}
             }
-        ];
+        ]
+    ];
 
-        let totalStats = [
-            [
-                {
-                    text: 'CO2 SAVED',
-                    number:
-                        user && user.data && user.data.total && user.data.total.co2Saved
-                            ? user.data.total.co2Saved.toFixed(2)
-                            : 0,
-                    unit: 'kg',
-                    style: {
-                        backgroundColor: 'rgba(0,0,0,0.09)'
-                    }
-                },
-                {
-                    text: 'CO2 EMITTED',
-                    number: user && user.data ? user.data.total.footprint.toFixed(2) : 0,
-                    unit: 'kg'
+    let scrollTabs = [
+        {
+            name: 'WALK',
+            value: user && user.data && user.data.walking ? user.data.walking : {}
+        },
+        {
+            name: 'RUN',
+            value: user && user.data && user.data.running ? user.data.running : {}
+        },
+        {
+            name: 'BIKE',
+            value: user && user.data && user.data.cycling ? user.data.cycling : {}
+        },
+        {
+            name: 'CAR',
+            value: user && user.data && user.data.car ? user.data.car : {}
+        }
+    ];
+
+    let totalStats = [
+        [
+            {
+                text: 'CO2 SAVED',
+                number:
+                    user && user.data && user.data.total && user.data.total.co2Saved
+                        ? user.data.total.co2Saved.toFixed(2)
+                        : 0,
+                unit: 'kg',
+                style: {
+                    backgroundColor: 'rgba(0,0,0,0.09)'
                 }
-            ],
-            [
-                {
-                    iconName: 'directions-run',
-                    number: user && user.data ? user.data.total.distance.toFixed(2) : 0.0,
-                    unit: 'km',
-                    style: {
-                        marginBottom: 10
-                    }
-                },
-                {
-                    iconName: 'access-time',
-                    number: user && user.data ? user.data.total.time : 0.0,
-                    unit: 'sec'
+            },
+            {
+                text: 'CO2 EMITTED',
+                number: user && user.data ? user.data.total.footprint.toFixed(2) : 0,
+                unit: 'kg'
+            }
+        ],
+        [
+            {
+                iconName: 'directions-run',
+                number: user && user.data ? user.data.total.distance.toFixed(2) : 0.0,
+                unit: 'km',
+                style: {
+                    marginBottom: 10
                 }
-            ]
-        ];
-        return (
-            <View style={styles.container}>
-                <StatusBar backgroundColor={newColors.secondary} />
-                <StatusBarBackground style={style} />
-                {auth.isFetching ? (
-                    <View style={styles.activity}>
-                        <ActivityIndicator size="large" color={color.primary} />
-                    </View>
-                ) : (
-                    <ScrollView contentContainerStyle={styles.main}>
-                        <View style={styles.header}>
-                            <View style={styles.topHeader}>
-                                <Text style={styles.headingText}>Stats</Text>
-                                <Icon
-                                    name="share"
-                                    size={24}
-                                    style={styles.shareIcon}
-                                    onPress={() =>
-                                        this.ShareMessage(
-                                            `I saved ${
-                                                user &&
-                                                user.data &&
-                                                user.data.total &&
-                                                user.data.total.co2Saved
-                                                    ? user.data.total.co2Saved.toFixed(2)
-                                                    : 0.0
-                                            } kg Co2. Analyse yours too, download the CarbonFootprint-Mobile app now play.google.com`
-                                        )
-                                    }
-                                />
+            },
+            {
+                iconName: 'access-time',
+                number: user && user.data ? user.data.total.time : 0.0,
+                unit: 'sec'
+            }
+        ]
+    ];
+
+    return (
+        <View style={styles.container}>
+            <StatusBar backgroundColor={newColors.secondary} />
+            <StatusBarBackground style={style} />
+            {auth.isFetching ? (
+                <View style={styles.activity}>
+                    <ActivityIndicator size="large" color={color.primary} />
+                </View>
+            ) : (
+                <ScrollView contentContainerStyle={styles.main}>
+                    <View style={styles.header}>
+                        <View style={styles.topHeader}>
+                            <Text style={styles.headingText}>Stats</Text>
+                            <Icon name="share" size={24} style={styles.shareIcon} onPress={share} />
+                        </View>
+                        <View style={styles.totalStatsWrapper}>
+                            <View style={styles.bigStatsWrapper}>
+                                {totalStats[0].map((obj, index) => {
+                                    return (
+                                        <View
+                                            style={[styles.bigStatsItemWrapper, obj.style || {}]}
+                                            key={index}
+                                        >
+                                            <Text style={styles.number}>
+                                                {obj.number}
+                                                <Text style={styles.numberUnit}>
+                                                    {' ' + obj.unit}
+                                                </Text>
+                                            </Text>
+                                            <Text style={styles.text}>{obj.text}</Text>
+                                        </View>
+                                    );
+                                })}
                             </View>
-                            <View style={styles.totalStatsWrapper}>
-                                <View style={styles.bigStatsWrapper}>
-                                    {totalStats[0].map((obj, index) => {
-                                        return (
-                                            <View
-                                                style={[
-                                                    styles.bigStatsItemWrapper,
-                                                    obj.style || {}
-                                                ]}
-                                                key={index}
-                                            >
-                                                <Text style={styles.number}>
-                                                    {obj.number}
-                                                    <Text style={styles.numberUnit}>
-                                                        {' ' + obj.unit}
-                                                    </Text>
-                                                </Text>
-                                                <Text style={styles.text}>{obj.text}</Text>
-                                            </View>
-                                        );
-                                    })}
-                                </View>
-                                <View style={styles.smallStatsWrapper}>
-                                    {totalStats[1].map((obj, index) => {
-                                        return (
-                                            <View
-                                                style={[
-                                                    styles.smallStatsItemWrapper,
-                                                    obj.style || {}
-                                                ]}
-                                                key={index}
-                                            >
-                                                <Icon
-                                                    name={obj.iconName}
-                                                    size={20}
-                                                    style={styles.smallStatsIcon}
-                                                />
-                                                <Text style={styles.smallText}>
-                                                    {obj.number + ' ' + obj.unit}
-                                                </Text>
-                                            </View>
-                                        );
-                                    })}
-                                </View>
+                            <View style={styles.smallStatsWrapper}>
+                                {totalStats[1].map((obj, index) => {
+                                    return (
+                                        <View
+                                            style={[styles.smallStatsItemWrapper, obj.style || {}]}
+                                            key={index}
+                                        >
+                                            <Icon
+                                                name={obj.iconName}
+                                                size={20}
+                                                style={styles.smallStatsIcon}
+                                            />
+                                            <Text style={styles.smallText}>
+                                                {obj.number + ' ' + obj.unit}
+                                            </Text>
+                                        </View>
+                                    );
+                                })}
                             </View>
                         </View>
-                        <ScrollableTabView
-                            tabBarBackgroundColor={newColors.secondary}
-                            tabBarActiveTextColor="white"
-                            tabBarInactiveTextColor="white"
-                            style={styles.scrollTabView}
-                            tabBarTextStyle={styles.tabText}
-                            tabBarUnderlineStyle={styles.tabLine}
-                        >
-                            {scrollTabs.map(obj => {
-                                let distance = obj.value.distance
-                                    ? obj.value.distance.toFixed(2)
-                                    : 0.0;
-                                let footprint = obj.value.footprint
-                                    ? obj.value.footprint.toFixed(2)
-                                    : 0.0;
-                                let time = obj.value.time ? obj.value.time : 0.0;
-                                return (
-                                    <ScrollView
-                                        contentContainerStyle={styles.contentItemWrapper}
-                                        tabLabel={obj.name}
-                                    >
-                                        <View style={styles.footprintWrapper}>
-                                            {/* <View style={styles.plusWrapper}><Text style={styles.plus}>+</Text></View> */}
+                    </View>
+                    <ScrollableTabView
+                        tabBarBackgroundColor={newColors.secondary}
+                        tabBarActiveTextColor="white"
+                        tabBarInactiveTextColor="white"
+                        style={styles.scrollTabView}
+                        tabBarTextStyle={styles.tabText}
+                        tabBarUnderlineStyle={styles.tabLine}
+                    >
+                        {scrollTabs.map(obj => {
+                            let distance = obj.value.distance ? obj.value.distance.toFixed(2) : 0.0;
+                            let footprint = obj.value.footprint
+                                ? obj.value.footprint.toFixed(2)
+                                : 0.0;
+                            let time = obj.value.time ? obj.value.time : 0.0;
+                            return (
+                                <ScrollView
+                                    contentContainerStyle={styles.contentItemWrapper}
+                                    tabLabel={obj.name}
+                                >
+                                    <View style={styles.footprintWrapper}>
+                                        {/* <View style={styles.plusWrapper}><Text style={styles.plus}>+</Text></View> */}
+                                        <Icon
+                                            name="add-circle"
+                                            size={28}
+                                            color="rgba(255,255,255,0.5)"
+                                            style={styles.plusIcon}
+                                        />
+                                        <Text style={styles.footprintNumber}>{footprint}</Text>
+                                        <Text style={styles.kgText}>KILOGRAM</Text>
+                                    </View>
+                                    <View style={styles.attributesWrapper}>
+                                        <View style={styles.innerAttr}>
+                                            <Icon name="send" size={24} style={styles.iconSmall} />
+                                            <Text style={styles.belowIcon}>{distance + ' km'}</Text>
+                                            <Text style={styles.bbelowIcon}>DISTANCE</Text>
+                                        </View>
+                                        <View style={styles.innerAttr}>
                                             <Icon
-                                                name="add-circle"
-                                                size={28}
-                                                color="rgba(255,255,255,0.5)"
-                                                style={styles.plusIcon}
+                                                name="av-timer"
+                                                size={24}
+                                                style={styles.iconSmall}
                                             />
-                                            <Text style={styles.footprintNumber}>{footprint}</Text>
-                                            <Text style={styles.kgText}>KILOGRAM</Text>
+                                            <Text style={styles.belowIcon}>{time + ' sec'}</Text>
+                                            <Text style={styles.bbelowIcon}>TIME</Text>
                                         </View>
-                                        <View style={styles.attributesWrapper}>
-                                            <View style={styles.innerAttr}>
-                                                <Icon
-                                                    name="send"
-                                                    size={24}
-                                                    style={styles.iconSmall}
-                                                />
-                                                <Text style={styles.belowIcon}>
-                                                    {distance + ' km'}
-                                                </Text>
-                                                <Text style={styles.bbelowIcon}>DISTANCE</Text>
-                                            </View>
-                                            <View style={styles.innerAttr}>
-                                                <Icon
-                                                    name="av-timer"
-                                                    size={24}
-                                                    style={styles.iconSmall}
-                                                />
-                                                <Text style={styles.belowIcon}>
-                                                    {time + ' sec'}
-                                                </Text>
-                                                <Text style={styles.bbelowIcon}>TIME</Text>
-                                            </View>
-                                        </View>
-                                    </ScrollView>
-                                );
-                            })}
-                        </ScrollableTabView>
-                    </ScrollView>
-                )}
-            </View>
-        );
-    }
-}
+                                    </View>
+                                </ScrollView>
+                            );
+                        })}
+                    </ScrollableTabView>
+                </ScrollView>
+            )}
+        </View>
+    );
+};
 
 /*StyleSheet*/
 const styles = StyleSheet.create({
@@ -502,32 +474,4 @@ const styles = StyleSheet.create({
     }
 });
 
-/**
- * Mapping state to props so that state variables can be used through props in children components
- * @param state current state
- * @return state as props
- */
-function mapStateToProps(state) {
-    return {
-        auth: state.auth,
-        storage: state.storage
-    };
-}
-/**
- * Mapping dispatchable actions to props so that actions can be used through props in children components
- * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
- * @return Turns an object whose values are action creators, into an object with the same keys,
- */
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, ProfileAction), dispatch);
-}
-
-Stats.propTypes = {
-    storage: PropTypes.object,
-    getProfile: PropTypes.func.isRequired
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Stats);
+export default React.memo(Stats);

@@ -4,19 +4,13 @@
     Used External package - 'react-native-scrollable-tab-view'
 */
 
-import React, { Component } from 'react';
-import { StyleSheet, Text, StatusBar, View } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as ActivityDetectionAction from '../actions/ActivityDetectionAction';
-import * as ActivityDetailsAction from '../actions/ActivityDetailsAction';
+import React from 'react';
+import { StyleSheet, StatusBar, View } from 'react-native';
 import ActivityTab from '../components/ActivityTab';
 import StatusBarBackground from '../components/StatusBarBackground';
 import TodayTab from '../components/TodayTab';
-import { Actions } from 'react-native-router-flux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import { color, newColors } from '../config/helper';
-import Footer from '../components/Footer';
+import { newColors } from '../config/helper';
 
 const Activity = props => {
     const style = {
@@ -62,31 +56,5 @@ const styles = StyleSheet.create({
     }
 });
 
-/**
- * Mapping state to props so that state variables can be used through props in children components
- * @param  state type of data control a component which changes on change component renders again
- * @return {state} getting as props
- */
-function mapStateToProps(state) {
-    return {
-        activity: state.activity,
-        storage: state.storage
-    };
-}
-/**
- * Mapping dispatchable action (ActivityDetectionAction) to props so that actions can be used through props in children components
- * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
- * @return Turns an object whose values are action creators, into an object with the same keys,
- */
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-        Object.assign({}, ActivityDetectionAction, ActivityDetailsAction),
-        dispatch
-    );
-}
-
 //This is needed to allow children components to have access to Actions and store variables
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Activity);
+export default Activity;

@@ -2,26 +2,24 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { newColors } from '../config/helper';
 
-class FriendsTabBar extends React.Component {
-    render() {
-        return (
-            <View style={[styles.tabs, this.props.style || {}]}>
-                {this.props.tabs.map((tab, index) => {
-                    let overrideStyles = index == this.props.activeTab ? styles.activeStyle : {};
-                    return (
-                        <TouchableOpacity
-                            key={tab}
-                            onPress={() => this.props.goToPage(index)}
-                            style={[styles.tab, overrideStyles]}
-                        >
-                            <Text style={styles.tabText}>{tab}</Text>
-                        </TouchableOpacity>
-                    );
-                })}
-            </View>
-        );
-    }
-}
+const FriendsTabBar = props => {
+    return (
+        <View style={[styles.tabs, this.props.style || {}]}>
+            {props.tabs.map((tab, index) => {
+                let overrideStyles = index == props.activeTab ? styles.activeStyle : {};
+                return (
+                    <TouchableOpacity
+                        key={tab}
+                        onPress={() => props.goToPage(index)}
+                        style={[styles.tab, overrideStyles]}
+                    >
+                        <Text style={styles.tabText}>{tab}</Text>
+                    </TouchableOpacity>
+                );
+            })}
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     tab: {

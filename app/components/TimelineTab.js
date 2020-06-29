@@ -2,7 +2,7 @@
  * To display history of user's activities in form of timeline for whole day
  */
 
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     Text,
     View,
@@ -15,35 +15,31 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Timeline from 'react-native-timeline-flatlist';
-import { Actions } from 'react-native-router-flux';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
 import { getIcon, getIconName, color } from '../config/helper';
 import Header from './Header';
 
-/**
- * TimelineTab Container
- * @extends Component
- */
-export default class TimelineTab extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            date: new Date() // Current date
-        };
+const TimelineTab = props => {
+    const [date, setDate] = useState(new Date());
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
         ActivityHistoryStorage.createDB();
-        this.data = this.getHistoryData();
-        this.pickDate = this.pickDate.bind(this);
-        this.datePickerView = this.datePickerView.bind(this);
-    }
+    }, []);
+
+    useEffect(() => {
+        setData(getHistoryData());
+    }, [getHistoryData]);
 
     /**
      * getHistoryData
      * @return data
      */
-    getHistoryData() {
-        var obj = ActivityHistoryStorage.getData(this.state.date.toDateString());
-        data = [];
-        for (i = 0; i < obj.length; i++) {
+    const getHistoryData = useCallback(() => {
+        var obj = ActivityHistoryStorage.getData(date.toDateString());
+        var i = 0;
+        var data = [];
+        for (i; i < obj.length; i++) {
             let temp = {
                 title: obj[i].src,
                 time: obj[i].startTime,
@@ -56,7 +52,7 @@ export default class TimelineTab extends Component {
             data.push(temp);
         }
         return data;
-    }
+    }, [date]);
 
     /**
 	 * Function to set view of Flatlist item
@@ -66,7 +62,7 @@ export default class TimelineTab extends Component {
 	 * @param   rowID     
      * @return  rowData       
 	 */
-    renderDetail(rowData, sectionID, rowID) {
+    const renderDetail = (rowData, sectionID, rowID) => {
         var icon = getIconName(rowData.activityType);
         return (
             <View style={styles.container}>
@@ -93,14 +89,14 @@ export default class TimelineTab extends Component {
                 </View>
             </View>
         );
-    }
+    };
 
     /**
      * To format date into desirable form (e.g. - June 30, 2017)
      * @param  Date date [description]
      * @return {String}  date in string
      */
-    getDateStr(date) {
+    const getDateStr = date => {
         var names = [
             'January',
             'February',
@@ -117,13 +113,13 @@ export default class TimelineTab extends Component {
         ];
         var dateStr = names[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
         return dateStr;
-    }
+    };
 
     /**
      * Function to open DatePicker view and set date selected by user to current state
      * This is only for Android. For iOS, there is seperate 'DatePickerIOS' component given later.
      */
-    async pickDate() {
+    const pickDate = async () => {
         try {
             const { action, year, month, day } = await DatePickerAndroid.open({
                 date: new Date()
@@ -133,85 +129,81 @@ export default class TimelineTab extends Component {
                 action === DatePickerAndroid.dateSetAction
             ) {
                 var date = new Date(year, month, day);
-                this.setState({ date });
-                this.data = this.getHistoryData();
-                this.forceUpdate();
+                setDate(date);
+                setData(getHistoryData());
+                forceUpdate();
             }
         } catch ({ code, message }) {
             //console.log("Cannot open date picker: " + message);
         }
-    }
+    };
 
     /**
      * For Android, this function will only add DatePicker icon button.
      * For iOS, it will include all logic of DatePicker along with icon
      * (By using DatePickerIOS component - already defined in React Native)
      */
-    datePickerView() {
+    const datePickerView = () => {
         if (Platform.OS == 'android') {
             return (
-                <TouchableNativeFeedback onPress={() => this.pickDate()}>
+                <TouchableNativeFeedback onPress={() => pickDate()}>
                     <Icon name="md-calendar" size={30} color="white" />
                 </TouchableNativeFeedback>
             );
         } else {
             <DatePickerIOS
                 style={styles.datePickerIOSView}
-                date={this.state.date}
-                onDateChange={date => this.setState({ date })}
+                date={date}
+                onDateChange={date => setDate(date)}
                 mode="date"
             />;
         }
-    }
+    };
 
     /**
      * To set view of header for this screen that displays selected date
      */
-    formatHeader() {
+    const formatHeader = () => {
         return (
             <View style={styles.header}>
                 <Header icon={true} iconName="arrow-back" />
                 <View style={styles.dateView}>
-                    <Text style={[styles.largeText1, styles.whiteText]}>
-                        {this.getDateStr(this.state.date)}
-                    </Text>
+                    <Text style={[styles.largeText1, styles.whiteText]}>{getDateStr(date)}</Text>
                 </View>
-                <View style={styles.datePickerView}>{this.datePickerView()}</View>
+                <View style={styles.datePickerView}>{datePickerView()}</View>
             </View>
         );
-    }
+    };
 
-    render() {
-        return (
-            <View style={styles.viewStyle}>
-                {this.formatHeader()}
-                {this.data.length > 0 ? (
-                    <Timeline
-                        data={this.data}
-                        circleSize={20}
-                        circleColor="rgb(45,156,219)"
-                        lineColor="rgb(45,156,219)"
-                        timeContainerStyle={{ minWidth: 52 }}
-                        timeStyle={{
-                            textAlign: 'center',
-                            backgroundColor: '#ff9797',
-                            color: 'white',
-                            padding: 5,
-                            borderRadius: 13
-                        }}
-                        descriptionStyle={{ color: 'gray' }}
-                        renderDetail={this.renderDetail}
-                        separator={false}
-                        innerCircle={'dot'}
-                        options={{ style: { padding: 10 } }}
-                    />
-                ) : (
-                    <Text style={styles.warningText}>No Activity found ...</Text>
-                )}
-            </View>
-        );
-    }
-}
+    return (
+        <View style={styles.viewStyle}>
+            {formatHeader()}
+            {data.length > 0 ? (
+                <Timeline
+                    data={data}
+                    circleSize={20}
+                    circleColor="rgb(45,156,219)"
+                    lineColor="rgb(45,156,219)"
+                    timeContainerStyle={{ minWidth: 52 }}
+                    timeStyle={{
+                        textAlign: 'center',
+                        backgroundColor: '#ff9797',
+                        color: 'white',
+                        padding: 5,
+                        borderRadius: 13
+                    }}
+                    descriptionStyle={{ color: 'gray' }}
+                    renderDetail={renderDetail}
+                    separator={false}
+                    innerCircle={'dot'}
+                    options={{ style: { padding: 10 } }}
+                />
+            ) : (
+                <Text style={styles.warningText}>No Activity found ...</Text>
+            )}
+        </View>
+    );
+};
 /*StyleSheet*/
 const styles = StyleSheet.create({
     viewStyle: {
@@ -299,3 +291,5 @@ const styles = StyleSheet.create({
         marginLeft: 10
     }
 });
+
+export default TimelineTab;

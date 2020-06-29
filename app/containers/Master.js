@@ -1,10 +1,10 @@
-import React, { Component, cloneElement } from 'react';
+import React, { Component } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import SplashScreen from 'react-native-splash-screen';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 
 import * as AuthAction from '../actions/AuthAction';
@@ -28,9 +28,9 @@ class Master extends Component {
                 if (!props.auth.isFetching) {
                     SplashScreen.hide();
                     if (!props.auth.user) {
-                        Actions.landing();
+                        Actions.landing({ type: ActionConst.RESET });
                     } else {
-                        Actions.main();
+                        Actions.main({ type: ActionConst.RESET });
                     }
                 }
             } else {

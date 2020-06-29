@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { newColors } from '../config/helper';
 
 const ModTextInput = props => {
     let label = props.text ? props.text.toUpperCase() : props.stateKey.toUpperCase();

@@ -3,29 +3,25 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { newColors } from '../config/helper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-class ActivityTabBar extends React.Component {
-    render() {
-        return (
-            <View style={[styles.tabs, this.props.style || {}]}>
-                {this.props.tabsAlt.map((tab, index) => {
-                    let overrideStyles = index == this.props.activeTab ? styles.activeStyle : {};
-                    return (
-                        <TouchableOpacity
-                            key={tab.text}
-                            onPress={() => this.props.goToPage(index)}
-                            style={[styles.tab, overrideStyles]}
-                        >
-                            <Icon name={tab.icon} size={20} />
-                            {index == this.props.activeTab && (
-                                <Text style={styles.tabText}>{tab.text}</Text>
-                            )}
-                        </TouchableOpacity>
-                    );
-                })}
-            </View>
-        );
-    }
-}
+const ActivityTabBar = props => {
+    return (
+        <View style={[styles.tabs, props.style || {}]}>
+            {props.tabsAlt.map((tab, index) => {
+                let overrideStyles = index == props.activeTab ? styles.activeStyle : {};
+                return (
+                    <TouchableOpacity
+                        key={tab.text}
+                        onPress={() => props.goToPage(index)}
+                        style={[styles.tab, overrideStyles]}
+                    >
+                        <Icon name={tab.icon} size={20} />
+                        {index == props.activeTab && <Text style={styles.tabText}>{tab.text}</Text>}
+                    </TouchableOpacity>
+                );
+            })}
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     tab: {
@@ -51,4 +47,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ActivityTabBar;
+export default React.memo(ActivityTabBar);
