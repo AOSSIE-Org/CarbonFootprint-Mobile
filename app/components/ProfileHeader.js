@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions, Text, Platform, StatusBar } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { getIcon, color, newColors } from '../config/helper';
+import { newColors } from '../config/helper';
 
 /**
  * Header Component

@@ -6,6 +6,14 @@ import rootReducer from '../reducers/rootReducer';
 /**
  * creating store for application
  */
-const store = compose(applyMiddleware(thunk, logger))(createStore)(rootReducer);
+let middleware = [];
+
+if (process.env.NODE_ENV === 'development') {
+    middleware = [...middleware, thunk, logger];
+} else {
+    middleware = [...middleware, thunk];
+}
+
+const store = compose(applyMiddleware(...middleware))(createStore)(rootReducer);
 
 export default store;

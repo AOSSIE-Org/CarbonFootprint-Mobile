@@ -1,66 +1,82 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     View,
     StyleSheet,
     Dimensions,
     Text,
     TextInput,
+    BackHandler,
     TouchableHighlight,
     ActivityIndicator
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Icon from 'react-native-vector-icons/Ionicons';
-import PropTypes from 'prop-types';
 
-import { getIcon, newColors } from '../config/helper.js';
+import { newColors } from '../config/helper.js';
 import { STRING_EMPTY } from '../config/constants.js';
+import { Actions } from 'react-native-router-flux';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../config/actionDispatcher';
+import { receiveError } from '../actions/AuthAction';
 
-/**
- * user Registration Component
- * @extends Component
- */
-class RegisterForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: '',
-            name: '',
-            confirmPassword: '',
-            error: '',
-            buttonDisabled: true,
-            buttonEnableColor: newColors.disableGrey
+const RegisterForm = props => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState('');
+    const [button, setButton] = useState({
+        buttonDisabled: true,
+        buttonEnableColor: newColors.disableGrey
+    });
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(receiveError(''));
+    }, [dispatch]);
+
+    useEffect(() => {
+        setError(auth.error);
+    }, [auth.error]);
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
         };
-    }
+    }, [handleBackPress]);
 
-    componentWillReceiveProps(props) {
-        this.setState({
-            error: props.auth.error
-        });
-    }
+    const handleBackPress = useCallback(() => {
+        Actions.pop();
+        return true;
+    }, []);
 
-    handleInput(element, text) {
+    const handleInput = (element, text) => {
         let key = element.key || element.text;
-        this.setState({
-            [key]: text
-        });
+        if (key === 'email') {
+            setEmail(text);
+        } else if (key === 'password') {
+            setPassword(text);
+        } else if (key === 'name') {
+            setName(text);
+        } else {
+            setConfirmPassword(text);
+        }
 
-        if (this.shouldDisable(text)) {
-            this.setState({
+        if (shouldDisable(text)) {
+            setButton({
                 buttonDisabled: false,
                 buttonEnableColor: newColors.secondary
             });
         } else {
-            this.setState({
+            setButton({
                 buttonDisabled: true,
                 buttonEnableColor: newColors.disableGrey
             });
         }
-    }
+    };
 
-    shouldDisable = text => {
-        let { name, password, confirmPassword, email } = this.state;
-
+    const shouldDisable = text => {
         if (
             name.trim() !== STRING_EMPTY &&
             password.trim() !== STRING_EMPTY &&
@@ -72,109 +88,102 @@ class RegisterForm extends Component {
         }
     };
 
-    render() {
-        let form = [
-            {
-                text: 'name',
-                placeholder: 'John Doe'
-            },
-            {
-                text: 'email',
-                placeholder: 'johndoe@gmail.com'
-            },
-            {
-                text: 'password',
-                placeholder: 'Create a new password',
-                props: {
-                    secureTextEntry: true
-                }
-            },
-            {
-                text: 'confirm password',
-                key: 'confirmPassword',
-                placeholder: 'Confirm your password',
-                props: {
-                    secureTextEntry: true
-                }
-            }
-        ];
+    const userRegister = () => {
+        auth.isFetching
+            ? {}
+            : confirmPassword === password
+            ? dispatch(register(name, email, password))
+            : setError("Password and confirm password don't match.");
+    };
 
-        return (
-            <View style={styles.container}>
-                <View style={styles.registerWrapper}>
-                    <Text style={styles.registerText}>Register to Carbonfootprint</Text>
+    const showError = () => {
+        if (error) {
+            return (
+                <View style={styles.topMargin}>
+                    <Text style={styles.error}>{error}</Text>
                 </View>
-                <KeyboardAwareScrollView style={styles.inputForm}>
-                    <View style={styles.formWrapper}>
-                        {form.map(element => {
-                            let overrideStyles = element.key ? styles.override : {};
-                            return (
-                                <View style={[styles.input, overrideStyles]} key={element.text}>
-                                    <Text style={styles.label}>{element.text.toUpperCase()}</Text>
-                                    <TextInput
-                                        placeholder={element.placeholder}
-                                        style={styles.field}
-                                        onChangeText={text => this.handleInput(element, text)}
-                                        placeholderTextColor="rgba(255,255,255,0.5)"
-                                        underlineColorAndroid="transparent"
-                                        {...element.props}
-                                    />
-                                </View>
-                            );
-                        })}
-                    </View>
-                    {this.props.auth.isFetching ? null : this.state.error ? (
-                        <View style={styles.topMargin}>
-                            <Text style={styles.error}>{this.state.error}</Text>
-                        </View>
-                    ) : null}
-                    <View style={styles.buttonWrapper}>
-                        <TouchableHighlight
-                            disabled={this.state.buttonDisabled}
-                            onPress={() =>
-                                this.props.auth.isFetching
-                                    ? {}
-                                    : this.state.confirmPassword === this.state.password
-                                    ? this.props.register(
-                                          this.state.name,
-                                          this.state.email,
-                                          this.state.password
-                                      )
-                                    : this.setState({
-                                          error: 'Password and confirm password don\'t match.'
-                                      })
-                            }
-                            style={[
-                                { backgroundColor: this.state.buttonEnableColor },
-                                styles.button
-                            ]}
-                            activeOpacity={0.5}
-                        >
-                            <Text style={styles.registerButtonText}>
-                                {this.props.auth.isFetching ? 'Registering....' : 'Register'}
-                            </Text>
-                        </TouchableHighlight>
-                        {this.props.auth.isFetching ? (
-                            <View style={styles.topMargin}>
-                                <ActivityIndicator
-                                    animating={this.props.auth.isFetching}
-                                    color="#4D72B8"
+            );
+        }
+    };
+
+    const form = [
+        {
+            text: 'name',
+            placeholder: 'John Doe'
+        },
+        {
+            text: 'email',
+            placeholder: 'johndoe@gmail.com'
+        },
+        {
+            text: 'password',
+            placeholder: 'Create a new password',
+            props: {
+                secureTextEntry: true
+            }
+        },
+        {
+            text: 'confirm password',
+            key: 'confirmPassword',
+            placeholder: 'Confirm your password',
+            props: {
+                secureTextEntry: true
+            }
+        }
+    ];
+    return (
+        <View style={styles.container}>
+            <View style={styles.registerWrapper}>
+                <Text style={styles.registerText}>Register to Carbonfootprint</Text>
+            </View>
+            <KeyboardAwareScrollView style={styles.inputForm}>
+                <View style={styles.formWrapper}>
+                    {form.map(element => {
+                        let overrideStyles = element.key ? styles.override : {};
+                        return (
+                            <View style={[styles.input, overrideStyles]} key={element.text}>
+                                <Text style={styles.label}>{element.text.toUpperCase()}</Text>
+                                <TextInput
+                                    placeholder={element.placeholder}
+                                    style={styles.field}
+                                    onChangeText={text => handleInput(element, text)}
+                                    placeholderTextColor="rgba(255,255,255,0.5)"
+                                    underlineColorAndroid="transparent"
+                                    {...element.props}
                                 />
                             </View>
-                        ) : null}
-                    </View>
-                </KeyboardAwareScrollView>
-                <View style={styles.termsWrapper}>
-                    <Text style={styles.termsText}>
-                        By registering you agree to{' '}
-                        <Text style={styles.span}>Terms & Conditions</Text> and
-                        <Text style={styles.span}> Privacy Policy</Text> of the Carbonfootprint.
-                    </Text>
+                        );
+                    })}
                 </View>
+                {auth.isFetching ? null : showError()}
+                <View style={styles.buttonWrapper}>
+                    <TouchableHighlight
+                        disabled={button.buttonDisabled}
+                        onPress={userRegister}
+                        style={[{ backgroundColor: button.buttonEnableColor }, styles.button]}
+                        activeOpacity={0.5}
+                    >
+                        <Text style={styles.registerButtonText}>
+                            {auth.isFetching ? 'Registering....' : 'Register'}
+                        </Text>
+                    </TouchableHighlight>
+                    {auth.isFetching ? (
+                        <View style={styles.topMargin}>
+                            <ActivityIndicator animating={auth.isFetching} color="#4D72B8" />
+                        </View>
+                    ) : null}
+                </View>
+            </KeyboardAwareScrollView>
+            <View style={styles.termsWrapper}>
+                <Text style={styles.termsText}>
+                    By registering you agree to <Text style={styles.span}>Terms & Conditions</Text>{' '}
+                    and
+                    <Text style={styles.span}> Privacy Policy</Text> of the Carbonfootprint.
+                </Text>
             </View>
-        );
-    }
-}
+        </View>
+    );
+};
 
 /*StyleSheet*/
 const styles = StyleSheet.create({
@@ -269,10 +278,5 @@ const styles = StyleSheet.create({
         color: '#2191FB'
     }
 });
-
-RegisterForm.propTypes = {
-    auth: PropTypes.object,
-    register: PropTypes.func.isRequired
-};
 
 export default RegisterForm;

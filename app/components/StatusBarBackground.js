@@ -1,6 +1,6 @@
 'use strict';
 import React from 'react';
-import { View, Text, StyleSheet, Platform, Dimensions } from 'react-native';
+import { View, StyleSheet, Platform, Dimensions } from 'react-native';
 import { color } from '../config/helper';
 
 function StatusBarBackground({ style }) {

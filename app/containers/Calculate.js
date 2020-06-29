@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     View,
     StyleSheet,
@@ -10,195 +10,170 @@ import {
     BackHandler,
     ToastAndroid
 } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Actions } from 'react-native-router-flux';
 import StatusBarBackground from '../components/StatusBarBackground';
 import _ from 'lodash';
-import PropTypes from 'prop-types';
 
-import * as LocationAction from '../actions/LocationAction';
-import * as DirectionAction from '../actions/DirectionAction';
-import * as StorageAction from '../actions/StorageAction';
-
-import Footer from '../components/Footer';
 import StaticMap from './StaticMap';
 import FootprintCard from '../components/FootprintCard';
 
 import { color, getIcon, calcCo2, getMileage, getFuelRate } from '../config/helper';
+import {
+    getLocation,
+    getStorage,
+    openSearchModal,
+    getDirections
+} from '../config/actionDispatcher';
 
-/**
- * Calculate container
- * @extends Component
- */
-class Calculate extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            source: {
-                latitude: null,
-                longitude: null
-            },
-            destination: {
-                latitude: null,
-                longitude: null
-            },
-            tab: 0,
-            backClickCount: 0
-        };
-    }
+const Calculate = props => {
+    const [source, setSource] = useState({
+        latitude: null,
+        longitude: null
+    });
+    const [destination, setDestination] = useState({
+        latitude: null,
+        longitude: null
+    });
+    const [tab, setTab] = useState(0);
+    const [backClickCount, setBackClickCount] = useState(0);
+    const dispatch = useDispatch();
+    const location = useSelector(state => state.location);
+    const direction = useSelector(state => state.direction);
 
-    componentWillMount() {
-        if (!this.props.location.latitude) {
-            this.props.getLocation();
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+        return () => BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    }, [handleBackPress]);
+
+    useEffect(() => {
+        if (!location.latitude) {
+            dispatch(getLocation());
         }
-        // AsyncStorage to Redux since this is the first screen
-        this.props.getStorage();
-    }
+        dispatch(getStorage());
+    }, []);
 
-    componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
-    }
-
-    componentWillReceiveProps(props) {
-        let source = props.direction.source;
-        let destination = props.direction.destination;
-        let tab = this.state.tab;
-        // I dare you to remove this condition
-        if (source.latitude) {
-            if (destination.latitude) {
-                if (
-                    !_.isEqual(this.state.source, source) ||
-                    !_.isEqual(this.state.destination, destination)
-                ) {
-                    this.setState({
-                        source,
-                        destination
-                    });
-                    props.getDirections(source, destination, tab);
+    useEffect(() => {
+        let newSource = direction.source;
+        let newDestination = direction.destination;
+        if (newSource.latitude) {
+            if (newDestination.latitude) {
+                if (!_.isEqual(source, newSource) || !_.isEqual(destination, newDestination)) {
+                    setSource(newSource);
+                    setDestination(newDestination);
+                    dispatch(getDirections(newSource, newDestination, tab));
                 }
             }
         }
-    }
+    }, [direction]);
 
-    componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
-    }
-
-    handleBackPress = () => {
-        if (this.state.backClickCount > 0) {
+    const handleBackPress = useCallback(() => {
+        if (backClickCount > 0) {
             BackHandler.exitApp();
         } else {
-            this.setState({ backClickCount: 1 }, () =>
-                ToastAndroid.show('Press again to exit', ToastAndroid.SHORT)
-            );
-            setTimeout(() => this.setState({ backClickCount: 0 }), 1000);
+            setBackClickCount(1);
+            ToastAndroid.show('Press again to exit', ToastAndroid.SHORT);
+            setTimeout(() => setBackClickCount(0), 1000);
         }
         return true;
-    };
+    }, []);
 
     /**
      * call back function when changed vechile type
      * @param  tab number each indicates vechle id check FootprintCard.js
      * @return current tab status
      */
-    onChangeTab(tab) {
-        let state;
-        this.setState({
-            tab
-        });
-        this.props.getDirections(this.state.source, this.state.destination, tab);
-    }
+    const onChangeTab = tab => {
+        setTab(tab);
+        dispatch(getDirections(source, destination, tab));
+    };
 
-    render() {
-        let direction = this.props.direction;
-        let source = direction.source;
-        let destination = direction.destination;
-        let region = direction.region;
-        let coords = direction.coords;
-        let map = <StaticMap />;
+    let newSource = direction.source;
+    let newDestination = direction.destination;
+    let region = direction.region;
+    let coords = direction.coords;
+    let map = <StaticMap />;
 
-        if (source.latitude) {
-            if (destination.latitude) {
+    const updateMap = () => {
+        if (newSource.latitude) {
+            if (newDestination.latitude) {
                 map = (
                     <StaticMap
-                        source={source}
-                        destination={destination}
+                        source={newSource}
+                        destination={newDestination}
                         region={region}
                         coords={coords}
                     />
                 );
             } else {
-                map = <StaticMap source={source} region={region} />;
+                map = <StaticMap source={newSource} region={region} />;
             }
         }
+        return map;
+    };
 
-        return (
-            <View style={styles.container}>
-                <StatusBar
-                    backgroundColor={color.darkPrimary}
-                    barStyle="light-content"
-                    hidden={false}
-                />
-                <StatusBarBackground />
-
-                {this.props.location.isFetching ? (
-                    <View style={styles.center}>
-                        <ActivityIndicator size="large" color="#538124" />
+    return (
+        <View style={styles.container}>
+            <StatusBar
+                backgroundColor={color.darkPrimary}
+                barStyle="light-content"
+                hidden={false}
+            />
+            <StatusBarBackground />
+            {location.isFetching ? (
+                <View style={styles.center}>
+                    <ActivityIndicator size="large" color="#538124" />
+                </View>
+            ) : (
+                updateMap()
+            )}
+            <View style={styles.buttonWrapper}>
+                <View style={styles.button}>
+                    <View style={styles.box}>
+                        <Icon.Button
+                            name={getIcon('pin')}
+                            backgroundColor={color.lightPrimary}
+                            borderRadius={2}
+                            size={16}
+                            iconStyle={styles.icon}
+                            onPress={() => dispatch(openSearchModal(0))}
+                        >
+                            <Text style={styles.text}>{direction.sourceName}</Text>
+                        </Icon.Button>
                     </View>
-                ) : (
-                    map
-                )}
-                <View style={styles.buttonWrapper}>
-                    <View style={styles.button}>
-                        <View style={styles.box}>
-                            <Icon.Button
-                                name={getIcon('pin')}
-                                backgroundColor={color.lightPrimary}
-                                borderRadius={2}
-                                size={16}
-                                iconStyle={styles.icon}
-                                onPress={() => this.props.openSearchModal(0)}
-                            >
-                                <Text style={styles.text}>{direction.sourceName}</Text>
-                            </Icon.Button>
-                        </View>
-                        <View>
-                            <Icon.Button
-                                name={getIcon('flag')}
-                                backgroundColor={color.lightPrimary}
-                                borderRadius={2}
-                                size={16}
-                                iconStyle={styles.icon}
-                                onPress={() => this.props.openSearchModal(1)}
-                            >
-                                <Text style={styles.text}>{direction.destinationName}</Text>
-                            </Icon.Button>
-                        </View>
+                    <View>
+                        <Icon.Button
+                            name={getIcon('flag')}
+                            backgroundColor={color.lightPrimary}
+                            borderRadius={2}
+                            size={16}
+                            iconStyle={styles.icon}
+                            onPress={() => dispatch(openSearchModal(1))}
+                        >
+                            <Text style={styles.text}>{direction.destinationName}</Text>
+                        </Icon.Button>
                     </View>
                 </View>
-                {source.latitude && destination.latitude ? (
-                    <FootprintCard
-                        distance={direction.distance}
-                        duration={direction.duration}
-                        onChangeTab={this.onChangeTab.bind(this)}
-                        footprint={
-                            direction.distance.text
-                                ? this.state.tab === 0 || this.state.tab === 1
-                                    ? calcCo2(getFuelRate(), direction.distance.text, getMileage())
-                                    : 0
-                                : null
-                        }
-                        tab={this.state.tab}
-                        fetching={direction.isFetching}
-                    />
-                ) : null}
             </View>
-        );
-    }
-}
+            {newSource.latitude && newDestination.latitude ? (
+                <FootprintCard
+                    distance={direction.distance}
+                    duration={direction.duration}
+                    onChangeTab={onChangeTab}
+                    footprint={
+                        direction.distance.text
+                            ? tab === 0 || tab === 1
+                                ? calcCo2(getFuelRate(), direction.distance.text, getMileage())
+                                : 0
+                            : null
+                    }
+                    tab={tab}
+                    fetching={direction.isFetching}
+                />
+            ) : null}
+        </View>
+    );
+};
 
 //StyleSheet
 const styles = StyleSheet.create({
@@ -238,34 +213,4 @@ const styles = StyleSheet.create({
     }
 });
 
-Calculate.propTypes = {
-    location: PropTypes.object.isRequired,
-    getLocation: PropTypes.func.isRequired,
-    getStorage: PropTypes.func.isRequired,
-    getDirections: PropTypes.func.isRequired,
-    openSearchModal: PropTypes.func.isRequired,
-    direction: PropTypes.object
-};
-
-function mapStateToProps(state) {
-    return {
-        location: state.location,
-        direction: state.direction
-    };
-}
-/**
- * Mapping dispatchable actions to props so that actions can be used through props in children components
- * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
- * @return Turns an object whose values are action creators, into an object with the same keys,
- */
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-        Object.assign({}, LocationAction, DirectionAction, StorageAction),
-        dispatch
-    );
-}
-//This is needed to allow children components to have access to Actions and store variables
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Calculate);
+export default Calculate;

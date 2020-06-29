@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     View,
     StyleSheet,
@@ -7,167 +7,158 @@ import {
     TextInput,
     BackHandler,
     TouchableHighlight,
-    ActivityIndicator,
     ToastAndroid
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Actions } from 'react-native-router-flux';
-import PropTypes from 'prop-types';
 
-import { getIcon, newColors } from '../config/helper';
+import { newColors } from '../config/helper';
 import { STRING_EMPTY } from '../config/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../config/actionDispatcher';
+import { receiveError } from '../actions/AuthAction';
 
-/**
- * LoginForm component
- * @extends Component
- */
-class LoginForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: '',
-            error: '',
-            backClickCount: 0,
-            disableButton: true,
-            enableButtonColor: newColors.disableGrey
+const LoginForm = props => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [button, setButton] = useState({
+        disableButton: true,
+        enableButtonColor: newColors.disableGrey
+    });
+    const [backClickCount, setBackclickCount] = useState(0);
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(receiveError(''));
+    }, [dispatch]);
+
+    useEffect(() => {
+        setError(auth.error);
+    }, [auth.error]);
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
         };
-    }
+    }, [handleBackPress]);
 
-    componentWillReceiveProps(props) {
-        this.setState({
-            error: props.auth.error
-        });
-    }
-
-    componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
-    }
-
-    componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
-    }
-
-    handleBackPress = () => {
-        if(this.state.backClickCount > 0) {
+    const handleBackPress = useCallback(() => {
+        if (backClickCount > 0) {
             BackHandler.exitApp();
         } else {
-            this.setState({ backClickCount: 1 }, () => 
-                ToastAndroid.show('Press again to exit', ToastAndroid.SHORT)
-            );
-            setTimeout(() => this.setState({ backClickCount: 0 }), 1000);
+            setBackclickCount(1);
+            ToastAndroid.show('Press again to exit', ToastAndroid.SHORT);
+            setTimeout(() => setBackclickCount(0), 1000);
         }
         return true;
-    }
+    }, [backClickCount]);
 
-    handleInput = (key, text) => {
-        this.setState({
-            [key]: text
-        });
-        
-        if (this.shouldDisable(text)) {
-          this.setState({
+    const handleInput = (key, text) => {
+        if (key === 'email') {
+            setEmail(text);
+        } else {
+            setPassword(text);
+        }
+        if (shouldDisable(text)) {
+            setButton({
                 disableButton: false,
                 enableButtonColor: newColors.secondary
-            })
+            });
         } else {
-            this.setState({
+            setButton({
                 disableButton: true,
                 enableButtonColor: newColors.disableGrey
-            })
+            });
         }
     };
 
-    forgotPassword = () => {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+    const forgotPassword = () => {
+        BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
         Actions.forgot();
-    }
+    };
 
-    registerNow = () => {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
-        Actions.register();
-    }
-
-    shouldDisable = (text) => {
-        const { email, password } = this.state;
-
-        if (email.trim() !== STRING_EMPTY && password.trim() !== STRING_EMPTY && text !== STRING_EMPTY) {
+    const shouldDisable = text => {
+        if (
+            email.trim() !== STRING_EMPTY &&
+            password.trim() !== STRING_EMPTY &&
+            text !== STRING_EMPTY
+        ) {
             return true;
         }
         return false;
-    }
+    };
 
-    render() {
-        let signupFields = [
-            {
-                name: 'email',
-                placeholder: 'johndoe@gmail.com'
-            },
-            {
-                name: 'password',
-                placeholder: 'Enter your password',
-                props: {
-                    secureTextEntry: true
-                }
+    const userLogin = () => {
+        auth.isFetching ? {} : dispatch(login(email, password));
+    };
+
+    let signupFields = [
+        {
+            name: 'email',
+            placeholder: 'johndoe@gmail.com'
+        },
+        {
+            name: 'password',
+            placeholder: 'Enter your password',
+            props: {
+                secureTextEntry: true
             }
-        ];
+        }
+    ];
 
-        return (
-            <View style={styles.container}>
-                <KeyboardAwareScrollView style={styles.inputForm}>
-                    {signupFields.map(obj => {
-                        return (
-                            <View style={styles.input} key={obj.name}>
-                                <TextInput
-                                    placeholder={obj.placeholder}
-                                    style={styles.field}
-                                    autoCapitalize="none"
-                                    onChangeText={text => this.handleInput(obj.name, text)}
-                                    underlineColorAndroid="transparent"
-                                    {...obj.props}
-                                />
-                            </View>
-                        );
-                    })}
-                    <Text style={styles.forgotText} onPress={this.forgotPassword}>
-                        Forgot Password?
-                    </Text>
-
-                    {this.props.auth.isFetching ? null : this.state.error ? (
-                        <View style={styles.topMargin}>
-                            <Text style={styles.error}>{this.state.error}</Text>
+    return (
+        <View style={styles.container}>
+            <KeyboardAwareScrollView style={styles.inputForm}>
+                {signupFields.map(obj => {
+                    return (
+                        <View style={styles.input} key={obj.name}>
+                            <TextInput
+                                placeholder={obj.placeholder}
+                                style={styles.field}
+                                autoCapitalize="none"
+                                onChangeText={text => handleInput(obj.name, text)}
+                                underlineColorAndroid="transparent"
+                                {...obj.props}
+                            />
                         </View>
-                    ) : null}
-                    <TouchableHighlight
-                        disabled={this.state.disableButton}
-                        onPress={() =>
-                            this.props.auth.isFetching
-                                ? {}
-                                : this.props.login(this.state.email, this.state.password)
-                        }
-                        style={[{ backgroundColor: this.state.enableButtonColor }, styles.button]}
-                        activeOpacity={0.5}
-                    >
-                        <Text style={styles.loginText}>
-                            {this.props.auth.isFetching ? 'Logging....' : 'Login'}
-                        </Text>
-                    </TouchableHighlight>
-                </KeyboardAwareScrollView>
-                <View style={styles.bottomContainer}>
-                    <Text style={styles.bottomText}>Don't have an account?</Text>
-                    <View style={styles.reg}>
-                        <Text
-                            onPress={this.registerNow}
-                            style={[styles.registerText, styles.bottomText]}
-                        >
-                            Register Now
-                        </Text>
+                    );
+                })}
+                <Text style={styles.forgotText} onPress={forgotPassword}>
+                    Forgot Password?
+                </Text>
+                {auth.isFetching ? null : error ? (
+                    <View style={styles.topMargin}>
+                        <Text style={styles.error}>{error}</Text>
                     </View>
+                ) : null}
+                <TouchableHighlight
+                    disabled={button.disableButton}
+                    onPress={userLogin}
+                    style={[{ backgroundColor: button.enableButtonColor }, styles.button]}
+                    activeOpacity={0.5}
+                >
+                    <Text style={styles.loginText}>
+                        {auth.isFetching ? 'Logging....' : 'Login'}
+                    </Text>
+                </TouchableHighlight>
+            </KeyboardAwareScrollView>
+            <View style={styles.bottomContainer}>
+                <Text style={styles.bottomText}>Don't have an account?</Text>
+                <View style={styles.reg}>
+                    <Text
+                        onPress={() => Actions.register()}
+                        style={[styles.registerText, styles.bottomText]}
+                    >
+                        Register Now
+                    </Text>
                 </View>
             </View>
-        );
-    }
-}
+        </View>
+    );
+};
 
 /*StyleSheet*/
 const styles = StyleSheet.create({
@@ -201,8 +192,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         flex: 1,
         fontFamily: 'Muli-Regular',
-        marginLeft: 8,
-        color: newColors.black
+        marginLeft: 8
     },
     button: {
         height: 30,
@@ -252,8 +242,4 @@ const styles = StyleSheet.create({
     }
 });
 
-LoginForm.propTypes = {
-    auth: PropTypes.object.isRequired
-};
-
-export default LoginForm;
+export default React.memo(LoginForm);

@@ -1,30 +1,28 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Actions } from 'react-native-router-flux';
-import PropTypes from 'prop-types';
-import { GoogleSignin, statusCodes } from 'react-native-google-signin';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import { newColors } from '../config/helper';
 import LoginForm from './LoginForm';
-import * as AuthAction from '../actions/AuthAction';
+import { fbLogin, googleSignIn } from '../config/actionDispatcher';
+import { useDispatch } from 'react-redux';
 
 /**
  * Home Screens Login buttons
  * @param props properties from parent Class
  */
 const LandingButtons = props => {
+    const dispatch = useDispatch();
+
     const oauthList = [
         {
             name: 'facebook',
-            onPress: props.fbLogin,
+            onPress: () => dispatch(fbLogin()),
             style: styles.facebookButton
         },
         {
             name: 'google',
-            onPress: props.googleSignIn,
+            onPress: () => dispatch(googleSignIn()),
             style: styles.googleButton
         }
     ];
@@ -128,31 +126,4 @@ const styles = StyleSheet.create({
     }
 });
 
-LandingButtons.propTypes = {
-    fbLogin: PropTypes.func.isRequired,
-    googleSignIn: PropTypes.func.isRequired
-};
-
-/**
- * Mapping state to props so that state variables can be used through props in children components
- * @param state current state
- * @return state as props
- */
-function mapStateToProps(state) {
-    return {
-        auth: state.auth
-    };
-}
-/**
- * Mapping dispatchable actions to props so that actions can be used through props in children components
- * @param  dispatch Dispatches an action. This is the only way to trigger a state change.
- * @return Turns an object whose values are action creators, into an object with the same keys,
- */
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Object.assign({}, AuthAction), dispatch);
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(LandingButtons);
+export default React.memo(LandingButtons);

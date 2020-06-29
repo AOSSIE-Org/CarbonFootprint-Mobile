@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, View, Modal, Animated } from 'react-native';
 import { newColors } from '../config/helper';
 
-class Loader extends Component {
+class Loader extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,7 +10,7 @@ class Loader extends Component {
             corner1RotateValue: new Animated.Value(0),
             corner2RotateValue: new Animated.Value(0),
             corner3RotateValue: new Animated.Value(0),
-            corner4RotateValue: new Animated.Value(0),
+            corner4RotateValue: new Animated.Value(0)
         };
         this.spinAnimation = this.spinAnimation.bind(this);
         this.corner1Animation = this.corner1Animation.bind(this);
@@ -121,11 +121,11 @@ class Loader extends Component {
     }
     corner4Animation() {
         corner4RotateValue = 0;
-        Animated.sequence([   
+        Animated.sequence([
             Animated.timing(this.state.corner4RotateValue, {
                 toValue: 0,
                 duration: 0
-            }),     
+            }),
             Animated.timing(this.state.corner4RotateValue, {
                 toValue: 25,
                 duration: 600
@@ -183,41 +183,61 @@ class Loader extends Component {
             >
                 <View style={styles.modalBackground}>
                     <View style={styles.activityIndicatorWrapper}>
-                        <Animated.View style={[styles.corners, {
-                            transform: [{ rotate: interpolatedSpinAnimation }]
-                        }]}>
-                            <Animated.View style={[styles.container, {
-                            transform: [{ rotate: interpolatedCorner1Animation }]
-                            }]}>
-                                <View style={styles.corner}>
-                                </View>
+                        <Animated.View
+                            style={[
+                                styles.corners,
+                                {
+                                    transform: [{ rotate: interpolatedSpinAnimation }]
+                                }
+                            ]}
+                        >
+                            <Animated.View
+                                style={[
+                                    styles.container,
+                                    {
+                                        transform: [{ rotate: interpolatedCorner1Animation }]
+                                    }
+                                ]}
+                            >
+                                <View style={styles.corner} />
                             </Animated.View>
-                            <Animated.View style={[styles.container, {
-                            transform: [{ rotate: interpolatedCorner2Animation }]
-                            }]}>
-                                <View style={styles.corner}>
-                                </View>
+                            <Animated.View
+                                style={[
+                                    styles.container,
+                                    {
+                                        transform: [{ rotate: interpolatedCorner2Animation }]
+                                    }
+                                ]}
+                            >
+                                <View style={styles.corner} />
                             </Animated.View>
-                            <Animated.View style={[styles.container, {
-                            transform: [{ rotate: interpolatedCorner3Animation }]
-                            }]}>
-                                <View style={styles.corner}>
-                                </View>
+                            <Animated.View
+                                style={[
+                                    styles.container,
+                                    {
+                                        transform: [{ rotate: interpolatedCorner3Animation }]
+                                    }
+                                ]}
+                            >
+                                <View style={styles.corner} />
                             </Animated.View>
-                            <Animated.View style={[styles.container, {
-                            transform: [{ rotate: interpolatedCorner4Animation }]
-                            }]}>
-                                <View style={styles.corner}>
-                                </View>
+                            <Animated.View
+                                style={[
+                                    styles.container,
+                                    {
+                                        transform: [{ rotate: interpolatedCorner4Animation }]
+                                    }
+                                ]}
+                            >
+                                <View style={styles.corner} />
                             </Animated.View>
-
                         </Animated.View>
                     </View>
                 </View>
             </Modal>
         );
     }
-} 
+}
 
 const styles = StyleSheet.create({
     modalBackground: {

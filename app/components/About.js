@@ -5,9 +5,6 @@ import {
     Text,
     Dimensions,
     Image,
-    StatusBar,
-    TouchableHighlight,
-    Alert,
     Linking,
     ScrollView,
     TouchableOpacity
@@ -15,10 +12,10 @@ import {
 import ProfileHeader from './ProfileHeader';
 import StatusBarBackground from '../components/StatusBarBackground';
 import { aossieTitle, aossieDescription, appDescription } from '../config/constants';
-import Header from './Header';
 import images from '../config/images';
 import { newColors } from '../config/helper';
 const { width, height } = Dimensions.get('window');
+
 const About = () => {
     const style = {
         backgroundColor: newColors.secondary
@@ -38,7 +35,7 @@ const About = () => {
             onPress: () => Linking.openURL('https://twitter.com/aossie_org')
         },
         {
-            image: images.webiste,
+            image: images.website,
             onPress: () => Linking.openURL('https://aossie.gitlab.io/')
         }
     ];
@@ -75,19 +72,6 @@ const About = () => {
             </ScrollView>
         </View>
     );
-
-    const calcMethod = () => {
-        Alert.alert(
-            'co2 calculation method',
-            'Present formula for calculating co2 emission is: emitted co2 (in kg) = co2 emission rate of fuel (in kg/L) * (traveled distance (in km) / mileage of vehicle (in km/L)). If activity is IN_VEHICLE, co2 calculated by above formula becomes Emitted co2 and Saved co2 is 0. If activity is WALKING, ON_BICYCLE etc., co2 calculated by above formula becomes Saved co2 and Emitted co2 is 0.',
-            [
-                {
-                    text: 'OK'
-                }
-            ],
-            { cancelable: true }
-        );
-    };
 };
 
 //StyleSheet

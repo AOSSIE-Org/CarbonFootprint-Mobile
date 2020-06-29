@@ -1,43 +1,39 @@
-import React, { Component } from 'react';
-import {
-    Image,
-    Text,
-    View,
-    ScrollView,
-    TouchableOpacity,
-    TextInput,
-    Dimensions,
-    StyleSheet,
-    TouchableNativeFeedback,
-    Platform,
-    ActivityIndicator,
-    StatusBar
-} from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import * as firebase from 'firebase';
 import { getUser } from '../actions/firebase/User';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import * as AuthAction from '../actions/AuthAction';
 import { newColors } from '../config/helper';
 import images from '../config/images';
 import Toast from 'react-native-simple-toast';
 import ModTextInput from '../components/ModTextInput';
 import { STRING_EMPTY } from '../config/constants';
+import { updateUserFirebase } from '../config/actionDispatcher';
 
-class ProfileModal extends Component {
-    state = {
-        name: this.props.user.name,
-        email: this.props.user.email,
-        phone_no: this.props.user.phone_no ? this.props.user.phone_no : null,
-        picture: this.props.user.picture ? this.props.user.picture : images.logo
-    };
+const ProfileModal = props => {
+    const user = useSelector(state => state.auth.user);
+    const [data, setData] = useState({
+        name: user.name,
+        email: user.email,
+        phone_no: user.phone_no ? user.phone_no : null,
+        picture: user.picture ? user.picture : images.logo
+    });
+    const dispatch = useDispatch();
 
-    handleInput = (key, value) => {
-        this.setState({
-            [key]: value
-        });
+    const handleInput = (key, value) => {
+        if (key === 'name') {
+            setData({
+                ...data,
+                name: value
+            });
+        } else {
+            setData({
+                ...data,
+                phone_no: value
+            });
+        }
     };
 
     /**
@@ -45,15 +41,14 @@ class ProfileModal extends Component {
      * @param  uid  user id or unique id of logged in user
      * @return if current state user profile matches with the entry in the database
      */
-    verifyProfileUpdate = email => {
+    const verifyProfileUpdate = email => {
         getUser(email).then(user => {
             if (
-                user.name === this.state.name &&
-                user.phone_no == this.state.phone_no &&
-                user.picture === this.state.picture
+                user.name === data.name &&
+                user.phone_no == data.phone_no &&
+                user.picture === data.picture
             ) {
                 Toast.show('Profile Updated');
-                // this.setState({ updateClicked: false });
             } else verifyProfileUpdate(email);
         });
     };
@@ -62,90 +57,85 @@ class ProfileModal extends Component {
      * handle update function that is fired up on pressing update button
      * @return updated user firebase
      */
-    handleUpdate = () => {
-        if (this.state.name.trim() === STRING_EMPTY) {
+    const handleUpdate = () => {
+        if (data.name.trim() === STRING_EMPTY) {
             Toast.show('You cannot leave name blank');
-        } else if (this.state.phone_no && this.state.phone_no.length !== 10) {
+        } else if (data.phone_no && data.phone_no.length !== 10) {
             Toast.show('Please enter valid 10 digit number');
         } else {
-            // this.props.modalToggle();
-            const userProfile = Object.assign({}, this.state);
-            this.props
-                .updateUserFirebase(userProfile)
+            const userProfile = Object.assign({}, data);
+            dispatch(updateUserFirebase(userProfile))
                 .then(() => {
                     const email = firebase.auth().currentUser.email;
-                    this.verifyProfileUpdate(uid);
+                    verifyProfileUpdate(uid);
                 })
                 .catch(err => {
                     console.warn(err);
                 });
-             this.props.modalToggle('modalVisible');   
+            props.modalToggle('modalVisible');
         }
     };
 
-    render() {
-        let inputs = [
-            {
-                key: 'name',
-                placeholder: 'John Doe',
-                returnKeyType: 'next'
+    const _modalToggle = () => props.modalToggle('modalVisible');
+
+    const inputs = [
+        {
+            key: 'name',
+            placeholder: 'John Doe',
+            returnKeyType: 'next'
+        },
+        {
+            key: 'phone_no',
+            text: 'phone number',
+            placeholder: 'Enter phone number',
+            style: {
+                borderBottomWidth: 0
             },
-            {
-                key: 'phone_no',
-                text: 'phone number',
-                placeholder: 'Enter phone number',
-                style: {
-                    borderBottomWidth: 0
-                },
-                keyboardType: 'phone-pad',
-                returnKeyType: 'next'
-            },
-            {
-                key: 'email',
-                placeholder: 'johndoe@gmail.com',
-                editable: 'false'
-            }
-        ];
-        return (
-            <Modal
-                isVisible={this.props.visible}
-                style={styles.modal}
-                animationType="slide"
-                transparent={true}
-                onRequestClose={() => console.warn('Closing')}
-            >
-                <View style={styles.wrapper}>
-                    <Text style={styles.header}>Profile Info</Text>
-                    <Icon
-                        name="close"
-                        size={24}
-                        color="white"
-                        onPress={() => this.props.modalToggle('modalVisible')}
-                        style={styles.close}
-                    />
-                    <View style={styles.inputForm}>
-                        {inputs.map((obj, i) => {
-                            return (
-                                <ModTextInput
-                                    value={this.state[obj.key]}
-                                    handleInput={this.handleInput}
-                                    stateKey={obj.key}
-                                    {...obj}
-                                />
-                            );
-                        })}
-                        <TouchableOpacity
-                            style={styles.updateButton}
-                            onPress={() => this.handleUpdate()}
-                        >
-                            <Text style={styles.updateText}>Update</Text>
-                        </TouchableOpacity>
-                    </View>
+            keyboardType: 'phone-pad',
+            returnKeyType: 'next'
+        },
+        {
+            key: 'email',
+            placeholder: 'johndoe@gmail.com',
+            editable: 'false'
+        }
+    ];
+
+    return (
+        <Modal
+            isVisible={props.visible}
+            style={styles.modal}
+            animationType="slide"
+            transparent={true}
+        >
+            <View style={styles.wrapper}>
+                <Text style={styles.header}>Profile Info</Text>
+                <Icon
+                    name="close"
+                    size={24}
+                    color="white"
+                    onPress={_modalToggle}
+                    style={styles.close}
+                />
+                <View style={styles.inputForm}>
+                    {inputs.map((obj, i) => {
+                        return (
+                            <ModTextInput
+                                value={data[obj.key]}
+                                handleInput={handleInput}
+                                stateKey={obj.key}
+                                {...obj}
+                            />
+                        );
+                    })}
+                    <TouchableOpacity style={styles.updateButton} onPress={handleUpdate}>
+                        <Text style={styles.updateText}>Update</Text>
+                    </TouchableOpacity>
                 </View>
-            </Modal>
-        );
-    }
-}
+            </View>
+        </Modal>
+    );
+};
 
 const styles = StyleSheet.create({
     modal: {
@@ -191,22 +181,4 @@ const styles = StyleSheet.create({
     }
 });
 
-/**
- * Mapping state to props so that state variables can be used
- * through props in children components.
- * @param state Current state in the store.
- * @return Returns states as props.
- */
-const mapStateToProps = state => ({
-    user: state.auth.user
-    // updateLoading: state.login.loading
-});
-
-const mapDispatchToProps = dispatch => {
-    return bindActionCreators(Object.assign({}, AuthAction), dispatch);
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ProfileModal);
+export default React.memo(ProfileModal);
