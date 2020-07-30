@@ -1,6 +1,5 @@
 import { Platform, BackHandler } from 'react-native';
-import Geocoder from 'react-native-geocoding';
-import { geocodingAPIKey } from './keys';
+import { mapboxKey } from './keys';
 import { Alert } from 'react-native';
 import store from '../config/store';
 import { RATE_PETROL, RATE_DIESEL, RATE_CNG, RATE_ELECTRIC } from '../config/constants';
@@ -41,16 +40,19 @@ export function formatAMPM(date) {
  */
 export function getPlaceName(loc) {
     return new Promise((resolve, reject) => {
-        Geocoder.setApiKey(geocodingAPIKey);
-        Geocoder.getFromLatLng(loc.latitude, loc.longitude).then(
-            json => {
-                resolve(json.results[0].formatted_address);
-            },
-            error => {
-                //console.log("helper (getPlaceName): " + error);
-                reject(error);
-            }
-        );
+        fetch(
+            'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
+                loc.longitude +
+                ',' +
+                loc.latitude +
+                '.json?access_token=' +
+                mapboxKey
+        )
+            .then(response => response.json())
+            .then(responseJson => {
+                resolve(responseJson.features[0].place_name);
+            })
+            .catch(error => reject(error));
     });
 }
 
@@ -62,8 +64,9 @@ export function getPlaceName(loc) {
  * @return {float} co2 in kg
  */
 export function calcCo2(fuelRate, distance, mileage) {
-    distance = distance.replace(/\,/g, ''); // To remove comma (,) from string
-    var dist = parseFloat(distance.split(' ')[0]);
+    //distance = distance.replace(/\,/g, ''); // To remove comma (,) from string
+    //var dist = parseFloat(distance.split(' ')[0]);
+    var dist = distance / 1000;
     return fuelRate * (dist / mileage);
 }
 
@@ -225,6 +228,10 @@ export function urlToBase64(userData) {
 export function formatEmail(userEmail) {
     return userEmail.replace(/\./g, ',');
 }
+
+export const formatName = name => {
+    return name.replace(/['"]+/g, '');
+};
 
 /*colors*/
 export const color = {

@@ -67,9 +67,6 @@ export function getLocation() {
         dispatch(request_location());
         let value = true;
         if (Platform.OS === 'android') {
-            if (Platform.Version >= 23) {
-                value = await getPermission();
-            }
             checkGPS();
         }
         if (value) {
@@ -101,7 +98,6 @@ export function getLocation() {
                 }
             );
             /* Getting location updates (Only when location changes). This is going haywire on ios simulator so commenting it for now.
-             
               this.watchID = navigator.geolocation.watchPosition((position) => {
                 let lat = position.coords.latitude;
                 let lng = position.coords.longitude;

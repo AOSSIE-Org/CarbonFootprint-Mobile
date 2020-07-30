@@ -18,6 +18,7 @@ import Settings from '../containers/Settings';
 import Forgot from '../containers/Forgot';
 
 import Footer from '../components/Footer';
+import PlaceSearch from '../containers/PlaceSearch';
 
 const RouterWithRedux = connect()(Router);
 
@@ -45,6 +46,7 @@ const Navigator = () => (
                     <Scene key="settings" component={Settings} panHandlers={null} hideNavBar />
                     <Scene key="dashboard" component={Dashboard} panHandlers={null} />
                     <Scene key="friends" component={Friends} panHandlers={null} />
+                    <Scene key="placeSearch" component={PlaceSearch} panHandlers={null} />
                 </Scene>
             </Scene>
         </Scene>

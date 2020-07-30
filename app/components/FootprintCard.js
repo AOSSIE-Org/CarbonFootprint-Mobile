@@ -7,9 +7,10 @@ import {
     Dimensions,
     ActivityIndicator
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import PropTypes from 'prop-types';
-import { getIcon, color } from '../config/helper';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Foundation from 'react-native-vector-icons/Foundation';
+import { getIcon, color, newColors } from '../config/helper';
 
 /**
  * card component to show co2 released vechile type and other details after selecting route
@@ -34,6 +35,51 @@ const FootprintCard = props => {
             icon: 'walk'
         }
     ];
+
+    const showDuration = () => {
+        if (props.duration < 60) {
+            return props.duration.toFixed(2) + ' sec';
+        } else if (props.duration < 3600) {
+            return (props.duration / 60).toFixed(2) + ' min';
+        }
+        return (props.duration / 3600).toFixed(2) + ' hr';
+    };
+
+    const renderFootprint = () => {
+        if (props.distance) {
+            return (
+                <View style={styles.tabContent}>
+                    <View style={styles.footprintContent}>
+                        <FontAwesome5 name="route" size={28} style={{ color: newColors.primary }} />
+                        <Text style={styles.route}> {(props.distance / 1000).toFixed(2)} km </Text>
+                    </View>
+                    <View style={styles.footprintContent}>
+                        <Ionicons
+                            name={getIcon('time')}
+                            size={28}
+                            style={{ color: newColors.primary }}
+                        />
+                        <Text style={styles.route}>{showDuration()}</Text>
+                    </View>
+                    <View style={styles.footprintContent}>
+                        <Foundation name="foot" size={28} style={{ color: newColors.primary }} />
+                        <Text style={styles.route}>
+                            {props.footprint ? props.footprint.toFixed(2) + ' kg' : 'N/A'}
+                        </Text>
+                    </View>
+                </View>
+            );
+        } else {
+            return (
+                <View style={styles.tabContent}>
+                    <Text style={styles.error}>
+                        Sorry!!! No straight route available between source and destination
+                    </Text>
+                </View>
+            );
+        }
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.tabs}>
@@ -45,7 +91,7 @@ const FootprintCard = props => {
                         underlayColor={color.white}
                         activeOpacity={0.5}
                     >
-                        <Icon name={getIcon(item.icon)} size={20} color={color.black} />
+                        <Ionicons name={getIcon(item.icon)} size={20} color={color.black} />
                     </TouchableHighlight>
                 ))}
             </View>
@@ -54,30 +100,7 @@ const FootprintCard = props => {
                     <ActivityIndicator size="small" />
                 </View>
             ) : (
-                <View style={styles.tabContent}>
-                    <View style={styles.routeContent}>
-                        {props.distance.text ? null : (
-                            <Text style={styles.error}>
-                                Sorry!!! No straight route available between source and destination
-                            </Text>
-                        )}
-                        <Text style={styles.route}>
-                            {props.distance.text ? props.distance.text : null}
-                        </Text>
-                        <Text style={styles.route}>
-                            {props.duration.text ? props.duration.text : null}
-                        </Text>
-                    </View>
-                    {props.distance.text ? (
-                        <View style={styles.footprintContent}>
-                            <Text style={styles.footprint}>
-                                {props.footprint !== null
-                                    ? props.footprint.toFixed(2) + ' kg'
-                                    : null}
-                            </Text>
-                        </View>
-                    ) : null}
-                </View>
+                renderFootprint()
             )}
         </View>
     );
@@ -86,11 +109,15 @@ const FootprintCard = props => {
 /*StyleSheet*/
 const styles = StyleSheet.create({
     container: {
-        width: Dimensions.get('window').width,
-        backgroundColor: color.greyBack,
-        bottom: 45,
+        width: Dimensions.get('window').width - 12,
+        backgroundColor: color.grey,
+        bottom: 30,
         position: 'absolute',
-        padding: 5
+        padding: 5,
+        margin: 5,
+        borderRadius: 10,
+        borderColor: newColors.primary,
+        borderWidth: 3
     },
     tabs: {
         flexDirection: 'row',
@@ -110,16 +137,21 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 90
     },
+    cancelButton: {
+        left: Dimensions.get('window').width - 50
+    },
     routeContent: {
         justifyContent: 'center'
     },
     footprintContent: {
-        alignItems: 'flex-end',
+        alignItems: 'center',
         justifyContent: 'center'
     },
     route: {
-        fontSize: 14,
-        color: color.black
+        marginTop: 5,
+        fontSize: 15,
+        color: color.black,
+        fontWeight: 'bold'
     },
     footprint: {
         fontSize: 16,
@@ -136,12 +168,5 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     }
 });
-
-FootprintCard.propTypes = {
-    onChangeTab: PropTypes.func.isRequired,
-    duration: PropTypes.object,
-    fetching: PropTypes.bool,
-    distance: PropTypes.object
-};
 
 export default FootprintCard;

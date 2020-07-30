@@ -13,7 +13,8 @@ export default function storage(
             automobile: 'Car',
             type: 'Petrol',
             value: '10.3',
-            unit: 'km/litre'
+            unit: 'km/litre',
+            map: 'Street'
         }
     },
     action

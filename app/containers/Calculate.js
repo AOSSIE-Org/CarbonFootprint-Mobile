@@ -8,7 +8,8 @@ import {
     Platform,
     ActivityIndicator,
     BackHandler,
-    ToastAndroid
+    ToastAndroid,
+    TouchableHighlight
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -22,9 +23,11 @@ import { color, getIcon, calcCo2, getMileage, getFuelRate } from '../config/help
 import {
     getLocation,
     getStorage,
-    openSearchModal,
-    getDirections
+    getDirections,
+    set_destination
 } from '../config/actionDispatcher';
+import { Actions } from 'react-native-router-flux';
+import { formatName } from '../config/helper';
 
 const Calculate = props => {
     const [source, setSource] = useState({
@@ -88,6 +91,15 @@ const Calculate = props => {
         dispatch(getDirections(source, destination, tab));
     };
 
+    const resetCoordHelper = () => {
+        const coord = {
+            latitude: null,
+            longitude: null
+        };
+        dispatch(getLocation());
+        dispatch(set_destination(coord, 'Where to?'));
+    };
+
     let newSource = direction.source;
     let newDestination = direction.destination;
     let region = direction.region;
@@ -136,9 +148,9 @@ const Calculate = props => {
                             borderRadius={2}
                             size={16}
                             iconStyle={styles.icon}
-                            onPress={() => dispatch(openSearchModal(0))}
+                            onPress={() => Actions.placeSearch({ value: 0 })}
                         >
-                            <Text style={styles.text}>{direction.sourceName}</Text>
+                            <Text style={styles.text}>{formatName(direction.sourceName)}</Text>
                         </Icon.Button>
                     </View>
                     <View>
@@ -148,29 +160,39 @@ const Calculate = props => {
                             borderRadius={2}
                             size={16}
                             iconStyle={styles.icon}
-                            onPress={() => dispatch(openSearchModal(1))}
+                            onPress={() => Actions.placeSearch({ value: 1 })}
                         >
-                            <Text style={styles.text}>{direction.destinationName}</Text>
+                            <Text style={styles.text}>{formatName(direction.destinationName)}</Text>
                         </Icon.Button>
                     </View>
                 </View>
             </View>
-            {newSource.latitude && newDestination.latitude ? (
-                <FootprintCard
-                    distance={direction.distance}
-                    duration={direction.duration}
-                    onChangeTab={onChangeTab}
-                    footprint={
-                        direction.distance.text
-                            ? tab === 0 || tab === 1
-                                ? calcCo2(getFuelRate(), direction.distance.text, getMileage())
-                                : 0
-                            : null
-                    }
-                    tab={tab}
-                    fetching={direction.isFetching}
-                />
-            ) : null}
+            {newSource.latitude && newDestination.latitude && (
+                <View style={styles.footprint}>
+                    <FootprintCard
+                        distance={direction.distance}
+                        duration={direction.duration}
+                        onChangeTab={onChangeTab}
+                        footprint={
+                            direction.distance
+                                ? tab <= 1
+                                    ? calcCo2(getFuelRate(), direction.distance, getMileage())
+                                    : 0
+                                : null
+                        }
+                        tab={tab}
+                        fetching={direction.isFetching}
+                    />
+                    <TouchableHighlight style={styles.cancelButton}>
+                        <Icon
+                            name={getIcon('close-circle')}
+                            size={35}
+                            style={{ color: color.primary }}
+                            onPress={resetCoordHelper}
+                        />
+                    </TouchableHighlight>
+                </View>
+            )}
         </View>
     );
 };
@@ -178,9 +200,16 @@ const Calculate = props => {
 //StyleSheet
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('window').height - 45,
+        height: Dimensions.get('window').height - 20,
         position: 'relative',
         justifyContent: 'flex-start'
+    },
+    footprint: {
+        position: 'absolute',
+        bottom: 50
+    },
+    cancelButton: {
+        left: Dimensions.get('window').width / 2 - 10
     },
     button: {
         backgroundColor: color.primary,

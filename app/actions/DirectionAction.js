@@ -1,5 +1,4 @@
-import RNGooglePlaces from 'react-native-google-places';
-import Polyline from '@mapbox/polyline';
+import { mapboxKey } from '../config/keys';
 
 export const REQUEST_DIRECTION = 'REQUEST_DIRECTION';
 export const RECEIVE_DIRECTION = 'RECEIVE_DIRECTION';
@@ -55,10 +54,10 @@ export function set_region(json) {
  * @param json
  * @return {Object} action for SET_DISTANCE
  */
-function set_distance(json) {
+function set_distance(value) {
     return {
         type: SET_DISTANCE,
-        distance: json
+        distance: value
     };
 }
 
@@ -67,10 +66,10 @@ function set_distance(json) {
  * @param json
  * @return {Object} action for SET_DURATION
  */
-function set_duration(json) {
+function set_duration(value) {
     return {
         type: SET_DURATION,
-        duration: json
+        duration: value
     };
 }
 
@@ -124,6 +123,7 @@ function request_direction() {
  * @return {Object} action for RECEIVE_DIRECTION
  */
 function receive_direction(json) {
+    console.log('coords', json);
     return {
         type: RECEIVE_DIRECTION,
         coords: json
@@ -147,40 +147,6 @@ function no_direction() {
  */
 function formatLocation(x) {
     return x.latitude.toString() + ',' + x.longitude.toString();
-}
-
-/**
- * opens modal to search for source/destination
- * and dispatches action to set source/destination in application state
- * @param number key 0 for source, 1 for destination
- * @return callback function to dispatch actions
- */
-export function openSearchModal(key) {
-    return dispatch => {
-        RNGooglePlaces.openAutocompleteModal()
-            .then(place => {
-                let data = {};
-                data.latitude = place.latitude;
-                data.longitude = place.longitude;
-                if (key === 0) {
-                    getRegion(
-                        {
-                            latitude: data.latitude,
-                            longitude: data.longitude
-                        },
-                        null
-                    ).then(result => {
-                        dispatch(set_region(result));
-                        dispatch(set_source(data, place.name));
-                    });
-                } else {
-                    dispatch(set_destination(data, place.name));
-                }
-            })
-            .catch(error => {
-                //console.log(error.message);
-            });
-    };
 }
 
 export function getRedMarkerDetails(location, placename) {
@@ -209,21 +175,27 @@ export function getGreenMarkerDetails(location, placename) {
 export function getDirections(source, destination, code) {
     return (dispatch, state) => {
         dispatch(request_direction());
-        let start = source.latitude.toString() + ',' + source.longitude.toString();
-        let end = destination.latitude.toString() + ',' + destination.longitude.toString();
+        let start = source.longitude.toString() + ',' + source.latitude.toString();
+        let end = destination.longitude.toString() + ',' + destination.latitude.toString();
         let mode = '';
         if (code === 1) {
-            mode = 'transit';
+            mode = 'driving/';
         } else if (code === 2) {
-            mode = 'bicycling';
+            mode = 'cycling/';
         } else if (code === 3) {
-            mode = 'walking';
+            mode = 'walking/';
         } else {
-            mode = 'driving';
+            mode = 'driving/';
         }
 
         return fetch(
-            `https://maps.googleapis.com/maps/api/directions/json?mode=${mode}&origin=${start}&destination=${end}`
+            'https://api.mapbox.com/directions/v5/mapbox/' +
+                mode +
+                start +
+                ';' +
+                end +
+                '?geometries=geojson&access_token=' +
+                mapboxKey
         )
             .then(response => response.json())
             .then(json => {
@@ -234,20 +206,11 @@ export function getDirections(source, destination, code) {
                         dispatch(set_region(result));
                     });
                 } else {
-                    let legs = json.routes[0].legs[0];
-                    dispatch(set_distance(legs.distance));
-                    dispatch(set_duration(legs.duration));
-
-                    let points = Polyline.decode(json.routes[0].overview_polyline.points);
-                    let coords = points.map((point, index) => {
-                        return {
-                            latitude: point[0],
-                            longitude: point[1]
-                        };
-                    });
+                    dispatch(set_distance(json.routes[0].distance));
+                    dispatch(set_duration(json.routes[0].duration));
                     getRegion(source, destination).then(result => {
                         dispatch(set_region(result));
-                        dispatch(receive_direction(coords));
+                        dispatch(receive_direction(json.routes[0].geometry));
                     });
                 }
             })

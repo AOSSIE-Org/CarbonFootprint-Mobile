@@ -27,6 +27,7 @@
         "@mapbox/polyline": "^1.0.0",
         "@react-native-community/geolocation": "^2.0.2",
         "@react-native-community/netinfo": "^2.0.2",
+        "@react-native-mapbox-gl/maps": "^8.1.0-rc.2",
         "babel-polyfill": "^6.26.0",
         "eslint-staged-files": "1.0.0",
         "firebase": "^5.0.3",

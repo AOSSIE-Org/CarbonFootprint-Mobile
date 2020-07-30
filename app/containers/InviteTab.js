@@ -187,7 +187,8 @@ const styles = StyleSheet.create({
     },
     warningWrapper: {
         position: 'relative',
-        flex: 1
+        flex: 1,
+        alignItems: 'center'
     },
     whiteText: {
         fontSize: 15,

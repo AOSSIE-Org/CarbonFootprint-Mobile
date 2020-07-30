@@ -102,6 +102,7 @@ const Stats = props => {
     let totalStats = [
         [
             {
+                id: 1,
                 text: 'CO2 SAVED',
                 number:
                     user && user.data && user.data.total && user.data.total.co2Saved
@@ -113,6 +114,7 @@ const Stats = props => {
                 }
             },
             {
+                id: 2,
                 text: 'CO2 EMITTED',
                 number: user && user.data ? user.data.total.footprint.toFixed(2) : 0,
                 unit: 'kg'
@@ -120,6 +122,7 @@ const Stats = props => {
         ],
         [
             {
+                id: 3,
                 iconName: 'directions-run',
                 number: user && user.data ? user.data.total.distance.toFixed(2) : 0.0,
                 unit: 'km',
@@ -128,6 +131,7 @@ const Stats = props => {
                 }
             },
             {
+                id: 4,
                 iconName: 'access-time',
                 number: user && user.data ? user.data.total.time : 0.0,
                 unit: 'sec'
@@ -152,11 +156,11 @@ const Stats = props => {
                         </View>
                         <View style={styles.totalStatsWrapper}>
                             <View style={styles.bigStatsWrapper}>
-                                {totalStats[0].map((obj, index) => {
+                                {totalStats[0].map(obj => {
                                     return (
                                         <View
                                             style={[styles.bigStatsItemWrapper, obj.style || {}]}
-                                            key={index}
+                                            key={obj.id}
                                         >
                                             <Text style={styles.number}>
                                                 {obj.number}
@@ -170,11 +174,11 @@ const Stats = props => {
                                 })}
                             </View>
                             <View style={styles.smallStatsWrapper}>
-                                {totalStats[1].map((obj, index) => {
+                                {totalStats[1].map(obj => {
                                     return (
                                         <View
                                             style={[styles.smallStatsItemWrapper, obj.style || {}]}
-                                            key={index}
+                                            key={obj.id}
                                         >
                                             <Icon
                                                 name={obj.iconName}
@@ -208,6 +212,7 @@ const Stats = props => {
                                 <ScrollView
                                     contentContainerStyle={styles.contentItemWrapper}
                                     tabLabel={obj.name}
+                                    key={obj.name}
                                 >
                                     <View style={styles.footprintWrapper}>
                                         {/* <View style={styles.plusWrapper}><Text style={styles.plus}>+</Text></View> */}
