@@ -122,7 +122,7 @@ const TodayTab = props => {
                 <ScrollableTabView renderTabBar={_renderTabBar} style={styles.miniScrollView}>
                     {tabsAlt.map(obj => {
                         return (
-                            <View style={styles.tabContent}>
+                            <View style={styles.tabContent} key={obj.text}>
                                 <View style={styles.onethirdbox}>
                                     <Text style={styles.lightbig}>{obj.distance}</Text>
                                     <Text style={styles.darksmall}>DISTANCE</Text>

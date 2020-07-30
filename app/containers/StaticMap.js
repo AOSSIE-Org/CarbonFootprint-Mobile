@@ -1,27 +1,40 @@
 import React, { useState, useEffect, useRef } from 'react';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { View, StyleSheet } from 'react-native';
 import { returnHeightOfStatusBar } from '../components/StatusBarBackground';
 
-import { googleRoadsAPIKey } from '../config/keys';
-import { useDispatch } from 'react-redux';
+import { mapboxKey } from '../config/keys';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     getRedMarkerDetails,
     getGreenMarkerDetails,
     getDirections
 } from '../config/actionDispatcher';
+import MapboxGL from '@react-native-mapbox-gl/maps';
+
+MapboxGL.setAccessToken(mapboxKey);
 
 const StaticMap = props => {
     const [statusBarHeight, setStatusBarHeight] = useState(18);
     const [zoom, setZoom] = useState(15);
     const [source, setSource] = useState(props.source);
     const [destination, setDestiation] = useState(props.destination);
+    const [cameraConfig, setCameraConfig] = useState({ followUserLocation: true });
     const dispatch = useDispatch();
+    const storage = useSelector(state => state.storage);
     const firstRenderRed = useRef(true);
     const firstRenderGreen = useRef(true);
 
     useEffect(() => {
         setSource(props.source);
+        if (props.source) {
+            setCameraConfig({
+                triggerKey: Date.now(),
+                animationMode: MapboxGL.Camera.Mode.Flight,
+                animationDuration: 2000,
+                centerCoordinate: [props.source.longitude, props.source.latitude],
+                followUserLocation: false
+            });
+        }
         if (props.destination) {
             setDestiation(props.destination);
             setZoom(10);
@@ -31,19 +44,19 @@ const StaticMap = props => {
     useEffect(() => {
         function updateRedMarker() {
             fetch(
-                'https://maps.googleapis.com/maps/api/geocode/json?address=' +
-                    source.latitude +
-                    ',' +
+                'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
                     source.longitude +
-                    '&key=' +
-                    googleRoadsAPIKey
+                    ',' +
+                    source.latitude +
+                    '.json?access_token=' +
+                    mapboxKey
             )
                 .then(response => response.json())
                 .then(responseJson => {
                     dispatch(
                         getRedMarkerDetails(
                             source,
-                            JSON.stringify(responseJson.results[0].formatted_address)
+                            JSON.stringify(responseJson.features[0].place_name)
                         )
                     );
                 })
@@ -61,19 +74,19 @@ const StaticMap = props => {
     useEffect(() => {
         function updateGreenMarker() {
             fetch(
-                'https://maps.googleapis.com/maps/api/geocode/json?address=' +
-                    destination.latitude +
-                    ',' +
+                'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
                     destination.longitude +
-                    '&key=' +
-                    googleRoadsAPIKey
+                    ',' +
+                    destination.latitude +
+                    '.json?access_token=' +
+                    mapboxKey
             )
                 .then(response => response.json())
                 .then(responseJson => {
                     dispatch(
                         getGreenMarkerDetails(
                             destination,
-                            JSON.stringify(responseJson.results[0].formatted_address)
+                            JSON.stringify(responseJson.features[0].place_name)
                         )
                     );
                     dispatch(getDirections(source, destination, 0));
@@ -91,51 +104,88 @@ const StaticMap = props => {
 
     const redMarker = (location, color) => {
         return (
-            <MapView.Marker
-                draggable
-                coordinate={location}
+            <MapboxGL.PointAnnotation
+                id="source"
+                draggable={true}
+                coordinate={[location.longitude, location.latitude]}
                 pinColor={color}
                 onDragEnd={e => {
-                    setSource(e.nativeEvent.coordinate);
+                    let coord = {
+                        latitude: e.geometry.coordinates[1],
+                        longitude: e.geometry.coordinates[0]
+                    };
+                    setSource(coord);
                 }}
             />
         );
     };
     const greenMarker = (location, color) => {
         return (
-            <MapView.Marker
-                draggable
-                coordinate={location}
+            <MapboxGL.PointAnnotation
+                id="destination"
+                draggable={true}
+                coordinate={[location.longitude, location.latitude]}
                 pinColor={color}
                 onDragEnd={e => {
-                    setDestiation(e.nativeEvent.coordinate);
+                    let coord = {
+                        latitude: e.geometry.coordinates[1],
+                        longitude: e.geometry.coordinates[0]
+                    };
+                    setDestiation(coord);
                 }}
             />
         );
     };
 
+    const styleMap = () => {
+        if (storage.data.map) {
+            if (storage.data.map === 'Dark') {
+                return MapboxGL.StyleURL.Dark;
+            } else if (storage.data.map === 'Light') {
+                return MapboxGL.StyleURL.Light;
+            } else if (storage.data.map === 'Outdoors') {
+                return MapboxGL.StyleURL.Outdoors;
+            } else if (storage.data.map === 'Satellite') {
+                return MapboxGL.StyleURL.Satellite;
+            } else if (storage.data.map === 'SatelliteStreet') {
+                return MapboxGL.StyleURL.SatelliteStreet;
+            }
+            return MapboxGL.StyleURL.Street;
+        }
+        return MapboxGL.StyleURL.Street;
+    };
+
+    const layerStyle = {
+        route: {
+            lineColor: 'black',
+            lineCap: 'round',
+            lineWidth: 4,
+            lineOpacity: 0.64
+        }
+    };
+
     return (
         <View style={styles.mapContainer}>
-            <MapView
-                provider={PROVIDER_GOOGLE}
-                showsUserLocation={true}
-                showsMyLocationButton={true}
-                showsCompass={true}
-                minZoomLevel={zoom}
-                loadingEnabled={true}
-                region={props.region}
+            <MapboxGL.MapView
+                styleURL={styleMap()}
+                compassEnabled={true}
+                rotateEnabled={true}
                 style={styles.map}
             >
-                {props.source ? redMarker(source, 'red', props) : null}
-                {props.destination ? greenMarker(destination, 'green', props) : null}
+                <MapboxGL.Camera {...cameraConfig} zoomLevel={15} />
+                <MapboxGL.UserLocation />
+                {props.source ? redMarker(props.source, 'red', props) : null}
+                {props.destination ? greenMarker(props.destination, 'green', props) : null}
                 {props.coords ? (
-                    <MapView.Polyline
-                        coordinates={props.coords}
-                        strokeWidth={4}
-                        strokeColor="#666"
-                    />
+                    <MapboxGL.ShapeSource id="routeSource" shape={props.coords}>
+                        <MapboxGL.LineLayer
+                            id="routeFill"
+                            style={layerStyle.route}
+                            layerIndex={100}
+                        />
+                    </MapboxGL.ShapeSource>
                 ) : null}
-            </MapView>
+            </MapboxGL.MapView>
         </View>
     );
 };

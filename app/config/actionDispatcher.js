@@ -27,7 +27,7 @@ export const getDirections = (source, destination, code) =>
     DirectionAction.getDirections(source, destination, code);
 export const getLocation = () => LocationAction.getLocation();
 export const getStorage = () => StorageAction.getStorage();
-export const openSearchModal = key => DirectionAction.openSearchModal(key);
+export const set_destination = (json, name) => DirectionAction.set_destination(json, name);
 
 //For Activity
 export const startActivityDetection = () => ActivityDetection.startActivityDetection();

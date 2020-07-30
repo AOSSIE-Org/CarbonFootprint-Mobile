@@ -218,14 +218,13 @@ const More = props => {
                 <View style={styles.settingsWrapper}>
                     <ScrollView>
                         {/* <Text style={styles.generalText}>General</Text> */}
-                        {settingsList.map((element, i) => {
+                        {settingsList.map(element => {
                             return (
-                                <View>
+                                <View key={element.text}>
                                     <TouchableHighlight
                                         onPress={element.link}
                                         activeOpacity={0.5}
                                         underlayColor="#eee"
-                                        key={i}
                                     >
                                         <View style={styles.itemWrapper}>
                                             <Text style={styles.itemText}>{element.text}</Text>

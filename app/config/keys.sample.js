@@ -20,5 +20,4 @@ export const googleSignInConfig = {
     webClientId: null
 };
 
-export const googleRoadsAPIKey = null;
-export const geocodingAPIKey = null;
+export const mapboxKey = null;

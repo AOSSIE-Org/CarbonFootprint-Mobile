@@ -26,26 +26,40 @@ const Settings = props => {
     const dispatch = useDispatch();
     const AutomobileSheet = useRef();
     const TypeSheet = useRef();
+    const MapSheet = useRef();
+    const keyValue = {
+        automobile: 'automobile',
+        type: 'type',
+        map: 'map'
+    };
 
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', () => backPress());
         return () => BackHandler.removeEventListener('hardwareBackPress', () => backPress());
     }, []);
 
+    useEffect(() => {
+        dispatch(setStorage(data));
+    }, [data]);
+
     const handlePress = (array, value, key) => {
         if (value != 0) {
-            if (key === 'automobile') {
+            if (key === keyValue.automobile) {
                 setData({
                     ...data,
                     automobile: array[value]
                 });
-            } else if (key === 'type') {
+            } else if (key === keyValue.type) {
                 setData({
                     ...data,
                     type: array[value]
                 });
+            } else if (key === keyValue.map) {
+                setData({
+                    ...data,
+                    map: array[value]
+                });
             }
-            dispatch(setStorage(data));
         }
     };
 
@@ -109,6 +123,11 @@ const Settings = props => {
             option: 'Approximate Mileage',
             state: ['value', 'unit'],
             onPress: () => showPicker()
+        },
+        {
+            option: 'Map Type',
+            state: 'map',
+            onPress: () => MapSheet.current.show()
         }
     ];
 
@@ -174,6 +193,13 @@ const Settings = props => {
                 cancelButtonIndex={CANCEL_INDEX}
                 onPress={i => handlePress(typeOptions, i, 'type')}
             />
+            <ActionSheet
+                ref={MapSheet}
+                title={mapTitle}
+                options={mapOptions}
+                cancelButtonIndex={CANCEL_INDEX}
+                onPress={i => handlePress(mapOptions, i, 'map')}
+            />
         </View>
     );
 };
@@ -186,6 +212,17 @@ const automobileOptions = ['Cancel', 'Car', 'Bus', 'Train'];
 const typeTitle = 'What is the fuel type of your automobile?';
 const typeOptions = ['Cancel', 'Petrol', 'Diesel', 'CNG', 'Electric'];
 const CANCEL_INDEX = 0;
+
+const mapTitle = 'What type of Map do you prefer?';
+const mapOptions = [
+    'Cancel',
+    'Dark',
+    'Light',
+    'Outdoors',
+    'Satellite',
+    'SatelliteStreet',
+    'Street'
+];
 
 /* For Inputing Mileage */
 let values = [];

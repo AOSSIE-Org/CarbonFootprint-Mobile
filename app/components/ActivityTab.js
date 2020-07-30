@@ -2,7 +2,7 @@
  * To show current user activity
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     Text,
@@ -19,7 +19,6 @@ import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import pick from 'lodash/pick';
 import MapView from 'react-native-maps';
-import { ZOOM_DELTA } from '../config/constants';
 import {
     getIcon,
     getIconName,
@@ -32,7 +31,7 @@ import {
 
 import { getPermission } from '../actions/LocationAction';
 import haversine from 'haversine';
-import { googleRoadsAPIKey } from '../config/keys';
+import { mapboxKey } from '../config/keys';
 import Geolocation from '@react-native-community/geolocation';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -43,14 +42,19 @@ import {
     setDistance,
     setSrc
 } from '../config/actionDispatcher';
+import MapboxGL from '@react-native-mapbox-gl/maps';
+
+MapboxGL.setAccessToken(mapboxKey);
 
 const ActivityTab = props => {
     const dispatch = useDispatch();
     const [numCoords, setNumCoords] = useState(0);
-    const [routeCoordinates, setRouteCoordinates] = useState([]);
+    const [routeCoordinates, setRouteCoordinates] = useState({
+        coordinates: [],
+        type: 'LineString'
+    });
     const [prevLatLng, setPrevLatLng] = useState({});
     const activity = useSelector(state => state.activity);
-    const _map = useRef(null);
     var watchID;
 
     useEffect(() => {
@@ -77,15 +81,6 @@ const ActivityTab = props => {
                             longitude: position.coords.longitude
                         };
                         setSrc(currLatLngs);
-                        _map.current.animateToRegion(
-                            {
-                                latitude: position.coords.latitude,
-                                longitude: position.coords.longitude,
-                                latitudeDelta: ZOOM_DELTA,
-                                longitudeDelta: ZOOM_DELTA
-                            },
-                            2
-                        );
                     },
                     error => {
                         // console.log('valelelel',error.message);
@@ -97,19 +92,10 @@ const ActivityTab = props => {
                 watchID = Geolocation.watchPosition(
                     position => {
                         const newLatLngs = {
-                            latitude: position.coords.latitude,
-                            longitude: position.coords.longitude
+                            longitude: position.coords.longitude,
+                            latitude: position.coords.latitude
                         };
-                        const positionLatLngs = pick(position.coords, ['latitude', 'longitude']);
-                        _map.current.animateToRegion(
-                            {
-                                latitude: position.coords.latitude,
-                                longitude: position.coords.longitude,
-                                latitudeDelta: ZOOM_DELTA,
-                                longitudeDelta: ZOOM_DELTA
-                            },
-                            2
-                        );
+                        const positionLatLngs = pick(position.coords, ['longitude', 'latitude']);
 
                         if (
                             activity.type !== 'STILL' &&
@@ -131,7 +117,9 @@ const ActivityTab = props => {
                                 )
                             );
                             dispatch(setDest(newLatLngs));
-                            setRouteCoordinates(routeCoordinates.concat(positionLatLngs));
+                            setRouteCoordinates({
+                                coordinates: routeCoordinates.coordinates.concat(positionLatLngs)
+                            });
                             setPrevLatLng(newLatLngs);
                         }
                     },
@@ -149,52 +137,6 @@ const ActivityTab = props => {
         };
         getLocation();
     }, []);
-    /**
-     * Google Roads API logic to send route details to api for more visit https://developers.google.com/maps/documentation/roads/snap
-     * @param  array routeCoordinates coordinates of route
-     * @param  number numCoords       number of coordinates //0
-     * @return json response from API
-     */
-    const drawRoute = (routeCoordinates, numCoords) => {
-        var len = routeCoordinates.length;
-        if (len > 0) {
-            var baseUrl = 'https://roads.googleapis.com/v1/snapToRoads?path=';
-            for (var i = numCoords; i < len - 1; i++)
-                baseUrl += routeCoordinates[i].latitude + ',' + routeCoordinates[i].longitude + '|';
-            baseUrl +=
-                routeCoordinates[len - 1].latitude + ',' + routeCoordinates[len - 1].longitude;
-            baseUrl += '&interpolate=true&key=' + googleRoadsAPIKey;
-            fetch(baseUrl)
-                .then(response => response.json())
-                .then(response => {
-                    processSnapToRoadResponse(routeCoordinates, numCoords, response);
-                })
-                .catch(error => {
-                    //console.log("Error (ActivityTab/drawRoute): " + error);
-                });
-        }
-    };
-
-    /**
-     * Store snapped polyline returned by the snap-to-road service.
-     * @param  stringarray routeCoordinates coordinates of route to pass to API
-     * @param  number numCoords  number of coordinates //0
-     * @param  json data  json response from GOOGLE ROADS API
-     * @return  routeCoordinates and numCoords new state of application
-     */
-    const processSnapToRoadResponse = (routeCoordinates, numCoords, data) => {
-        var snappedCoordinates = [];
-        for (var i = 0; data.snappedPoints != undefined && i < data.snappedPoints.length; i++) {
-            const latlng = pick(data.snappedPoints[i].location, ['latitude', 'longitude']);
-            snappedCoordinates.push(latlng);
-        }
-        var tempCoords = routeCoordinates.slice();
-        var len = snappedCoordinates.length;
-        var num = numCoords;
-        for (var i = 0; i < len; i++) tempCoords[i + num] = snappedCoordinates[i];
-        setNumCoords(num + len - 1);
-        setRouteCoordinates(tempCoords);
-    };
 
     /**
      * Calculating traveled distance at runtime using Haversine formula
@@ -230,20 +172,32 @@ const ActivityTab = props => {
      * @return updating props to start activity detection
      */
 
+    const layerStyle = {
+        route: {
+            lineColor: 'black',
+            lineCap: 'round',
+            lineWidth: 4,
+            lineOpacity: 0.64
+        }
+    };
+
     let icon = getIconName(activity.type);
     let timeObj = updateTime(activity.duration);
 
     return (
         <ScrollView contentContainerStyle={styles.scrollView}>
             <View style={styles.mapView}>
-                <MapView
-                    style={styles.mapView}
-                    ref={_map}
-                    showsMyLocationButton={true}
-                    showsUserLocation={true}
-                >
-                    <MapView.Polyline coordinates={routeCoordinates} />
-                </MapView>
+                <MapboxGL.MapView style={styles.mapView}>
+                    <MapboxGL.Camera followZoomLevel={15} followUserLocation />
+                    <MapboxGL.UserLocation />
+                    <MapboxGL.ShapeSource id="routeSource" shape={routeCoordinates}>
+                        <MapboxGL.LineLayer
+                            id="routeFill"
+                            style={layerStyle.route}
+                            layerIndex={100}
+                        />
+                    </MapboxGL.ShapeSource>
+                </MapboxGL.MapView>
                 <TouchableOpacity style={styles.currentLocationButton}>
                     <Icon name={getIcon('locate')} size={22} />
                 </TouchableOpacity>

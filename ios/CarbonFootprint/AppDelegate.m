@@ -15,7 +15,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 //#import <RNGoogleSignin/RNGoogleSignin.h>
 #import <Firebase.h>
-@import GooglePlaces; 
+@import GooglePlaces;
 
 
 @implementation AppDelegate

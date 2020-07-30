@@ -50,6 +50,11 @@ target 'CarbonFootprint' do
     pod 'GooglePlaces'
     pod 'GooglePlacePicker'
     pod 'Google-Maps-iOS-Utils' # Uncomment this line if you want to support GoogleMaps on iOS
+    
+    # react-native-mapbox dependencies
+    pod 'react-native-mapbox-gl', :path => '../node_modules/@react-native-mapbox-gl/maps'
+    #pod 'react-native-mapbox-gl/DynamicLibrary', :path => '../node_modules/@react-native-mapbox-gl/maps'
+
     #pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
     pod 'FBSDKCoreKit', :modular_headers => true
     pod 'FBSDKLoginKit', :modular_headers => true

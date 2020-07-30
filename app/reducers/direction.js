@@ -32,14 +32,8 @@ export default function direction(
             longitudeDelta: null
         },
         coords: null,
-        distance: {
-            value: null,
-            text: null
-        },
-        duration: {
-            value: null,
-            text: null
-        },
+        distance: null,
+        duration: null,
         isFetching: false,
         sourceName: 'Your Location',
         destinationName: 'Where to?'
@@ -82,14 +76,8 @@ export default function direction(
             return Object.assign({}, state, {
                 isFetching: false,
                 coords: null,
-                duration: {
-                    value: null,
-                    text: null
-                },
-                distance: {
-                    value: null,
-                    text: null
-                }
+                duration: null,
+                distance: null
             });
         default:
             return state;
