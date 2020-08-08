@@ -1,4 +1,6 @@
-import firebase from 'react-native-firebase';
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/auth';
+import '@react-native-firebase/database';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { initFirebase } from './firebase/Init';
 import { registerFirebase, loginEmailFirebase, forgotPasswordFirebase } from './firebase/Auth';

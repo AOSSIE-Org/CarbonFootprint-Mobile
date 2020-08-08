@@ -3,8 +3,6 @@ sed -i '' '14d' ../node_modules/react-native-activity-recognition/android/src/ma
 
 sed -i '' 's/com.google.android.gms:play-services:+/com.google.android.gms:play-services-gcm:15.0.1/' ../node_modules/react-native-activity-recognition/android/build.gradle
 sed -i '' "40s/}/compile 'com.google.android.gms:play-services-location:15.0.1'}/" ../node_modules/react-native-activity-recognition/android/build.gradle
-sed -i '' 's/DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = \"11.6.2\"/DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = \"15.0.1\"/' ../node_modules/react-native-google-places/android/build.gradle
-sed -i '' 's/DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = \"10.2.4\"/DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = \"15.0.1\"/' ../node_modules/react-native-maps/lib/android/build.gradle
 
 sed -i '' 's/...props,/...props/' ../node_modules/react-native-experimental-navigation/NavigationCard.js
 sed -i '' 's/...props,/...props/' ../node_modules/react-native-scrollable-tab-view/SceneComponent.js

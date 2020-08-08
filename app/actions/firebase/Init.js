@@ -1,4 +1,5 @@
-import firebase from 'react-native-firebase';
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/auth';
 import { firebaseConfig } from '../../config/keys';
 
 import { getUser } from './User';

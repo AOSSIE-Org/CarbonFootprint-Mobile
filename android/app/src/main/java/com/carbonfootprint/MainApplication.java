@@ -3,15 +3,11 @@ package com.carbonfootprint;
 import android.app.Application;
 import com.facebook.react.PackageList;
 
-import com.google.firebase.database.FirebaseDatabase;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import android.content.Context;
 import androidx.multidex.MultiDexApplication;
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
-import io.invertase.firebase.auth.RNFirebaseAuthPackage;
-import io.invertase.firebase.instanceid.RNFirebaseInstanceIdPackage;
-import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -37,10 +33,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     protected List<ReactPackage> getPackages() {
       @SuppressWarnings("UnnecessaryLocalVariable")
       List<ReactPackage> packages = new PackageList(this).getPackages();
-      packages.add(new RNFirebaseAuthPackage());
-      packages.add(new RNFirebaseInstanceIdPackage());
       packages.add(new RNCViewPagerPackage());
-      packages.add(new RNFirebaseDatabasePackage());
       return packages;
     }
   };
@@ -53,7 +46,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
   @Override
   public void onCreate() {
     super.onCreate();
-    FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+    //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     SoLoader.init(this, /* native exopackage */ false);
     //initializeFlipper(this); // Remove this line if you don't want Flipper enabled
   }
