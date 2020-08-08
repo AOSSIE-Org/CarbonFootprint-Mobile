@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
-import * as firebase from 'firebase';
+import auth from '@react-native-firebase/auth';
 import { getUser } from '../actions/firebase/User';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -66,7 +66,7 @@ const ProfileModal = props => {
             const userProfile = Object.assign({}, data);
             dispatch(updateUserFirebase(userProfile))
                 .then(() => {
-                    const email = firebase.auth().currentUser.email;
+                    const email = auth().currentUser.email;
                     verifyProfileUpdate(uid);
                 })
                 .catch(err => {

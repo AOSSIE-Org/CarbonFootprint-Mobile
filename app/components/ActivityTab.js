@@ -18,7 +18,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import pick from 'lodash/pick';
-import MapView from 'react-native-maps';
 import {
     getIcon,
     getIconName,

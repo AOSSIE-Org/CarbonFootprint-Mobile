@@ -3,7 +3,8 @@
  * https://stackoverflow.com/questions/42610264/querying-by-multiple-keys-in-firebase
  */
 
-import firebase from 'react-native-firebase';
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/database';
 import { formatEmail } from '../../config/helper';
 import { googleSignIn } from '../GoogleLoginAction';
 import { Actions, ActionConst } from 'react-native-router-flux';

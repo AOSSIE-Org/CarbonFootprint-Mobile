@@ -1,4 +1,4 @@
-import firebase from 'react-native-firebase';
+import database from '@react-native-firebase/database';
 
 import { getUser } from './User';
 import { formatEmail } from '../../config/helper';
@@ -50,8 +50,7 @@ import { formatEmail } from '../../config/helper';
  */
 export function setFootprint(data, currentEmail) {
     return new Promise(function(resolve, reject) {
-        firebase
-            .database()
+        database()
             .ref('users/' + formatEmail(currentEmail) + '/data')
             .set(data)
             .then(() => {

@@ -1,4 +1,5 @@
-import firebase from 'react-native-firebase';
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/database';
 import { getUser } from './User';
 import Toast from 'react-native-simple-toast';
 import { formatEmail } from '../../config/helper';

@@ -4,14 +4,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 target 'CarbonFootprint' do
     rn_path = '../node_modules/react-native'
-    rn_maps_path = '../node_modules/react-native-maps'
   
     # See http://facebook.github.io/react-native/docs/integration-with-existing-apps.html#configuring-cocoapods-dependencies
    pod 'FBLazyVector', :path => "#{rn_path}/Libraries/FBLazyVector"
    pod 'FBReactNativeSpec', :path => "#{rn_path}/Libraries/FBReactNativeSpec"
    pod 'RCTRequired', :path => "#{rn_path}/Libraries/RCTRequired"
    pod 'RCTTypeSafety', :path => "#{rn_path}/Libraries/TypeSafety"
-   # pod 'React', :path => "#{rn_path}/"
    pod 'React-Core', :path => "#{rn_path}/"
    pod 'React-CoreModules', :path => "#{rn_path}/React/CoreModules"
    pod 'React-Core/DevSupport', :path => "#{rn_path}/"
@@ -44,8 +42,6 @@ target 'CarbonFootprint' do
     pod 'Folly', :podspec => "#{rn_path}/third-party-podspecs/Folly.podspec"
   
     # react-native-maps dependencies
-    pod 'react-native-maps', path: rn_maps_path
-    pod 'react-native-google-maps', path: rn_maps_path  # Uncomment this line if you want to support GoogleMaps on iOS
     pod 'GoogleMaps'  # Uncomment this line if you want to support GoogleMaps on iOS
     pod 'GooglePlaces'
     pod 'GooglePlacePicker'
@@ -65,10 +61,6 @@ target 'CarbonFootprint' do
     pod 'Picker', :path => '../node_modules/react-native-picker'
     pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
     pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
-    pod 'Firebase/Core', '~> 6.24.0'
-    pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
-    pod 'Firebase/Database', '~> 6.24.0'
-    pod 'Firebase/Auth', '~> 6.24.0'
     pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
     use_native_modules!
 

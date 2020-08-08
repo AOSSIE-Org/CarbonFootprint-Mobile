@@ -1,4 +1,4 @@
-import firebase from 'react-native-firebase';
+import database from '@react-native-firebase/database';
 import { formatEmail } from '../../config/helper';
 
 /**
@@ -9,8 +9,7 @@ import { formatEmail } from '../../config/helper';
  */
 export function setUser(email, data) {
     return new Promise((resolve, reject) => {
-        firebase
-            .database()
+        database()
             .ref('users/' + formatEmail(email))
             .set(data)
             .then(() => resolve())
@@ -25,8 +24,7 @@ export function setUser(email, data) {
  */
 export function getUser(email) {
     return new Promise((resolve, reject) => {
-        firebase
-            .database()
+        database()
             .ref('users/' + formatEmail(email))
             .once('value')
             .then(function(snapshot) {
@@ -50,8 +48,7 @@ export function getUser(email) {
  */
 export function updateUser(uid, data) {
     return new Promise((resolve, reject) => {
-        firebase
-            .database()
+        database()
             .ref('users/')
             .child(uid)
             .update({

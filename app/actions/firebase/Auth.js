@@ -1,5 +1,5 @@
-import firebase from 'react-native-firebase';
-import { setUser, getUser, updateUser } from './User';
+import auth from '@react-native-firebase/auth';
+import { setUser, getUser } from './User';
 import { urlToBase64 } from '../../config/helper';
 
 /**
@@ -11,8 +11,7 @@ import { urlToBase64 } from '../../config/helper';
  */
 export function registerFirebase(name, email, password) {
     return new Promise((resolve, reject) => {
-        firebase
-            .auth()
+        auth()
             .createUserWithEmailAndPassword(email, password)
             .then(() => {
                 let temp = {
@@ -21,9 +20,9 @@ export function registerFirebase(name, email, password) {
                     picture: null,
                     provider: 'email'
                 };
-                setUser(firebase.auth().currentUser.email, temp)
+                setUser(auth().currentUser.email, temp)
                     .then(() => {
-                        getUser(firebase.auth().currentUser.email)
+                        getUser(auth().currentUser.email)
                             .then(user => {
                                 resolve(user);
                             })
@@ -42,11 +41,10 @@ export function registerFirebase(name, email, password) {
  */
 export function loginEmailFirebase(email, password) {
     return new Promise((resolve, reject) => {
-        firebase
-            .auth()
+        auth()
             .signInWithEmailAndPassword(email, password)
             .then(user => {
-                firebase.auth().onAuthStateChanged(function(user) {
+                auth().onAuthStateChanged(function(user) {
                     if (user) {
                         user = user.toJSON();
                         getUser(user.email)
@@ -75,17 +73,16 @@ export function loginCustomFirebase(type, token, secret) {
         switch (type) {
             case 'facebook':
                 // Facebook doesn't need a secret, rest all do.
-                credential = firebase.auth.FacebookAuthProvider.credential(token);
+                credential = auth.FacebookAuthProvider.credential(token);
                 provider = 'facebook.com';
                 break;
-            default :
+            default:
                 //default is google
-                credential = firebase.auth.GoogleAuthProvider.credential(token, secret);
+                credential = auth.GoogleAuthProvider.credential(token, secret);
                 provider = 'google.com';
                 break;
         }
-        firebase
-            .auth()
+        auth()
             .signInWithCredential(credential)
             .then(user => {
                 user = user.user.toJSON();
@@ -126,8 +123,7 @@ export function loginCustomFirebase(type, token, secret) {
  */
 export function forgotPasswordFirebase(email) {
     return new Promise(function(resolve, reject) {
-        firebase
-            .auth()
+        auth()
             .sendPasswordResetEmail(email)
             .then(() => resolve())
             .catch(error => reject(error));

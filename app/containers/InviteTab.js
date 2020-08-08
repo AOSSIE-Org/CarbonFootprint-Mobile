@@ -5,7 +5,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, TextInput, StyleSheet, Dimensions, FlatList, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import firebase from 'react-native-firebase';
+import database from '@react-native-firebase/database';
 import { color, newColors } from '../config/helper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { sendFriendRequest } from '../actions/firebase/Friends';
@@ -60,8 +60,7 @@ const InviteTab = props => {
         return new Promise((res, rej) => {
             if (search != STRING_EMPTY) {
                 searchText = searchText.toLowerCase();
-                firebase
-                    .database()
+                database()
                     .ref('users/')
                     .once('value')
                     .then(snapshot => {
