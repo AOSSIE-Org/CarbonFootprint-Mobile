@@ -8,6 +8,7 @@ import { RESET_PASSWORD } from '../config/constants';
 import { formatEmail } from '../config/helper';
 import { checkValidityForSignIn, redirectSignIn } from './firebase/Helper';
 import { loaderToggle } from './LoaderAction';
+import Toast from 'react-native-simple-toast';
 
 export const REQUEST_AUTH = 'REQUEST_AUTH';
 export const RECEIVE_AUTH = 'RECEIVE_AUTH';
@@ -85,9 +86,16 @@ export function login(email, password) {
                 dispatch(requestAuth());
                 loginEmailFirebase(email, password)
                     .then(user => {
-                        dispatch(loaderToggle());
-                        dispatch(receiveAuth(user));
-                        Actions.main({ type: ActionConst.REPLACE });
+                        if (firebase.auth().currentUser.emailVerified) {
+                            dispatch(requestAuth());
+                            dispatch(loaderToggle());
+                            dispatch(receiveAuth(user));
+                            Actions.main({ type: ActionConst.REPLACE });
+                        } else {
+                            dispatch(requestAuth());
+                            dispatch(loaderToggle());
+                            Toast.show('Please verify your email');
+                        }
                     })
                     .catch(error => {
                         dispatch(loaderToggle());
@@ -121,9 +129,10 @@ export function register(name, email, password) {
                 dispatch(requestAuth());
                 registerFirebase(name, email, password)
                     .then(user => {
+                        firebase.auth().currentUser.sendEmailVerification();
                         dispatch(loaderToggle());
-                        dispatch(receiveAuth(user));
-                        Actions.main({ type: ActionConst.REPLACE });
+                        Actions.home({ type: ActionConst.REPLACE });
+                        Toast.show('Verification Email has been sent');
                     })
                     .catch(error => {
                         dispatch(loaderToggle());

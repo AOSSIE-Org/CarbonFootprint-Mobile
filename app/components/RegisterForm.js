@@ -92,7 +92,7 @@ const RegisterForm = props => {
         auth.isFetching
             ? {}
             : confirmPassword === password
-            ? dispatch(register(name, email, password))
+            ? dispatch(register(name.trim(), email.trim(), password))
             : setError("Password and confirm password don't match.");
     };
 

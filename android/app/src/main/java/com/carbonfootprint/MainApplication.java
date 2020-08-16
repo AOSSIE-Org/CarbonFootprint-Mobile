@@ -46,7 +46,6 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
   @Override
   public void onCreate() {
     super.onCreate();
-    //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     SoLoader.init(this, /* native exopackage */ false);
     //initializeFlipper(this); // Remove this line if you don't want Flipper enabled
   }

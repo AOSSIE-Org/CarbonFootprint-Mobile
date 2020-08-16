@@ -15,7 +15,7 @@ export function initFirebase() {
         const serverTime = firebase.database().getServerTime();
         console.log(serverTime, 'ServerTime');
         firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
+            if (user && user.emailVerified) {
                 user = user.toJSON();
                 getUser(user.email)
                     .then(user => resolve(user))
