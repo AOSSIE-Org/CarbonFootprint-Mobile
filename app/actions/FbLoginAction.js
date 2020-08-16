@@ -8,6 +8,7 @@ import { loaderToggle } from './LoaderAction';
 import { showAlert } from '../config/helper';
 import { loginCustomFirebase } from './firebase/Auth';
 import { checkValidityForSignIn } from './firebase/Helper';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 /**
  * handles login functionality by facebook in the app
@@ -74,7 +75,7 @@ export function fbLogin() {
                 }
             },
             function(error) {
-                console.log('FB Login failed with error: ' + error);
+                crashlytics().log('FB Login failed with error: ' + error);
                 if (error == 'Error: User logged in as different Facebook user.')
                     LoginManager.logOut();
             }

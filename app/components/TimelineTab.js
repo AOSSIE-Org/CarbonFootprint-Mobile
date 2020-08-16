@@ -18,6 +18,7 @@ import Timeline from 'react-native-timeline-flatlist';
 import ActivityHistoryStorage from '../actions/ActivityHistoryStorage';
 import { getIcon, getIconName, color } from '../config/helper';
 import Header from './Header';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 const TimelineTab = props => {
     const [date, setDate] = useState(new Date());
@@ -134,7 +135,7 @@ const TimelineTab = props => {
                 forceUpdate();
             }
         } catch ({ code, message }) {
-            //console.log("Cannot open date picker: " + message);
+            crashlytics().log('Cannot open date picker: ' + message);
         }
     };
 

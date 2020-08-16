@@ -42,6 +42,7 @@ import {
     setSrc
 } from '../config/actionDispatcher';
 import MapboxGL from '@react-native-mapbox-gl/maps';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 MapboxGL.setAccessToken(mapboxKey);
 
@@ -82,7 +83,7 @@ const ActivityTab = props => {
                         setSrc(currLatLngs);
                     },
                     error => {
-                        // console.log('valelelel',error.message);
+                        crashlytics().log('Error while getting location' + error.message);
                     }
                 );
                 /**
@@ -123,7 +124,7 @@ const ActivityTab = props => {
                         }
                     },
                     error => {
-                        //console.log(error.message)
+                        crashlytics().log(error.message);
                     },
                     {
                         enableHighAccuracy: true,

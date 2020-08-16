@@ -17,6 +17,7 @@ import {
     setCO2
 } from '../actions/ActivityDetailsAction';
 import { formatAMPM, getPlaceName } from '../config/helper';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 /**
  * Start a timer that runs continuous 1000 milliseconds using react-native-background-timer
@@ -55,21 +56,21 @@ export default class ActivityDetection {
         var source = 'Source';
         var destin = 'Destination';
         if (act.src.latitude === -1) {
-            console.log('Error in fetching location (source)');
+            crashlytics().log('Error in fetching location (source)');
         } else {
             await getPlaceName(act.src)
                 .then(place => (source = place))
                 .catch(error => {
-                    //console.log("ActivityDetectionAction (sendDataForStorage 1)" + error)
+                    crashlytics().log('ActivityDetectionAction (sendDataForStorage 1)' + error);
                 });
         }
         if (act.dest.latitude === -1) {
-            //console.log("Error in fetching location (destination)");
+            crashlytics().log('Error in fetching location (destination)');
         } else {
             await getPlaceName(act.dest)
                 .then(place => (destin = place))
                 .catch(error => {
-                    //console.log("ActivityDetectionAction (sendDataForStorage 2)" + error)
+                    crashlytics().log('ActivityDetectionAction (sendDataForStorage 2)' + error);
                 });
         }
         var data = {
@@ -99,7 +100,6 @@ export default class ActivityDetection {
             if (Platform.OS === 'android') ActivityRecognition.start(detectionIntervalMillis);
             // Subscribe to updates
             ActivityDetection.unsubscribe = ActivityRecognition.subscribe(detectedActivities => {
-                //console.log("Activity is being detected ...");
                 const mostProbableActivity = detectedActivities.sorted[0];
                 var act = getState().activity;
                 // If detected activity is different from ongoing activity

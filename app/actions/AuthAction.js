@@ -8,6 +8,7 @@ import { RESET_PASSWORD } from '../config/constants';
 import { formatEmail } from '../config/helper';
 import { checkValidityForSignIn, redirectSignIn } from './firebase/Helper';
 import { loaderToggle } from './LoaderAction';
+import crashlytics from '@react-native-firebase/crashlytics';
 import Toast from 'react-native-simple-toast';
 
 export const REQUEST_AUTH = 'REQUEST_AUTH';
@@ -198,8 +199,7 @@ export function updateUserFirebase(user) {
             dispatch(receiveAuth(user));
             resolve();
         }).catch(err => {
-            console.warn('Error catched');
-            console.warn(err.message);
+            crashlytics().log('Error while updating user data' + err.message);
         });
     };
 }
@@ -221,7 +221,7 @@ export function logout() {
                 });
             })
             .catch(error => {
-                //console.log(error);
+                crashlytics().recordError(error);
             });
     };
 }

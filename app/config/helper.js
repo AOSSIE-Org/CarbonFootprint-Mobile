@@ -6,6 +6,7 @@ import { RATE_PETROL, RATE_DIESEL, RATE_CNG, RATE_ELECTRIC } from '../config/con
 import LocationServicesDialogBox from 'react-native-android-location-services-dialog-box';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { urlRegex } from './constants';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 /**
  *
@@ -166,7 +167,7 @@ export function checkGPS() {
         )
         .catch(error => {
             //return false;
-            //console.log(error.message);
+            crashlytics().log(error.message);
         });
 
     BackHandler.addEventListener('hardwareBackPress', () => {

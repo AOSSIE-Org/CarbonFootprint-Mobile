@@ -10,6 +10,7 @@ import * as actions from './AuthAction';
 import { loginCustomFirebase } from './firebase/Auth';
 import { KEYS_NOT_SET } from '../config/constants';
 import { checkValidityForSignIn, redirectSignIn } from './firebase/Helper';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 /**
  * google signin functionality to app
@@ -51,6 +52,7 @@ export function googleSignIn() {
                 // play services not available or outdated
             } else {
                 // some other error happened
+                crashlytics().recordError(error);
             }
         }
     };

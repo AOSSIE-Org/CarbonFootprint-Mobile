@@ -17,6 +17,7 @@ import { debounce } from 'lodash';
 import WarningTextAndIcon from '../components/WarningTextAndIcon';
 import { getRegion, set_destination, set_region, set_source } from '../actions/DirectionAction';
 import { Actions, ActionConst } from 'react-native-router-flux';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 const PlaceSearch = props => {
     const [data, setData] = useState('');
@@ -35,7 +36,6 @@ const PlaceSearch = props => {
 
     const searchPlace = value => {
         setPlaceFetch(true);
-        console.log(value);
         fetch(
             'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
                 value +
@@ -51,12 +51,11 @@ const PlaceSearch = props => {
                 setError(true);
                 setErrorMessage('There was a problem retrieving data from mapbox');
                 setResult([]);
-                console.log(err);
+                crashlytics().recordError(err);
             });
     };
 
     const onSelected = item => {
-        console.log(item);
         let coordinates = {};
         coordinates.latitude = item.geometry.coordinates[1];
         coordinates.longitude = item.geometry.coordinates[0];
