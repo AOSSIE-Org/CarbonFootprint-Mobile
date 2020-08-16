@@ -1,4 +1,5 @@
 import { mapboxKey } from '../config/keys';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 export const REQUEST_DIRECTION = 'REQUEST_DIRECTION';
 export const RECEIVE_DIRECTION = 'RECEIVE_DIRECTION';
@@ -123,7 +124,6 @@ function request_direction() {
  * @return {Object} action for RECEIVE_DIRECTION
  */
 function receive_direction(json) {
-    console.log('coords', json);
     return {
         type: RECEIVE_DIRECTION,
         coords: json
@@ -215,7 +215,7 @@ export function getDirections(source, destination, code) {
                 }
             })
             .catch(error => {
-                //console.log(error.message)
+                crashlytics().log('Error while getting direction' + error.message);
             });
     };
 }

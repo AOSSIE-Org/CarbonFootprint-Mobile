@@ -16,6 +16,7 @@ import StatusBarBackground from '../components/StatusBarBackground';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { color, newColors } from '../config/helper';
 import { getProfile } from '../config/actionDispatcher';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 const Stats = props => {
     const auth = useSelector(state => state.auth);
@@ -32,7 +33,7 @@ const Stats = props => {
             message: msg
         })
             .then(res => console.log(res))
-            .catch(err => console.log(err));
+            .catch(err => crashlytics().recordError(err));
     };
 
     const share = () => {

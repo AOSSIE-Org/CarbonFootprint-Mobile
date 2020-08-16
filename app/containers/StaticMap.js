@@ -10,6 +10,7 @@ import {
     getDirections
 } from '../config/actionDispatcher';
 import MapboxGL from '@react-native-mapbox-gl/maps';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 MapboxGL.setAccessToken(mapboxKey);
 
@@ -60,7 +61,7 @@ const StaticMap = props => {
                         )
                     );
                 })
-                .catch(error => console.log(error));
+                .catch(error => crashlytics().recordError(error));
         }
         if (firstRenderRed.current) {
             firstRenderRed.current = false;
@@ -91,7 +92,7 @@ const StaticMap = props => {
                     );
                     dispatch(getDirections(source, destination, 0));
                 })
-                .catch(error => console.log(error));
+                .catch(error => crashlytics().recordError(error));
         }
         if (firstRenderGreen.current) {
             firstRenderGreen.current = false;

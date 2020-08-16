@@ -8,6 +8,7 @@ export const RECEIVE_LOCATION = 'RECEIVE_LOCATION';
 import { Platform } from 'react-native';
 import { GEOLOCATION_PERMISSION, GRANT_PERMISSION } from '../config/constants';
 import Geolocation from '@react-native-community/geolocation';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 /**
  * action creator to request location
@@ -46,15 +47,13 @@ export async function getPermission() {
                 message: GRANT_PERMISSION
             }
         );
-        //console.log("Granted");
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             return true;
         } else {
-            //console.log("Not Granted");
             return false;
         }
     } catch (err) {
-        //console.log("Error", err);
+        crashlytics().log('Error while getting permission' + err);
         return false;
     }
 }
@@ -89,7 +88,7 @@ export function getLocation() {
                     });
                 },
                 error => {
-                    //console.log(error.message);
+                    crashlytics().log('Error while getting location' + error);
                 },
                 {
                     enableHighAccuracy: true,

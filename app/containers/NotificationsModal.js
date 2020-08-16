@@ -53,7 +53,7 @@ const NotificationsModal = props => {
             // onBackdropPress={this.modalToggle}
             // animationType="slide"
             // transparent={true}
-            onRequestClose={() => console.warn('Closing')}
+            onRequestClose={() => modalToggle}
         >
             <Text style={styles.title}>Friend Requests</Text>
             <Icon name="times-circle" size={24} style={styles.closeIcon} onPress={modalToggle} />

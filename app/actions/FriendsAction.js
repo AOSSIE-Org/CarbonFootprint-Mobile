@@ -1,7 +1,8 @@
 import { getMultiple } from './firebase/Helper';
 import { getUser } from './firebase/User';
 import { loaderToggle } from './LoaderAction';
-import loader from '../reducers/loader';
+import crashlytics from '@react-native-firebase/crashlytics';
+
 export const REQUEST_FRIENDS = 'REQUEST_FRIENDS';
 export const RECEIVE_FRIENDS = 'RECEIVE_FRIENDS';
 export const RECEIVE_ERROR = 'RECEIVE_ERROR';
@@ -69,6 +70,6 @@ export function getFriendList(choice) {
                     });
                 }
             })
-            .catch(err => console.warn(err));
+            .catch(err => crashlytics().recordError(err));
     };
 }
