@@ -22,7 +22,7 @@ export default function login(
     switch (action.type) {
         case REQUEST_AUTH:
             return Object.assign({}, state, {
-                isFetching: true
+                isFetching: !state.isFetching
             });
         case RECEIVE_AUTH:
             return Object.assign({}, state, {
