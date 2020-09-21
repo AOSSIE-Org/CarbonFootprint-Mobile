@@ -26,7 +26,7 @@ const LoginForm = props => {
         disableButton: true,
         enableButtonColor: newColors.disableGrey
     });
-    const [backClickCount, setBackclickCount] = useState(0);
+    const [backClickCount, setBackClickCount] = useState(false);
     const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
 
@@ -43,18 +43,23 @@ const LoginForm = props => {
         return () => {
             BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
         };
-    }, [handleBackPress]);
+    }, [backClickCount]);
 
-    const handleBackPress = useCallback(() => {
-        if (backClickCount > 0) {
+    useEffect(() => {
+        if (backClickCount) {
+            ToastAndroid.show('Press again to exit', ToastAndroid.SHORT);
+            setTimeout(() => setBackClickCount(false), 1000);
+        }
+    }, [backClickCount]);
+
+    const handleBackPress = () => {
+        if (backClickCount) {
             BackHandler.exitApp();
         } else {
-            setBackclickCount(1);
-            ToastAndroid.show('Press again to exit', ToastAndroid.SHORT);
-            setTimeout(() => setBackclickCount(0), 1000);
+            setBackClickCount(true);
         }
         return true;
-    }, [backClickCount]);
+    };
 
     const handleInput = (key, text) => {
         if (key === 'email') {
