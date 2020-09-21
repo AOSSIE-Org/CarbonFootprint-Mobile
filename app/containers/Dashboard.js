@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     StyleSheet,
@@ -7,7 +7,9 @@ import {
     StatusBar,
     Dimensions,
     ActivityIndicator,
-    Share
+    Share,
+    BackHandler,
+    ToastAndroid
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -23,10 +25,32 @@ const Stats = props => {
     const storage = useSelector(state => state.storage);
     const dispatch = useDispatch();
     const user = auth.user;
+    const [backClickCount, setBackClickCount] = useState(false);
 
     useEffect(() => {
         dispatch(getProfile());
     }, []);
+
+    useEffect(() => {
+        BackHandler.addEventListener('handleBackPress', handleBackPress);
+        return () => BackHandler.removeEventListener('handleBackPress', handleBackPress);
+    }, [backClickCount]);
+
+    useEffect(() => {
+        if (backClickCount) {
+            ToastAndroid.show('Press again to exit', ToastAndroid.SHORT);
+            setTimeout(() => setBackClickCount(false), 1000);
+        }
+    }, [backClickCount]);
+
+    const handleBackPress = () => {
+        if (backClickCount) {
+            BackHandler.exitApp();
+        } else {
+            setBackClickCount(true);
+        }
+        return true;
+    };
 
     const ShareMessage = msg => {
         Share.share({

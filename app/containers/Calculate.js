@@ -39,7 +39,7 @@ const Calculate = props => {
         longitude: null
     });
     const [tab, setTab] = useState(0);
-    const [backClickCount, setBackClickCount] = useState(0);
+    const [backClickCount, setBackClickCount] = useState(false);
     const dispatch = useDispatch();
     const location = useSelector(state => state.location);
     const direction = useSelector(state => state.direction);
@@ -47,7 +47,14 @@ const Calculate = props => {
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', handleBackPress);
         return () => BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
-    }, [handleBackPress]);
+    }, [backClickCount]);
+
+    useEffect(() => {
+        if (backClickCount) {
+            ToastAndroid.show('Press again to exit', ToastAndroid.SHORT);
+            setTimeout(() => setBackClickCount(false), 1000);
+        }
+    }, [backClickCount]);
 
     useEffect(() => {
         if (!location.latitude) {
@@ -70,16 +77,14 @@ const Calculate = props => {
         }
     }, [direction]);
 
-    const handleBackPress = useCallback(() => {
-        if (backClickCount > 0) {
+    const handleBackPress = () => {
+        if (backClickCount) {
             BackHandler.exitApp();
         } else {
-            setBackClickCount(1);
-            ToastAndroid.show('Press again to exit', ToastAndroid.SHORT);
-            setTimeout(() => setBackClickCount(0), 1000);
+            setBackClickCount(true);
         }
         return true;
-    }, []);
+    };
 
     /**
      * call back function when changed vechile type

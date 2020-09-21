@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, StatusBar, BackHandler, ToastAndroid } from 'react-native';
 import { useSelector } from 'react-redux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
@@ -14,6 +14,28 @@ import InviteTab from './InviteTab';
  */
 
 const Friends = props => {
+    const [backClickCount, setBackClickCount] = useState(false);
+
+    useEffect(() => {
+        BackHandler.addEventListener('handleBackPress', handleBackPress);
+        return () => BackHandler.removeEventListener('handleBackPress', handleBackPress);
+    }, [backClickCount]);
+
+    useEffect(() => {
+        if (backClickCount) {
+            ToastAndroid.show('Press again to exit', ToastAndroid.SHORT);
+            setTimeout(() => setBackClickCount(false), 1000);
+        }
+    }, [backClickCount]);
+
+    const handleBackPress = () => {
+        if (backClickCount) {
+            BackHandler.exitApp();
+        } else {
+            setBackClickCount(true);
+        }
+        return true;
+    };
     const friends = useSelector(state => state.friends);
     const style = {
         backgroundColor: newColors.secondary

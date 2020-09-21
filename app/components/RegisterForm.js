@@ -7,7 +7,9 @@ import {
     TextInput,
     BackHandler,
     TouchableHighlight,
-    ActivityIndicator
+    ActivityIndicator,
+    TouchableNativeFeedback,
+    Linking
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -30,6 +32,8 @@ const RegisterForm = props => {
     });
     const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
+    const privacyURL = 'https://carbonfootprint.flycricket.io/privacy.html';
+    const termsURL = 'https://carbonfootprint.flycricket.io/terms.html';
 
     useEffect(() => {
         dispatch(receiveError(''));
@@ -92,7 +96,7 @@ const RegisterForm = props => {
         auth.isFetching
             ? {}
             : confirmPassword === password
-            ? dispatch(register(name.trim(), email.trim(), password))
+            ? dispatch(register(name.trim(), email.trim().toLowerCase(), password))
             : setError("Password and confirm password don't match.");
     };
 
@@ -176,9 +180,15 @@ const RegisterForm = props => {
             </KeyboardAwareScrollView>
             <View style={styles.termsWrapper}>
                 <Text style={styles.termsText}>
-                    By registering you agree to <Text style={styles.span}>Terms & Conditions</Text>{' '}
-                    and
-                    <Text style={styles.span}> Privacy Policy</Text> of the Carbonfootprint.
+                    By registering you agree to{' '}
+                    <Text style={styles.span} onPress={() => Linking.openURL(termsURL)}>
+                        Terms & Conditions
+                    </Text>{' '}
+                    and{' '}
+                    <Text style={styles.span} onPress={() => Linking.openURL(privacyURL)}>
+                        Privacy Policy
+                    </Text>{' '}
+                    of the Carbonfootprint.
                 </Text>
             </View>
         </View>
